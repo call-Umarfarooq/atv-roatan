@@ -64,9 +64,7 @@ const TourSchema = new mongoose.Schema({
   cancellation_policy: {
     type: String,
   },
-  meeting_point: {
-    type: String,
-  },
+
   faq: [{
     question: String,
     answer: String,
@@ -84,8 +82,18 @@ const TourSchema = new mongoose.Schema({
     stop_type: { type: String, enum: ['Stop', 'Pass By', 'Admission Ticket Included', 'Admission Ticket Free', 'Admission Ticket Not Included'], default: 'Stop' },
     admission_included: { type: String, default: 'Admission Ticket Included' }
   }],
-  pickup_info: {
-    type: mongoose.Schema.Types.Mixed,
+  pickup_configuration: {
+    pickup_offered: { type: Boolean, default: false },
+    pickup_locations: [{
+      name: String, 
+      address: String,
+      type: { type: String, enum: ['Hotel', 'Port', 'Other'], default: 'Hotel' },
+      google_maps_url: String
+    }],
+    pickup_instructions: String, // The long text explaining where to wait (e.g. "At Mahogany Bay Port...")
+    meeting_point_name: String, // Fallback if no pickup
+    meeting_point_address: String,
+    meeting_point_link: String
   },
   what_to_include: {
     type: [String],

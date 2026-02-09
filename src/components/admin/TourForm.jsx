@@ -26,11 +26,14 @@ export default function TourForm({ initialData = null, isEdit = false }) {
     image_url: '',
     gallery: [],
     itinerary: [],
-    pickup_info: '',
-    what_to_include: [],
-    exclusions: [], // New
-    cancellation_policy: '', // New
-    meeting_point: '', // New
+    pickup_configuration: {
+        pickup_offered: false, 
+        pickup_locations: [],
+        pickup_instructions: '',
+        meeting_point_name: '',
+        meeting_point_address: '',
+        meeting_point_link: ''
+    },
     faq: [],
     booking_options: {
         reserve_now_pay_later: false,
@@ -47,7 +50,20 @@ export default function TourForm({ initialData = null, isEdit = false }) {
       setFormData(prev => ({
           ...prev,
           ...initialData,
-          booking_options: { ...prev.booking_options, ...(initialData.booking_options || {}) }
+          gallery: initialData.gallery || [],
+          itinerary: initialData.itinerary || [],
+          faq: initialData.faq || [],
+          additional_info: initialData.additional_info || [],
+          tags: initialData.tags || [],
+          extraServices: initialData.extraServices || [],
+          what_to_include: initialData.what_to_include || [],
+          exclusions: initialData.exclusions || [],
+          booking_options: { ...prev.booking_options, ...(initialData.booking_options || {}) },
+          pickup_configuration: { 
+            ...prev.pickup_configuration, 
+            ...(initialData.pickup_configuration || {}),
+            pickup_locations: initialData.pickup_configuration?.pickup_locations || []
+          }
       }));
     }
   }, [initialData]);
@@ -95,31 +111,45 @@ export default function TourForm({ initialData = null, isEdit = false }) {
   }
 
   // --- Array Handlers (Generic) ---
+  // --- Array Handlers (Generic) ---
   const handleArrayChange = (index, value, field) => {
-    const newArray = [...formData[field]];
+    const list = formData[field] || [];
+    const newArray = [...list];
     newArray[index] = value;
     setFormData(prev => ({ ...prev, [field]: newArray }));
   };
 
   const addArrayItem = (field) => {
-    setFormData(prev => ({ ...prev, [field]: [...prev[field], ''] }));
+    setFormData(prev => {
+        const list = prev[field] || [];
+        return { ...prev, [field]: [...list, ''] };
+    });
   };
 
   const removeArrayItem = (index, field) => {
-    const newArray = [...formData[field]];
-    newArray.splice(index, 1);
-    setFormData(prev => ({ ...prev, [field]: newArray }));
+    setFormData(prev => {
+        const list = prev[field] || [];
+        const newArray = [...list];
+        newArray.splice(index, 1);
+        return { ...prev, [field]: newArray };
+    });
   };
 
   // --- Complex Array Handlers (Itinerary, FAQ, Extra Services) ---
   const handleComplexArrayChange = (index, field, subField, value) => {
-    const newArray = [...formData[field]];
-    newArray[index] = { ...newArray[index], [subField]: value };
-    setFormData(prev => ({ ...prev, [field]: newArray }));
+    const list = formData[field] || [];
+    const newArray = [...list];
+    if (newArray[index]) {
+        newArray[index] = { ...newArray[index], [subField]: value };
+        setFormData(prev => ({ ...prev, [field]: newArray }));
+    }
   };
 
   const addComplexItem = (field, initialObj) => {
-    setFormData(prev => ({ ...prev, [field]: [...prev[field], initialObj] }));
+    setFormData(prev => {
+        const list = prev[field] || [];
+        return { ...prev, [field]: [...list, initialObj] };
+    });
   };
 
   // --- File Upload ---
@@ -155,6 +185,45 @@ export default function TourForm({ initialData = null, isEdit = false }) {
     }
   };
 
+  const getImageUrl = (url) => {
+    if (!url) return '';
+    if (url.startsWith('http')) return url;
+    return url; 
+  };
+
+
+
+  const handlePickupLocationChange = (index, field, value) => {
+    setFormData(prev => {
+        const newLocations = [...(prev.pickup_configuration.pickup_locations || [])];
+        newLocations[index] = { ...newLocations[index], [field]: value };
+        return {
+            ...prev,
+            pickup_configuration: { ...prev.pickup_configuration, pickup_locations: newLocations }
+        };
+    });
+  };
+
+  const addPickupLocation = () => {
+    setFormData(prev => ({
+      ...prev,
+      pickup_configuration: {
+        ...prev.pickup_configuration,
+        pickup_locations: [...(prev.pickup_configuration.pickup_locations || []), { name: '', address: '', type: 'Hotel' }]
+      }
+    }));
+  };
+
+  const removePickupLocation = (index) => {
+    setFormData(prev => {
+        const newLocations = [...(prev.pickup_configuration.pickup_locations || [])];
+        newLocations.splice(index, 1);
+        return {
+            ...prev,
+            pickup_configuration: { ...prev.pickup_configuration, pickup_locations: newLocations }
+        };
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -283,7 +352,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                     <button type="button" onClick={() => addComplexItem('itinerary', { title: '', description: '', duration: '' })} className="text-[#00aa6c] text-sm font-bold flex items-center gap-1"><Plus size={16} /> Add Stop</button>
                   </div>
                   <div className="space-y-4">
-                      {formData.itinerary.map((stop, i) => (
+                      {formData.itinerary?.map((stop, i) => (
                           <div key={i} className="p-4 bg-gray-50 rounded-lg relative group">
                               <button type="button" onClick={() => removeArrayItem(i, 'itinerary')} className="absolute top-2 right-2 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><X size={16}/></button>
                               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
@@ -304,7 +373,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                         <button type="button" onClick={() => addArrayItem('what_to_include')} className="text-[#00aa6c] text-sm font-bold"><Plus size={16} /></button>
                       </div>
                       <div className="space-y-2">
-                          {formData.what_to_include.map((item, i) => (
+                          {formData.what_to_include?.map((item, i) => (
                               <div key={i} className="flex gap-2">
                                   <input value={item} onChange={(e) => handleArrayChange(i, e.target.value, 'what_to_include')} className="flex-1 p-2 border rounded-lg text-[#1a1a1a]" />
                                   <button type="button" onClick={() => removeArrayItem(i, 'what_to_include')} className="text-gray-400 hover:text-red-500"><X size={18}/></button>
@@ -319,7 +388,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                         <button type="button" onClick={() => addArrayItem('exclusions')} className="text-red-500 text-sm font-bold"><Plus size={16} /></button>
                       </div>
                       <div className="space-y-2">
-                          {formData.exclusions.map((item, i) => (
+                          {formData.exclusions?.map((item, i) => (
                               <div key={i} className="flex gap-2">
                                   <input 
                                     value={item} 
@@ -349,7 +418,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                         <button type="button" onClick={() => addComplexItem('faq', { question: '', answer: '' })} className="text-[#00aa6c] text-sm font-bold flex items-center gap-1"><Plus size={16} /> Add Question</button>
                       </div>
                       <div className="space-y-4">
-                          {formData.faq.map((item, i) => (
+                          {formData.faq?.map((item, i) => (
                               <div key={i} className="p-4 bg-gray-50 rounded-lg relative group">
                                    <button type="button" onClick={() => removeArrayItem(i, 'faq')} className="absolute top-2 right-2 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"><X size={16}/></button>
                                    <input placeholder="Question" value={item.question} onChange={(e) => handleComplexArrayChange(i, 'faq', 'question', e.target.value)} className="w-full p-2 border rounded-lg mb-2 text-[#1a1a1a]" />
@@ -360,6 +429,81 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                    </div>
                </div>
 
+
+               {/* Meeting & Pickup (Moved) */}
+                     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                      <h2 className="text-lg font-bold text-[#1a1a1a] mb-4">Meeting & Pickup</h2>
+                      
+                      {/* Toggle Pickup Offered */}
+                      <div className="flex items-center gap-2 mb-4">
+                        <input 
+                          type="checkbox" 
+                          checked={formData.pickup_configuration?.pickup_offered || false} 
+                          onChange={(e) => setFormData(prev => ({...prev, pickup_configuration: {...prev.pickup_configuration, pickup_offered: e.target.checked}}))}
+                          className="w-4 h-4 text-[#00aa6c] rounded focus:ring-[#00aa6c]" 
+                        />
+                        <label className="font-medium text-gray-700">Pickup Offered?</label>
+                      </div>
+
+                      {formData.pickup_configuration?.pickup_offered && (
+                        <div className="space-y-4">
+                           {/* Instructions */}
+                           <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">General Pickup Instructions</label>
+                            <textarea 
+                              value={formData.pickup_configuration.pickup_instructions || ''} 
+                              onChange={(e) => setFormData(prev => ({...prev, pickup_configuration: {...prev.pickup_configuration, pickup_instructions: e.target.value}}))}
+                              className="w-full p-2 border rounded-lg text-[#1a1a1a]" 
+                              rows={3}
+                              placeholder="e.g. At Mahogany Bay Port, we will pick you up..."
+                            />
+                          </div>
+
+                          {/* Locations List */}
+                          <div>
+                            <div className="flex justify-between items-center mb-2">
+                              <label className="block text-sm font-medium text-gray-700">Pickup Locations (Searchable by User)</label>
+                              <button type="button" onClick={addPickupLocation} className="text-[#00aa6c] text-sm font-bold flex items-center gap-1">+ Add Location</button>
+                            </div>
+                            <div className="space-y-2">
+                              {formData.pickup_configuration.pickup_locations?.map((loc, i) => (
+                                <div key={i} className="flex gap-2 p-2 bg-gray-50 rounded border border-gray-200">
+                                   <select 
+                                     value={loc?.type || 'Hotel'} 
+                                     onChange={(e) => handlePickupLocationChange(i, 'type', e.target.value)}
+                                     className="p-2 border rounded text-sm text-[#1a1a1a]"
+                                   >
+                                     <option value="Hotel">Hotel</option>
+                                     <option value="Port">Port</option>
+                                     <option value="Other">Other</option>
+                                   </select>
+                                   <input placeholder="Name (e.g. Barefoot Cay)" value={loc?.name || ''} onChange={(e) => handlePickupLocationChange(i, 'name', e.target.value)} className="flex-1 p-2 border rounded text-sm text-[#1a1a1a]" />
+                                   <input placeholder="Address" value={loc?.address || ''} onChange={(e) => handlePickupLocationChange(i, 'address', e.target.value)} className="flex-1 p-2 border rounded text-sm text-[#1a1a1a]" />
+                                   <button type="button" onClick={() => removePickupLocation(i)} className="text-red-500 hover:text-red-700">✕</button>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Fallback Meeting Point */}
+                      <div className="mt-6 border-t pt-4">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Meeting Point (If no pickup)</label>
+                        <input 
+                          placeholder="Meeting Point Name"
+                          value={formData.pickup_configuration?.meeting_point_name || ''} 
+                          onChange={(e) => setFormData(prev => ({...prev, pickup_configuration: {...prev.pickup_configuration, meeting_point_name: e.target.value}}))}
+                          className="w-full p-2 border rounded-lg mb-2 text-[#1a1a1a]" 
+                        />
+                         <input 
+                          placeholder="Address / Link"
+                          value={formData.pickup_configuration?.meeting_point_address || ''} 
+                          onChange={(e) => setFormData(prev => ({...prev, pickup_configuration: {...prev.pickup_configuration, meeting_point_address: e.target.value}}))}
+                          className="w-full p-2 border rounded-lg text-[#1a1a1a]" 
+                        />
+                      </div>
+                    </div>
           </div>
 
           {/* Sidebar Column */}
@@ -374,7 +518,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                       <label className="block text-sm font-medium text-gray-700 mb-2">Main Image</label>
                       <div className="relative aspect-video rounded-lg bg-gray-100 overflow-hidden border-2 border-dashed border-gray-300 flex items-center justify-center group hover:border-[#00aa6c] transition-colors">
                           {formData.image_url ? (
-                              <img src={formData.image_url} alt="Main" className="w-full h-full object-cover" />
+                              <img src={getImageUrl(formData.image_url)} alt="Main" className="w-full h-full object-cover" />
                           ) : (
                               <div className="text-center text-gray-400">
                                   <ImageIcon className="mx-auto mb-2" />
@@ -389,9 +533,9 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                   <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">Gallery</label>
                       <div className="grid grid-cols-3 gap-2">
-                          {formData.gallery.map((img, i) => (
+                          {formData.gallery?.map((img, i) => (
                               <div key={i} className="relative aspect-square rounded-lg overflow-hidden group">
-                                  <img src={img} alt="" className="w-full h-full object-cover" />
+                                  <img src={getImageUrl(img)} alt="" className="w-full h-full object-cover" />
                                   <button type="button" onClick={() => removeArrayItem(i, 'gallery')} className="absolute top-1 right-1 bg-black/50 text-white rounded-full p-1 hover:bg-red-500 transition-colors"><X size={12}/></button>
                               </div>
                           ))}
@@ -444,26 +588,55 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                   </div>
               </div>
 
+                {/* Extra Services */}
+                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                      <div className="flex justify-between items-center mb-4">
+                        <h2 className="text-lg font-bold text-[#1a1a1a]">Extra Services (Add-ons)</h2>
+                        <button type="button" onClick={() => addComplexItem('extraServices', { name: '', price: '' })} className="text-[#00aa6c] text-sm font-bold flex items-center gap-1"><Plus size={16}/> Add Service</button>
+                      </div>
+                      <div className="space-y-3">
+                        {formData.extraServices?.map((service, i) => (
+                          <div key={i} className="flex gap-4 items-center bg-gray-50 p-3 rounded-lg border border-gray-200">
+                             <div className="flex-1">
+                                <label className="block text-xs text-gray-500 mb-1">Service Name</label>
+                                <input 
+                                  value={service.name || ''} 
+                                  onChange={(e) => handleComplexArrayChange(i, 'extraServices', 'name', e.target.value)}
+                                  className="w-full p-2 border rounded text-sm text-[#1a1a1a]" 
+                                  placeholder="e.g. Photo Package"
+                                />
+                             </div>
+                             <div className="w-32">
+                                <label className="block text-xs text-gray-500 mb-1">Price ($)</label>
+                                <input 
+                                  type="number"
+                                  value={service.price || ''} 
+                                  onChange={(e) => handleComplexArrayChange(i, 'extraServices', 'price', e.target.value)}
+                                  className="w-full p-2 border rounded text-sm text-[#1a1a1a]" 
+                                  placeholder="0.00"
+                                />
+                             </div>
+                             <button type="button" onClick={() => removeArrayItem(i, 'extraServices')} className="text-gray-400 hover:text-red-500 self-end mb-2"><X size={18}/></button>
+                          </div>
+                        ))}
+                        {(!formData.extraServices || formData.extraServices.length === 0) && (
+                           <p className="text-gray-400 text-sm italic">No extra services added.</p>
+                        )}
+                      </div>
+                 </div>
+
                {/* Tags & Pickup */}
                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                    <div className="mb-4">
                        <label className="block text-sm font-medium text-gray-700 mb-1">Tags (comma separated)</label>
                         {/* Simplified tag input for demo, could be array input like above */}
                        <input 
-                            value={formData.tags.join(', ')} 
+                            value={formData.tags?.join(', ') || ''} 
                             onChange={(e) => setFormData(prev => ({ ...prev, tags: e.target.value.split(',').map(t => t.trim()) }))}
                             className="w-full p-2 border rounded-lg text-[#1a1a1a]" 
                             placeholder="Wildlife, Family, Adventure"
                         />
                    </div>
-                    <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">Pickup Information</label>
-                          <textarea name="pickup_info" value={formData.pickup_info} onChange={handleChange} rows={3} className="w-full p-2 border rounded-lg text-[#1a1a1a]" />
-                      </div>
-                     <div className="mt-4">
-                          <label className="block text-sm font-medium text-gray-700 mb-1">Meeting Point</label>
-                          <input name="meeting_point" value={formData.meeting_point} onChange={handleChange} className="w-full p-2 border rounded-lg text-[#1a1a1a]" placeholder="Specific meeting point instructions" />
-                      </div>
                       <div className="mt-4 flex items-center gap-2">
                           <input type="checkbox" name="is_featured" checked={formData.is_featured} onChange={handleChange} className="w-4 h-4 text-[#00aa6c] rounded border-gray-300 focus:ring-[#00aa6c]" />
                           <label className="text-sm font-medium text-gray-700">Mark as Featured</label>
@@ -477,7 +650,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                         <button type="button" onClick={() => addArrayItem('additional_info')} className="text-[#00aa6c] text-sm font-bold"><Plus size={16} /></button>
                       </div>
                       <div className="space-y-2">
-                          {formData.additional_info.map((item, i) => (
+                          {formData.additional_info?.map((item, i) => (
                               <div key={i} className="flex gap-2">
                                   <input value={item} onChange={(e) => handleArrayChange(i, e.target.value, 'additional_info')} className="flex-1 p-2 border rounded-lg text-[#1a1a1a]" />
                                   <button type="button" onClick={() => removeArrayItem(i, 'additional_info')} className="text-gray-400 hover:text-red-500"><X size={18}/></button>

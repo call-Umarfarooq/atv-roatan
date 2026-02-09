@@ -1,5 +1,6 @@
 import React from 'react';
 import { Heart, Star, Globe } from 'lucide-react';
+import { getImageUrl } from '@/utils/imageUrl';
 
 const TourCard = ({ 
   image, 
@@ -15,7 +16,7 @@ const TourCard = ({
       {/* Image Container */}
       <div className="relative h-48 overflow-hidden">
         <img 
-          src={image} 
+          src={getImageUrl(image)} 
           alt={title} 
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
         />

@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Plus, Edit, Trash2, Search, MoreVertical } from 'lucide-react';
+import { getImageUrl } from '@/utils/imageUrl';
 
 export default function DashboardPage() {
   const [tours, setTours] = useState([]);
@@ -105,7 +106,7 @@ export default function DashboardPage() {
                                 <td className="px-6 py-4">
                                     <div className="flex items-center gap-3">
                                         <div className="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden shrink-0">
-                                            <img src={tour.image_url} alt="" className="w-full h-full object-cover" />
+                                            <img src={getImageUrl(tour.image_url)} alt="" className="w-full h-full object-cover" />
                                         </div>
                                             <Link href={`/roatan/${tour.slug}`} target="_blank" className="hover:text-[#00aa6c] transition-colors block">
                                                 <div className="font-medium text-[#1a1a1a] truncate max-w-[200px]">{tour.title}</div>

@@ -24,7 +24,9 @@ import {
 } from 'lucide-react';
 import TourCard from '@/components/TourCard';
 import BookingWidget from '@/components/BookingWidget';
+import PickupSelector from '@/components/PickupSelector';
 import { useParams } from 'next/navigation';
+import { getImageUrl } from '@/utils/imageUrl';
 
 export default function TourDetailsPage() {
   const params = useParams();
@@ -199,7 +201,7 @@ export default function TourDetailsPage() {
                             onClick={() => setCurrentImageIndex(i)}
                             className={`relative w-full h-[90px] rounded-lg overflow-hidden cursor-pointer transition-all ${currentImageIndex === i ? 'ring-2 ring-black opacity-100' : 'opacity-70 hover:opacity-100'}`}
                         >
-                            <img src={img} className="w-full h-full object-cover" alt={`thumbnail ${i}`} />
+                            <img src={getImageUrl(img)} className="w-full h-full object-cover" alt={`thumbnail ${i}`} />
                         </div>
                      ))}
                      <div className="relative w-full h-[90px] rounded-lg overflow-hidden cursor-pointer bg-gray-100 flex flex-col items-center justify-center text-gray-700 font-bold text-xs hover:bg-gray-200">
@@ -210,7 +212,7 @@ export default function TourDetailsPage() {
 
                 {/* Main Hero Image */}
                 <div className="flex-1 relative rounded-xl overflow-hidden group">
-                     <img src={images[currentImageIndex]} className="w-full h-full object-cover transition-opacity duration-300" alt="Main Hero" />
+                     <img src={getImageUrl(images[currentImageIndex])} className="w-full h-full object-cover transition-opacity duration-300" alt="Main Hero" />
                      
                      {/* Overlay Buttons */}
                      <div className="absolute top-4 right-4 flex gap-3">
@@ -335,32 +337,7 @@ export default function TourDetailsPage() {
                 
                 <div className={`grid transition-[grid-template-rows] duration-500 ease-in-out ${expandedSections.meetingPickup ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
                     <div className="overflow-hidden">
-                        <div className="border border-gray-200 rounded-lg p-6">
-                             
-                             {/* Meeting Point  */}
-                             {tour.meeting_point && (
-                                 <div className="mb-6">
-                                     <div className="flex items-center gap-2 mb-2">
-                                        <MapPin className="text-[#1a1a1a]" size={20} />
-                                        <h3 className="font-bold text-[#1a1a1a]">Meeting Point</h3>
-                                     </div>
-                                     <p className="text-[#1a1a1a] ml-7">{tour.meeting_point}</p>
-                                 </div>
-                             )}
-
-                             {/* Pickup Details */}
-                             <div>
-                                 <div className="flex items-center gap-2 mb-2">
-                                     <div className="w-6 flex justify-center"><Users size={20} className="text-[#00aa6c]" /></div>
-                                     <h3 className="font-bold text-[#1a1a1a]">Pickup details</h3>
-                                 </div>
-                                 <div className={`text-[#1a1a1a] text-sm leading-relaxed space-y-4 transition-all duration-300 ${isPickupTextExpanded ? '' : 'line-clamp-3'}`}>
-                                     <p className="ml-8">
-                                        {tour.pickup_info}
-                                     </p>
-                                 </div>
-                             </div>
-                        </div>
+                        <PickupSelector configuration={tour.pickup_configuration} />
                     </div>
                 </div>
              </section>

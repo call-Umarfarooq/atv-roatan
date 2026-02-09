@@ -12,6 +12,7 @@ const BookingWidget = ({ tour, className = "" }) => {
       children: 0,
       infants: 0
   });
+  const [selectedExtras, setSelectedExtras] = useState({}); // { index: count }
   const [totalPrice, setTotalPrice] = useState(0);
   const [loading, setLoading] = useState(false);
 
@@ -20,9 +21,27 @@ const BookingWidget = ({ tour, className = "" }) => {
   const CHILD_PRICE = tour?.childPrice || 0;
 
   useEffect(() => {
-      const total = (travelers.adults * ADULT_PRICE) + (travelers.children * CHILD_PRICE);
+      let total = (travelers.adults * ADULT_PRICE) + (travelers.children * CHILD_PRICE);
+      
+      // Calculate Extras
+      if (tour?.extraServices) {
+          tour.extraServices.forEach((extra, index) => {
+              const count = selectedExtras[index] || 0;
+              const price = parseFloat(extra.price) || 0;
+              total += count * price;
+          });
+      }
+
       setTotalPrice(total);
-  }, [travelers, ADULT_PRICE, CHILD_PRICE]);
+  }, [travelers, ADULT_PRICE, CHILD_PRICE, selectedExtras, tour?.extraServices]);
+
+  const updateExtras = (index, change) => {
+      setSelectedExtras(prev => {
+          const current = prev[index] || 0;
+          const newValue = Math.max(0, current + change);
+          return { ...prev, [index]: newValue };
+      });
+  };
 
   const updateTravelers = (type, operation) => {
       setTravelers(prev => {
@@ -202,6 +221,42 @@ const BookingWidget = ({ tour, className = "" }) => {
                     </div>
                 )}
             </div>
+
+
+            {/* Extra Services */}
+            {tour?.extraServices && tour.extraServices.length > 0 && (
+                <div className="relative">
+                     <div className="border border-gray-300 rounded-lg p-3 bg-white">
+                        <label className="text-xs text-gray-500 font-bold block mb-2">Extra Services (Add-ons)</label>
+                        <div className="space-y-3">
+                            {tour.extraServices.map((extra, i) => (
+                                <div key={i} className="flex justify-between items-center">
+                                    <div className="flex-1 pr-2">
+                                        <div className="font-bold text-[#1a1a1a] text-sm leading-tight">{extra.name}</div>
+                                        <div className="text-xs text-gray-500">${extra.price} / person</div>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <button 
+                                            onClick={(e) => { e.stopPropagation(); updateExtras(i, -1); }}
+                                            className={`w-6 h-6 rounded-full border flex items-center justify-center transition-colors ${!selectedExtras[i] ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-300 text-gray-600 hover:border-black hover:bg-gray-50'}`}
+                                            disabled={!selectedExtras[i]}
+                                        >
+                                            <Minus size={12} />
+                                        </button>
+                                        <span className="text-[#1a1a1a] font-bold w-3 text-center text-sm">{selectedExtras[i] || 0}</span>
+                                        <button 
+                                            onClick={(e) => { e.stopPropagation(); updateExtras(i, 1); }}
+                                            className="w-6 h-6 rounded-full border border-gray-300 text-gray-600 flex items-center justify-center hover:border-black hover:bg-gray-50 transition-colors"
+                                        >
+                                            <Plus size={12} />
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                     </div>
+                </div>
+            )}
         </div>
 
         {/* Total Price Display */}
