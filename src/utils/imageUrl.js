@@ -3,13 +3,13 @@ export const getImageUrl = (path) => {
   if (!path) return '';
   if (path.startsWith('http')) return path; // Already absolute
   
+  // If path starts with /, return it as is (relative path)
+  if (path.startsWith('/')) return path;
+
+  // Otherwise, if we have a base URL, join them (for other cases)
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-  if (!baseUrl) return path; // No base URL configured
+  if (!baseUrl) return path;
 
-  // Remove leading slash from path if present to avoid double slashes
-  const cleanPath = path.startsWith('/') ? path.slice(1) : path;
-  // Remove trailing slash from base URL if present
   const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
-
-  return `${cleanBase}/${cleanPath}`;
+  return `${cleanBase}/${path}`;
 };

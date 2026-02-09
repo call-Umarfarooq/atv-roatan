@@ -76,7 +76,7 @@ export async function POST(request) {
 
         fs.writeFileSync(filePath, buffer);
 
-        const publicUrl = `/uploads/${finalFilename}`;
+        const publicUrl = `/api/images/${finalFilename}`;
 
         return NextResponse.json({
           success: true,
