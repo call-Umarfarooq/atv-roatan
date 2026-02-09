@@ -52,7 +52,7 @@ export default function DashboardPage() {
         </div>
         <Link 
             href="/admin/tours/new"
-            className="bg-[#00aa6c] hover:bg-[#008f5b] text-white px-5 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-colors shadow-sm"
+            className="bg-[#008481] hover:bg-[#006966] text-white px-5 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-colors shadow-sm"
         >
             <Plus size={18} /> Add New Experience
         </Link>
@@ -80,7 +80,7 @@ export default function DashboardPage() {
               <h2 className="font-bold text-[#1a1a1a]">All Tours</h2>
               <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
-                  <input type="text" placeholder="Search tours..." className="pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#00aa6c]" />
+                  <input type="text" placeholder="Search tours..." className="pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#008481]" />
               </div>
           </div>
           
@@ -108,7 +108,7 @@ export default function DashboardPage() {
                                         <div className="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden shrink-0">
                                             <img src={getImageUrl(tour.image_url)} alt="" className="w-full h-full object-cover" />
                                         </div>
-                                            <Link href={`/roatan/${tour.slug}`} target="_blank" className="hover:text-[#00aa6c] transition-colors block">
+                                            <Link href={`/roatan/${tour.slug}`} target="_blank" className="hover:text-[#008481] transition-colors block">
                                                 <div className="font-medium text-[#1a1a1a] truncate max-w-[200px]">{tour.title}</div>
                                                 <div className="text-xs text-gray-500 hover:underline">{tour.slug}</div>
                                             </Link>

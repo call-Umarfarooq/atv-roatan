@@ -37,7 +37,7 @@ export default function PickupSelector({ configuration }) {
       
       {/* Header */}
       <div className="flex items-center gap-2 mb-4">
-        <div className="w-6 flex justify-center"><MapPin size={20} className="text-[#00aa6c]" /></div>
+        <div className="w-6 flex justify-center"><MapPin size={20} className="text-[#008481]" /></div>
         <h3 className="font-bold text-[#1a1a1a]">Pickup points</h3>
       </div>
 
@@ -55,7 +55,7 @@ export default function PickupSelector({ configuration }) {
                 onChange={(e) => { setSearch(e.target.value); setIsDropdownOpen(true); }}
                 onFocus={() => setIsDropdownOpen(true)}
                 onBlur={() => setTimeout(() => setIsDropdownOpen(false), 200)}
-                className="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-3 text-[#1a1a1a] focus:ring-2 focus:ring-[#00aa6c] focus:border-transparent outline-none"
+                className="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-3 text-[#1a1a1a] focus:ring-2 focus:ring-[#008481] focus:border-transparent outline-none"
               />
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
             </div>
@@ -72,7 +72,7 @@ export default function PickupSelector({ configuration }) {
                     onClick={() => handleSelect(loc)}
                     className="flex items-start gap-3 p-3 hover:bg-gray-50 cursor-pointer border-b last:border-0 border-gray-100"
                   >
-                    {loc.type === 'Port' ? <Anchor size={18} className="text-[#00aa6c] mt-1" /> : <Building size={18} className="text-[#00aa6c] mt-1" />}
+                    {loc.type === 'Port' ? <Anchor size={18} className="text-[#008481] mt-1" /> : <Building size={18} className="text-[#008481] mt-1" />}
                     <div>
                       <div className="font-bold text-[#1a1a1a] text-sm">{loc.name}</div>
                       <div className="text-xs text-gray-500">{loc.address}</div>
@@ -90,13 +90,13 @@ export default function PickupSelector({ configuration }) {
           <div>
             <div 
                 onClick={() => { setSelectedLocation(null); setSearch(''); setIsDropdownOpen(true); }}
-                className="rounded-md border border-[#00aa6c] bg-white p-3 flex justify-between items-center cursor-pointer hover:bg-gray-50 transition-colors"
+                className="rounded-md border border-[#008481] bg-white p-3 flex justify-between items-center cursor-pointer hover:bg-gray-50 transition-colors"
                 title="Click to change"
             >
                  <div className="font-medium text-[#1a1a1a] text-[15px] truncate pr-4">
                     <span className="font-bold">{selectedLocation.name}</span>, <span className="text-gray-600 font-normal">{selectedLocation.address}</span>
                  </div>
-                 <div className="bg-[#00aa6c] rounded-full p-1 min-w-[20px] h-[20px] flex items-center justify-center">
+                 <div className="bg-[#008481] rounded-full p-1 min-w-[20px] h-[20px] flex items-center justify-center">
                      <Check size={12} className="text-white" strokeWidth={4} />
                  </div>
             </div>

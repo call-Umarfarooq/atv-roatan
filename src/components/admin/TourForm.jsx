@@ -272,7 +272,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
             <button 
                 type="submit" 
                 disabled={loading || uploading}
-                className="bg-[#00aa6c] hover:bg-[#008f5b] text-white px-8 py-2 rounded-lg font-bold flex items-center gap-2 transition-colors disabled:opacity-50 shadow-md"
+                className="bg-[#008481] hover:bg-[#006966] text-white px-8 py-2 rounded-lg font-bold flex items-center gap-2 transition-colors disabled:opacity-50 shadow-md"
             >
                 <Save size={18} /> {loading ? 'Saving...' : 'Save Experience'}
             </button>
@@ -290,12 +290,12 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                   <div className="space-y-4">
                       <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                          <input required name="title" value={formData.title} onChange={handleChange} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#00aa6c] focus:border-transparent outline-none text-[#1a1a1a]" />
+                          <input required name="title" value={formData.title} onChange={handleChange} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#008481] focus:border-transparent outline-none text-[#1a1a1a]" />
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">Duration</label>
-                            <input name="duration" value={formData.duration} onChange={handleChange} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#00aa6c] focus:border-transparent outline-none text-[#1a1a1a]" placeholder="e.g. 4 hours" />
+                            <input name="duration" value={formData.duration} onChange={handleChange} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#008481] focus:border-transparent outline-none text-[#1a1a1a]" placeholder="e.g. 4 hours" />
                         </div>
                       </div>
 
@@ -303,17 +303,17 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                       <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
                           <h3 className="text-sm font-bold text-gray-900 mb-3">Booking Options</h3>
                           <div className="space-y-3">
-                              <label className="flex items-start gap-3 p-3 bg-white border border-gray-200 rounded-lg cursor-pointer hover:border-[#00aa6c] transition-colors">
-                                  <input type="checkbox" name="reserve_now_pay_later" checked={formData.booking_options.reserve_now_pay_later} onChange={handleBookingOptionChange} className="mt-1 w-4 h-4 text-[#00aa6c] rounded border-gray-300 focus:ring-[#00aa6c]" />
+                              <label className="flex items-start gap-3 p-3 bg-white border border-gray-200 rounded-lg cursor-pointer hover:border-[#008481] transition-colors">
+                                  <input type="checkbox" name="reserve_now_pay_later" checked={formData.booking_options.reserve_now_pay_later} onChange={handleBookingOptionChange} className="mt-1 w-4 h-4 text-[#008481] rounded border-gray-300 focus:ring-[#008481]" />
                                   <div>
                                       <span className="block text-sm font-bold text-gray-900">Reserve Now & Pay Later</span>
                                       <span className="block text-xs text-gray-500">Allow customers to book without immediate payment.</span>
                                   </div>
                               </label>
 
-                              <div className="p-3 bg-white border border-gray-200 rounded-lg hover:border-[#00aa6c] transition-colors">
+                              <div className="p-3 bg-white border border-gray-200 rounded-lg hover:border-[#008481] transition-colors">
                                   <label className="flex items-start gap-3 cursor-pointer mb-2">
-                                      <input type="checkbox" name="free_cancellation" checked={formData.booking_options.free_cancellation} onChange={handleBookingOptionChange} className="mt-1 w-4 h-4 text-[#00aa6c] rounded border-gray-300 focus:ring-[#00aa6c]" />
+                                      <input type="checkbox" name="free_cancellation" checked={formData.booking_options.free_cancellation} onChange={handleBookingOptionChange} className="mt-1 w-4 h-4 text-[#008481] rounded border-gray-300 focus:ring-[#008481]" />
                                       <div>
                                           <span className="block text-sm font-bold text-gray-900">Free Cancellation</span>
                                           <span className="block text-xs text-gray-500">Allow customers to cancel for free.</span>
@@ -337,7 +337,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                       </div>
                       <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                          <textarea required name="description" value={formData.description} onChange={handleChange} rows={4} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#00aa6c] focus:border-transparent outline-none text-[#1a1a1a]" />
+                          <textarea required name="description" value={formData.description} onChange={handleChange} rows={4} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#008481] focus:border-transparent outline-none text-[#1a1a1a]" />
                       </div>
                   </div>
               </div>
@@ -346,7 +346,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                   <div className="flex justify-between items-center mb-4">
                     <h2 className="text-lg font-bold text-[#1a1a1a]">Itinerary</h2>
-                    <button type="button" onClick={() => addComplexItem('itinerary', { title: '', description: '', duration: '' })} className="text-[#00aa6c] text-sm font-bold flex items-center gap-1"><Plus size={16} /> Add Stop</button>
+                    <button type="button" onClick={() => addComplexItem('itinerary', { title: '', description: '', duration: '' })} className="text-[#008481] text-sm font-bold flex items-center gap-1"><Plus size={16} /> Add Stop</button>
                   </div>
                   <div className="space-y-4">
                       {formData.itinerary?.map((stop, i) => (
@@ -367,7 +367,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                       <div className="flex justify-between items-center mb-4">
                         <h2 className="text-lg font-bold text-[#1a1a1a]">Included</h2>
-                        <button type="button" onClick={() => addArrayItem('what_to_include')} className="text-[#00aa6c] text-sm font-bold"><Plus size={16} /></button>
+                        <button type="button" onClick={() => addArrayItem('what_to_include')} className="text-[#008481] text-sm font-bold"><Plus size={16} /></button>
                       </div>
                       <div className="space-y-2">
                           {formData.what_to_include?.map((item, i) => (
@@ -412,7 +412,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                    <div>
                       <div className="flex justify-between items-center mb-4">
                         <label className="block text-sm font-medium text-gray-700">FAQ</label>
-                        <button type="button" onClick={() => addComplexItem('faq', { question: '', answer: '' })} className="text-[#00aa6c] text-sm font-bold flex items-center gap-1"><Plus size={16} /> Add Question</button>
+                        <button type="button" onClick={() => addComplexItem('faq', { question: '', answer: '' })} className="text-[#008481] text-sm font-bold flex items-center gap-1"><Plus size={16} /> Add Question</button>
                       </div>
                       <div className="space-y-4">
                           {formData.faq?.map((item, i) => (
@@ -437,7 +437,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                           type="checkbox" 
                           checked={formData.pickup_configuration?.pickup_offered || false} 
                           onChange={(e) => setFormData(prev => ({...prev, pickup_configuration: {...prev.pickup_configuration, pickup_offered: e.target.checked}}))}
-                          className="w-4 h-4 text-[#00aa6c] rounded focus:ring-[#00aa6c]" 
+                          className="w-4 h-4 text-[#008481] rounded focus:ring-[#008481]" 
                         />
                         <label className="font-medium text-gray-700">Pickup Offered?</label>
                       </div>
@@ -460,7 +460,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                           <div>
                             <div className="flex justify-between items-center mb-2">
                               <label className="block text-sm font-medium text-gray-700">Pickup Locations (Searchable by User)</label>
-                              <button type="button" onClick={addPickupLocation} className="text-[#00aa6c] text-sm font-bold flex items-center gap-1">+ Add Location</button>
+                              <button type="button" onClick={addPickupLocation} className="text-[#008481] text-sm font-bold flex items-center gap-1">+ Add Location</button>
                             </div>
                             <div className="space-y-2">
                               {formData.pickup_configuration.pickup_locations?.map((loc, i) => (
@@ -513,7 +513,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                   {/* Main Image */}
                   <div className="mb-6">
                       <label className="block text-sm font-medium text-gray-700 mb-2">Main Image</label>
-                      <div className="relative aspect-video rounded-lg bg-gray-100 overflow-hidden border-2 border-dashed border-gray-300 flex items-center justify-center group hover:border-[#00aa6c] transition-colors">
+                      <div className="relative aspect-video rounded-lg bg-gray-100 overflow-hidden border-2 border-dashed border-gray-300 flex items-center justify-center group hover:border-[#008481] transition-colors">
                           {formData.image_url ? (
                               <img src={getImageUrl(formData.image_url)} alt="Main" className="w-full h-full object-cover" />
                           ) : (
@@ -536,7 +536,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                                   <button type="button" onClick={() => removeArrayItem(i, 'gallery')} className="absolute top-1 right-1 bg-black/50 text-white rounded-full p-1 hover:bg-red-500 transition-colors"><X size={12}/></button>
                               </div>
                           ))}
-                          <div className="aspect-square rounded-lg bg-gray-50 border-2 border-dashed border-gray-300 flex items-center justify-center relative hover:border-[#00aa6c] transition-colors">
+                          <div className="aspect-square rounded-lg bg-gray-50 border-2 border-dashed border-gray-300 flex items-center justify-center relative hover:border-[#008481] transition-colors">
                               <Plus className="text-gray-400" />
                               <input type="file" onChange={(e) => handleFileUpload(e, 'gallery')} className="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" />
                           </div>
@@ -589,7 +589,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                       <div className="flex justify-between items-center mb-4">
                         <h2 className="text-lg font-bold text-[#1a1a1a]">Extra Services (Add-ons)</h2>
-                        <button type="button" onClick={() => addComplexItem('extraServices', { name: '', price: '' })} className="text-[#00aa6c] text-sm font-bold flex items-center gap-1"><Plus size={16}/> Add Service</button>
+                        <button type="button" onClick={() => addComplexItem('extraServices', { name: '', price: '' })} className="text-[#008481] text-sm font-bold flex items-center gap-1"><Plus size={16}/> Add Service</button>
                       </div>
                       <div className="space-y-3">
                         {formData.extraServices?.map((service, i) => (
@@ -635,7 +635,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                         />
                    </div>
                       <div className="mt-4 flex items-center gap-2">
-                          <input type="checkbox" name="is_featured" checked={formData.is_featured} onChange={handleChange} className="w-4 h-4 text-[#00aa6c] rounded border-gray-300 focus:ring-[#00aa6c]" />
+                          <input type="checkbox" name="is_featured" checked={formData.is_featured} onChange={handleChange} className="w-4 h-4 text-[#008481] rounded border-gray-300 focus:ring-[#008481]" />
                           <label className="text-sm font-medium text-gray-700">Mark as Featured</label>
                       </div>
                </div>
@@ -644,7 +644,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                       <div className="flex justify-between items-center mb-4">
                         <h2 className="text-lg font-bold text-[#1a1a1a]">Additional Info</h2>
-                        <button type="button" onClick={() => addArrayItem('additional_info')} className="text-[#00aa6c] text-sm font-bold"><Plus size={16} /></button>
+                        <button type="button" onClick={() => addArrayItem('additional_info')} className="text-[#008481] text-sm font-bold"><Plus size={16} /></button>
                       </div>
                       <div className="space-y-2">
                           {formData.additional_info?.map((item, i) => (

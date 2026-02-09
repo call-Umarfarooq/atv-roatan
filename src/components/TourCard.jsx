@@ -36,7 +36,7 @@ const TourCard = ({
 
         {/* Rating */}
         <div className="flex items-center gap-1 mb-2">
-           <Star size={14} className="fill-[#00aa6c] text-[#00aa6c]" />
+           <Star size={14} className="fill-[#008481] text-[#008481]" />
            <span className="text-[#1a1a1a] text-sm font-bold">{rating}</span>
            <span className="text-gray-500 text-sm">({reviews})</span>
         </div>

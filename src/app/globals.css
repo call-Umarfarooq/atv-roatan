@@ -85,20 +85,20 @@ body {
 
 .react-datepicker__day--selected,
 .react-datepicker__day--keyboard-selected {
-  background-color: #00aa6c !important;
+  background-color: #008481 !important;
   color: white !important;
   font-weight: 700 !important;
 }
 
 .react-datepicker__day--today {
-  color: #00aa6c !important;
+  color: #008481 !important;
   font-weight: 900 !important;
   background-color: transparent !important;
-  border: 1px solid #00aa6c !important;
+  border: 1px solid #008481 !important;
 }
 
 .react-datepicker__day--today.react-datepicker__day--selected {
-  background-color: #00aa6c !important;
+  background-color: #008481 !important;
   color: white !important;
   border: none !important;
 }

@@ -127,7 +127,7 @@ export default function TourDetailsPage() {
         
         {/* Ratings */}
         <div className="flex items-center">
-          <div className="flex gap-0.5 text-[#00aa6c]">
+          <div className="flex gap-0.5 text-[#008481]">
             {[...Array(5)].map((_, i) => (
               <Star key={i} size={16} fill="currentColor" stroke="none" />
             ))}
@@ -243,21 +243,21 @@ export default function TourDetailsPage() {
             {/* Quick Info Bar below images */}
             <div className="flex flex-wrap gap-x-8 gap-y-4 text-sm text-[#1a1a1a] mb-8">
                 <div className="flex items-center gap-2">
-                    <Clock className="w-5 h-5 text-[#00aa6c]" /> 
+                    <Clock className="w-5 h-5 text-[#008481]" /> 
                     <span className="font-normal text-gray-600">{tour.duration} (approx.)</span>
                 </div>
                 {/* <div className="flex items-center gap-2">
-                    <div className="w-5 h-5 rounded-full border-2 border-[#00aa6c] flex items-center justify-center p-0.5">
-                        <div className="w-full h-[2px] bg-[#00aa6c]"></div>
+                    <div className="w-5 h-5 rounded-full border-2 border-[#008481] flex items-center justify-center p-0.5">
+                        <div className="w-full h-[2px] bg-[#008481]"></div>
                     </div>
                      <span className="font-normal text-gray-600">Pickup offered</span>
                 </div> */}
                  <div className="flex items-center gap-2">
-                    <Ticket className="w-5 h-5 text-[#00aa6c]" />
+                    <Ticket className="w-5 h-5 text-[#008481]" />
                     <span className="font-normal text-gray-600">Mobile ticket</span>
                 </div>
                  <div className="flex items-center gap-2">
-                    <MessageCircle className="w-5 h-5 text-[#00aa6c]" />
+                    <MessageCircle className="w-5 h-5 text-[#008481]" />
                     <span className="font-normal text-gray-600">Offered in: <span className="underline cursor-pointer">English</span></span>
                 </div>
             </div>
@@ -365,7 +365,7 @@ export default function TourDetailsPage() {
                                     <div className="flex items-center gap-3 text-sm text-gray-500 mb-2">
                                         {stop.stop_type === 'Stop' ? (
                                             <span className="font-bold text-[#1a1a1a] flex items-center gap-1">
-                                                <MapPin size={14} className="text-[#00aa6c]" /> Stop
+                                                <MapPin size={14} className="text-[#008481]" /> Stop
                                             </span>
                                         ) : stop.stop_type === 'Pass By' ? (
                                             <span className="italic text-gray-500 flex items-center gap-1">

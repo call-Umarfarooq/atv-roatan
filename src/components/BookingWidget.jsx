@@ -91,7 +91,7 @@ const BookingWidget = ({ tour, className = "" }) => {
             <span className="text-sm text-gray-500">per person</span>
           </div>
           <div className="flex items-center gap-2 mt-2">
-             <div className="flex items-center gap-1 text-[#00aa6c] bg-[#e6f2ed] px-2 py-0.5 rounded text-xs font-bold">
+             <div className="flex items-center gap-1 text-[#008481] bg-[#e6f2ed] px-2 py-0.5 rounded text-xs font-bold">
                 <Check size={12} strokeWidth={3} />
                 <span>Lowest Price Guarantee</span>
              </div>
@@ -213,7 +213,7 @@ const BookingWidget = ({ tour, className = "" }) => {
 
                             <button 
                                 onClick={() => setShowTravelers(false)}
-                                className="w-full bg-[#00aa6c] text-white font-bold py-2 rounded-full hover:bg-[#008f5b] transition-colors"
+                                className="w-full bg-[#008481] text-white font-bold py-2 rounded-full hover:bg-[#006966] transition-colors"
                             >
                                 Apply
                             </button>
@@ -277,7 +277,7 @@ const BookingWidget = ({ tour, className = "" }) => {
             <button 
                 onClick={handleBooking}
                  disabled={loading}
-                className="w-full bg-[#00aa6c] hover:bg-[#008f5b] text-white font-bold py-3.5 rounded-full transition-colors text-lg shadow-sm disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full bg-[#008481] hover:bg-[#006966] text-white font-bold py-2.5 rounded-full transition-colors text-lg shadow-sm disabled:opacity-70 disabled:cursor-not-allowed"
             >
               Book Now
             </button>
@@ -287,13 +287,13 @@ const BookingWidget = ({ tour, className = "" }) => {
         <div className="space-y-3 pt-6 mt-4 border-t border-gray-100">
           <div className="flex items-start gap-3">
             <div className="mt-0.5 bg-[#dff7eb] rounded-full p-0.5 shrink-0">
-              <Check size={12} className="text-[#00aa6c]" strokeWidth={3} />
+              <Check size={12} className="text-[#008481]" strokeWidth={3} />
             </div>
             <p className="text-sm text-gray-600"><span className="font-bold text-gray-900 underline decoration-dotted cursor-help">Free cancellation</span> {tour?.booking_options?.policy_text || 'up to 24 hours before the experience starts (local time)'}</p>
           </div>
           <div className="flex items-start gap-3">
              <div className="mt-0.5 bg-[#dff7eb] rounded-full p-0.5 shrink-0">
-              <Check size={12} className="text-[#00aa6c]" strokeWidth={3} />
+              <Check size={12} className="text-[#008481]" strokeWidth={3} />
             </div>
             <p className="text-sm text-gray-600"><span className="font-bold text-gray-900 underline decoration-dotted cursor-help">Reserve Now and Pay Later</span> - Secure your spot while staying flexible</p>
           </div>

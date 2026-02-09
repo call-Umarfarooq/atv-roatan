@@ -17,7 +17,7 @@ export default function Sidebar() {
   return (
     <div className="w-64 bg-white h-screen border-r border-gray-200 flex flex-col fixed left-0 top-0">
       <div className="p-6 flex items-center gap-2 border-b border-gray-100">
-        <div className="w-8 h-8 bg-[#00aa6c] rounded-lg flex items-center justify-center">
+        <div className="w-8 h-8 bg-[#008481] rounded-lg flex items-center justify-center">
             <Compass className="text-white w-5 h-5" />
         </div>
         <span className="text-xl font-bold text-[#1a1a1a]">Admin CMS</span>
@@ -32,7 +32,7 @@ export default function Sidebar() {
               href={item.href}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                 isActive 
-                  ? 'bg-[#00aa6c]/10 text-[#00aa6c] font-semibold' 
+                  ? 'bg-[#008481]/10 text-[#008481] font-semibold' 
                   : 'text-gray-600 hover:bg-gray-50 hover:text-[#1a1a1a]'
               }`}
             >
