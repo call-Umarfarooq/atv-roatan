@@ -57,6 +57,14 @@ const TourSchema = new mongoose.Schema({
     name: String,
     price: String,
   }],
+  // Marketing & Badges
+  marketing_badges: {
+    reviews_text: { type: String, default: '106 Reviews' },
+    stars: { type: Number, default: 5 },
+    recommendation_text: { type: String, default: 'Recommended by 98% of travelers' },
+    badge_text: { type: String, default: 'Badge of Excellence' },
+    location_text: { type: String, default: 'Roatan, Honduras' }
+  },
   // New Fields for Viator Parity
   exclusions: {
     type: [String],
@@ -107,5 +115,10 @@ const TourSchema = new mongoose.Schema({
 }, {
   timestamps: true,
 });
+
+// Force model recompilation in dev to pick up schema changes
+if (process.env.NODE_ENV === 'development') {
+  delete mongoose.models.Tour;
+}
 
 export default mongoose.models.Tour || mongoose.model('Tour', TourSchema);

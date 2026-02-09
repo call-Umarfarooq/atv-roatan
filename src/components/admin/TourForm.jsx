@@ -41,7 +41,20 @@ export default function TourForm({ initialData = null, isEdit = false }) {
         free_cancellation: true,
         policy_text: 'up to 24 hours before the experience starts (local time)'
     }, 
-    additional_info: [],
+    additional_info: [
+      '⛑️ Port Round Trip Transport Included',
+      '✅ Free Cancellation & Full Refund',
+      '🚺 Kids & Family Friendly',
+      '♀️ Women-Led, Family Owned',
+      '♻️ Sustainable (GSTC Registered)'
+    ],
+    marketing_badges: {
+        reviews_text: '106 Reviews',
+        stars: 5,
+        recommendation_text: 'Recommended by 98% of travelers',
+        badge_text: 'Badge of Excellence',
+        location_text: 'Roatan, Honduras'
+    },
     tags: [],
     extraServices: []
   });
@@ -55,6 +68,14 @@ export default function TourForm({ initialData = null, isEdit = false }) {
           itinerary: initialData.itinerary || [],
           faq: initialData.faq || [],
           additional_info: initialData.additional_info || [],
+          marketing_badges: { 
+            reviews_text: '106 Reviews',
+            stars: 5,
+            recommendation_text: 'Recommended by 98% of travelers',
+            badge_text: 'Badge of Excellence',
+            location_text: 'Roatan, Honduras',
+            ...(initialData.marketing_badges || {}) 
+          },
           tags: initialData.tags || [],
           extraServices: initialData.extraServices || [],
           what_to_include: initialData.what_to_include || [],
@@ -638,7 +659,67 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                           <input type="checkbox" name="is_featured" checked={formData.is_featured} onChange={handleChange} className="w-4 h-4 text-[#008481] rounded border-gray-300 focus:ring-[#008481]" />
                           <label className="text-sm font-medium text-gray-700">Mark as Featured</label>
                       </div>
-               </div>
+                </div>
+
+                 {/* Marketing & Location Badges */}
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <h2 className="text-lg font-bold text-[#1a1a1a] mb-4">Marketing & Location Badges</h2>
+                    <div className="space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Reviews Text (e.g. 106 Reviews)</label>
+                                <input 
+                                    value={formData.marketing_badges?.reviews_text || ''} 
+                                    onChange={(e) => setFormData(prev => ({ ...prev, marketing_badges: { ...(prev.marketing_badges || {}), reviews_text: e.target.value } }))}
+                                    className="w-full p-2 border rounded-lg text-[#1a1a1a]" 
+                                />
+                            </div>
+                             <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Star Rating (0-5)</label>
+                                <input 
+                                    type="number"
+                                    min="0"
+                                    max="5"
+                                    step="0.1"
+                                    value={formData.marketing_badges?.stars || ''} 
+                                    onChange={(e) => setFormData(prev => ({ ...prev, marketing_badges: { ...(prev.marketing_badges || {}), stars: parseFloat(e.target.value) } }))}
+                                    className="w-full p-2 border rounded-lg text-[#1a1a1a]" 
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Recommendation Text</label>
+                            <input 
+                                value={formData.marketing_badges?.recommendation_text || ''} 
+                                onChange={(e) => setFormData(prev => ({ ...prev, marketing_badges: { ...(prev.marketing_badges || {}), recommendation_text: e.target.value } }))}
+                                className="w-full p-2 border rounded-lg text-[#1a1a1a]" 
+                                placeholder="Recommended by 98% of travelers"
+                            />
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                             <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Badge Text</label>
+                                <input 
+                                    value={formData.marketing_badges?.badge_text || ''} 
+                                    onChange={(e) => setFormData(prev => ({ ...prev, marketing_badges: { ...(prev.marketing_badges || {}), badge_text: e.target.value } }))}
+                                    className="w-full p-2 border rounded-lg text-[#1a1a1a]" 
+                                    placeholder="Badge of Excellence"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Location Text</label>
+                                <input 
+                                    value={formData.marketing_badges?.location_text || ''} 
+                                    onChange={(e) => setFormData(prev => ({ ...prev, marketing_badges: { ...(prev.marketing_badges || {}), location_text: e.target.value } }))}
+                                    className="w-full p-2 border rounded-lg text-[#1a1a1a]" 
+                                    placeholder="Roatan, Honduras"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 
                  {/* Additional Info */}
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">

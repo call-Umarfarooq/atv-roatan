@@ -56,6 +56,7 @@ export default function TourDetailsPage() {
         const data = await response.json();
         
         if (data.success) {
+            console.log('Fetched Tour Data:', data.data); // Debugging
             setTour(data.data);
         } else {
             console.error(data.error);
@@ -126,47 +127,53 @@ export default function TourDetailsPage() {
       <div className="flex flex-wrap items-center text-[13.5px] mb-6 gap-x-2.5">
         
         {/* Ratings */}
-        <div className="flex items-center">
-          <div className="flex gap-0.5 text-[#008481]">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} size={16} fill="currentColor" stroke="none" />
-            ))}
-          </div>
-          <span className="text-[#1a1a1a] font-bold hover:underline cursor-pointer ml-2">
-            106 Reviews
-          </span>
-        </div>
+        {tour.marketing_badges?.stars && (
+             <div className="flex items-center">
+                <div className="flex gap-0.5 text-[#008481]">
+                    {[...Array(Math.round(tour.marketing_badges.stars))].map((_, i) => (
+                    <Star key={i} size={16} fill="currentColor" stroke="none" />
+                    ))}
+                </div>
+                <span className="text-[#1a1a1a] font-bold hover:underline cursor-pointer ml-2">
+                    {tour.marketing_badges?.reviews_text}
+                </span>
+             </div>
+        )}
+
 
         <div className="text-gray-300 text-xl font-light">|</div>
 
         {/* Recommendation */}
-        {tour.is_featured && (
+        {tour.marketing_badges?.recommendation_text && (
             <div className="flex items-center gap-1.5 text-[#1a1a1a]">
             <div className="relative">
                 <Flame size={16} className="text-[#df3c23]" fill="#df3c23" stroke="none" />
             </div>
-            <span className="font-semibold text-gray-800">Recommended by 100% of travelers</span>
+            <span className="font-semibold text-gray-800">{tour.marketing_badges?.recommendation_text}</span>
             <div className="w-[15px] h-[15px] rounded-full border border-gray-400 text-gray-500 text-[9px] flex items-center justify-center font-bold cursor-help">
                 i
             </div>
             </div>
         )}
 
-        <div className="text-gray-300 text-xl font-light">|</div>
-
-        {/* Badge of Excellence */}
-        <div className="flex items-center gap-2 text-[#1a1a1a]">
-          <div className="bg-[#cc9b33] rounded-full p-0.5">
-            <Award size={13} className="text-white" fill="white" strokeWidth={1} />
-          </div>
-          <span className="text-gray-600 font-medium">Badge of Excellence</span>
-        </div>
+        {tour.marketing_badges?.badge_text && (
+            <>
+                <div className="text-gray-300 text-xl font-light">|</div>
+                {/* Badge of Excellence */}
+                <div className="flex items-center gap-2 text-[#1a1a1a]">
+                <div className="bg-[#cc9b33] rounded-full p-0.5">
+                    <Award size={13} className="text-white" fill="white" strokeWidth={1} />
+                </div>
+                <span className="text-gray-600 font-medium">{tour.marketing_badges?.badge_text}</span>
+                </div>
+            </>
+        )}
 
         <div className="text-gray-300 text-xl font-light">|</div>
 
         {/* Location */}
         <span className="text-[#1a1a1a] font-medium hover:underline cursor-pointer">
-          Roatan, Honduras
+          {tour.marketing_badges?.location_text || 'Roatan, Honduras'}
         </span>
       </div>
 
@@ -399,7 +406,7 @@ export default function TourDetailsPage() {
                     className="flex items-center justify-between cursor-pointer group mb-4"
                     onClick={() => toggleSection('additionalInfo')}
                 >
-                     <h2 className="text-2xl font-bold text-[#1a1a1a] group-hover:underline">Additional Info & FAQ</h2>
+                     <h2 className="text-2xl font-bold text-[#1a1a1a] group-hover:underline">Additional Info </h2>
                      <ChevronDown className={`group-hover:text-gray-600 transition-transform duration-300 ${expandedSections.additionalInfo ? 'rotate-180' : ''}`} />
                  </div>
                  <div className={`grid transition-[grid-template-rows] duration-500 ease-in-out ${expandedSections.additionalInfo ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
@@ -408,11 +415,13 @@ export default function TourDetailsPage() {
                          {/* Additional Info List */}
                          <div>
                              <h3 className="font-bold text-[#1a1a1a] mb-3">Additional Information</h3>
-                             <ul className="space-y-2 list-disc pl-5 text-[#1a1a1a]">
+                             <div className="space-y-3 text-[#1a1a1a]">
                                  {tour.additional_info && tour.additional_info.map((info, i) => (
-                                     <li key={i}>{info}</li>
+                                     <div key={i} className="flex gap-2 items-start">
+                                         <span>{info}</span>
+                                     </div>
                                  ))}
-                             </ul>
+                             </div>
                          </div>
 
                          {/* Cancellation Policy */}
