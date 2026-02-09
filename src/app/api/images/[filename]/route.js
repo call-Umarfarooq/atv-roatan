@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs';
 
 export async function GET(request, { params }) {
-  const { filename } = params;
+  const { filename } = await params;
 
   if (!filename) {
     return NextResponse.json({ error: 'Filename is required' }, { status: 400 });
