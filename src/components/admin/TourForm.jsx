@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Save, Plus, X, Upload, Image as ImageIcon, Video } from 'lucide-react';
+import { getImageUrl } from '@/utils/imageUrl';
 
 
 export default function TourForm({ initialData = null, isEdit = false }) {
@@ -185,11 +186,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
     }
   };
 
-  const getImageUrl = (url) => {
-    if (!url) return '';
-    if (url.startsWith('http')) return url;
-    return url; 
-  };
+
 
 
 
