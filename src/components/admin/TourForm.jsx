@@ -324,13 +324,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                       <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
                           <h3 className="text-sm font-bold text-gray-900 mb-3">Booking Options</h3>
                           <div className="space-y-3">
-                              <label className="flex items-start gap-3 p-3 bg-white border border-gray-200 rounded-lg cursor-pointer hover:border-[#008481] transition-colors">
-                                  <input type="checkbox" name="reserve_now_pay_later" checked={formData.booking_options.reserve_now_pay_later} onChange={handleBookingOptionChange} className="mt-1 w-4 h-4 text-[#008481] rounded border-gray-300 focus:ring-[#008481]" />
-                                  <div>
-                                      <span className="block text-sm font-bold text-gray-900">Reserve Now & Pay Later</span>
-                                      <span className="block text-xs text-gray-500">Allow customers to book without immediate payment.</span>
-                                  </div>
-                              </label>
+
 
                               <div className="p-3 bg-white border border-gray-200 rounded-lg hover:border-[#008481] transition-colors">
                                   <label className="flex items-start gap-3 cursor-pointer mb-2">

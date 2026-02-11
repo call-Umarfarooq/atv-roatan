@@ -33,16 +33,36 @@ const BookingSchema = new mongoose.Schema({
     lastName: { type: String, required: true },
     email: { type: String, required: true },
     phone: { type: String, required: true },
+    specialRequirements: String
+  },
+  pickupDetails: {
+      meetingPoint: String,
+      isPickup: Boolean,
+      pickupLocation: String,
+      cruiseShip: String,
+      disembarkationTime: String,
+      boardingTime: String,
+      dropOffLocation: String
   },
   status: {
     type: String,
     enum: ['pending', 'confirmed', 'cancelled', 'completed'],
     default: 'pending',
   },
+  paymentType: {
+      type: String,
+      enum: ['pay_now', 'reserve_now'],
+      default: 'pay_now'
+  },
   paymentStatus: {
       type: String,
-      enum: ['unpaid', 'paid', 'deposit_paid'],
+      enum: ['unpaid', 'paid', 'deposit_paid', 'authorized'],
       default: 'unpaid'
+  },
+  externalPaymentId: String,
+  selectedExtras: {
+      type: Map,
+      of: Number
   }
 }, {
   timestamps: true,

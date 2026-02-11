@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { Check, ChevronDown, Users, Flame, Ticket, Minus, Plus, Loader2 } from 'lucide-react';
 import { format } from 'date-fns';
+import { useRouter } from 'next/navigation';
 
 const BookingWidget = ({ tour, className = "" }) => {
   const [date, setDate] = useState(new Date());
@@ -52,27 +53,27 @@ const BookingWidget = ({ tour, className = "" }) => {
       });
   };
 
+  const router = useRouter();
+
   const handleBooking = async () => {
       setLoading(true);
-      // Simulate API call for now or simple redirect
+      
+      const bookingData = {
+          tour,
+          date,
+          travelers,
+          totalPrice,
+          adultPrice: ADULT_PRICE,
+          childPrice: CHILD_PRICE,
+          selectedExtras
+      };
+
       try {
-        const bookingData = {
-            tourId: tour?._id,
-            tourSlug: tour?.slug,
-            date,
-            travelers,
-            totalPrice
-        };
-        console.log('Booking Request:', bookingData);
-        
-        // In a real app, you would POST to /api/bookings here
-        // await fetch('/api/bookings', { method: 'POST', body: JSON.stringify(bookingData) });
-        
-        alert(`Booking request for ${tour?.title} on ${format(date, 'MMM do')} for $${totalPrice} received!`);
+        localStorage.setItem('checkoutData', JSON.stringify(bookingData));
+        router.push('/checkout');
       } catch (err) {
           console.error(err);
-          alert('Booking failed');
-      } finally {
+          alert('Failed to proceed to checkout');
           setLoading(false);
       }
   };
@@ -267,17 +268,17 @@ const BookingWidget = ({ tour, className = "" }) => {
 
         {/* Action Buttons */}
         <div className="space-y-3">
-            {/* <button 
+            <button 
                 onClick={handleBooking}
                 disabled={loading}
-                className="w-full bg-[#fecc2f] hover:bg-[#eebb00] text-[#1a1a1a] font-bold py-3.5 rounded-full transition-colors text-lg shadow-sm disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full bg-white hover:bg-gray-50 text-[#1a1a1a] border border-[#1a1a1a] font-bold py-2 rounded-[10px] transition-colors text-lg shadow-sm disabled:opacity-70 disabled:cursor-not-allowed mb-3"
             >
               {loading ? <Loader2 className="animate-spin mx-auto" /> : 'Reserve Now & Pay Later'}
-            </button> */}
+            </button>
             <button 
                 onClick={handleBooking}
                  disabled={loading}
-                className="w-full bg-[#008481] hover:bg-[#006966] text-white font-bold py-2.5 rounded-full transition-colors text-lg shadow-sm disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full bg-[#008481] hover:bg-[#006966] text-white font-bold py-2 rounded-[10px] transition-colors text-lg shadow-sm disabled:opacity-70 disabled:cursor-not-allowed"
             >
               Book Now
             </button>
