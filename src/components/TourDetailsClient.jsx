@@ -481,6 +481,8 @@ export default function TourDetailsClient({ initialTour }) {
                         rating="4.8"
                         reviews="220"
                         price="119"
+                        duration="4-5 hours"
+                        description="Explore the best of Roatan with this comprehensive island tour including wildlife encounters and snorkeling."
                      />
                      <TourCard 
                         image="https://picsum.photos/400/300?random=21"
@@ -489,6 +491,8 @@ export default function TourDetailsClient({ initialTour }) {
                         rating="4.9"
                         reviews="156"
                         price="229"
+                        duration="3 hours"
+                        description="Sail the Caribbean waters in style with an open bar and snacks on this private catamaran charter."
                      />
                      <TourCard 
                         image="https://picsum.photos/400/300?random=22"
@@ -497,6 +501,8 @@ export default function TourDetailsClient({ initialTour }) {
                         rating="4.7"
                         reviews="89"
                         price="89"
+                        duration="5 hours"
+                        description="Combine adrenaline and relaxation with a jungle zipline adventure followed by beach time."
                      />
                  </div>
              </section>

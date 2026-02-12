@@ -10,6 +10,8 @@ export default function Sidebar() {
   const menuItems = [
     { name: 'Dashboard', icon: LayoutDashboard, href: '/admin/dashboard' },
     { name: 'Tours', icon: Compass, href: '/admin/tours/new' },
+    { name: 'Activities', icon: Package, href: '/admin/activities' },
+    { name: 'Categories', icon: Package, href: '/admin/categories' },
     // { name: 'Bookings', icon: Package, href: '/admin/bookings' },
     // { name: 'Settings', icon: Settings, href: '/admin/settings' },
   ];

@@ -10,6 +10,8 @@ export default function TourForm({ initialData = null, isEdit = false }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [activities, setActivities] = useState([]);
+  const [categories, setCategories] = useState([]);
   
   const [formData, setFormData] = useState({
     title: '',
@@ -56,8 +58,30 @@ export default function TourForm({ initialData = null, isEdit = false }) {
         location_text: 'Roatan, Honduras'
     },
     tags: [],
-    extraServices: []
+    extraServices: [],
+    activity: '',
+    category: ''
   });
+
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const [activitiesRes, categoriesRes] = await Promise.all([
+                fetch('/api/activities'),
+                fetch('/api/categories')
+            ]);
+            
+            const activitiesData = await activitiesRes.json();
+            const categoriesData = await categoriesRes.json();
+
+            if (activitiesData.success) setActivities(activitiesData.data);
+            if (categoriesData.success) setCategories(categoriesData.data);
+        } catch (error) {
+            console.error('Failed to fetch form data', error);
+        }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (initialData) {
@@ -317,6 +341,24 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">Duration</label>
                             <input name="duration" value={formData.duration} onChange={handleChange} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#008481] focus:border-transparent outline-none text-[#1a1a1a]" placeholder="e.g. 4 hours" />
+                        </div>
+                         <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Activity Type</label>
+                            <select required name="activity" value={formData.activity} onChange={handleChange} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#008481] focus:border-transparent outline-none text-[#1a1a1a]">
+                                <option value="">Select Activity</option>
+                                {activities.map(a => (
+                                    <option key={a._id} value={a._id}>{a.title}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                            <select required name="category" value={formData.category} onChange={handleChange} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#008481] focus:border-transparent outline-none text-[#1a1a1a]">
+                                <option value="">Select Category</option>
+                                {categories.map(c => (
+                                    <option key={c._id} value={c._id}>{c.name}</option>
+                                ))}
+                            </select>
                         </div>
                       </div>
 

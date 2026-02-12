@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Roatan ATV Buggy and Golf Cart Adventure Tours</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#00897B", // Vibrant Teal
+              secondary: "#2E4F4F", // Deep Jungle Green
+              accent: "#CBE4DE", // Sandy/Light Teal
+              "background-light": "#F9FAFB",
+              "background-dark": "#111827",
+              "surface-light": "#FFFFFF",
+              "surface-dark": "#1F2937",
+              "text-light": "#374151",
+              "text-dark": "#D1D5DB",
+            },
+            fontFamily: {
+              display: ["Playfair Display", "serif"],
+              sans: ["Inter", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.5rem",
+              "xl": "1rem",
+              "2xl": "1.5rem",
+            },
+          },
+        },
+      };
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<style>
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .dark .glassmorphism {
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark font-sans transition-colors duration-300 antialiased">
+<header class="fixed w-full top-0 z-50 glassmorphism transition-all duration-300">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-20">
+<div class="flex-shrink-0 flex items-center">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white font-display font-bold text-xl">
+                        R
+                    </div>
+<span class="ml-3 font-display font-bold text-xl text-gray-900 dark:text-white hidden sm:block">Roatan Adventures</span>
+</div>
+<nav class="hidden md:flex space-x-8">
+<a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary px-3 py-2 text-sm font-medium transition-colors" href="#">Home</a>
+<a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary px-3 py-2 text-sm font-medium transition-colors" href="#">All Tours</a>
+<a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary px-3 py-2 text-sm font-medium transition-colors" href="#">Gallery</a>
+<a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary px-3 py-2 text-sm font-medium transition-colors" href="#">About Us</a>
+<a class="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary px-3 py-2 text-sm font-medium transition-colors" href="#">Reviews</a>
+</nav>
+<div class="flex items-center space-x-4">
+<button class="p-2 text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-colors">
+<span class="material-icons-outlined">search</span>
+</button>
+<a class="hidden lg:flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors" href="tel:+50412345678">
+<span class="material-icons-outlined text-sm mr-2">call</span>
+                        +504 1234-5678
+                    </a>
+<button class="bg-primary text-white px-5 py-2.5 rounded-full text-sm font-medium shadow-lg hover:shadow-xl hover:bg-opacity-90 transition-all transform hover:-translate-y-0.5">
+                        Book Now
+                    </button>
+</div>
+</div>
+</div>
+</header>
+<div class="relative h-screen min-h-[600px] flex items-center justify-center">
+<div class="absolute inset-0 z-0">
+<img alt="Tropical Roatan Jungle Landscape" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVKT2tjE7rE0wXVBUeTb7-4yCp-JRU-lRYkyGzyNcT1ld1f8SC9nqIzmBgPTMS7zuMvEH9zrsWDYXJUI7Wv52pY9p6nsPBwpuGD0uUYBIp-6XyZ2uRaErp4GmZ6wOFTHWfy4ZiGoJWtLGuYYG0vk10v30kvq3s_irytLSIPUBjHLzYb_jRbtNc2HPZ2w8ie772t3PI_e8TThVUm_Lhx8q_gsWjDmliDDwZSqXb_05fsHIdh0UwjQdYPWASuD8ewoAj-u8a5CAGGhGJ"/>
+<div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60 dark:from-black/60 dark:to-background-dark"></div>
+</div>
+<div class="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
+<p class="text-accent uppercase tracking-widest text-sm font-semibold mb-4 animate-fade-in-up">Operated by Roatan ATV Buggy Tours</p>
+<h1 class="text-5xl md:text-7xl font-display font-bold text-white mb-6 leading-tight drop-shadow-lg">
+                Roatan Shore Excursions
+            </h1>
+<p class="text-xl md:text-2xl text-gray-200 mb-10 max-w-2xl mx-auto font-light">
+                Experience the thrill of the jungle and the serenity of the sea. Your ultimate island adventure awaits.
+            </p>
+<div class="flex flex-col sm:flex-row justify-center gap-4">
+<button class="bg-primary text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl hover:bg-opacity-90 transition-all transform hover:-translate-y-1">
+                    Explore Tours
+                </button>
+<button class="bg-white/10 backdrop-blur-md text-white border border-white/30 px-8 py-4 rounded-full text-lg font-semibold hover:bg-white/20 transition-all transform hover:-translate-y-1">
+                    Watch Video
+                </button>
+</div>
+</div>
+</div>
+<section class="relative py-16 -mt-16 z-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow-xl p-8 md:p-12">
+<div class="text-center mb-10">
+<h2 class="text-3xl font-display font-bold text-gray-900 dark:text-white">Our Highlights</h2>
+<div class="w-16 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+<div class="flex flex-col items-center text-center group">
+<div class="w-16 h-16 rounded-full bg-accent/20 dark:bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors duration-300">
+<span class="material-icons-outlined text-primary text-3xl">anchor</span>
+</div>
+<h3 class="text-sm font-semibold text-gray-900 dark:text-white">Back to Ship Guarantee</h3>
+</div>
+<div class="flex flex-col items-center text-center group">
+<div class="w-16 h-16 rounded-full bg-accent/20 dark:bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors duration-300">
+<span class="material-icons-outlined text-primary text-3xl">verified_user</span>
+</div>
+<h3 class="text-sm font-semibold text-gray-900 dark:text-white">Full Refund if Ship Fails to Dock</h3>
+</div>
+<div class="flex flex-col items-center text-center group">
+<div class="w-16 h-16 rounded-full bg-accent/20 dark:bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors duration-300">
+<span class="material-icons-outlined text-primary text-3xl">person_pin_circle</span>
+</div>
+<h3 class="text-sm font-semibold text-gray-900 dark:text-white">Local Tour Operator</h3>
+</div>
+<div class="flex flex-col items-center text-center group">
+<div class="w-16 h-16 rounded-full bg-accent/20 dark:bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors duration-300">
+<span class="material-icons-outlined text-primary text-3xl">electric_rickshaw</span>
+</div>
+<h3 class="text-sm font-semibold text-gray-900 dark:text-white">ATV &amp; Buggy Tours</h3>
+</div>
+<div class="flex flex-col items-center text-center group">
+<div class="w-16 h-16 rounded-full bg-accent/20 dark:bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors duration-300">
+<span class="material-icons-outlined text-primary text-3xl">pets</span>
+</div>
+<h3 class="text-sm font-semibold text-gray-900 dark:text-white">Monkey &amp; Sloth Hangout</h3>
+</div>
+<div class="flex flex-col items-center text-center group">
+<div class="w-16 h-16 rounded-full bg-accent/20 dark:bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors duration-300">
+<span class="material-icons-outlined text-primary text-3xl">landscape</span>
+</div>
+<h3 class="text-sm font-semibold text-gray-900 dark:text-white">Zipline Jungle Tours</h3>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-16 bg-background-light dark:bg-background-dark">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex flex-wrap justify-center gap-3 mb-12">
+<button class="px-6 py-2 rounded-full bg-primary text-white font-medium shadow-md">All Tours</button>
+<button class="px-6 py-2 rounded-full bg-white dark:bg-surface-dark text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:text-primary transition-all">ATV Adventures</button>
+<button class="px-6 py-2 rounded-full bg-white dark:bg-surface-dark text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:text-primary transition-all">Zip-lining</button>
+<button class="px-6 py-2 rounded-full bg-white dark:bg-surface-dark text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:text-primary transition-all">Wildlife Encounters</button>
+<button class="px-6 py-2 rounded-full bg-white dark:bg-surface-dark text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-primary dark:hover:border-primary hover:text-primary transition-all">Beach Breaks</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group flex flex-col h-full border border-gray-100 dark:border-gray-800">
+<div class="relative h-64 overflow-hidden">
+<img alt="ATV Jungle Adventure" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJ5H6kMOQfOjUT7KN2e7BdXE0gDJSJ55w09139OlwsUloMfTUGotpGDK85wBNNn0W1Yi_RqJ6rlgL7TPvrb_hZRi6Ax2l8oJ0Ovj7RSyhwBN84PSnp2RvqVfUX8GnoPFDLnswPwrC18aBXeU7Gak9ApIdH1-5hP23mOCeWL3AOhQOW35nmCNuFhl7D9w-5X-vOcRyyjW1CtmYBqSHXsyY4AKhZ8icfOurDGq9fHkOtEym-i4ZamwPi064B2db_9tSa5SWRzk775KOm"/>
+<button class="absolute top-4 right-4 w-8 h-8 bg-white/80 dark:bg-black/60 rounded-full flex items-center justify-center text-red-500 hover:bg-white transition-colors">
+<span class="material-icons-outlined text-sm">favorite_border</span>
+</button>
+<div class="absolute bottom-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Bestseller</div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<h3 class="text-xl font-display font-bold text-gray-900 dark:text-white mb-2">Island ATV Jungle Adventure</h3>
+<div class="flex items-center mb-4">
+<div class="flex text-yellow-400 text-sm">
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+</div>
+<span class="text-xs text-gray-500 dark:text-gray-400 ml-2">(106 Reviews)</span>
+</div>
+<div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
+<span class="material-icons-outlined text-sm mr-1">location_on</span>
+                             Roatan, Honduras
+                        </div>
+<div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-6">
+<span class="material-icons-outlined text-sm mr-1">schedule</span>
+                             4 hours
+                        </div>
+<div class="mt-auto flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
+<div>
+<span class="text-xs text-gray-500 dark:text-gray-400 block">From</span>
+<span class="text-2xl font-bold text-primary">$65</span>
+</div>
+<button class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-primary dark:hover:bg-primary dark:hover:text-white transition-colors flex items-center">
+                                Book Now
+                                <span class="material-icons-outlined text-sm ml-1">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group flex flex-col h-full border border-gray-100 dark:border-gray-800">
+<div class="relative h-64 overflow-hidden">
+<img alt="Sloth and Monkey Hangout" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwnsbLI0zpxMu-SAk_wIzjBznDXvdvug2rkyGeAC26S-EXJwFMAslatVpEPa03c5J79yu8_UnzhqUL2NLgaBX-nqd6G9YlNRYIhhbh_f7ysJEcfeAM-uFwJLvmLJA6LI9qKjqLoTag99_lF-AGuOzrxSuFRE7gSrQhUziIAc_EVn6ei-z2f3_H6zaVv1xrsvHrfHK0MdBNpReiO53Rn3hdX1M9XU4Xrsla2R1YO9_ZqKE7c2zG0YzM4ZjEzB1TsszHwbd_fsS-HdQe"/>
+<button class="absolute top-4 right-4 w-8 h-8 bg-white/80 dark:bg-black/60 rounded-full flex items-center justify-center text-red-500 hover:bg-white transition-colors">
+<span class="material-icons-outlined text-sm">favorite_border</span>
+</button>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<h3 class="text-xl font-display font-bold text-gray-900 dark:text-white mb-2">Monkey &amp; Sloth Sanctuary</h3>
+<div class="flex items-center mb-4">
+<div class="flex text-yellow-400 text-sm">
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star_half</span>
+</div>
+<span class="text-xs text-gray-500 dark:text-gray-400 ml-2">(89 Reviews)</span>
+</div>
+<div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
+<span class="material-icons-outlined text-sm mr-1">location_on</span>
+                             French Key, Roatan
+                        </div>
+<div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-6">
+<span class="material-icons-outlined text-sm mr-1">schedule</span>
+                             2 hours
+                        </div>
+<div class="mt-auto flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
+<div>
+<span class="text-xs text-gray-500 dark:text-gray-400 block">From</span>
+<span class="text-2xl font-bold text-primary">$45</span>
+</div>
+<button class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-primary dark:hover:bg-primary dark:hover:text-white transition-colors flex items-center">
+                                Book Now
+                                <span class="material-icons-outlined text-sm ml-1">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group flex flex-col h-full border border-gray-100 dark:border-gray-800">
+<div class="relative h-64 overflow-hidden">
+<img alt="Zipline Canopy Tour" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd7Oo0Qeupk4kKLkk0hxkBoCY7GOwK8IAyhSEDPjVP8a55Zpz09q8OFBQDjOLdU3ftS4lkvRI3r-cGxG2PlmAg8R41EC4Bg0OnKvKWCPW1uvi4BClVvvdPRmOBl_EXcJpVDwJftHYrf-qluGlMlYRygXCXw_89mFhNU_8GboQPvfJ4xLqSATgDs53vK7bk1EphsHTwZ1uiDSMb0aCP2oJW53RRYXjf77Pf-0Pt45PI2UmFM0A1Xo_CO6e8dCE5vl2odqJnCZ8QjKrG"/>
+<button class="absolute top-4 right-4 w-8 h-8 bg-white/80 dark:bg-black/60 rounded-full flex items-center justify-center text-red-500 hover:bg-white transition-colors">
+<span class="material-icons-outlined text-sm">favorite_border</span>
+</button>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<h3 class="text-xl font-display font-bold text-gray-900 dark:text-white mb-2">Extreme Zipline Canopy</h3>
+<div class="flex items-center mb-4">
+<div class="flex text-yellow-400 text-sm">
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+</div>
+<span class="text-xs text-gray-500 dark:text-gray-400 ml-2">(210 Reviews)</span>
+</div>
+<div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
+<span class="material-icons-outlined text-sm mr-1">location_on</span>
+                             West Bay, Roatan
+                        </div>
+<div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-6">
+<span class="material-icons-outlined text-sm mr-1">schedule</span>
+                             3 hours
+                        </div>
+<div class="mt-auto flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
+<div>
+<span class="text-xs text-gray-500 dark:text-gray-400 block">From</span>
+<span class="text-2xl font-bold text-primary">$55</span>
+</div>
+<button class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-primary dark:hover:bg-primary dark:hover:text-white transition-colors flex items-center">
+                                Book Now
+                                <span class="material-icons-outlined text-sm ml-1">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group flex flex-col h-full border border-gray-100 dark:border-gray-800">
+<div class="relative h-64 overflow-hidden">
+<img alt="Private Island Tour" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8KI9hQYuyjytTrAR2qG5LGF_fhk7YBpE2e8Dj-_SohXV-o_dqK9-86rsrX1mvKVKUIuCpg6ew1a4wRCsR2Ik7FdgsR8PVhSMAmxyDoh1Izaklxu2aRyZ0qLHhIMTNTd8L8B5ytBUfyz7vLudtGp7DXMnB806MwpofG_m1J0JO6yBlJ_lWxM0gr7rf9EV63w04Gtj_LeXAQP4UkCW1WCVmtEsrbIkmnsnpCHSUmmtiiLz6kTMcxo6XNbWcSf0-MopxQvEyi_HvAE2F"/>
+<button class="absolute top-4 right-4 w-8 h-8 bg-white/80 dark:bg-black/60 rounded-full flex items-center justify-center text-red-500 hover:bg-white transition-colors">
+<span class="material-icons-outlined text-sm">favorite_border</span>
+</button>
+<div class="absolute bottom-4 left-4 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">VIP</div>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<h3 class="text-xl font-display font-bold text-gray-900 dark:text-white mb-2">Private Island Tour &amp; Beach Break</h3>
+<div class="flex items-center mb-4">
+<div class="flex text-yellow-400 text-sm">
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+<span class="material-icons-outlined text-sm">star</span>
+</div>
+<span class="text-xs text-gray-500 dark:text-gray-400 ml-2">(54 Reviews)</span>
+</div>
+<div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
+<span class="material-icons-outlined text-sm mr-1">location_on</span>
+                             Roatan, Honduras
+                        </div>
+<div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-6">
+<span class="material-icons-outlined text-sm mr-1">schedule</span>
+                             5 hours
+                        </div>
+<div class="mt-auto flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
+<div>
+<span class="text-xs text-gray-500 dark:text-gray-400 block">From</span>
+<span class="text-2xl font-bold text-primary">$120</span>
+</div>
+<button class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-primary dark:hover:bg-primary dark:hover:text-white transition-colors flex items-center">
+                                Book Now
+                                <span class="material-icons-outlined text-sm ml-1">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-16 bg-gradient-to-br from-surface-light to-gray-50 dark:from-surface-dark dark:to-gray-900">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4">Why Book Direct with the Fleet Owners?</h2>
+<p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Skip the middleman fees and get the best local experience guaranteed.</p>
+</div>
+<div class="overflow-hidden rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-surface-dark">
+<div class="grid grid-cols-3 bg-secondary p-4 text-white font-semibold">
+<div class="col-span-1 pl-4">Feature</div>
+<div class="col-span-1 text-center text-accent">ATV Roatan (Direct)</div>
+<div class="col-span-1 text-center opacity-70">OTAs (Viator/Expedia)</div>
+</div>
+<div class="grid grid-cols-3 p-4 border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<div class="col-span-1 font-medium text-gray-900 dark:text-white flex items-center gap-2">
+<span class="material-icons-outlined text-primary">payments</span>
+                        Price
+                    </div>
+<div class="col-span-1 text-center font-bold text-primary">Lowest (Save $10-$20)</div>
+<div class="col-span-1 text-center text-gray-500 dark:text-gray-400">Higher (Inc. Commission)</div>
+</div>
+<div class="grid grid-cols-3 p-4 border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<div class="col-span-1 font-medium text-gray-900 dark:text-white flex items-center gap-2">
+<span class="material-icons-outlined text-primary">agriculture</span>
+                        Equipment Ownership
+                    </div>
+<div class="col-span-1 text-center font-bold text-primary">We Own The Fleet</div>
+<div class="col-span-1 text-center text-gray-500 dark:text-gray-400">Middlemen/Brokers</div>
+</div>
+<div class="grid grid-cols-3 p-4 border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<div class="col-span-1 font-medium text-gray-900 dark:text-white flex items-center gap-2">
+<span class="material-icons-outlined text-primary">groups</span>
+                        Group Size
+                    </div>
+<div class="col-span-1 text-center font-bold text-primary">Private / Small Group</div>
+<div class="col-span-1 text-center text-gray-500 dark:text-gray-400">Large Crowds</div>
+</div>
+<div class="grid grid-cols-3 p-4 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<div class="col-span-1 font-medium text-gray-900 dark:text-white flex items-center gap-2">
+<span class="material-icons-outlined text-primary">support_agent</span>
+                        Maintenance Base
+                    </div>
+<div class="col-span-1 text-center font-bold text-primary">On-site in Las Fuertes</div>
+<div class="col-span-1 text-center text-gray-500 dark:text-gray-400">None</div>
+</div>
+</div>
+<div class="mt-8 text-center">
+<button class="bg-primary text-white px-8 py-3 rounded-lg font-semibold shadow-lg hover:shadow-xl hover:bg-opacity-90 transition-all transform hover:-translate-y-1">
+                    Book Direct &amp; Save
+                </button>
+</div>
+</div>
+</section>
+<section class="py-16">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-12">
+<h2 class="text-3xl font-display font-bold text-gray-900 dark:text-white">Discover Roatan</h2>
+<p class="text-gray-600 dark:text-gray-400 mt-2">Curated experiences just for you</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-[200px]">
+<div class="col-span-1 md:col-span-2 lg:col-span-2 row-span-2 relative rounded-2xl overflow-hidden group">
+<img alt="Pristine Beach" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBta7s4miuKDux9PBjOwnm4vtH6t0FhpRpNi1eK8a5z_u0gIDHxD0Lol3qXhiVKvUdh39f2D5yPrNmv6E6Oo_UQNF9Gj9xIof989itAEwce2xjzphAOz6fcAZnUiox-0dtwRVH9T8vRCNd5Q9SqRdMpAPSHaNNEAuB71pShISi30ds8dRFjStTNJdr8YSeB4y9GnG2L-T3XQ32NDY4cSqCzYBHMPfXyeWKBnyfw9XkWzy9h1uEiF4dc2mlfkIT-PIwKs2Lf--6C_gKF"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<h3 class="text-2xl font-bold font-display mb-1">West Bay Beach</h3>
+<p class="text-sm opacity-90">Crystal clear waters &amp; white sands</p>
+</div>
+</div>
+<div class="col-span-1 row-span-2 relative rounded-2xl overflow-hidden group">
+<img alt="Jungle Hiking" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7KUdnWE-Tb0xt542ZHW6vkRYj3ip5ZhsRLlcdDtnwTQ2SStHVhSVLAQTJMT_1J_QXEfxHkcZP5BBFqrsmNi-500Aorid7CI7gkNPQ85ztQxxmbR2_a6Q6dqQ0XRKrdm0tD2vggHIXe3fK0aqQ5pZdPALw6XCA2-tSodUaSqLbLwOF8X6SWnHeAJ8j_-2aQDNmZDfnQgoaRA36a1R5bMy00YAj3sEHp_kmkPv0-Q3sFKkvoHQ_z1B1BPcs6zzUWiFLFTXrzsR5CxS7"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<h3 class="text-xl font-bold font-display mb-1">Carambola Gardens</h3>
+<p class="text-sm opacity-90">Nature trails &amp; hiking</p>
+</div>
+</div>
+<div class="col-span-1 relative rounded-2xl overflow-hidden group">
+<img alt="Local Cuisine" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxfspDYkY-ilN-9oNUV06dk1rZtdZg0LQn6-UETfBSe-BnBEEKpoXGx3cQijlkpAzge2Mwy2f2GgjP5OZrvIA8G2_MgtIhsKc1Gchw6FUOrzRQK7Qezci43zt8YoVY83WdBBCiE7alZ0TE_URgCQktGfG8fz9Fznpwhl5_8xm4bKi81d8m5Bb7-XcY8L2w0iX4sACvJ3UnY9iCwbSna3K5_26ICT_sh3F1UP0AYTro9sEc2PKHDwh-v6ifGXFmm9NbSnIwfhjEWphr"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<h3 class="text-lg font-bold font-display">Local Cuisine</h3>
+</div>
+</div>
+<div class="col-span-1 relative rounded-2xl overflow-hidden group">
+<img alt="Snorkeling" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhWm9Hh_PQFGjL46MTOwgGIpZnhcCynMnURl4WsbNUTo4submpNvuT3FGDzDpmlt1KtABm837dmmD2Xap-Kn66mrx0nd2mYG10NjWCtv6Uh3DwtXyK0HEutrR71dCujzftZA6MLPjoo-FxBTuXTVqDkfHKBYvupTFZENLqRaLxK4gsrDPU9abEl1gkus7Zj331h7rX-zCpDLtSl1hvStybGbRR2XeVWmVVSaMb658_TRo6gFvf8gCCmaKxKoF01MMjz2Dk6foZiWkG"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<h3 class="text-lg font-bold font-display">Coral Reef</h3>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer class="bg-secondary text-white py-12">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="col-span-1 md:col-span-2">
+<div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white font-display font-bold text-xl mb-4">
+                        R
+                    </div>
+<p class="text-gray-300 max-w-sm">Roatan ATV Buggy and Golf Cart Adventure Tours is the premier operator for shore excursions in Roatan. Safety, fun, and authentic experiences are our guarantee.</p>
+</div>
+<div>
+<h4 class="text-lg font-bold font-display mb-4">Quick Links</h4>
+<ul class="space-y-2 text-gray-300">
+<li><a class="hover:text-primary transition-colors" href="#">Home</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">All Tours</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Reviews</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Contact Us</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-bold font-display mb-4">Contact</h4>
+<ul class="space-y-2 text-gray-300">
+<li class="flex items-center"><span class="material-icons-outlined text-sm mr-2">email</span> info@roatanadventures.com</li>
+<li class="flex items-center"><span class="material-icons-outlined text-sm mr-2">phone</span> +504 1234-5678</li>
+<li class="flex items-center"><span class="material-icons-outlined text-sm mr-2">location_on</span> Main Street, Roatan</li>
+</ul>
+</div>
+</div>
+<div class="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400 text-sm">
+                © 2023 Roatan ATV Buggy Tours. All rights reserved.
+            </div>
+</div>
+</footer>
+
+</body></html>

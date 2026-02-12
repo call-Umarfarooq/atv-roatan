@@ -16,6 +16,16 @@ const TourSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please provide a description.'],
   },
+  activity: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Activity',
+    required: [true, 'Please select an activity.'],
+  },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category',
+    required: [true, 'Please select a category.'],
+  },
   duration: {
     type: String,
     required: true,
