@@ -127,13 +127,13 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
         <div className="space-y-3">
             {/* Pay Now */}
             <div 
-                className={`bg-white border rounded-lg cursor-pointer transition-all ${paymentType === 'pay_now' ? 'border-[#008481] ring-1 ring-[#008481]' : 'border-gray-200 hover:border-black'}`}
+                className={`bg-white border rounded-lg cursor-pointer transition-all ${paymentType === 'pay_now' ? 'border-[#15531B] ring-1 ring-[#15531B]' : 'border-gray-200 hover:border-black'}`}
                 onClick={() => setPaymentType('pay_now')}
             >
                 <div className="p-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                         <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentType === 'pay_now' ? 'border-[#008481]' : 'border-gray-300'}`}>
-                             {paymentType === 'pay_now' && <div className="w-2 h-2 bg-[#008481] rounded-full"></div>}
+                         <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentType === 'pay_now' ? 'border-[#15531B]' : 'border-gray-300'}`}>
+                             {paymentType === 'pay_now' && <div className="w-2 h-2 bg-[#15531B] rounded-full"></div>}
                         </div>
                         <span className="font-bold text-[#1a1a1a]">Pay now</span>
                     </div>
@@ -143,13 +143,13 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
 
             {/* Reserve Now & Pay Later */}
             <div 
-                className={`bg-white border rounded-lg cursor-pointer transition-all ${paymentType === 'reserve_now' ? 'border-[#008481] ring-1 ring-[#008481]' : 'border-gray-200 hover:border-black'}`}
+                className={`bg-white border rounded-lg cursor-pointer transition-all ${paymentType === 'reserve_now' ? 'border-[#15531B] ring-1 ring-[#15531B]' : 'border-gray-200 hover:border-black'}`}
                 onClick={() => setPaymentType('reserve_now')}
             >
                 <div className="p-4 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                         <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentType === 'reserve_now' ? 'border-[#008481]' : 'border-gray-300'}`}>
-                             {paymentType === 'reserve_now' && <div className="w-2 h-2 bg-[#008481] rounded-full"></div>}
+                         <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentType === 'reserve_now' ? 'border-[#15531B]' : 'border-gray-300'}`}>
+                             {paymentType === 'reserve_now' && <div className="w-2 h-2 bg-[#15531B] rounded-full"></div>}
                         </div>
                         <div>
                             <div className="font-bold text-[#1a1a1a]">Reserve Now & Pay Later</div>
@@ -184,8 +184,8 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
                     onClick={() => setPaymentMethod('card')}
                 >
                     <div className="flex items-center gap-3">
-                         <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'card' ? 'border-[#008481]' : 'border-gray-300 bg-white'}`}>
-                             {paymentMethod === 'card' && <div className="w-2 h-2 bg-[#008481] rounded-full"></div>}
+                         <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'card' ? 'border-[#15531B]' : 'border-gray-300 bg-white'}`}>
+                             {paymentMethod === 'card' && <div className="w-2 h-2 bg-[#15531B] rounded-full"></div>}
                         </div>
                         <span className="font-bold text-[#1a1a1a]">Credit or Debit Card</span>
                     </div>
@@ -217,7 +217,7 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
                              <input 
                                 type="text" 
                                 placeholder="Name on Card" 
-                                className="w-full p-2.5 border border-gray-300 rounded-md text-sm outline-none focus:border-[#008481] focus:ring-1 focus:ring-[#008481]"
+                                className="w-full p-2.5 border border-gray-300 rounded-md text-sm outline-none focus:border-[#15531B] focus:ring-1 focus:ring-[#15531B]"
                                 value={cardHolderName}
                                 onChange={(e) => setCardHolderName(e.target.value)}
                                 required
@@ -233,8 +233,8 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
                     className="p-4 flex items-center gap-3 cursor-pointer hover:bg-gray-50 transition-colors"
                     onClick={() => setPaymentMethod('paypal')}
                 >
-                     <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'paypal' ? 'border-[#008481]' : 'border-gray-300 bg-white'}`}>
-                             {paymentMethod === 'paypal' && <div className="w-2 h-2 bg-[#008481] rounded-full"></div>}
+                     <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'paypal' ? 'border-[#15531B]' : 'border-gray-300 bg-white'}`}>
+                             {paymentMethod === 'paypal' && <div className="w-2 h-2 bg-[#15531B] rounded-full"></div>}
                     </div>
                     <span className="font-bold text-[#1a1a1a]">PayPal</span>
                 </div>
@@ -261,7 +261,7 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
       <button 
         type="submit" 
         disabled={loading || (paymentType === 'pay_now' && !stripe)}
-        className={`w-full bg-[#008481] hover:bg-[#006966] text-white font-bold py-3.5 rounded-full transition-colors flex items-center justify-center gap-2 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+        className={`w-full bg-[#15531B] hover:bg-[#006966] text-white font-bold py-3.5 rounded-full transition-colors flex items-center justify-center gap-2 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
       >
         {loading ? (
              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>

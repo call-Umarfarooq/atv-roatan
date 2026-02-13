@@ -12,7 +12,8 @@ const TourCard = ({
   duration,
   description,
   currency = "$" ,
-  gallery
+  gallery,
+  additionalInfo
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
@@ -94,7 +95,25 @@ const TourCard = ({
            <span className="text-gray-500 text-sm ml-2">( {reviews} Reviews )</span>
         </div>
 
-        {/* Location */}
+        {/* Guarantee Badge */}
+        <div className="flex items-start gap-2 mb-3 text-xs font-semibold text-green-700 bg-green-50 px-2 py-1.5 rounded-lg border border-green-100">
+            <span className="text-sm mt-0.5">⏱️</span>
+            <span className="leading-tight">100% Back to Ship Guarantee, Sail Time Safe Scheduling, Peace of Mind Included</span>
+        </div>
+
+     
+
+        {/* Additional Info (Dynamic) */}
+        {additionalInfo && additionalInfo.length > 0 && (
+            <div className="mb-3 space-y-1">
+                {additionalInfo.map((info, i) => (
+                    <div key={i} className="flex items-start gap-1.5 text-xs text-gray-600">
+                        <span className="line-clamp-1">{info}</span>
+                    </div>
+                ))}
+            </div>
+        )}
+           {/* Location */}
         <div className="flex items-center gap-2 text-[#1a1a1a] text-sm mb-3">
              <MapPin size={18} />
              <span>{location}</span>

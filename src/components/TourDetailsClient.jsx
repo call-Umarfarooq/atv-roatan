@@ -131,7 +131,7 @@ export default function TourDetailsClient({ initialTour }) {
         {/* Ratings */}
         {tour.marketing_badges?.stars && (
              <div className="flex items-center">
-                <div className="flex gap-0.5 text-[#008481]">
+                <div className="flex gap-0.5 text-[#15531B]">
                     {[...Array(Math.round(tour.marketing_badges.stars))].map((_, i) => (
                     <Star key={i} size={16} fill="currentColor" stroke="none" />
                     ))}
@@ -246,21 +246,21 @@ export default function TourDetailsClient({ initialTour }) {
             {/* Quick Info Bar below images */}
             <div className="flex flex-wrap gap-x-8 gap-y-4 text-sm text-[#1a1a1a] mb-8">
                 <div className="flex items-center gap-2">
-                    <Clock className="w-5 h-5 text-[#008481]" /> 
+                    <Clock className="w-5 h-5 text-[#15531B]" /> 
                     <span className="font-normal text-gray-600">{tour.duration} (approx.)</span>
                 </div>
                 {/* <div className="flex items-center gap-2">
-                    <div className="w-5 h-5 rounded-full border-2 border-[#008481] flex items-center justify-center p-0.5">
-                        <div className="w-full h-[2px] bg-[#008481]"></div>
+                    <div className="w-5 h-5 rounded-full border-2 border-[#15531B] flex items-center justify-center p-0.5">
+                        <div className="w-full h-[2px] bg-[#15531B]"></div>
                     </div>
                      <span className="font-normal text-gray-600">Pickup offered</span>
                 </div> */}
                  <div className="flex items-center gap-2">
-                    <Ticket className="w-5 h-5 text-[#008481]" />
+                    <Ticket className="w-5 h-5 text-[#15531B]" />
                     <span className="font-normal text-gray-600">Mobile ticket</span>
                 </div>
                  <div className="flex items-center gap-2">
-                    <MessageCircle className="w-5 h-5 text-[#008481]" />
+                    <MessageCircle className="w-5 h-5 text-[#15531B]" />
                     <span className="font-normal text-gray-600">Offered in: <span className="underline cursor-pointer">English</span></span>
                 </div>
             </div>
@@ -368,7 +368,7 @@ export default function TourDetailsClient({ initialTour }) {
                                     <div className="flex items-center gap-3 text-sm text-gray-500 mb-2">
                                         {stop.stop_type === 'Stop' ? (
                                             <span className="font-bold text-[#1a1a1a] flex items-center gap-1">
-                                                <MapPin size={14} className="text-[#008481]" /> Stop
+                                                <MapPin size={14} className="text-[#15531B]" /> Stop
                                             </span>
                                         ) : stop.stop_type === 'Pass By' ? (
                                             <span className="italic text-gray-500 flex items-center gap-1">
@@ -483,6 +483,7 @@ export default function TourDetailsClient({ initialTour }) {
                         price="119"
                         duration="4-5 hours"
                         description="Explore the best of Roatan with this comprehensive island tour including wildlife encounters and snorkeling."
+                        additionalInfo={["Confirmation within 48 hours", "Not wheelchair accessible"]}
                      />
                      <TourCard 
                         image="https://picsum.photos/400/300?random=21"
@@ -493,6 +494,7 @@ export default function TourDetailsClient({ initialTour }) {
                         price="229"
                         duration="3 hours"
                         description="Sail the Caribbean waters in style with an open bar and snacks on this private catamaran charter."
+                        additionalInfo={["Near public transportation", "Most travelers can participate"]}
                      />
                      <TourCard 
                         image="https://picsum.photos/400/300?random=22"
@@ -503,6 +505,7 @@ export default function TourDetailsClient({ initialTour }) {
                         price="89"
                         duration="5 hours"
                         description="Combine adrenaline and relaxation with a jungle zipline adventure followed by beach time."
+                        additionalInfo={["Not recommended for pregnant travelers", "No heart problems"]}
                      />
                  </div>
              </section>

@@ -52,7 +52,7 @@ export default function ActivitiesPage() {
         </div>
         <Link 
             href="/admin/activities/new"
-            className="bg-[#008481] hover:bg-[#006966] text-white px-5 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-colors shadow-sm"
+            className="bg-[#15531B] hover:bg-[#006966] text-white px-5 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-colors shadow-sm"
         >
             <Plus size={18} /> Add New Activity
         </Link>
@@ -64,7 +64,7 @@ export default function ActivitiesPage() {
               <h2 className="font-bold text-[#1a1a1a]">All Activities</h2>
               <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
-                  <input type="text" placeholder="Search activities..." className="pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#008481]" />
+                  <input type="text" placeholder="Search activities..." className="pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#15531B]" />
               </div>
           </div>
           

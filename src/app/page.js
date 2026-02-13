@@ -8,6 +8,7 @@ import WhyChooseUs from "@/components/WhyChooseUs";
 import ThingsToDo from "@/components/ThingsToDo";
 import mongoose from "mongoose";
 import "@/models/Activity"; // Ensure model is registered
+import ReviewLinks from "@/components/ReviewLinks";
 
 // Force dynamic rendering to ensure fresh data
 export const dynamic = 'force-dynamic';
@@ -44,7 +45,6 @@ console.log(tours);
           <h1 className="text-white text-4xl md:text-6xl font-light tracking-wide mb-4 drop-shadow-md">
             Roatan Shore Excursions
           </h1>
-          <div className="w-24 h-1 bg-[#008481] rounded-full mb-6"></div>
           <span className="text-white/90 text-sm md:text-xl uppercase tracking-widest mb-2 font-medium">Operated By</span>
           <h2 className="text-white text-2xl md:text-4xl font-bold tracking-wide drop-shadow-lg">
             Roatan ATV Buggy and Golf Cart Adventure Tours
@@ -58,6 +58,8 @@ console.log(tours);
       <WhyChooseUs />
 
       <ThingsToDo activities={serializedActivities} />
+      
+      <ReviewLinks />
     </main>
   );
 }

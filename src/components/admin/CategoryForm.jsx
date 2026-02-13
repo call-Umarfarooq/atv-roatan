@@ -97,7 +97,7 @@ export default function CategoryForm({ initialData = null, isEdit = false }) {
             <button 
                 type="submit" 
                 disabled={loading}
-                className="bg-[#008481] hover:bg-[#006966] text-white px-8 py-2 rounded-lg font-bold flex items-center gap-2 transition-colors disabled:opacity-50 shadow-md"
+                className="bg-[#15531B] hover:bg-[#006966] text-white px-8 py-2 rounded-lg font-bold flex items-center gap-2 transition-colors disabled:opacity-50 shadow-md"
             >
                 <Save size={18} /> {loading ? 'Saving...' : 'Save Category'}
             </button>
@@ -109,7 +109,7 @@ export default function CategoryForm({ initialData = null, isEdit = false }) {
           <div className="space-y-4">
               <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                  <input required name="name" value={formData.name} onChange={handleChange} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#008481] focus:border-transparent outline-none text-[#1a1a1a]" />
+                  <input required name="name" value={formData.name} onChange={handleChange} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#15531B] focus:border-transparent outline-none text-[#1a1a1a]" />
               </div>
               <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Slug</label>

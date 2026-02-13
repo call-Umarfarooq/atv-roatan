@@ -36,7 +36,7 @@ const StepIndicator = ({ step, currentStep, title }) => {
     return (
         <div className={`flex items-center gap-3 ${isCurrent ? 'text-black' : 'text-gray-400'}`}>
             <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-colors
-                ${isCompleted ? 'bg-[#008481] text-white' : isCurrent ? 'bg-black text-white' : 'bg-gray-200 text-gray-500'}
+                ${isCompleted ? 'bg-[#15531B] text-white' : isCurrent ? 'bg-black text-white' : 'bg-gray-200 text-gray-500'}
             `}>
                 {isCompleted ? <Check size={16} /> : step}
             </div>
@@ -97,7 +97,7 @@ export default function CheckoutPage() {
                               <div className="text-xs text-gray-500">Book faster and manage your reservations.</div>
                           </div>
                       </div>
-                      <button className="text-[#008481] font-bold text-sm hover:underline">Log in</button>
+                      <button className="text-[#15531B] font-bold text-sm hover:underline">Log in</button>
                   </div>
               )}
 
@@ -105,7 +105,7 @@ export default function CheckoutPage() {
               <div className={`bg-white p-6 rounded-xl border transition-all ${step === 1 ? 'border-gray-200 shadow-sm' : 'border-transparent'}`}>
                   <div className="flex justify-between items-start mb-6">
                     <h2 className="text-xl font-bold flex items-center gap-3">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${step > 1 ? 'bg-[#008481] text-white' : 'bg-black text-white'}`}>
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${step > 1 ? 'bg-[#15531B] text-white' : 'bg-black text-white'}`}>
                             {step > 1 ? <Check size={16} /> : '1'}
                         </div>
                         Contact details
@@ -140,7 +140,7 @@ export default function CheckoutPage() {
                <div className={`bg-white p-6 rounded-xl border transition-all ${step === 2 ? 'border-gray-200 shadow-sm' : 'border-transparent'}`}>
                   <div className="flex justify-between items-start mb-6">
                     <h2 className="text-xl font-bold flex items-center gap-3">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${step > 2 ? 'bg-[#008481] text-white' : step === 2 ? 'bg-black text-white' : 'bg-gray-200 text-gray-500'}`}>
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${step > 2 ? 'bg-[#15531B] text-white' : step === 2 ? 'bg-black text-white' : 'bg-gray-200 text-gray-500'}`}>
                             {step > 2 ? <Check size={16} /> : '2'}
                         </div>
                         Activity details
@@ -332,7 +332,7 @@ export default function CheckoutPage() {
               </div>
               
               <div className="mt-6 text-center">
-                   <div className="flex items-center justify-center gap-1 text-xs text-[#008481] font-bold">
+                   <div className="flex items-center justify-center gap-1 text-xs text-[#15531B] font-bold">
                        <p>Book with confidence</p>
                    </div>
                    <div className="flex items-center justify-center gap-1 mt-2">
@@ -400,7 +400,7 @@ function ContactForm({ onNext }) {
             </div>
 
             <div className="pt-4">
-                <button type="submit" className="bg-[#008481] hover:bg-[#006966] text-white font-bold py-3 px-8 rounded-full transition-colors w-full sm:w-auto">Next</button>
+                <button type="submit" className="bg-[#15531B] hover:bg-[#006966] text-white font-bold py-3 px-8 rounded-full transition-colors w-full sm:w-auto">Next</button>
             </div>
         </form>
     )
@@ -460,7 +460,7 @@ function ActivityForm({ travelers, pickupConfig, onNext, onBack }) {
     const getInputClass = (fieldName) => {
         return errors[fieldName] 
             ? "w-full p-2.5 bg-[#feF2F2] border border-red-500 rounded text-sm outline-none focus:border-red-500 placeholder-red-400"
-            : "w-full p-2.5 bg-white border border-gray-300 rounded text-sm outline-none focus:border-[#008481] focus:ring-1 focus:ring-[#008481]";
+            : "w-full p-2.5 bg-white border border-gray-300 rounded text-sm outline-none focus:border-[#15531B] focus:ring-1 focus:ring-[#15531B]";
     };
 
     return (
@@ -484,13 +484,13 @@ function ActivityForm({ travelers, pickupConfig, onNext, onBack }) {
                 
                 <div className="space-y-3">
                     {pickupConfig?.pickup_offered && (
-                        <div className={`bg-white border transition-all rounded-lg overflow-hidden ${meetingType === 'pickup' ? 'border-[#008481] ring-1 ring-[#008481]' : 'border-gray-200 hover:border-black'}`}>
+                        <div className={`bg-white border transition-all rounded-lg overflow-hidden ${meetingType === 'pickup' ? 'border-[#15531B] ring-1 ring-[#15531B]' : 'border-gray-200 hover:border-black'}`}>
                              <div 
                                 className="p-3 cursor-pointer flex items-center gap-3"
                                 onClick={() => handleMeetingChange('pickup')}
                              >
-                                <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${meetingType === 'pickup' ? 'border-[#008481]' : 'border-gray-300'}`}>
-                                     {meetingType === 'pickup' && <div className="w-2 h-2 bg-[#008481] rounded-full"></div>}
+                                <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${meetingType === 'pickup' ? 'border-[#15531B]' : 'border-gray-300'}`}>
+                                     {meetingType === 'pickup' && <div className="w-2 h-2 bg-[#15531B] rounded-full"></div>}
                                 </div>
                                 <label className="text-sm font-medium cursor-pointer flex-1 text-[#1a1a1a]">Select a meeting point</label>
                              </div>
@@ -533,7 +533,7 @@ function ActivityForm({ travelers, pickupConfig, onNext, onBack }) {
                                                     }}
                                                     className="flex items-start gap-3 p-3 hover:bg-gray-50 cursor-pointer border-b last:border-0 border-gray-100"
                                                 >
-                                                    {loc.type === 'Port' ? <Anchor size={18} className="text-[#008481] mt-1" /> : <Building size={18} className="text-[#008481] mt-1" />}
+                                                    {loc.type === 'Port' ? <Anchor size={18} className="text-[#15531B] mt-1" /> : <Building size={18} className="text-[#15531B] mt-1" />}
                                                     <div>
                                                     <div className="font-bold text-[#1a1a1a] text-sm">{loc.name}</div>
                                                     <div className="text-xs text-gray-500">{loc.address}</div>
@@ -596,11 +596,11 @@ function ActivityForm({ travelers, pickupConfig, onNext, onBack }) {
                     )}
                     
                      <div 
-                        className={`bg-white border p-3 rounded-lg cursor-pointer flex items-center gap-3 transition-colors ${meetingType === 'later' ? 'border-[#008481] ring-1 ring-[#008481]' : 'border-gray-200 hover:border-black'}`}
+                        className={`bg-white border p-3 rounded-lg cursor-pointer flex items-center gap-3 transition-colors ${meetingType === 'later' ? 'border-[#15531B] ring-1 ring-[#15531B]' : 'border-gray-200 hover:border-black'}`}
                         onClick={() => handleMeetingChange('later')}
                      >
-                            <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${meetingType === 'later' ? 'border-[#008481]' : 'border-gray-300'}`}>
-                                {meetingType === 'later' && <div className="w-2 h-2 bg-[#008481] rounded-full"></div>}
+                            <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${meetingType === 'later' ? 'border-[#15531B]' : 'border-gray-300'}`}>
+                                {meetingType === 'later' && <div className="w-2 h-2 bg-[#15531B] rounded-full"></div>}
                             </div>
                             <label className="text-sm font-medium cursor-pointer flex-1 text-[#1a1a1a]">I'll decide later</label>
                     </div>
@@ -608,7 +608,7 @@ function ActivityForm({ travelers, pickupConfig, onNext, onBack }) {
             </div>
 
             <div className="pt-4 flex items-center gap-4">
-                <button type="submit" className="bg-[#008481] hover:bg-[#006966] text-white font-bold py-3 px-8 rounded-full transition-colors">Next</button>
+                <button type="submit" className="bg-[#15531B] hover:bg-[#006966] text-white font-bold py-3 px-8 rounded-full transition-colors">Next</button>
             </div>
         </form>
     )
