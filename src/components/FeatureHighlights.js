@@ -1,29 +1,29 @@
 import React from 'react';
-import { Anchor, ShieldCheck, MapPin, Car, PawPrint, Mountain } from 'lucide-react';
+import Image from 'next/image';
 
 const features = [
   {
-    icon: <Anchor className="w-6 h-6 text-[#15531B]" />,
+    image: '/images/icon1.jpg.jpeg',
     title: 'Back to Ship\nGuarantee',
   },
   {
-    icon: <ShieldCheck className="w-6 h-6 text-[#15531B]" />,
+    image: '/images/icon2.jpeg',
     title: 'Full Refund\nGuarantee',
   },
   {
-    icon: <MapPin className="w-6 h-6 text-[#15531B]" />,
+    image: '/images/icon3.jpeg',
     title: 'Local\nOperator',
   },
   {
-    icon: <Car className="w-6 h-6 text-[#15531B]" />,
+    image: '/images/icon4.jpeg',
     title: 'ATV Buggy\nTours',
   },
   {
-    icon: <PawPrint className="w-6 h-6 text-[#15531B]" />,
+    image: '/images/icon5.jpeg',
     title: 'Sloth\nHangout',
   },
   {
-    icon: <Mountain className="w-6 h-6 text-[#15531B]" />,
+    image: '/images/icon6.jpeg',
     title: 'Zipline\nTours',
   },
 ];
@@ -39,8 +39,15 @@ const FeatureHighlights = () => {
                 key={index}
                 className="flex flex-col items-center text-center group w-full"
               >
-                <div className="mb-4 p-4 bg-[#E0F2F1] rounded-full group-hover:scale-110 transition-transform duration-300">
-                  {feature.icon}
+                <div className="mb-4 p-1 bg-[#E0F2F1] rounded-full shadow-md group-hover:scale-110 transition-transform duration-300 w-20 h-20 flex items-center justify-center">
+                  <div className="relative w-14 h-14">
+                    <Image
+                      src={feature.image}
+                      alt={feature.title.replace('\n', ' ')}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
                 <p className="text-sm font-bold text-gray-800 leading-tight whitespace-pre-line group-hover:text-[#15531B] transition-colors">
                   {feature.title}
