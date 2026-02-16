@@ -1,5 +1,5 @@
-
 import Tour from '@/models/Tour';
+import Location from '@/models/Location';
 import dbConnect from '@/lib/db';
 import TourDetailsClient from '@/components/TourDetailsClient';
 

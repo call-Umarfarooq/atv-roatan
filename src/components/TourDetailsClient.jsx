@@ -84,20 +84,26 @@ export default function TourDetailsClient({ initialTour }) {
     }));
   };
 
+  const images = [tour.image_url, ...(tour.gallery || [])].filter(Boolean);
+
   const nextImage = () => {
-    if (!tour?.gallery) return;
-    setCurrentImageIndex((prev) => (prev + 1) % tour.gallery.length);
+    if (images.length === 0) return;
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
   };
 
   const prevImage = () => {
-    if (!tour?.gallery) return;
-    setCurrentImageIndex((prev) => (prev - 1 + tour.gallery.length) % tour.gallery.length);
+    if (images.length === 0) return;
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  const handleShare = () => {
+      navigator.clipboard.writeText(window.location.href);
+      // Optional: You could add a toast notification here instead of alert
+      alert('Link copied to clipboard!');
   };
 
   if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   if (error || !tour) return <div className="min-h-screen flex items-center justify-center text-red-500">{error || 'Tour not found'}</div>;
-
-  const images = tour.gallery && tour.gallery.length > 0 ? tour.gallery : [tour.image_url];
 
   return (
     <div className="bg-white min-h-screen font-sans text-[#1a1a1a] pb-20">
@@ -220,11 +226,11 @@ export default function TourDetailsClient({ initialTour }) {
                      
                      {/* Overlay Buttons */}
                      <div className="absolute top-4 right-4 flex gap-3">
-                         <button className="bg-white hover:bg-gray-100 text-[#1a1a1a] px-4 py-2 rounded-full font-bold flex items-center gap-2 shadow-sm transition-colors text-sm">
+                         <button 
+                            onClick={handleShare}
+                            className="bg-white hover:bg-gray-100 text-[#1a1a1a] px-4 py-2 rounded-full font-bold flex items-center gap-2 shadow-sm transition-colors text-sm"
+                         >
                              <Share size={16} /> Share
-                         </button>
-                         <button className="bg-white hover:bg-gray-100 text-[#1a1a1a] px-4 py-2 rounded-full font-bold flex items-center gap-2 shadow-sm transition-colors text-sm">
-                             <Heart size={16} /> Add to Wishlist
                          </button>
                      </div>
 
