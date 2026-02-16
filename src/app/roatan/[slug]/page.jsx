@@ -5,13 +5,14 @@ import TourDetailsClient from '@/components/TourDetailsClient';
 
 async function getTour(slug) {
   await dbConnect();
-  const tour = await Tour.findOne({ slug }).lean(); // .lean() for plain JS objects
+  const tour = await Tour.findOne({ slug })
+    .populate('pickup_configuration.pickup_locations')
+    .lean();
+
   if (tour) {
-    tour._id = tour._id.toString();
-    tour.createdAt = tour.createdAt?.toString();
-    tour.updatedAt = tour.updatedAt?.toString();
+    return JSON.parse(JSON.stringify(tour));
   }
-  return tour;
+  return null;
 }
 
 export async function generateMetadata({ params }) {

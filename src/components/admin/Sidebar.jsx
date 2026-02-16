@@ -17,7 +17,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <div className="w-64 bg-white h-screen border-r border-gray-200 flex flex-col fixed left-0 top-0">
+    <div className="w-64 bg-white h-screen border-r border-gray-200 flex flex-col fixed left-0 top-40">
       <div className="p-6 flex items-center gap-2 border-b border-gray-100">
         <div className="w-8 h-8 bg-[#15531B] rounded-lg flex items-center justify-center">
             <Compass className="text-white w-5 h-5" />

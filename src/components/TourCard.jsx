@@ -1,6 +1,8 @@
+"use client";
 import React, { useState } from 'react';
 import { Heart, Star, MapPin, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getImageUrl } from '@/utils/imageUrl';
+import Link from 'next/link';
 
 const TourCard = ({ 
   image, 
@@ -13,7 +15,9 @@ const TourCard = ({
   description,
   currency = "$" ,
   gallery,
-  additionalInfo
+  additionalInfo,
+  cutoff_price,
+  slug
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
@@ -38,7 +42,10 @@ const TourCard = ({
   };
 
   return (
-    <div className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer border border-gray-100 flex flex-col h-full">
+    <Link href={slug ? `/roatan/${slug}` : '#'} className="block h-full"> 
+    <div 
+        className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer border border-gray-100 flex flex-col h-full"
+    >
       {/* Image Container */}
       <div className="relative h-56 overflow-hidden">
         <img 
@@ -66,7 +73,14 @@ const TourCard = ({
         )}
 
         {/* Wishlist Button */}
-        <button className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-sm hover:bg-gray-50 transition-colors z-10">
+        <button 
+            onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                // Add wishlist logic here later
+            }}
+            className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-sm hover:bg-gray-50 transition-colors z-10"
+        >
           <Heart size={18} className="text-gray-700" />
         </button>
       </div>
@@ -82,6 +96,11 @@ const TourCard = ({
         {/* Price */}
         <div className="flex items-baseline gap-1 mb-2">
             <span className="text-gray-500 text-sm font-medium">from</span>
+            {cutoff_price && (
+                <span className="text-gray-400 text-sm line-through decoration-gray-400 decoration-1">
+                    {currency}{cutoff_price}
+                </span>
+            )}
             <span className="text-[#1a1a1a] font-extrabold text-xl">{currency}{price}</span>
         </div>
 
@@ -99,6 +118,16 @@ const TourCard = ({
         <div className="flex items-start gap-2 mb-3 text-xs font-semibold text-green-700 bg-green-50 px-2 py-1.5 rounded-lg border border-green-100">
             <span className="text-sm mt-0.5">⏱️</span>
             <span className="leading-tight">100% Back to Ship Guarantee, Sail Time Safe Scheduling, Peace of Mind Included</span>
+        </div>
+
+        {/* Best Price Guarantee */}
+        <div className="flex items-center gap-2 mb-3 text-xs text-gray-700 bg-blue-50/50 px-2 py-1.5 rounded-lg border border-blue-100">
+            <div className="bg-red-600 rounded-full w-6 h-6 flex items-center justify-center shrink-0 border border-white shadow-sm">
+                 <div className="text-white text-[6px] font-bold text-center leading-none">
+                    BEST<br/>PRICE
+                </div>
+            </div>
+            <span className="leading-tight font-medium">Best Price Guarantee: We'll refund 110% of the difference!</span>
         </div>
 
      
@@ -140,6 +169,7 @@ const TourCard = ({
         </div>
       </div>
     </div>
+    </Link>
   );
 };
 

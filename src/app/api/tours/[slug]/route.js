@@ -9,7 +9,7 @@ export async function GET(request, { params }) {
   const { slug } = await params;
 
   try {
-    const tour = await Tour.findOne({ slug });
+    const tour = await Tour.findOne({ slug }).populate('pickup_configuration.pickup_locations');
 
     if (!tour) {
       return NextResponse.json({ success: false, error: 'Tour not found' }, { status: 404 });
@@ -30,7 +30,7 @@ export async function PUT(request, { params }) {
     const tour = await Tour.findOneAndUpdate({ slug }, body, {
       new: true,
       runValidators: true,
-    });
+    }).populate('pickup_configuration.pickup_locations');
 
     if (!tour) {
       return NextResponse.json({ success: false, error: 'Tour not found' }, { status: 404 });

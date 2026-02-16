@@ -1,12 +1,18 @@
-"use client";
-import React, { useState } from 'react';
-import { Search, MapPin, Building, Anchor, Check, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
-
-export default function PickupSelector({ configuration }) {
+import React, { useState, useEffect } from 'react';
+import { Search, MapPin, Building, Anchor, Check, ChevronDown, ChevronUp } from 'lucide-react';
+export default function PickupSelector({ configuration, selectedLocation, onSelect }) {
   const [search, setSearch] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+
+  // Sync search input with selected location name if one is provided
+  useEffect(() => {
+    if (selectedLocation) {
+        setSearch(selectedLocation.name);
+    } else {
+        setSearch('');
+    }
+  }, [selectedLocation]);
 
   if (!configuration?.pickup_offered) {
     return (
@@ -21,13 +27,32 @@ export default function PickupSelector({ configuration }) {
     );
   }
 
-  const locations = configuration.pickup_locations || [];
+  const [locations, setLocations] = useState([]);
+
+  useEffect(() => {
+      const fetchLocations = async () => {
+          try {
+              const res = await fetch('/api/locations');
+              const data = await res.json();
+              if (data.success) {
+                  setLocations(data.data);
+              }
+          } catch (error) {
+              console.error('Failed to fetch locations', error);
+          }
+      };
+
+      if (configuration?.pickup_offered) {
+          fetchLocations();
+      }
+  }, [configuration?.pickup_offered]);
+
   const filteredLocations = locations.filter(loc => 
-    loc.name.toLowerCase().includes(search.toLowerCase())
+    loc && loc.name && loc.name.toLowerCase().includes(search.toLowerCase())
   );
 
   const handleSelect = (loc) => {
-    setSelectedLocation(loc);
+    if (onSelect) onSelect(loc);
     setSearch(loc.name);
     setIsDropdownOpen(false);
   };
@@ -64,7 +89,7 @@ export default function PickupSelector({ configuration }) {
             {isDropdownOpen && (
               <div 
                 onMouseDown={(e) => e.preventDefault()}
-                className="absolute top-full left-0 w-full bg-white border border-gray-200 rounded-lg shadow-xl mt-1 max-h-60 overflow-y-auto z-10"
+                className="w-full bg-white border border-gray-200 rounded-lg shadow-xl mt-1 max-h-60 overflow-y-auto"
               >
                 {filteredLocations.map((loc, i) => (
                   <div 
@@ -89,7 +114,7 @@ export default function PickupSelector({ configuration }) {
           /* Selected State Card (Click to Change) */
           <div>
             <div 
-                onClick={() => { setSelectedLocation(null); setSearch(''); setIsDropdownOpen(true); }}
+                onClick={() => { if (onSelect) onSelect(null); setSearch(''); setIsDropdownOpen(true); }}
                 className="rounded-md border border-[#15531B] bg-white p-3 flex justify-between items-center cursor-pointer hover:bg-gray-50 transition-colors"
                 title="Click to change"
             >

@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 const features = [
   {
-    image: '/images/icon1.jpg.jpeg',
+    image: '/images/icon6.jpeg',
     title: 'Back to Ship\nGuarantee',
   },
   {
@@ -15,15 +15,18 @@ const features = [
     title: 'Local\nOperator',
   },
   {
-    image: '/images/icon4.jpeg',
+    
+    image: '/images/icon5.jpeg',
     title: 'ATV Buggy\nTours',
   },
   {
-    image: '/images/icon5.jpeg',
+    image: '/images/icon4.jpeg',
+    
     title: 'Sloth\nHangout',
   },
   {
-    image: '/images/icon6.jpeg',
+    
+    image: '/images/icon1.jpg.jpeg',
     title: 'Zipline\nTours',
   },
 ];

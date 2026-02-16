@@ -34,6 +34,9 @@ const TourSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  cutoff_price: {
+    type: Number,
+  },
   adultPrice: {
     type: Number,
   },
@@ -103,10 +106,8 @@ const TourSchema = new mongoose.Schema({
   pickup_configuration: {
     pickup_offered: { type: Boolean, default: false },
     pickup_locations: [{
-      name: String, 
-      address: String,
-      type: { type: String, enum: ['Hotel', 'Port', 'Other'], default: 'Hotel' },
-      google_maps_url: String
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Location'
     }],
     pickup_instructions: String, // The long text explaining where to wait (e.g. "At Mahogany Bay Port...")
     meeting_point_name: String, // Fallback if no pickup

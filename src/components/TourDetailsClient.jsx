@@ -36,6 +36,7 @@ export default function TourDetailsClient({ initialTour }) {
   const [error, setError] = useState(null);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [selectedPickup, setSelectedPickup] = useState(null);
 
   const [expandedSections, setExpandedSections] = useState({
     whatsIncluded: true,
@@ -267,7 +268,7 @@ export default function TourDetailsClient({ initialTour }) {
             
              {/* Mobile Booking Widget */}
              <div className="block lg:hidden mb-8">
-                 <BookingWidget tour={tour} />
+                 <BookingWidget tour={tour} selectedPickup={selectedPickup} />
              </div>
             
              <hr className="border-gray-200 mb-8" />
@@ -327,6 +328,21 @@ export default function TourDetailsClient({ initialTour }) {
               </div>
             </section>
 
+             {/* Best Price Guarantee */}
+             <div className="flex items-start gap-4 bg-blue-50/50 p-4 rounded-xl border border-blue-100 my-6">
+                <div className="bg-red-600 rounded-full w-12 h-12 flex items-center justify-center shrink-0 border-2 border-white shadow-sm">
+                    <div className="text-white text-[10px] font-bold text-center leading-tight">
+                        BEST<br/>PRICE
+                    </div>
+                </div>
+                <div>
+                    <h3 className="font-bold text-[#1a1a1a] text-lg mb-1">The Best Price Guarantee</h3>
+                    <p className="text-gray-600 text-sm leading-relaxed">
+                        Find a better price for any excursion we offer and we will refund you 110% of the price difference!*
+                    </p>
+                </div>
+             </div>
+
             <hr className="border-gray-200 my-6" />
 
              <section>
@@ -340,7 +356,11 @@ export default function TourDetailsClient({ initialTour }) {
                 
                 <div className={`grid transition-[grid-template-rows] duration-500 ease-in-out ${expandedSections.meetingPickup ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
                     <div className="overflow-hidden">
-                        <PickupSelector configuration={tour.pickup_configuration} />
+                        <PickupSelector 
+                          configuration={tour.pickup_configuration} 
+                          selectedLocation={selectedPickup}
+                          onSelect={setSelectedPickup}
+                        />
                     </div>
                 </div>
              </section>
@@ -515,7 +535,7 @@ export default function TourDetailsClient({ initialTour }) {
           {/* Right Sidebar */}
           <div className="lg:col-span-1 hidden lg:block">
             <div className="sticky top-24">
-                <BookingWidget tour={tour} />
+                <BookingWidget tour={tour} selectedPickup={selectedPickup} />
             </div>
           </div>
 

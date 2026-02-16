@@ -24,7 +24,7 @@ const CARD_ELEMENT_OPTIONS = {
 export default function PaymentSection({ bookingData, onPaymentComplete }) {
   const stripe = useStripe();
   const elements = useElements();
-  const [paymentType, setPaymentType] = useState('pay_now'); // 'pay_now' | 'reserve_now'
+  const [paymentType, setPaymentType] = useState(bookingData?.paymentOption || 'pay_now'); // Respect selected option
   const [paymentMethod, setPaymentMethod] = useState('card'); // 'card' | 'paypal'
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -62,7 +62,7 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
     setErrorMessage(null);
 
     // Handle Reserve Now (No Payment needed immediately, or just auth)
-    if (paymentType === 'reserve_now') {
+    if (paymentType === 'reserve_later') {
          // Just proceed to create booking as 'pending' or 'pay_later'
          onPaymentComplete({ 
             method: 'reserve_now', 
@@ -121,47 +121,34 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
       
-      {/* Choose when to pay */}
-      <div>
-        <h3 className="font-bold text-sm mb-3">Choose when to pay</h3>
-        <div className="space-y-3">
-            {/* Pay Now */}
-            <div 
-                className={`bg-white border rounded-lg cursor-pointer transition-all ${paymentType === 'pay_now' ? 'border-[#15531B] ring-1 ring-[#15531B]' : 'border-gray-200 hover:border-black'}`}
-                onClick={() => setPaymentType('pay_now')}
-            >
-                <div className="p-4 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                         <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentType === 'pay_now' ? 'border-[#15531B]' : 'border-gray-300'}`}>
-                             {paymentType === 'pay_now' && <div className="w-2 h-2 bg-[#15531B] rounded-full"></div>}
-                        </div>
-                        <span className="font-bold text-[#1a1a1a]">Pay now</span>
-                    </div>
-                    <span className="font-bold text-[#1a1a1a]">${bookingData.totalPrice.toFixed(2)}</span>
-                </div>
-            </div>
-
-            {/* Reserve Now & Pay Later */}
-            <div 
-                className={`bg-white border rounded-lg cursor-pointer transition-all ${paymentType === 'reserve_now' ? 'border-[#15531B] ring-1 ring-[#15531B]' : 'border-gray-200 hover:border-black'}`}
-                onClick={() => setPaymentType('reserve_now')}
-            >
-                <div className="p-4 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                         <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentType === 'reserve_now' ? 'border-[#15531B]' : 'border-gray-300'}`}>
-                             {paymentType === 'reserve_now' && <div className="w-2 h-2 bg-[#15531B] rounded-full"></div>}
+      {/* Selected Payment Option (Read Only) */}
+      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+        <h3 className="font-bold text-sm mb-2 text-gray-500 uppercase tracking-wider">Payment Option</h3>
+        <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+                {paymentType === 'pay_now' ? (
+                    <>
+                        <div className="w-5 h-5 rounded-full bg-[#15531B] flex items-center justify-center">
+                            <CreditCard size={12} className="text-white" />
                         </div>
                         <div>
-                            <div className="font-bold text-[#1a1a1a]">Reserve Now & Pay Later</div>
-                            <div className="text-xs text-gray-500">No extra fees. You'll be charged ${bookingData.totalPrice.toFixed(2)} later.</div>
+                            <span className="font-bold text-[#1a1a1a] block">Pay Now</span>
+                            <span className="text-xs text-[#15531B] font-bold">2% Discount Applied</span>
                         </div>
-                    </div>
-                    <div className="text-right">
-                        <span className="font-bold text-[#1a1a1a] block">$0.00</span>
-                        <span className="text-xs text-gray-500">now</span>
-                    </div>
-                </div>
+                    </>
+                ) : (
+                    <>
+                        <div className="w-5 h-5 rounded-full bg-gray-500 flex items-center justify-center">
+                            <Calendar size={12} className="text-white" />
+                        </div>
+                        <div>
+                            <span className="font-bold text-[#1a1a1a] block">Reserve Now & Pay Later</span>
+                            <span className="text-xs text-gray-500">Pay on arrival</span>
+                        </div>
+                    </>
+                )}
             </div>
+            <div className="font-bold text-[#1a1a1a] text-lg">${bookingData.totalPrice.toFixed(2)}</div>
         </div>
       </div>
 

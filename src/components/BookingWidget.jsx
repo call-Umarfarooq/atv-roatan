@@ -5,7 +5,7 @@ import { Check, ChevronDown, Users, Flame, Ticket, Minus, Plus, Loader2 } from '
 import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
 
-const BookingWidget = ({ tour, className = "" }) => {
+const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
   const [date, setDate] = useState(new Date());
   const [showTravelers, setShowTravelers] = useState(false);
   const [travelers, setTravelers] = useState({
@@ -55,17 +55,31 @@ const BookingWidget = ({ tour, className = "" }) => {
 
   const router = useRouter();
 
-  const handleBooking = async () => {
+  const handleBooking = async (paymentOption) => {
+      if (travelers.adults < 2) {
+        alert('A minimum of 2 adults is required to book this tour.');
+        return;
+      }
       setLoading(true);
       
+      let finalPrice = totalPrice;
+      if (paymentOption === 'pay_now') {
+          // Apply 2% Discount
+          finalPrice = totalPrice * 0.98;
+      }
+
       const bookingData = {
           tour,
           date,
           travelers,
-          totalPrice,
+          totalPrice: finalPrice, // Use potentially discounted price
+          originalPrice: totalPrice,
+          discountApplied: paymentOption === 'pay_now' ? '2% Pay Now Discount' : null,
           adultPrice: ADULT_PRICE,
           childPrice: CHILD_PRICE,
-          selectedExtras
+          selectedExtras,
+          initialPickup: selectedPickup,
+          paymentOption: paymentOption // 'pay_now' or 'reserve_later'
       };
 
       try {
@@ -88,6 +102,11 @@ const BookingWidget = ({ tour, className = "" }) => {
         <div className="mb-6">
           <div className="flex items-baseline gap-1">
             <span className="text-sm text-gray-500">From</span>
+            {tour?.cutoff_price && (
+                 <span className="text-gray-400 text-lg line-through decoration-gray-400 decoration-1 mr-1">
+                    ${tour.cutoff_price}
+                </span>
+            )}
             <span className="text-3xl font-bold text-[#1a1a1a]">${ADULT_PRICE}</span>
             <span className="text-sm text-gray-500">per person</span>
           </div>
@@ -269,19 +288,26 @@ const BookingWidget = ({ tour, className = "" }) => {
         {/* Action Buttons */}
         <div className="space-y-3">
             <button 
-                onClick={handleBooking}
+                onClick={() => handleBooking('reserve_later')}
                 disabled={loading}
-                className="w-full bg-white hover:bg-gray-50 text-[#1a1a1a] border border-[#1a1a1a] font-bold py-2 rounded-[10px] transition-colors text-lg shadow-sm disabled:opacity-70 disabled:cursor-not-allowed mb-3"
+                className="w-full bg-white hover:bg-gray-50 text-[#1a1a1a] border border-[#1a1a1a] font-bold py-3 rounded-[10px] transition-colors text-lg shadow-sm disabled:opacity-70 disabled:cursor-not-allowed mb-3"
             >
               {loading ? <Loader2 className="animate-spin mx-auto" /> : 'Reserve Now & Pay Later'}
             </button>
-            <button 
-                onClick={handleBooking}
-                 disabled={loading}
-                className="w-full bg-[#15531B] hover:bg-[#006966] text-white font-bold py-2 rounded-[10px] transition-colors text-lg shadow-sm disabled:opacity-70 disabled:cursor-not-allowed"
-            >
-              Book Now
-            </button>
+            <div className="relative">
+                {/* Marketing Badge */}
+                <div className="absolute -top-3 right-0 bg-red-100 text-red-600 text-[10px] font-bold px-2 py-0.5 rounded-full border border-red-200 animate-pulse">
+                    Save 2% instantly!
+                </div>
+                <button 
+                    onClick={() => handleBooking('pay_now')}
+                    disabled={loading}
+                    className="w-full bg-[#15531B] hover:bg-[#006966] text-white font-bold py-3 rounded-[10px] transition-colors text-lg shadow-sm disabled:opacity-70 disabled:cursor-not-allowed flex flex-col items-center justify-center leading-tight"
+                >
+                    <span>Book Now</span>
+                    <span className="text-[10px] font-normal opacity-90">Pay now & save 2%</span>
+                </button>
+            </div>
         </div>
 
 

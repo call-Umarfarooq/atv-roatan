@@ -12,6 +12,9 @@ export default function TourForm({ initialData = null, isEdit = false }) {
   const [uploading, setUploading] = useState(false);
   const [activities, setActivities] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [locations, setLocations] = useState([]);
+  const [newLocation, setNewLocation] = useState({ name: '', address: '', type: 'Hotel' });
+  const [showAddLocation, setShowAddLocation] = useState(false);
   
   const [formData, setFormData] = useState({
     title: '',
@@ -19,6 +22,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
     description: '',
     duration: '',
     base_price: '',
+    cutoff_price: '',
     adultPrice: '',
     adultAgeRange: '',
     childPrice: '',
@@ -66,16 +70,19 @@ export default function TourForm({ initialData = null, isEdit = false }) {
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const [activitiesRes, categoriesRes] = await Promise.all([
+            const [activitiesRes, categoriesRes, locationsRes] = await Promise.all([
                 fetch('/api/activities'),
-                fetch('/api/categories')
+                fetch('/api/categories'),
+                fetch('/api/locations')
             ]);
             
             const activitiesData = await activitiesRes.json();
             const categoriesData = await categoriesRes.json();
+            const locationsData = await locationsRes.json();
 
             if (activitiesData.success) setActivities(activitiesData.data);
             if (categoriesData.success) setCategories(categoriesData.data);
+            if (locationsData.success) setLocations(locationsData.data);
         } catch (error) {
             console.error('Failed to fetch form data', error);
         }
@@ -88,6 +95,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
       setFormData(prev => ({
           ...prev,
           ...initialData,
+          cutoff_price: initialData.cutoff_price || '',
           gallery: initialData.gallery || [],
           itinerary: initialData.itinerary || [],
           faq: initialData.faq || [],
@@ -108,7 +116,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
           pickup_configuration: { 
             ...prev.pickup_configuration, 
             ...(initialData.pickup_configuration || {}),
-            pickup_locations: initialData.pickup_configuration?.pickup_locations || []
+            pickup_locations: initialData.pickup_configuration?.pickup_locations?.map(l => typeof l === 'string' ? l : l._id) || []
           }
       }));
     }
@@ -235,10 +243,16 @@ export default function TourForm({ initialData = null, isEdit = false }) {
 
 
 
-  const handlePickupLocationChange = (index, field, value) => {
+  const handleLocationToggle = (locationId) => {
     setFormData(prev => {
-        const newLocations = [...(prev.pickup_configuration.pickup_locations || [])];
-        newLocations[index] = { ...newLocations[index], [field]: value };
+        const currentLocations = prev.pickup_configuration.pickup_locations || [];
+        const exists = currentLocations.includes(locationId);
+        let newLocations;
+        if (exists) {
+            newLocations = currentLocations.filter(id => id !== locationId);
+        } else {
+            newLocations = [...currentLocations, locationId];
+        }
         return {
             ...prev,
             pickup_configuration: { ...prev.pickup_configuration, pickup_locations: newLocations }
@@ -246,25 +260,24 @@ export default function TourForm({ initialData = null, isEdit = false }) {
     });
   };
 
-  const addPickupLocation = () => {
-    setFormData(prev => ({
-      ...prev,
-      pickup_configuration: {
-        ...prev.pickup_configuration,
-        pickup_locations: [...(prev.pickup_configuration.pickup_locations || []), { name: '', address: '', type: 'Hotel' }]
+  const handleCreateLocation = async () => {
+      try {
+          const res = await fetch('/api/locations', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(newLocation)
+          });
+          const data = await res.json();
+          if (data.success) {
+              setLocations(prev => [...prev, data.data]);
+              setNewLocation({ name: '', address: '', type: 'Hotel' }); // Reset
+              setShowAddLocation(false);
+          } else {
+              alert(data.error);
+          }
+      } catch (err) {
+          console.error(err);
       }
-    }));
-  };
-
-  const removePickupLocation = (index) => {
-    setFormData(prev => {
-        const newLocations = [...(prev.pickup_configuration.pickup_locations || [])];
-        newLocations.splice(index, 1);
-        return {
-            ...prev,
-            pickup_configuration: { ...prev.pickup_configuration, pickup_locations: newLocations }
-        };
-    });
   };
 
   const handleSubmit = async (e) => {
@@ -513,29 +526,67 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                             />
                           </div>
 
-                          {/* Locations List */}
+                       {/* Locations List (Global) */}
                           <div>
                             <div className="flex justify-between items-center mb-2">
-                              <label className="block text-sm font-medium text-gray-700">Pickup Locations (Searchable by User)</label>
-                              <button type="button" onClick={addPickupLocation} className="text-[#15531B] text-sm font-bold flex items-center gap-1">+ Add Location</button>
+                              <label className="block text-sm font-medium text-gray-700">Active Global Pickup Locations (All enabled)</label>
+                              <button type="button" onClick={() => setShowAddLocation(!showAddLocation)} className="text-[#15531B] text-sm font-bold flex items-center gap-1">
+                                {showAddLocation ? 'Cancel' : '+ New Global Location'}
+                              </button>
                             </div>
-                            <div className="space-y-2">
-                              {formData.pickup_configuration.pickup_locations?.map((loc, i) => (
-                                <div key={i} className="flex gap-2 p-2 bg-gray-50 rounded border border-gray-200">
-                                   <select 
-                                     value={loc?.type || 'Hotel'} 
-                                     onChange={(e) => handlePickupLocationChange(i, 'type', e.target.value)}
-                                     className="p-2 border rounded text-sm text-[#1a1a1a]"
-                                   >
-                                     <option value="Hotel">Hotel</option>
-                                     <option value="Port">Port</option>
-                                     <option value="Other">Other</option>
-                                   </select>
-                                   <input placeholder="Name (e.g. Barefoot Cay)" value={loc?.name || ''} onChange={(e) => handlePickupLocationChange(i, 'name', e.target.value)} className="flex-1 p-2 border rounded text-sm text-[#1a1a1a]" />
-                                   <input placeholder="Address" value={loc?.address || ''} onChange={(e) => handlePickupLocationChange(i, 'address', e.target.value)} className="flex-1 p-2 border rounded text-sm text-[#1a1a1a]" />
-                                   <button type="button" onClick={() => removePickupLocation(i)} className="text-red-500 hover:text-red-700">✕</button>
+
+                            {/* Add New Location Form */}
+                            {showAddLocation && (
+                                <div className="bg-gray-50 p-3 rounded-lg border border-dashed border-[#15531B] mb-3">
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-2">
+                                        <select 
+                                            value={newLocation.type}
+                                            onChange={(e) => setNewLocation({...newLocation, type: e.target.value})}
+                                            className="p-2 border rounded text-sm text-[#1a1a1a]"
+                                        >
+                                            <option value="Hotel">Hotel</option>
+                                            <option value="Port">Port</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                        <input 
+                                            placeholder="Location Name" 
+                                            value={newLocation.name} 
+                                            onChange={(e) => setNewLocation({...newLocation, name: e.target.value})}
+                                            className="p-2 border rounded text-sm text-[#1a1a1a]" 
+                                        />
+                                        <input 
+                                            placeholder="Address (Optional)" 
+                                            value={newLocation.address} 
+                                            onChange={(e) => setNewLocation({...newLocation, address: e.target.value})}
+                                            className="p-2 border rounded text-sm text-[#1a1a1a]" 
+                                        />
+                                    </div>
+                                    <button 
+                                        type="button" 
+                                        onClick={handleCreateLocation}
+                                        disabled={!newLocation.name}
+                                        className="bg-[#15531B] text-white px-4 py-1.5 rounded text-sm font-bold w-full disabled:opacity-50"
+                                    >
+                                        Add New Location
+                                    </button>
                                 </div>
-                              ))}
+                            )}
+
+                            {/* Locations List (Read-Only) */}
+                            <div className="max-h-60 overflow-y-auto border border-gray-200 rounded-lg p-2 space-y-1 bg-gray-50">
+                                {locations.length === 0 && <p className="text-sm text-gray-500 text-center py-2">No locations found. Add one above.</p>}
+                                {locations.map(loc => (
+                                    <div key={loc._id} className="flex items-center gap-2 p-2 rounded">
+                                        <div className="w-4 h-4 bg-[#15531B] rounded flex items-center justify-center shrink-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <span className="text-sm text-[#1a1a1a] font-medium">{loc.name}</span>
+                                        <span className="text-xs text-gray-500">({loc.type})</span>
+                                        {loc.address && <span className="text-xs text-gray-400">- {loc.address}</span>}
+                                    </div>
+                                ))}
                             </div>
                           </div>
                         </div>
@@ -605,9 +656,15 @@ export default function TourForm({ initialData = null, isEdit = false }) {
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                   <h2 className="text-lg font-bold text-[#1a1a1a] mb-4">Pricing & Capacity</h2>
                   <div className="space-y-4">
-                      <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-1">Base Price ($)</label>
-                          <input type="number" name="base_price" value={formData.base_price} onChange={handleChange} className="w-full p-2 border rounded-lg text-[#1a1a1a]" />
+                      <div className="grid grid-cols-2 gap-4">
+                          <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-1">Base Price ($)</label>
+                              <input type="number" name="base_price" value={formData.base_price} onChange={handleChange} className="w-full p-2 border rounded-lg text-[#1a1a1a]" />
+                          </div>
+                          <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-1">Cutoff Price ($)</label>
+                              <input type="number" name="cutoff_price" value={formData.cutoff_price} onChange={handleChange} className="w-full p-2 border rounded-lg text-[#1a1a1a] placeholder-gray-400" placeholder="Optional" />
+                          </div>
                       </div>
                       <div className="grid grid-cols-2 gap-4">
                           <div>

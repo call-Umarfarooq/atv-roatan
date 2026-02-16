@@ -1,9 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import ActivityDescription from '@/components/ActivityDescription';
 import { notFound } from 'next/navigation';
 import dbConnect from '@/lib/db';
-import Activity from '@/models/Activity'; // Ensure this model is correctly defined/imported
+import Activity from '@/models/Activity'; 
+import Tour from '@/models/Tour';
+import TourCard from '@/components/TourCard';
 import { getImageUrl } from '@/utils/imageUrl';
 import { ArrowLeft, MapPin, Clock, CheckCircle } from 'lucide-react';
 
@@ -19,6 +22,9 @@ export default async function ActivityDetailsPage({ params }) {
   if (!activity) {
     notFound();
   }
+
+  // Fetch tours related to this activity
+  const tours = await Tour.find({ activity: activity._id }).lean();
 
   return (
     <main className="bg-white min-h-screen pb-20">
@@ -49,14 +55,10 @@ export default async function ActivityDetailsPage({ params }) {
       <div className="max-w-4xl mx-auto px-4 -mt-20 relative z-10">
         <div className="bg-white rounded-3xl shadow-xl p-8 md:p-12">
             
-            {/* Description */}
-            <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed">
-                <h3 className="text-2xl font-bold text-[#1a1a1a] mb-6">About this Activity</h3>
-                <p className="whitespace-pre-wrap">{activity.description}</p>
-            </div>
+            <ActivityDescription description={activity.description} />
 
             {/* Action Buttons */}
-            <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center border-t border-gray-100 pt-8">
+            <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center border-t border-gray-100 pt-6">
                 <Link 
                     href="/contact"
                     className="px-8 py-3 bg-[#15531B] text-white rounded-full font-bold text-center hover:bg-[#006f6c] transition-colors shadow-lg"
@@ -73,6 +75,30 @@ export default async function ActivityDetailsPage({ params }) {
 
         </div>
       </div>
+
+      {/* Related Tours Section */}
+      {tours.length > 0 && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
+            <h2 className="text-3xl font-bold text-[#1a1a1a] mb-8">Popular Tours</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {tours.map(tour => (
+                    <div key={tour._id} className="h-full">
+                        <TourCard 
+                            title={tour.title}
+                            image={tour.image_url}
+                            price={tour.base_price}
+                            duration={tour.duration}
+                            slug={tour.slug}
+                            location={tour.marketing_badges?.location_text}
+                            rating={tour.marketing_badges?.stars}
+                            reviews={tour.marketing_badges?.reviews_text?.replace(/\D/g, '') || 0}
+                            cutoff_price={tour.cutoff_price}
+                        />
+                    </div>
+                ))}
+            </div>
+        </div>
+      )}
     </main>
   );
 }

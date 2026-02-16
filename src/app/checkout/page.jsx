@@ -73,7 +73,7 @@ export default function CheckoutPage() {
   if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   if (!bookingData) return null;
 
-  const { tour, date, travelers, totalPrice } = bookingData;
+  const { tour, date, travelers, totalPrice, adultPrice, childPrice, selectedExtras } = bookingData;
   const formattedDate = new Date(date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
 
   return (
@@ -154,6 +154,7 @@ export default function CheckoutPage() {
                       <ActivityForm 
                         travelers={travelers} 
                         pickupConfig={tour.pickup_configuration}
+                        initialPickup={bookingData.initialPickup}
                         onNext={(data) => {
                             setActivityResult(data);
                             setStep(3);
@@ -306,23 +307,76 @@ export default function CheckoutPage() {
 
                   <hr className="border-gray-100 my-4" />
 
-                  {/* Benefits */}
-                  <div className="space-y-3 mb-6">
-                      <div className="flex items-start gap-2">
-                          <Check size={14} className="text-green-600 mt-0.5" /> 
-                          <span className="text-xs text-gray-600"><span className="font-bold text-gray-900">Free cancellation</span> before 24 hours</span>
-                      </div>
-                      <div className="flex items-start gap-2">
-                          <Check size={14} className="text-green-600 mt-0.5" /> 
-                          <span className="text-xs text-gray-600"><span className="font-bold text-gray-900">Total flexibility</span> - change dates anytime</span>
-                      </div>
-                  </div>
+                  {/* Price Breakdown */}
+                   <div className="space-y-3 mb-6">
+                       <h4 className="font-bold text-sm text-[#1a1a1a]">Order Summary</h4>
+                       
+                       <div className="space-y-2 text-sm text-gray-600">
+                           {/* Adults */}
+                           {travelers.adults > 0 && (
+                               <div className="flex justify-between">
+                                   <span>{travelers.adults} Adult{travelers.adults > 1 ? 's' : ''} x ${adultPrice}</span>
+                                   <span className="font-medium text-[#1a1a1a]">${(travelers.adults * adultPrice).toFixed(2)}</span>
+                               </div>
+                           )}
+
+                           {/* Children */}
+                           {travelers.children > 0 && (
+                               <div className="flex justify-between">
+                                   <span>{travelers.children} Child{travelers.children > 1 ? 'ren' : ''} x ${childPrice}</span>
+                                   <span className="font-medium text-[#1a1a1a]">${(travelers.children * childPrice).toFixed(2)}</span>
+                               </div>
+                           )}
+
+                           {/* Infants */}
+                           {travelers.infants > 0 && (
+                               <div className="flex justify-between">
+                                   <span>{travelers.infants} Infant{travelers.infants > 1 ? 's' : ''}</span>
+                                   <span className="font-medium text-[#1a1a1a]">Free</span>
+                               </div>
+                           )}
+
+                           {/* Extra Services */}
+                           {tour.extraServices && Object.entries(selectedExtras || {}).map(([index, count]) => {
+                               if (count > 0) {
+                                   const extra = tour.extraServices[index];
+                                   if (extra) {
+                                        return (
+                                           <div key={index} className="flex justify-between">
+                                               <span>{count} x {extra.name}</span>
+                                               <span className="font-medium text-[#1a1a1a]">${(count * parseFloat(extra.price)).toFixed(2)}</span>
+                                           </div>
+                                       );
+                                   }
+                               }
+                               return null;
+                           })}
+                        </div>
+                   </div>
 
                    <hr className="border-gray-100 my-4" />
 
-                   <div className="flex justify-between items-center mb-2">
-                       <span className="text-gray-600 text-sm">Total Price (USD)</span>
-                       <span className="font-black text-xl text-[#1a1a1a]">${totalPrice.toFixed(2)}</span>
+                   <div className="space-y-2 mb-2">
+                        {/* Subtotal - Only show if there is a discount */}
+                        {bookingData.discountApplied && (
+                            <div className="flex justify-between items-center text-sm text-gray-500">
+                                <span>Subtotal</span>
+                                <span className="line-through">${bookingData.originalPrice?.toFixed(2)}</span>
+                            </div>
+                        )}
+
+                        {/* Discount */}
+                        {bookingData.discountApplied && (
+                            <div className="flex justify-between items-center text-sm text-[#15531B] font-bold">
+                                <span>Discount (Pay Now 2%)</span>
+                                <span>-${(bookingData.originalPrice - totalPrice).toFixed(2)}</span>
+                            </div>
+                        )}
+
+                       <div className="flex justify-between items-center pt-2 border-t border-gray-50">
+                           <span className="text-gray-900 font-bold text-base">Total Price (USD)</span>
+                           <span className="font-black text-2xl text-[#1a1a1a]">${totalPrice.toFixed(2)}</span>
+                       </div>
                    </div>
                    
                    <p className="text-xs text-gray-400 text-center mt-4 flex items-center justify-center gap-1">
@@ -406,13 +460,13 @@ function ContactForm({ onNext }) {
     )
 }
 
-function ActivityForm({ travelers, pickupConfig, onNext, onBack }) {
-    const [meetingType, setMeetingType] = useState('later'); // 'pickup', 'direct', 'later'
+function ActivityForm({ travelers, pickupConfig, initialPickup, onNext, onBack }) {
+    const [meetingType, setMeetingType] = useState(initialPickup ? 'pickup' : 'later'); // 'pickup', 'direct', 'later'
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     
     const [formData, setFormData] = useState({ 
         meetingPoint: '', 
-        pickupLocation: '', 
+        pickupLocation: initialPickup ? initialPickup.name : '', 
         cruiseShip: '', 
         disembarkationTime: '', 
         boardingTime: '', 
@@ -420,6 +474,23 @@ function ActivityForm({ travelers, pickupConfig, onNext, onBack }) {
     });
 
     const [errors, setErrors] = useState({});
+
+    // Fetch all available locations for the dropdown
+    const [allLocations, setAllLocations] = useState([]);
+    useEffect(() => {
+        const fetchLocations = async () => {
+            try {
+                const res = await fetch('/api/locations');
+                const data = await res.json();
+                if (data.success) {
+                    setAllLocations(data.data);
+                }
+            } catch (error) {
+                console.error('Failed to fetch locations', error);
+            }
+        };
+        fetchLocations();
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -466,16 +537,7 @@ function ActivityForm({ travelers, pickupConfig, onNext, onBack }) {
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
             
-            {/* Traveler Names */}
-            <div>
-                <h3 className="font-bold text-sm mb-3">Traveler Details</h3>
-                <div className="space-y-3">
-                    <div className="bg-gray-50 p-3 rounded-lg border border-gray-200">
-                        <label className="text-xs font-bold block mb-1">Lead Traveler (Adult)</label>
-                        <input placeholder="Full Name" className="w-full p-2 bg-white border border-gray-200 rounded text-sm outline-none" required />
-                    </div>
-                </div>
-            </div>
+
 
             {/* Pickup */}
             <div>
@@ -518,12 +580,12 @@ function ActivityForm({ travelers, pickupConfig, onNext, onBack }) {
                                         </div>
                                         {errors.pickupLocation && <p className="text-[10px] text-red-500 mt-1 font-medium">Required</p>}
 
-                                        {isDropdownOpen && pickupConfig?.pickup_locations && (
+                                        {isDropdownOpen && allLocations.length > 0 && (
                                             <div 
                                                 onMouseDown={(e) => e.preventDefault()}
                                                 className="absolute top-full left-0 w-full bg-white border border-gray-200 rounded-lg shadow-xl mt-1 max-h-60 overflow-y-auto z-10"
                                             >
-                                                {pickupConfig.pickup_locations.filter(loc => loc.name && loc.name.toLowerCase().includes(formData.pickupLocation.toLowerCase())).map((loc, i) => (
+                                                {allLocations.filter(loc => loc.name && loc.name.toLowerCase().includes(formData.pickupLocation.toLowerCase())).map((loc, i) => (
                                                 <div 
                                                     key={i} 
                                                     onClick={() => {
@@ -540,7 +602,7 @@ function ActivityForm({ travelers, pickupConfig, onNext, onBack }) {
                                                     </div>
                                                 </div>
                                                 ))}
-                                                {pickupConfig.pickup_locations.filter(loc => loc.name && loc.name.toLowerCase().includes(formData.pickupLocation.toLowerCase())).length === 0 && (
+                                                {allLocations.filter(loc => loc.name && loc.name.toLowerCase().includes(formData.pickupLocation.toLowerCase())).length === 0 && (
                                                     <div className="p-4 text-center text-gray-500 text-sm">No locations found</div>
                                                 )}
                                             </div>

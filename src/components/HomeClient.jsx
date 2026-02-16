@@ -91,6 +91,7 @@ const HomeClient = ({ initialTours, categories }) => {
                     {filteredTours.map((tour) => (
                         <div key={tour._id} className="min-w-[300px] sm:min-w-[300px] snap-start">
                             <TourCard
+                                slug={tour.slug}
                                 image={tour.image_url}
                                 gallery={tour.gallery}
                                 location={tour.location_text || 'Roatan, Honduras'}
@@ -101,6 +102,7 @@ const HomeClient = ({ initialTours, categories }) => {
                                 duration={tour.duration}
                                 description={tour.overview || tour.description}
                                 additionalInfo={tour.additional_info}
+                                cutoff_price={tour.cutoff_price}
                             />
                         </div>
                     ))}
