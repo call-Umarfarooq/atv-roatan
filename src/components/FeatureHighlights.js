@@ -3,30 +3,30 @@ import Image from 'next/image';
 
 const features = [
   {
-    image: '/images/icon6.jpeg',
+    image: '/images/image.png',
     title: 'Back to Ship\nGuarantee',
   },
   {
-    image: '/images/icon2.jpeg',
+    image: '/images/image copy.png',
     title: 'Full Refund\nGuarantee',
   },
   {
-    image: '/images/icon3.jpeg',
+    image: '/images/image copy 2.png',
     title: 'Local\nOperator',
   },
   {
     
-    image: '/images/icon5.jpeg',
+    image: '/images/image copy 3.png',
     title: 'ATV Buggy\nTours',
   },
   {
-    image: '/images/icon4.jpeg',
+    image: '/images/image copy 4.png',
     
-    title: 'Sloth\nHangout',
+    title: 'Monkey and Sloths\nHangout',
   },
   {
     
-    image: '/images/icon1.jpg.jpeg',
+    image: '/images/image copy 5.png',
     title: 'Zipline\nTours',
   },
 ];
@@ -42,7 +42,7 @@ const FeatureHighlights = () => {
                 key={index}
                 className="flex flex-col items-center text-center group w-full"
               >
-                <div className="mb-4 p-1 bg-[#E0F2F1] rounded-full shadow-md group-hover:scale-110 transition-transform duration-300 w-20 h-20 flex items-center justify-center">
+                <div className="mb-4 p-0 bg-[#ffffff] rounded-full shadow-md group-hover:scale-110 transition-transform duration-300 w-20 h-20 flex items-center justify-center">
                   <div className="relative w-14 h-14">
                     <Image
                       src={feature.image}

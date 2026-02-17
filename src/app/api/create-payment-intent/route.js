@@ -37,13 +37,16 @@ export async function POST(request) {
         });
     }
 
+    // Tax Calculation
+    const taxRate = 0.10;
+    const taxAmount = totalAmount * taxRate;
+    totalAmount += taxAmount;
+
     // 3. Create PaymentIntent
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Math.round(totalAmount * 100), // Convert to cents
       currency: 'usd',
-      automatic_payment_methods: {
-        enabled: true,
-      },
+      payment_method_types: ['card', 'affirm'],
       metadata: {
         tourId: tourId,
         tourTitle: tour.title

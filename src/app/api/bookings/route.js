@@ -39,6 +39,11 @@ export async function POST(request) {
         });
     }
 
+    // Tax Calculation
+    const taxRate = 0.10;
+    const taxAmount = calculatedTotal * taxRate;
+    calculatedTotal += taxAmount;
+
     const newBooking = await Booking.create({
         tour: tourId,
         tourSlug: tour.slug,

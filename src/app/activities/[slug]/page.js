@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import dbConnect from '@/lib/db';
 import Activity from '@/models/Activity'; 
 import Tour from '@/models/Tour';
-import TourCard from '@/components/TourCard';
+import PopularTours from '@/components/PopularTours';
 import { getImageUrl } from '@/utils/imageUrl';
 import { ArrowLeft, MapPin, Clock, CheckCircle } from 'lucide-react';
 
@@ -76,28 +76,11 @@ export default async function ActivityDetailsPage({ params }) {
         </div>
       </div>
 
+
+
       {/* Related Tours Section */}
       {tours.length > 0 && (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
-            <h2 className="text-3xl font-bold text-[#1a1a1a] mb-8">Popular Tours</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {tours.map(tour => (
-                    <div key={tour._id} className="h-full">
-                        <TourCard 
-                            title={tour.title}
-                            image={tour.image_url}
-                            price={tour.base_price}
-                            duration={tour.duration}
-                            slug={tour.slug}
-                            location={tour.marketing_badges?.location_text}
-                            rating={tour.marketing_badges?.stars}
-                            reviews={tour.marketing_badges?.reviews_text?.replace(/\D/g, '') || 0}
-                            cutoff_price={tour.cutoff_price}
-                        />
-                    </div>
-                ))}
-            </div>
-        </div>
+        <PopularTours initialTours={tours} />
       )}
     </main>
   );

@@ -86,10 +86,9 @@ const Header = () => {
   return (
     <>
       {/* Top Strip */}
-      <div className="bg-[#2C2C2C] text-white py-2 text-xs md:text-sm">
+      {/* <div className="bg-[#2C2C2C] text-white py-2 text-xs md:text-sm">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-2">
           
-          {/* Left: Contact Info */}
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 md:gap-6">
             <a href="tel:+01977259912" className="flex items-center gap-2 hover:text-gray-300 transition-colors">
               <Phone size={14} className="shrink-0" />
@@ -105,7 +104,6 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Right: Social Media */}
           <div className="flex items-center gap-4">
             <a href="#" className="hover:text-gray-300 transition-colors" aria-label="Facebook">
               <Facebook size={16} />
@@ -125,13 +123,20 @@ const Header = () => {
           </div>
 
         </div>
-      </div>
+      </div> */}
 
       <header className="w-full border-b border-gray-200 bg-white sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
-        
+         <div className="shrink-0">
+          <Image
+            src="/images/atv-logo.png"
+            alt="ATV Roatan"
+            width={40}
+            height={40}
+            className="object-contain"
+          />
+        </div>
 
-         {/* Center: Navigation Links */}
         <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
             <a
@@ -147,16 +152,7 @@ const Header = () => {
             </a>
           ))}
         </nav>
-        {/* Left: Logo */}
-        <div className="shrink-0">
-          <Image
-            src="/images/atv-logo.png"
-            alt="ATV Roatan"
-            width={40}
-            height={40}
-            className="object-contain"
-          />
-        </div>
+       
 
        
 
@@ -191,7 +187,7 @@ const Header = () => {
                       searchResults.map((tour) => (
                         <a 
                           key={tour._id} 
-                          href={`/tours/${tour.slug}`}
+                          href={`/roatan/${tour.slug}`}
                           className="flex items-center gap-3 p-3 hover:bg-gray-50 border-b border-gray-100 last:border-0 transition-colors"
                           onClick={() => setSearchOpen(false)}
                         >
@@ -255,7 +251,7 @@ const Header = () => {
                         tours.map((tour) => (
                           <a 
                             key={tour._id} 
-                            href={`/tours/${tour.slug}`} 
+                            href={`/roatan/${tour.slug}`} 
                             className="flex flex-col gap-2 group/item"
                           >
                             <div className="relative w-full aspect-4/3 rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
@@ -334,7 +330,7 @@ const Header = () => {
         </div>
       </div>
       {/* Moving Info Strip */}
-      <div className="bg-yellow-50 overflow-hidden border-b border-gray-200 pause-on-hover group">
+      {/* <div className="bg-yellow-50 overflow-hidden border-b border-gray-200 pause-on-hover group">
         <div className="flex py-2 relative">
           <div 
             className="flex shrink-0 gap-12 pr-12 whitespace-nowrap min-w-full animate-marquee"
@@ -355,7 +351,7 @@ const Header = () => {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
     </header>
     </>
   );

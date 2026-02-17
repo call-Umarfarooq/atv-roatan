@@ -50,6 +50,7 @@ export default function CheckoutPage() {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(true);
   const [bookingData, setBookingData] = useState(null);
+  const [clientSecret, setClientSecret] = useState(null);
 
   // Form States
   const [contactResult, setContactResult] = useState(null);
@@ -69,6 +70,30 @@ export default function CheckoutPage() {
         setLoading(false);
     }
   }, []);
+
+  // Fetch PaymentIntent when entering Step 3
+  useEffect(() => {
+    if (step === 3 && bookingData && !clientSecret) {
+        fetch('/api/create-payment-intent', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                tourId: bookingData.tour._id,
+                travelers: bookingData.travelers,
+                extraServices: bookingData.selectedExtras
+            }),
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            if (data.clientSecret) {
+                setClientSecret(data.clientSecret);
+            } else {
+                console.error('Failed to get clientSecret', data.error);
+            }
+        })
+        .catch(err => console.error('Error fetching secret:', err));
+    }
+  }, [step, bookingData, clientSecret]);
 
   if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   if (!bookingData) return null;
@@ -231,8 +256,8 @@ export default function CheckoutPage() {
                     </h2>
                   </div>
 
-                  {step === 3 && bookingData && (
-                      <Elements stripe={stripePromise}>
+                  {step === 3 && bookingData && clientSecret && (
+                      <Elements stripe={stripePromise} options={{ clientSecret, appearance: { theme: 'stripe' } }}>
                         <PaymentSection 
                             bookingData={bookingData} 
                             onPaymentComplete={async (result) => {
@@ -373,9 +398,15 @@ export default function CheckoutPage() {
                             </div>
                         )}
 
+                        {/* Tax */}
+                        <div className="flex justify-between items-center text-sm text-gray-500">
+                             <span>Tax (10%)</span>
+                             <span className="font-medium text-[#1a1a1a]">${(totalPrice * 0.10).toFixed(2)}</span>
+                        </div>
+
                        <div className="flex justify-between items-center pt-2 border-t border-gray-50">
                            <span className="text-gray-900 font-bold text-base">Total Price (USD)</span>
-                           <span className="font-black text-2xl text-[#1a1a1a]">${totalPrice.toFixed(2)}</span>
+                           <span className="font-black text-2xl text-[#1a1a1a]">${(totalPrice * 1.10).toFixed(2)}</span>
                        </div>
                    </div>
                    

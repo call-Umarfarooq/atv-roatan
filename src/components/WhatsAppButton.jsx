@@ -40,14 +40,24 @@ const WhatsAppButton = () => {
             </div>
 
             {/* Main Toggle Button */}
-            <button 
-                onClick={toggleOpen}
-                className={`w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-300 hover:scale-105 ${isOpen ? 'bg-white text-gray-800 rotate-90' : 'bg-[#25D366] text-white'}`}
-            >
-                {isOpen ? <X size={24} /> : (
-                    <svg viewBox="0 0 24 24" width="30" height="30" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="css-i6dzq1"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+            <div className="flex items-center gap-3">
+                {!isOpen && (
+                    <span 
+                        onClick={toggleOpen}
+                        className="bg-white px-4 py-2 rounded-full shadow-lg text-sm font-bold text-gray-800 cursor-pointer hover:bg-gray-50 transition-colors animate-fadeIn whitespace-nowrap"
+                    >
+                        Chat with us 👋
+                    </span>
                 )}
-            </button>
+                <button 
+                    onClick={toggleOpen}
+                    className={`w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all duration-300 hover:scale-105 ${isOpen ? 'bg-white text-gray-800 rotate-90' : 'bg-[#25D366] text-white'}`}
+                >
+                    {isOpen ? <X size={24} /> : (
+                        <svg viewBox="0 0 24 24" width="30" height="30" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" className="css-i6dzq1"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                    )}
+                </button>
+            </div>
 
         </div>
     );
