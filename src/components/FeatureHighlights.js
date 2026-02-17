@@ -8,28 +8,36 @@ const features = [
   },
   {
     image: '/images/image copy.png',
-    title: 'Full Refund\nGuarantee',
+    title: 'Full Refund\nShip Fail to Dock',
   },
   {
     image: '/images/image copy 2.png',
-    title: 'Local\nOperator',
+    title: 'Roatan Local Tour \nOperator',
   },
   {
     
     image: '/images/image copy 3.png',
-    title: 'ATV Buggy\nTours',
+    title: 'Roatan ATV  \nBuggy Tours',
   },
   {
     image: '/images/image copy 4.png',
     
-    title: 'Monkey and Sloths\nHangout',
+    title: 'Roatan Monkey and\nSloth Hangout',
   },
   {
     
     image: '/images/image copy 5.png',
-    title: 'Zipline\nTours',
+    title: 'Roatan Zipline\n Jungle Tours',
   },
 ];
+
+
+
+
+
+
+
+
 
 const FeatureHighlights = () => {
   return (
