@@ -96,10 +96,50 @@ export default function TourDetailsClient({ initialTour }) {
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
-  const handleShare = () => {
-      navigator.clipboard.writeText(window.location.href);
-      // Optional: You could add a toast notification here instead of alert
-      alert('Link copied to clipboard!');
+  const handleShare = async () => {
+    const url = window.location.href;
+    
+    // Try Web Share API first (Mobile friendly)
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: tour.title,
+          text: `Check out this tour: ${tour.title}`,
+          url: url
+        });
+        return;
+      } catch (err) {
+        // User cancelled or share failed, continue to clipboard
+        console.log('Error sharing:', err);
+      }
+    }
+
+    try {
+      if (navigator.clipboard) {
+        await navigator.clipboard.writeText(url);
+        alert('Link copied to clipboard!');
+      } else {
+        throw new Error('Clipboard API unavailable');
+      }
+    } catch (err) {
+      console.error('Failed to copy:', err);
+      // Fallback
+      try {
+        const textArea = document.createElement("textarea");
+        textArea.value = url;
+        textArea.style.position = 'fixed'; // Avoid scrolling to bottom
+        textArea.style.left = '-9999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('Link copied to clipboard!');
+      } catch (e) {
+        console.error('Fallback failed:', e);
+        alert('Failed to copy link');
+      }
+    }
   };
 
   if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
