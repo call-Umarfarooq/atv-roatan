@@ -55,6 +55,8 @@ export default function CheckoutPage() {
   // Form States
   const [contactResult, setContactResult] = useState(null);
   const [activityResult, setActivityResult] = useState(null);
+  const [paymentError, setPaymentError] = useState(null);
+  const [isFetchingSecret, setIsFetchingSecret] = useState(false);
 
   useEffect(() => {
     try {
@@ -71,29 +73,43 @@ export default function CheckoutPage() {
     }
   }, []);
 
+  const fetchPaymentIntent = React.useCallback(() => {
+    if (!bookingData) return;
+    
+    setIsFetchingSecret(true);
+    setPaymentError(null);
+
+    fetch('/api/create-payment-intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            tourId: bookingData.tour._id,
+            travelers: bookingData.travelers,
+            extraServices: bookingData.selectedExtras
+        }),
+    })
+    .then((res) => res.json())
+    .then((data) => {
+        if (data.clientSecret) {
+            setClientSecret(data.clientSecret);
+        } else {
+            console.error('Failed to get clientSecret', data.error);
+            setPaymentError(data.error || 'Failed to initialize payment system');
+        }
+    })
+    .catch(err => {
+        console.error('Error fetching secret:', err);
+        setPaymentError('Connection error. Please try again.');
+    })
+    .finally(() => setIsFetchingSecret(false));
+  }, [bookingData]);
+
   // Fetch PaymentIntent when entering Step 3
   useEffect(() => {
-    if (step === 3 && bookingData && !clientSecret) {
-        fetch('/api/create-payment-intent', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                tourId: bookingData.tour._id,
-                travelers: bookingData.travelers,
-                extraServices: bookingData.selectedExtras
-            }),
-        })
-        .then((res) => res.json())
-        .then((data) => {
-            if (data.clientSecret) {
-                setClientSecret(data.clientSecret);
-            } else {
-                console.error('Failed to get clientSecret', data.error);
-            }
-        })
-        .catch(err => console.error('Error fetching secret:', err));
+    if (step === 3 && bookingData && !clientSecret && !isFetchingSecret && !paymentError) {
+       fetchPaymentIntent();
     }
-  }, [step, bookingData, clientSecret]);
+  }, [step, bookingData, clientSecret, isFetchingSecret, paymentError, fetchPaymentIntent]);
 
   if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   if (!bookingData) return null;
@@ -256,51 +272,74 @@ export default function CheckoutPage() {
                     </h2>
                   </div>
 
-                  {step === 3 && bookingData && clientSecret && (
-                      <Elements stripe={stripePromise} options={{ clientSecret, appearance: { theme: 'stripe' } }}>
-                        <PaymentSection 
-                            bookingData={bookingData} 
-                            onPaymentComplete={async (result) => {
-                                console.log('Payment Result:', result);
-                                
-                                try {
-                                    setLoading(true);
-                                    const response = await fetch('/api/bookings', {
-                                        method: 'POST',
-                                        headers: { 'Content-Type': 'application/json' },
-                                        body: JSON.stringify({
-                                            tourId: tour._id,
-                                            tourSlug: tour.slug,
-                                            date: date,
-                                            travelers: travelers,
-                                            selectedExtras: bookingData.selectedExtras,
-                                            customer: contactResult,
-                                            paymentIntentId: result.id,
-                                            paymentStatus: result.status === 'paid' ? 'paid' : 'unpaid',
-                                            paymentType: result.type,
-                                            pickupDetails: activityResult
-                                        })
-                                    });
+                  {step === 3 && (
+                      <div>
+                          {isFetchingSecret && (
+                              <div className="flex flex-col items-center justify-center p-8 text-gray-500">
+                                  <div className="w-8 h-8 border-4 border-gray-200 border-t-[#15531B] rounded-full animate-spin mb-3"></div>
+                                  <p className="text-sm">Preparing secure checkout...</p>
+                              </div>
+                          )}
 
-                                    const data = await response.json();
+                          {paymentError && (
+                              <div className="bg-red-50 border border-red-100 p-4 rounded-lg text-center">
+                                  <p className="text-red-600 text-sm font-medium mb-3">{paymentError}</p>
+                                  <button 
+                                    onClick={fetchPaymentIntent}
+                                    className="px-4 py-2 bg-white border border-red-200 text-red-600 rounded-md text-sm font-bold hover:bg-red-50 transition-colors"
+                                  >
+                                      Try Again
+                                  </button>
+                              </div>
+                          )}
 
-                                    if (data.success) {
-                                        // Clear local storage
-                                        localStorage.removeItem('checkoutData');
-                                        alert('Booking Confirmed! Redirecting...');
-                                        router.push('/'); 
-                                    } else {
-                                        alert('Booking failed: ' + data.error);
-                                        setLoading(false);
-                                    }
-                                } catch (err) {
-                                    console.error('Booking creation error:', err);
-                                    alert('Failed to create booking. Please contact support.');
-                                    setLoading(false);
-                                }
-                            }}
-                        />
-                      </Elements>
+                          {!isFetchingSecret && !paymentError && bookingData && clientSecret && (
+                            <Elements stripe={stripePromise} options={{ clientSecret, appearance: { theme: 'stripe' } }}>
+                                <PaymentSection 
+                                    bookingData={bookingData} 
+                                    onPaymentComplete={async (result) => {
+                                        console.log('Payment Result:', result);
+                                        
+                                        try {
+                                            setLoading(true);
+                                            const response = await fetch('/api/bookings', {
+                                                method: 'POST',
+                                                headers: { 'Content-Type': 'application/json' },
+                                                body: JSON.stringify({
+                                                    tourId: tour._id,
+                                                    tourSlug: tour.slug,
+                                                    date: date,
+                                                    travelers: travelers,
+                                                    selectedExtras: bookingData.selectedExtras,
+                                                    customer: contactResult,
+                                                    paymentIntentId: result.id,
+                                                    paymentStatus: result.status === 'paid' ? 'paid' : 'unpaid',
+                                                    paymentType: result.type,
+                                                    pickupDetails: activityResult
+                                                })
+                                            });
+
+                                            const data = await response.json();
+
+                                            if (data.success) {
+                                                // Clear local storage
+                                                localStorage.removeItem('checkoutData');
+                                                alert('Booking Confirmed! Redirecting...');
+                                                router.push('/'); 
+                                            } else {
+                                                alert('Booking failed: ' + data.error);
+                                                setLoading(false);
+                                            }
+                                        } catch (err) {
+                                            console.error('Booking creation error:', err);
+                                            alert('Failed to create booking. Please contact support.');
+                                            setLoading(false);
+                                        }
+                                    }}
+                                />
+                            </Elements>
+                          )}
+                      </div>
                   )}
                </div>
 

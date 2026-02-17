@@ -1,13 +1,17 @@
-
 import { NextResponse } from 'next/server';
-const Stripe = require('stripe');
+import Stripe from 'stripe';
 import dbConnect from '@/lib/db';
 import Tour from '@/models/Tour';
 
+// Initialize Stripe with the secret key
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export async function POST(request) {
   try {
+    if (!process.env.STRIPE_SECRET_KEY) {
+      throw new Error('STRIPE_SECRET_KEY is missing');
+    }
+
     await dbConnect();
     const { tourId, travelers, extraServices } = await request.json();
 
@@ -21,8 +25,8 @@ export async function POST(request) {
     let totalAmount = 0;
     
     // Base Prices
-    const adultPrice = tour.adultPrice || tour.base_price || 0;
-    const childPrice = tour.childPrice || 0;
+    const adultPrice = parseFloat(tour.adultPrice || tour.base_price || 0);
+    const childPrice = parseFloat(tour.childPrice || 0);
     
     totalAmount += (travelers.adults || 0) * adultPrice;
     totalAmount += (travelers.children || 0) * childPrice;
@@ -46,7 +50,9 @@ export async function POST(request) {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Math.round(totalAmount * 100), // Convert to cents
       currency: 'usd',
-      payment_method_types: ['card', 'affirm'],
+      automatic_payment_methods: {
+        enabled: true,
+      },
       metadata: {
         tourId: tourId,
         tourTitle: tour.title
