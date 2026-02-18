@@ -14,12 +14,14 @@ import {
   User,
   Search,
   Anchor,
-  Building
+  Building,
+  ChevronDown
 } from 'lucide-react';
 import { getImageUrl } from '@/utils/imageUrl';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import PaymentSection from '@/components/PaymentSection';
+import PaymentMethodIcons from '@/components/PaymentMethodIcons';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 
@@ -55,6 +57,7 @@ export default function CheckoutPage() {
   // Form States
   const [contactResult, setContactResult] = useState(null);
   const [activityResult, setActivityResult] = useState(null);
+  const [extrasResult, setExtrasResult] = useState(null);
   const [paymentError, setPaymentError] = useState(null);
   const [isFetchingSecret, setIsFetchingSecret] = useState(false);
 
@@ -176,6 +179,60 @@ export default function CheckoutPage() {
                       </div>
                   )}
               </div>
+                    
+                    {/* Extra Services - Always Visible */}
+                    {tour.extraServices && tour.extraServices.length > 0 && (
+                        <div className="mt-6 border border-dashed border-[#15531B]/40 rounded-xl p-4 bg-[#15531B]/5">
+                            <h4 className="font-bold text-sm text-[#15531B] mb-1">🎯 Enhance Your Experience</h4>
+                            <p className="text-xs text-gray-500 mb-4">Add optional services to make your tour even more memorable!</p>
+                            <div className="space-y-3">
+                                {tour.extraServices.map((service, index) => {
+                                    const count = (bookingData.selectedExtras || {})[index] || 0;
+                                    return (
+                                        <div key={index} className="flex items-center justify-between bg-white rounded-lg p-3 border border-gray-100">
+                                            <div>
+                                                <h5 className="font-bold text-xs text-[#1a1a1a]">{service.name}</h5>
+                                                <p className="text-xs text-[#15531B] font-semibold">${parseFloat(service.price).toFixed(2)}</p>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        const newExtras = {...(bookingData.selectedExtras || {})};
+                                                        const curr = newExtras[index] || 0;
+                                                        if (curr > 0) { newExtras[index] = curr - 1; if (newExtras[index] === 0) delete newExtras[index]; }
+                                                        setBookingData(prev => ({ ...prev, selectedExtras: newExtras }));
+                                                        const stored = JSON.parse(localStorage.getItem('checkoutData') || '{}');
+                                                        stored.selectedExtras = newExtras;
+                                                        localStorage.setItem('checkoutData', JSON.stringify(stored));
+                                                    }}
+                                                    disabled={count === 0}
+                                                    className={`w-7 h-7 rounded-full border flex items-center justify-center text-sm font-bold transition-colors ${count === 0 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-[#15531B] text-[#15531B] hover:bg-[#15531B] hover:text-white'}`}
+                                                >
+                                                    −
+                                                </button>
+                                                <span className="w-5 text-center font-bold text-xs">{count}</span>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        const newExtras = {...(bookingData.selectedExtras || {})};
+                                                        newExtras[index] = (newExtras[index] || 0) + 1;
+                                                        setBookingData(prev => ({ ...prev, selectedExtras: newExtras }));
+                                                        const stored = JSON.parse(localStorage.getItem('checkoutData') || '{}');
+                                                        stored.selectedExtras = newExtras;
+                                                        localStorage.setItem('checkoutData', JSON.stringify(stored));
+                                                    }}
+                                                    className="w-7 h-7 rounded-full border border-[#15531B] text-[#15531B] flex items-center justify-center text-sm font-bold hover:bg-[#15531B] hover:text-white transition-colors"
+                                                >
+                                                    +
+                                                </button>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
 
                {/* Step 2: Activity Details */}
                <div className={`bg-white p-6 rounded-xl border transition-all ${step === 2 ? 'border-gray-200 shadow-sm' : 'border-transparent'}`}>
@@ -371,87 +428,181 @@ export default function CheckoutPage() {
 
                   <hr className="border-gray-100 my-4" />
 
-                  {/* Price Breakdown */}
-                   <div className="space-y-3 mb-6">
-                       <h4 className="font-bold text-sm text-[#1a1a1a]">Order Summary</h4>
-                       
-                       <div className="space-y-2 text-sm text-gray-600">
-                           {/* Adults */}
-                           {travelers.adults > 0 && (
-                               <div className="flex justify-between">
-                                   <span>{travelers.adults} Adult{travelers.adults > 1 ? 's' : ''} x ${adultPrice}</span>
-                                   <span className="font-medium text-[#1a1a1a]">${(travelers.adults * adultPrice).toFixed(2)}</span>
-                               </div>
-                           )}
+                  {/* Price Breakdown - New Layout */}
+                   {(() => {
+                        // Calculate base price (before any discounts)
+                        let basePrice = (travelers.adults * adultPrice) + (travelers.children * childPrice);
+                        
+                        // Calculate extras total
+                        let extrasTotal = 0;
+                        if (tour.extraServices) {
+                            Object.entries(selectedExtras || {}).forEach(([index, count]) => {
+                                if (count > 0) {
+                                    const extra = tour.extraServices[index];
+                                    if (extra) extrasTotal += count * parseFloat(extra.price);
+                                }
+                            });
+                        }
 
-                           {/* Children */}
-                           {travelers.children > 0 && (
-                               <div className="flex justify-between">
-                                   <span>{travelers.children} Child{travelers.children > 1 ? 'ren' : ''} x ${childPrice}</span>
-                                   <span className="font-medium text-[#1a1a1a]">${(travelers.children * childPrice).toFixed(2)}</span>
-                               </div>
-                           )}
+                        // Tax Rate
+                        const taxRate = 0.10;
 
-                           {/* Infants */}
-                           {travelers.infants > 0 && (
-                               <div className="flex justify-between">
-                                   <span>{travelers.infants} Infant{travelers.infants > 1 ? 's' : ''}</span>
-                                   <span className="font-medium text-[#1a1a1a]">Free</span>
-                               </div>
-                           )}
+                        // Identify if we should use cutoff_price as the "Standard Price" (Flash Sale logic)
+                        // If cutoff_price > adultPrice, we treat cutoff_price as the valid "Full Price" for display.
+                        const hasFlashSale = tour.cutoff_price && parseFloat(tour.cutoff_price) > adultPrice;
+                        const displayAdultPrice = hasFlashSale ? parseFloat(tour.cutoff_price) : adultPrice;
 
-                           {/* Extra Services */}
-                           {tour.extraServices && Object.entries(selectedExtras || {}).map(([index, count]) => {
-                               if (count > 0) {
-                                   const extra = tour.extraServices[index];
-                                   if (extra) {
-                                        return (
-                                           <div key={index} className="flex justify-between">
-                                               <span>{count} x {extra.name}</span>
-                                               <span className="font-medium text-[#1a1a1a]">${(count * parseFloat(extra.price)).toFixed(2)}</span>
-                                           </div>
-                                       );
-                                   }
-                               }
-                               return null;
-                           })}
-                        </div>
-                   </div>
+                        // Calculate Full Tour Price (using display price)
+                        const fullBasePrice = (travelers.adults * displayAdultPrice) + (travelers.children * childPrice);
+                        const fullTourPrice = fullBasePrice + extrasTotal;
 
-                   <hr className="border-gray-100 my-4" />
+                        // Calculate Tax on Full price
+                        const tax = fullTourPrice * taxRate;
+                        
+                        // Total Regular Price
+                        const totalRegularPrice = fullTourPrice + tax;
 
-                   <div className="space-y-2 mb-2">
-                        {/* Subtotal - Only show if there is a discount */}
-                        {bookingData.discountApplied && (
-                            <div className="flex justify-between items-center text-sm text-gray-500">
-                                <span>Subtotal</span>
-                                <span className="line-through">${bookingData.originalPrice?.toFixed(2)}</span>
+                        // Final Amount User Pays (from backend logic logic: (RealBase + Extras) * 0.98 * 1.10)
+                        // If PayNow applied:
+                        const hasPayNowDiscount = !!bookingData.discountApplied;
+                        
+                        // We need to arrive at 'formattedTotalPrice' which is what the user actually pays (totalPrice * 1.10).
+                        // Dynamic: recalculate from real base + current extras
+                        const realPreTaxTotal = basePrice + extrasTotal;
+                        const finalAmountToPay = hasPayNowDiscount 
+                            ? (realPreTaxTotal * 0.98 * 1.10) 
+                            : (realPreTaxTotal * 1.10);
+
+                        // Calculate Flash Sale Discount
+                        // Flash Sale Discount = (Display Full Price - Real Full Price) * adults?
+                        // Actually difference in totals.
+                        // Real Pre-Tax Total = (RealBase + Extras)
+                        // Display Pre-Tax Total = (FullBase + Extras)
+                        // Flash Scale Discount (Pre-Tax) = Display Pre-Tax - Real Pre-Tax
+                        const preTaxFlashSaleDiscount = fullTourPrice - (basePrice + extrasTotal);
+                        
+                        // If we show tax on the High Price, then the discount must include the tax difference too?
+                        // Regular Price includes High Tax. 
+                        // Special Price includes Low Tax.
+                        // So Discount should be (Regular Price - Special Price - PayNowDiscount).
+                        
+                        // Let's calculate the "Pay Now" discount first.
+                        // It is 2% of the Real Pre-Tax Total.
+                        // Value = (basePrice + extrasTotal) * 0.02.
+                        // Plus tax on that 2%?
+                        // No, usually 2% off the bill.
+                        // The user pays: ((basePrice + extrasTotal) * 0.98) * 1.10.
+                        // = (basePrice + extrasTotal) * 1.078.
+                        
+                        // Regular Price = (basePrice + extrasTotal) * 1.10 (if no flash sale).
+                        // Difference = 1.10 - 1.078 = 0.022.
+                        // So the "Pay Now" discount value shown should be 2.2% of the Base?
+                        // Or 2% of the (Base + Tax)? 2% of 1.10 is 0.022. Yes.
+                        // So PayNowDiscount = RegularPriceWithoutFlashSale * 0.02.
+                        
+                        const payNowDiscount = hasPayNowDiscount ? ((basePrice + extrasTotal) * 1.10) * 0.02 : 0;
+                        
+                        // Flash Sale Discount
+                        // Difference between High Total (inc tax) and Low Total (inc tax).
+                        // High Total = totalRegularPrice.
+                        // Low Total (before pay now) = (basePrice + extrasTotal) * 1.10.
+                        const flashSaleDiscount = totalRegularPrice - ((basePrice + extrasTotal) * 1.10);
+                        
+                        return (
+                            <div className="space-y-0">
+                                <h4 className="font-bold text-sm text-[#1a1a1a] mb-3">Order Summary</h4>
+
+                                {/* Full Tour Price */}
+                                <div className="bg-white text-black">
+                                    <div className="flex justify-between items-center py-2.5 border-b border-gray-100">
+                                        <div className="text-sm text-gray-700">
+                                            <span className="block font-medium text-[#1a1a1a]">Full Tour Price</span>
+                                            <span className="text-xs text-gray-500">(${displayAdultPrice} x {travelers.adults} Adults)</span>
+                                        </div>
+                                        <span className="font-semibold text-sm text-[#1a1a1a]">${(travelers.adults * displayAdultPrice).toFixed(2)}</span>
+                                    </div>
+    
+                                    {travelers.children > 0 && (
+                                        <div className="flex justify-between items-center py-2.5 border-b border-gray-100">
+                                             <div className="text-sm text-gray-700">
+                                                <span className="block font-medium text-[#1a1a1a]">Children</span>
+                                                <span className="text-xs text-gray-500">(${childPrice} x {travelers.children})</span>
+                                            </div>
+                                            <span className="font-semibold text-sm text-[#1a1a1a]">${(travelers.children * childPrice).toFixed(2)}</span>
+                                        </div>
+                                    )}
+
+                                    {travelers.infants > 0 && (
+                                        <div className="flex justify-between items-center py-2.5 border-b border-gray-100">
+                                            <span className="text-sm text-gray-700">Infants ({travelers.infants})</span>
+                                            <span className="font-semibold text-sm text-[#1a1a1a]">Free</span>
+                                        </div>
+                                    )}
+
+                                    {tour.extraServices && Object.entries(selectedExtras || {}).map(([index, count]) => {
+                                        if (count > 0) {
+                                            const extra = tour.extraServices[index];
+                                            if (extra) {
+                                                return (
+                                                    <div key={index} className="flex justify-between items-center py-2.5 border-b border-gray-100">
+                                                        <span className="text-sm text-gray-700">{count} x {extra.name}</span>
+                                                        <span className="font-semibold text-sm text-[#1a1a1a]">${(count * parseFloat(extra.price)).toFixed(2)}</span>
+                                                    </div>
+                                                );
+                                            }
+                                        }
+                                        return null;
+                                    })}
+
+                                    <div className="flex justify-between items-center py-2.5 border-b border-gray-100">
+                                        <span className="text-sm font-medium text-gray-700">Standard Tax (10%)</span>
+                                        <span className="font-semibold text-sm text-[#1a1a1a]">+${tax.toFixed(2)}</span>
+                                    </div>
+                                </div>
+
+                                {/* TOTAL REGULAR PRICE */}
+                                <div className="bg-gray-50 text-[#1a1a1a] px-4 py-3 rounded-t-lg mt-4 border border-gray-100">
+                                    <div className="flex justify-between items-center">
+                                        <span className="font-bold text-sm uppercase tracking-wide">Total Regular Price</span>
+                                        <span className="font-bold text-base">${totalRegularPrice.toFixed(2)}</span>
+                                    </div>
+                                </div>
+                                <div className="bg-gray-50 text-[#1a1a1a] px-4 pb-4 rounded-b-lg space-y-2 border-x border-b border-gray-100">
+                                    <div className="pt-2"></div>
+                                    
+                                    {(Math.abs(flashSaleDiscount) > 0.01 || Math.abs(payNowDiscount) > 0.01) && (
+                                        <>
+                                            {hasFlashSale && (
+                                                <div className="flex justify-between items-center py-1">
+                                                    <span className="text-sm italic text-[#15531B] font-medium">Flash Sale Discount</span>
+                                                    <span className="font-semibold text-sm text-[#15531B]">-${flashSaleDiscount.toFixed(2)}</span>
+                                                </div>
+                                            )}
+                                            
+                                            {hasPayNowDiscount && (
+                                                <div className="flex justify-between items-center py-1">
+                                                    <span className="text-sm italic text-[#15531B] font-medium">Advance Booking (Pay-Now)</span>
+                                                    <span className="font-semibold text-sm text-[#15531B]">-${payNowDiscount.toFixed(2)}</span>
+                                                </div>
+                                            )}
+                                            <div className="border-t border-gray-200 my-2"></div>
+                                        </>
+                                    )}
+
+                                    <div className="flex justify-between items-center">
+                                        <span className="font-black text-base uppercase tracking-wide">Your Special Price</span>
+                                        <span className="font-black text-2xl">${finalAmountToPay.toFixed(2)}</span>
+                                    </div>
+                                </div>
                             </div>
-                        )}
+                        );
+                    })()}
+                    
 
-                        {/* Discount */}
-                        {bookingData.discountApplied && (
-                            <div className="flex justify-between items-center text-sm text-[#15531B] font-bold">
-                                <span>Discount (Pay Now 2%)</span>
-                                <span>-${(bookingData.originalPrice - totalPrice).toFixed(2)}</span>
-                            </div>
-                        )}
 
-                        {/* Tax */}
-                        <div className="flex justify-between items-center text-sm text-gray-500">
-                             <span>Tax (10%)</span>
-                             <span className="font-medium text-[#1a1a1a]">${(totalPrice * 0.10).toFixed(2)}</span>
-                        </div>
-
-                       <div className="flex justify-between items-center pt-2 border-t border-gray-50">
-                           <span className="text-gray-900 font-bold text-base">Total Price (USD)</span>
-                           <span className="font-black text-2xl text-[#1a1a1a]">${(totalPrice * 1.10).toFixed(2)}</span>
-                       </div>
-                   </div>
-                   
-                   <p className="text-xs text-gray-400 text-center mt-4 flex items-center justify-center gap-1">
-                       <ShieldCheck size={12} /> Secure Checkout
-                   </p>
+                    <p className="text-xs text-gray-400 text-center mt-4 flex items-center justify-center gap-1">
+                        <ShieldCheck size={12} /> Secure Checkout
+                    </p>
 
               </div>
               
@@ -459,6 +610,7 @@ export default function CheckoutPage() {
                    <div className="flex items-center justify-center gap-1 text-xs text-[#15531B] font-bold">
                        <p>Book with confidence</p>
                    </div>
+                   <PaymentMethodIcons />
                    <div className="flex items-center justify-center gap-1 mt-2">
                        {[1,2,3,4,5].map(i => <div key={i} className="w-4 h-4 bg-[#00b67a] rounded-sm"></div>)}
                        <span className="text-xs font-bold ml-1">Trustpilot</span>
@@ -530,69 +682,60 @@ function ContactForm({ onNext }) {
     )
 }
 
+
 function ActivityForm({ travelers, pickupConfig, initialPickup, onNext, onBack }) {
-    const [meetingType, setMeetingType] = useState(initialPickup ? 'pickup' : 'later'); // 'pickup', 'direct', 'later'
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    
     const [formData, setFormData] = useState({ 
-        meetingPoint: '', 
-        pickupLocation: initialPickup ? initialPickup.name : '', 
-        cruiseShip: '', 
-        disembarkationTime: '', 
-        boardingTime: '', 
-        dropOffLocation: '' 
+        dateOfArrival: '', 
+        cruiseShipName: '', 
+        placeOfStay: '', 
+        orderNotes: '',
+        meetingPoint: '',
+        meetingType: 'pickup'
     });
 
     const [errors, setErrors] = useState({});
 
-    // Fetch all available locations for the dropdown
-    const [allLocations, setAllLocations] = useState([]);
-    useEffect(() => {
-        const fetchLocations = async () => {
-            try {
-                const res = await fetch('/api/locations');
-                const data = await res.json();
-                if (data.success) {
-                    setAllLocations(data.data);
-                }
-            } catch (error) {
-                console.error('Failed to fetch locations', error);
-            }
-        };
-        fetchLocations();
-    }, []);
+    const cruiseShips = [
+        'Carnival Vista',
+        'Royal Caribbean Allure',
+        'Norwegian Pearl',
+        'MSC Seaside',
+        'Celebrity Edge',
+        'Holland America Nieuw Amsterdam',
+        'Princess Regal',
+        'Disney Fantasy',
+        'Costa Luminosa',
+        'Other'
+    ];
+
+    const placesOfStay = [
+        'Mahogany Bay',
+        'West Bay Beach',
+        'West End',
+        'Coxen Hole',
+        'French Harbour',
+        'Sandy Bay',
+        'Parrot Tree',
+        'Camp Bay',
+        'Other'
+    ];
 
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        // Validation
-        if (meetingType === 'pickup') {
-            const newErrors = {};
-            if (!formData.pickupLocation) newErrors.pickupLocation = true;
-            if (!formData.cruiseShip) newErrors.cruiseShip = true;
-            if (!formData.disembarkationTime) newErrors.disembarkationTime = true;
-            if (!formData.boardingTime) newErrors.boardingTime = true;
-            if (!formData.dropOffLocation) newErrors.dropOffLocation = true;
+        const newErrors = {};
+        if (!formData.dateOfArrival) newErrors.dateOfArrival = true;
 
-            if (Object.keys(newErrors).length > 0) {
-                setErrors(newErrors);
-                return;
-            }
+        if (Object.keys(newErrors).length > 0) {
+            setErrors(newErrors);
+            return;
         }
 
-        onNext({ ...formData, meetingType });
-    }
-
-    const handleMeetingChange = (type) => {
-        setMeetingType(type);
-        setErrors({}); // Clear errors when switching type
-        if (type === 'later') setFormData({ ...formData, meetingPoint: 'Decide later' });
-        if (type === 'pickup') setFormData({ ...formData, meetingPoint: 'Pickup requested' });
+        onNext({ ...formData });
     }
 
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value});
-        // Clear error when user types
         if (errors[e.target.name]) {
             setErrors({...errors, [e.target.name]: false});
         }
@@ -600,143 +743,69 @@ function ActivityForm({ travelers, pickupConfig, initialPickup, onNext, onBack }
 
     const getInputClass = (fieldName) => {
         return errors[fieldName] 
-            ? "w-full p-2.5 bg-[#feF2F2] border border-red-500 rounded text-sm outline-none focus:border-red-500 placeholder-red-400"
-            : "w-full p-2.5 bg-white border border-gray-300 rounded text-sm outline-none focus:border-[#15531B] focus:ring-1 focus:ring-[#15531B]";
+            ? "w-full p-3 bg-[#feF2F2] border border-red-500 rounded-lg text-sm outline-none focus:border-red-500 placeholder-red-400"
+            : "w-full p-3 bg-white border border-gray-200 rounded-lg text-sm outline-none focus:border-[#15531B] focus:ring-1 focus:ring-[#15531B]";
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6">
-            
+        <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Date of Arrival */}
+            <div className="relative">
+                <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-[#15531B] font-medium z-10">Date of Arrival *</label>
+                <input 
+                    type="date"
+                    name="dateOfArrival" 
+                    className={getInputClass('dateOfArrival')}
+                    onChange={handleChange}
+                    value={formData.dateOfArrival}
+                />
+                {errors.dateOfArrival && <p className="text-[10px] text-red-500 mt-1 font-medium">Required</p>}
+            </div>
 
+            {/* Cruise Ship Name */}
+            <div className="relative">
+                <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-[#15531B] font-medium z-10">Cruise Ship Name (optional)</label>
+                <select 
+                    name="cruiseShipName" 
+                    className="w-full p-3 bg-white border border-gray-200 rounded-lg text-sm outline-none focus:border-[#15531B] focus:ring-1 focus:ring-[#15531B] appearance-none cursor-pointer"
+                    onChange={handleChange}
+                    value={formData.cruiseShipName}
+                >
+                    <option value="">Choose...</option>
+                    {cruiseShips.map((ship, i) => (
+                        <option key={i} value={ship}>{ship}</option>
+                    ))}
+                </select>
+                <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+            </div>
 
-            {/* Pickup */}
-            <div>
-                <h3 className="font-bold text-sm mb-3">Meeting point</h3>
-                <p className="text-xs text-gray-500 mb-2">Tell us where you'd prefer to meet up.</p>
-                
-                <div className="space-y-3">
-                    {pickupConfig?.pickup_offered && (
-                        <div className={`bg-white border transition-all rounded-lg overflow-hidden ${meetingType === 'pickup' ? 'border-[#15531B] ring-1 ring-[#15531B]' : 'border-gray-200 hover:border-black'}`}>
-                             <div 
-                                className="p-3 cursor-pointer flex items-center gap-3"
-                                onClick={() => handleMeetingChange('pickup')}
-                             >
-                                <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${meetingType === 'pickup' ? 'border-[#15531B]' : 'border-gray-300'}`}>
-                                     {meetingType === 'pickup' && <div className="w-2 h-2 bg-[#15531B] rounded-full"></div>}
-                                </div>
-                                <label className="text-sm font-medium cursor-pointer flex-1 text-[#1a1a1a]">Select a meeting point</label>
-                             </div>
+            {/* Place of Stay */}
+            <div className="relative">
+                <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-[#15531B] font-medium z-10">Place of Stay (optional)</label>
+                <select 
+                    name="placeOfStay" 
+                    className="w-full p-3 bg-white border border-gray-200 rounded-lg text-sm outline-none focus:border-[#15531B] focus:ring-1 focus:ring-[#15531B] appearance-none cursor-pointer"
+                    onChange={handleChange}
+                    value={formData.placeOfStay}
+                >
+                    <option value="">Choose...</option>
+                    {placesOfStay.map((place, i) => (
+                        <option key={i} value={place}>{place}</option>
+                    ))}
+                </select>
+                <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+            </div>
 
-                             {meetingType === 'pickup' && (
-                                 <div className="px-4 pb-4 space-y-4 animate-fadeIn">
-                                     
-                                     {/* Location Dropdown */}
-                                     <div className="relative">
-                                        <div className="relative">
-                                            <input 
-                                                type="text"
-                                                name="pickupLocation"
-                                                placeholder="Type to search"
-                                                value={formData.pickupLocation}
-                                                onChange={(e) => { 
-                                                    handleChange(e);
-                                                    setIsDropdownOpen(true); 
-                                                }}
-                                                onFocus={() => setIsDropdownOpen(true)}
-                                                onBlur={() => setTimeout(() => setIsDropdownOpen(false), 200)}
-                                                className={getInputClass('pickupLocation')}
-                                            />
-                                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                                        </div>
-                                        {errors.pickupLocation && <p className="text-[10px] text-red-500 mt-1 font-medium">Required</p>}
-
-                                        {isDropdownOpen && allLocations.length > 0 && (
-                                            <div 
-                                                onMouseDown={(e) => e.preventDefault()}
-                                                className="absolute top-full left-0 w-full bg-white border border-gray-200 rounded-lg shadow-xl mt-1 max-h-60 overflow-y-auto z-10"
-                                            >
-                                                {allLocations.filter(loc => loc.name && loc.name.toLowerCase().includes(formData.pickupLocation.toLowerCase())).map((loc, i) => (
-                                                <div 
-                                                    key={i} 
-                                                    onClick={() => {
-                                                        setFormData({...formData, pickupLocation: loc.name});
-                                                        setErrors({...errors, pickupLocation: false});
-                                                        setIsDropdownOpen(false);
-                                                    }}
-                                                    className="flex items-start gap-3 p-3 hover:bg-gray-50 cursor-pointer border-b last:border-0 border-gray-100"
-                                                >
-                                                    {loc.type === 'Port' ? <Anchor size={18} className="text-[#15531B] mt-1" /> : <Building size={18} className="text-[#15531B] mt-1" />}
-                                                    <div>
-                                                    <div className="font-bold text-[#1a1a1a] text-sm">{loc.name}</div>
-                                                    <div className="text-xs text-gray-500">{loc.address}</div>
-                                                    </div>
-                                                </div>
-                                                ))}
-                                                {allLocations.filter(loc => loc.name && loc.name.toLowerCase().includes(formData.pickupLocation.toLowerCase())).length === 0 && (
-                                                    <div className="p-4 text-center text-gray-500 text-sm">No locations found</div>
-                                                )}
-                                            </div>
-                                        )}
-                                     </div>
-
-                                     <div>
-                                         <input 
-                                            name="cruiseShip" 
-                                            placeholder="Cruise ship" 
-                                            className={getInputClass('cruiseShip')}
-                                            onChange={handleChange}
-                                            value={formData.cruiseShip}
-                                         />
-                                         {errors.cruiseShip && <p className="text-[10px] text-red-500 mt-1 font-medium">Required</p>}
-                                     </div>
-
-                                     <div>
-                                         <input 
-                                            name="disembarkationTime" 
-                                            placeholder="Disembarkation time" 
-                                            className={getInputClass('disembarkationTime')}
-                                            onChange={handleChange}
-                                            value={formData.disembarkationTime}
-                                         />
-                                         {errors.disembarkationTime && <p className="text-[10px] text-red-500 mt-1 font-medium">Required</p>}
-                                     </div>
-
-                                      <div>
-                                         <input 
-                                            name="boardingTime" 
-                                            placeholder="Boarding time" 
-                                            className={getInputClass('boardingTime')}
-                                            onChange={handleChange}
-                                            value={formData.boardingTime}
-                                         />
-                                         {errors.boardingTime && <p className="text-[10px] text-red-500 mt-1 font-medium">Required</p>}
-                                     </div>
-
-                                      <div>
-                                         <input 
-                                            name="dropOffLocation" 
-                                            placeholder="Where would you like to be dropped off?" 
-                                            className={getInputClass('dropOffLocation')}
-                                            onChange={handleChange}
-                                            value={formData.dropOffLocation}
-                                         />
-                                         {errors.dropOffLocation && <p className="text-[10px] text-red-500 mt-1 font-medium">Required</p>}
-                                     </div>
-                                 </div>
-                             )}
-                        </div>
-                    )}
-                    
-                     <div 
-                        className={`bg-white border p-3 rounded-lg cursor-pointer flex items-center gap-3 transition-colors ${meetingType === 'later' ? 'border-[#15531B] ring-1 ring-[#15531B]' : 'border-gray-200 hover:border-black'}`}
-                        onClick={() => handleMeetingChange('later')}
-                     >
-                            <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${meetingType === 'later' ? 'border-[#15531B]' : 'border-gray-300'}`}>
-                                {meetingType === 'later' && <div className="w-2 h-2 bg-[#15531B] rounded-full"></div>}
-                            </div>
-                            <label className="text-sm font-medium cursor-pointer flex-1 text-[#1a1a1a]">I'll decide later</label>
-                    </div>
-                </div>
+            {/* Order Notes */}
+            <div className="relative">
+                <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-gray-400 font-medium z-10">Order Notes (optional)</label>
+                <textarea 
+                    name="orderNotes" 
+                    rows={4}
+                    className="w-full p-3 pt-4 bg-white border border-gray-200 rounded-lg text-sm outline-none focus:border-[#15531B] focus:ring-1 focus:ring-[#15531B] resize-y"
+                    onChange={handleChange}
+                    value={formData.orderNotes}
+                />
             </div>
 
             <div className="pt-4 flex items-center gap-4">

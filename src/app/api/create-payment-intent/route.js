@@ -50,9 +50,7 @@ export async function POST(request) {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Math.round(totalAmount * 100), // Convert to cents
       currency: 'usd',
-      automatic_payment_methods: {
-        enabled: true,
-      },
+      payment_method_types: ['card', 'link'],
       metadata: {
         tourId: tourId,
         tourTitle: tour.title

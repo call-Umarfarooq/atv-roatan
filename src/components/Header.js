@@ -14,15 +14,6 @@ const navLinks = [
   { label: 'Reviews', href: '/reviews' },
 ];
 
-const marqueeItems = [
-  "✅ Free Cancellation & Full Refund (24hrs notice)",
-  "♻️ Sustainable Tourism (GSTC Reg.)",
-  "⛑️ Port Round Trip Transport Included.",
-  "♀️ Women led, Family Owned",
-  "Fully Insured",
-  "Fully Insured, Kids Friendly, Family Adventure",
-  "⏱️100% Back to Ship Guarantee, Sail Time Safe Scheduling, Peace of Mind Included"
-];
 
 const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -289,31 +280,42 @@ const Header = () => {
                  {/* Dropdown Content */}
                  {activeDropdown === 'ports' && (
                   <div className="absolute top-12 left-0 w-[900px] bg-white text-gray-800 shadow-xl rounded-b-md border-t-2 border-[#004d36] animate-in fade-in slide-in-from-top-2 duration-200 z-50">
-                    <div className="grid grid-cols-5 gap-4 p-6">
-                       {/* Using same tours data for now as requested by user */}
-                       {tours.length > 0 ? (
-                        tours.map((tour) => (
-                          <a 
-                            key={tour._id} 
-                            href={`/tours/${tour.slug}`} 
-                            className="flex flex-col gap-2 group/item"
-                          >
-                            <div className="relative w-full aspect-4/3 rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
-                              <Image
-                                src={tour.image_url || '/images/placeholder.jpg'}
-                                alt={tour.title}
-                                fill
-                                className="object-cover group-hover/item:scale-105 transition-transform duration-300"
-                              />
-                            </div>
-                            <span className="text-xs font-bold text-gray-700 text-center uppercase tracking-tight group-hover/item:text-[#00694B] leading-tight">
-                              {tour.title}
-                            </span>
-                          </a>
-                        ))
-                      ) : (
-                        <div className="col-span-5 p-4 text-center text-gray-500">Loading tours...</div>
-                      )}
+                    <div className="grid grid-cols-4 gap-6 p-6">
+                      {/* Port of Roatan */}
+                      <a href="/port-of-roatan" className="flex flex-col gap-2 group/item">
+                        <div className="relative w-full aspect-video rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
+                          <Image src="/images/hero.png" alt="Port of Roatan" fill className="object-cover group-hover/item:scale-105 transition-transform duration-300" />
+                        </div>
+                        <span className="text-sm font-bold text-gray-700 text-center group-hover/item:text-[#00694B]">Port of Roatan (Coxen Hole)</span>
+                      </a>
+
+                      {/* Port of Roatan Schedule */}
+                      <a href="/port-of-roatan-cruise-ship-schedule" className="flex flex-col gap-2 group/item">
+                        <div className="relative w-full aspect-video rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
+                           <div className="absolute inset-0 bg-blue-50 flex items-center justify-center">
+                              <span className="text-4xl">📅</span>
+                           </div>
+                        </div>
+                        <span className="text-sm font-bold text-gray-700 text-center group-hover/item:text-[#00694B]">Port of Roatan Schedule</span>
+                      </a>
+
+                      {/* Isla Tropicale */}
+                      <a href="/isla-tropicale-cruise-ship-port" className="flex flex-col gap-2 group/item">
+                        <div className="relative w-full aspect-video rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
+                          <Image src="/images/hero.png" alt="Isla Tropicale" fill className="object-cover group-hover/item:scale-105 transition-transform duration-300" />
+                        </div>
+                        <span className="text-sm font-bold text-gray-700 text-center group-hover/item:text-[#00694B]">Isla Tropicale (Mahogany Bay)</span>
+                      </a>
+
+                      {/* Isla Tropicale Schedule */}
+                      <a href="/isla-tropicale-cruise-ship-port-schedule" className="flex flex-col gap-2 group/item">
+                        <div className="relative w-full aspect-video rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
+                           <div className="absolute inset-0 bg-green-50 flex items-center justify-center">
+                              <span className="text-4xl">📅</span>
+                           </div>
+                        </div>
+                        <span className="text-sm font-bold text-gray-700 text-center group-hover/item:text-[#00694B]">Isla Tropicale Schedule</span>
+                      </a>
                     </div>
                   </div>
                 )}
