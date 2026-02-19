@@ -220,7 +220,7 @@ const Header = () => {
       {/* Secondary Navigation Strip */}
       <div className="border-t border-gray-100 bg-[#00694B] text-white">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between h-12 text-sm font-semibold tracking-wide">
+          <div className="flex items-center justify-between h-8 text-sm font-semibold tracking-wide">
             
             <div className="flex items-center gap-8">
               {/* Dropdown 1: Shore Excursions */}

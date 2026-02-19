@@ -9,6 +9,7 @@ import ThingsToDo from "@/components/ThingsToDo";
 import mongoose from "mongoose";
 import "@/models/Activity"; // Ensure model is registered
 import ReviewLinks from "@/components/ReviewLinks";
+import ReviewsWidget from "@/components/ReviewsWidget";
 
 // Force dynamic rendering to ensure fresh data
 export const dynamic = 'force-dynamic';
@@ -16,7 +17,7 @@ export const dynamic = 'force-dynamic';
 export default async function Home() {
   await dbConnect();
 
-  const tours = await Tour.find({}).populate('category').sort({ createdAt: -1 }).lean();
+  const tours = await Tour.find({}).populate('categories').populate('activities').sort({ createdAt: -1 }).lean();
   const categories = await Category.find({}).sort({ name: 1 }).lean();
 
   // Serialization to simple objects
@@ -59,6 +60,7 @@ console.log(tours);
 
       <ThingsToDo activities={serializedActivities} />
       
+      <ReviewsWidget />
       <ReviewLinks />
     </main>
   );

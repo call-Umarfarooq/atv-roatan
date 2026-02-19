@@ -431,7 +431,14 @@ export default function CheckoutPage() {
                   {/* Price Breakdown - New Layout */}
                    {(() => {
                         // Calculate base price (before any discounts)
-                        let basePrice = (travelers.adults * adultPrice) + (travelers.children * childPrice);
+                        // Standard Price Logic
+                        // We strictly show the adultPrice and childPrice as the base rates.
+                        // Savings are calculated if cutoff_price > adultPrice.
+
+                        const displayAdultPrice = adultPrice;
+                        
+                        // Calculate Base Price (what user actually pays before tax)
+                        const basePrice = (travelers.adults * displayAdultPrice) + (travelers.children * childPrice);
                         
                         // Calculate extras total
                         let extrasTotal = 0;
@@ -447,66 +454,33 @@ export default function CheckoutPage() {
                         // Tax Rate
                         const taxRate = 0.10;
 
-                        // Identify if we should use cutoff_price as the "Standard Price" (Flash Sale logic)
-                        // If cutoff_price > adultPrice, we treat cutoff_price as the valid "Full Price" for display.
-                        const hasFlashSale = tour.cutoff_price && parseFloat(tour.cutoff_price) > adultPrice;
-                        const displayAdultPrice = hasFlashSale ? parseFloat(tour.cutoff_price) : adultPrice;
+                        // Full Tour Price (Base + Extras)
+                        const fullTourPrice = basePrice + extrasTotal;
 
-                        // Calculate Full Tour Price (using display price)
-                        const fullBasePrice = (travelers.adults * displayAdultPrice) + (travelers.children * childPrice);
-                        const fullTourPrice = fullBasePrice + extrasTotal;
-
-                        // Calculate Tax on Full price
+                        // Calculate Tax
                         const tax = fullTourPrice * taxRate;
                         
                         // Total Regular Price
                         const totalRegularPrice = fullTourPrice + tax;
 
-                        // Final Amount User Pays (from backend logic logic: (RealBase + Extras) * 0.98 * 1.10)
-                        // If PayNow applied:
+                        // Savings Calculation
+                        // If cutoff_price exists and is > adultPrice, user is saving money.
+                        // Saving per adult = cutoff_price - adultPrice
+                        // Total Saving = (cutoff_price - adultPrice) * adults
+                        const cutoffPrice = tour.cutoff_price ? parseFloat(tour.cutoff_price) : 0;
+                        const hasSavings = cutoffPrice > adultPrice;
+                        const totalSavings = hasSavings ? (cutoffPrice - adultPrice) * travelers.adults : 0;
+
+                        // Pay Now Discount (2%)
                         const hasPayNowDiscount = !!bookingData.discountApplied;
                         
-                        // We need to arrive at 'formattedTotalPrice' which is what the user actually pays (totalPrice * 1.10).
-                        // Dynamic: recalculate from real base + current extras
-                        const realPreTaxTotal = basePrice + extrasTotal;
+                         // Final Amount User Pays
+                        // If PayNow applied: (Base + Extras) * 0.98 * 1.10
                         const finalAmountToPay = hasPayNowDiscount 
-                            ? (realPreTaxTotal * 0.98 * 1.10) 
-                            : (realPreTaxTotal * 1.10);
+                            ? (fullTourPrice * 0.98 * 1.10) 
+                            : (fullTourPrice * 1.10);
 
-                        // Calculate Flash Sale Discount
-                        // Flash Sale Discount = (Display Full Price - Real Full Price) * adults?
-                        // Actually difference in totals.
-                        // Real Pre-Tax Total = (RealBase + Extras)
-                        // Display Pre-Tax Total = (FullBase + Extras)
-                        // Flash Scale Discount (Pre-Tax) = Display Pre-Tax - Real Pre-Tax
-                        const preTaxFlashSaleDiscount = fullTourPrice - (basePrice + extrasTotal);
-                        
-                        // If we show tax on the High Price, then the discount must include the tax difference too?
-                        // Regular Price includes High Tax. 
-                        // Special Price includes Low Tax.
-                        // So Discount should be (Regular Price - Special Price - PayNowDiscount).
-                        
-                        // Let's calculate the "Pay Now" discount first.
-                        // It is 2% of the Real Pre-Tax Total.
-                        // Value = (basePrice + extrasTotal) * 0.02.
-                        // Plus tax on that 2%?
-                        // No, usually 2% off the bill.
-                        // The user pays: ((basePrice + extrasTotal) * 0.98) * 1.10.
-                        // = (basePrice + extrasTotal) * 1.078.
-                        
-                        // Regular Price = (basePrice + extrasTotal) * 1.10 (if no flash sale).
-                        // Difference = 1.10 - 1.078 = 0.022.
-                        // So the "Pay Now" discount value shown should be 2.2% of the Base?
-                        // Or 2% of the (Base + Tax)? 2% of 1.10 is 0.022. Yes.
-                        // So PayNowDiscount = RegularPriceWithoutFlashSale * 0.02.
-                        
-                        const payNowDiscount = hasPayNowDiscount ? ((basePrice + extrasTotal) * 1.10) * 0.02 : 0;
-                        
-                        // Flash Sale Discount
-                        // Difference between High Total (inc tax) and Low Total (inc tax).
-                        // High Total = totalRegularPrice.
-                        // Low Total (before pay now) = (basePrice + extrasTotal) * 1.10.
-                        const flashSaleDiscount = totalRegularPrice - ((basePrice + extrasTotal) * 1.10);
+                        const payNowDiscount = hasPayNowDiscount ? (fullTourPrice * 1.10 * 0.02) : 0;
                         
                         return (
                             <div className="space-y-0">
@@ -561,21 +535,21 @@ export default function CheckoutPage() {
                                 </div>
 
                                 {/* TOTAL REGULAR PRICE */}
-                                <div className="bg-gray-50 text-[#1a1a1a] px-4 py-3 rounded-t-lg mt-4 border border-gray-100">
+                                    <div className="bg-gray-50 text-[#1a1a1a] px-4 py-3 rounded-t-lg mt-4 border border-gray-100">
                                     <div className="flex justify-between items-center">
-                                        <span className="font-bold text-sm uppercase tracking-wide">Total Regular Price</span>
+                                        <span className="font-bold text-sm uppercase tracking-wide">Total Price</span>
                                         <span className="font-bold text-base">${totalRegularPrice.toFixed(2)}</span>
                                     </div>
                                 </div>
                                 <div className="bg-gray-50 text-[#1a1a1a] px-4 pb-4 rounded-b-lg space-y-2 border-x border-b border-gray-100">
                                     <div className="pt-2"></div>
                                     
-                                    {(Math.abs(flashSaleDiscount) > 0.01 || Math.abs(payNowDiscount) > 0.01) && (
+                                    {(hasSavings || Math.abs(payNowDiscount) > 0.01) && (
                                         <>
-                                            {hasFlashSale && (
+                                            {hasSavings && (
                                                 <div className="flex justify-between items-center py-1">
-                                                    <span className="text-sm italic text-[#15531B] font-medium">Flash Sale Discount</span>
-                                                    <span className="font-semibold text-sm text-[#15531B]">-${flashSaleDiscount.toFixed(2)}</span>
+                                                    <span className="text-sm italic text-[#15531B] font-medium">You Saved</span>
+                                                    <span className="font-semibold text-sm text-[#15531B]">-${totalSavings.toFixed(2)}</span>
                                                 </div>
                                             )}
                                             

@@ -114,7 +114,12 @@ export default function DashboardPage() {
                                             </Link>
                                     </div>
                                 </td>
-                                <td className="px-6 py-4 font-medium text-[#1a1a1a]">${tour.base_price}</td>
+                                <td className="px-6 py-4 font-medium text-[#1a1a1a]">
+                                    <div className="flex flex-col">
+                                        <span>Base: ${tour.base_price}</span>
+                                        <span className="text-xs text-gray-500">Adult: ${tour.adultPrice}</span>
+                                    </div>
+                                </td>
                                 <td className="px-6 py-4 text-gray-500 text-sm">{tour.duration}</td>
                                 <td className="px-6 py-4">
                                     {tour.is_featured ? (
@@ -124,7 +129,7 @@ export default function DashboardPage() {
                                     )}
                                 </td>
                                 <td className="px-6 py-4 text-right">
-                                    <div className="flex items-center justify-end gap-2 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <div className="flex items-center justify-end gap-2 text-gray-400  group-hover:opacity-100 transition-opacity">
                                         <Link href={`/admin/tours/${tour.slug}/edit`}>
                                             <button className="p-2 hover:bg-gray-100 rounded-lg text-blue-600 transition-colors" title="Edit">
                                                 <Edit size={16} />

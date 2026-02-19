@@ -26,6 +26,7 @@ import BookingWidget from '@/components/BookingWidget';
 import PickupSelector from '@/components/PickupSelector';
 import { useParams } from 'next/navigation';
 import { getImageUrl } from '@/utils/imageUrl';
+import ReviewsWidget from '@/components/ReviewsWidget';
 
 export default function TourDetailsClient({ initialTour }) {
   const params = useParams();
@@ -533,6 +534,8 @@ export default function TourDetailsClient({ initialTour }) {
                      </div>
                   </div>
              </section>
+
+             <ReviewsWidget />
 
              <hr className="border-gray-200 my-6" />
 

@@ -44,7 +44,7 @@ export default function PopularTours({ initialTours }) {
             <TourCard 
                 title={tour.title}
                 image={tour.image_url}
-                price={tour.base_price}
+                price={tour.adultPrice || tour.base_price}
                 duration={tour.duration}
                 slug={tour.slug}
                 location={tour.marketing_badges?.location_text}

@@ -10,7 +10,16 @@ const HomeClient = ({ initialTours, categories }) => {
   const filteredTours = useMemo(() => {
     return selectedCategory === 'All' 
       ? initialTours 
-      : initialTours.filter(tour => tour.category === selectedCategory || tour.category?._id === selectedCategory);
+      : initialTours.filter(tour => {
+          // Check new array format (categories) OR old single format (category) for backward compatibility
+          const tourCategories = tour.categories || [];
+          const oldCategory = tour.category;
+          
+          const hasCategory = tourCategories.some(c => (typeof c === 'string' ? c : c._id) === selectedCategory);
+          const matchesOld = oldCategory && (typeof oldCategory === 'string' ? oldCategory : oldCategory._id) === selectedCategory;
+
+          return hasCategory || matchesOld;
+      });
   }, [selectedCategory, initialTours]);
 
   return (

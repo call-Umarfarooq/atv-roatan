@@ -16,16 +16,14 @@ const TourSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please provide a description.'],
   },
-  activity: {
+  activities: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Activity',
-    required: [true, 'Please select an activity.'],
-  },
-  category: {
+  }],
+  categories: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Category',
-    required: [true, 'Please select a category.'],
-  },
+  }],
   duration: {
     type: String,
     required: true,
@@ -48,6 +46,12 @@ const TourSchema = new mongoose.Schema({
   },
   childAgeRange: {
     type: String, // e.g., "4-10"
+  },
+  infantPrice: {
+    type: Number,
+  },
+  infantAgeRange: {
+    type: String, // e.g., "0-3"
   },
   min_age: {
     type: Number,

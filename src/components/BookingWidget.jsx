@@ -20,9 +20,10 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
   // Price Constants (fallback if tour prop missing temporarily)
   const ADULT_PRICE = tour?.adultPrice || tour?.base_price || 0;
   const CHILD_PRICE = tour?.childPrice || 0;
+  const INFANT_PRICE = tour?.infantPrice || 0;
 
   useEffect(() => {
-      let total = (travelers.adults * ADULT_PRICE) + (travelers.children * CHILD_PRICE);
+      let total = (travelers.adults * ADULT_PRICE) + (travelers.children * CHILD_PRICE) + (travelers.infants * INFANT_PRICE);
       
       // Calculate Extras
       if (tour?.extraServices) {
@@ -34,7 +35,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
       }
 
       setTotalPrice(total);
-  }, [travelers, ADULT_PRICE, CHILD_PRICE, selectedExtras, tour?.extraServices]);
+  }, [travelers, ADULT_PRICE, CHILD_PRICE, INFANT_PRICE, selectedExtras, tour?.extraServices]);
 
   const updateExtras = (index, change) => {
       setSelectedExtras(prev => {
@@ -47,8 +48,10 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
   const updateTravelers = (type, operation) => {
       setTravelers(prev => {
           const newValue = operation === 'inc' ? prev[type] + 1 : prev[type] - 1;
+
           if (newValue < 0) return prev;
           if (type === 'adults' && newValue < 1) return prev; // Min 1 adult
+          
           return { ...prev, [type]: newValue };
       });
   };
@@ -77,6 +80,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
           discountApplied: paymentOption === 'pay_now' ? '2% Pay Now Discount' : null,
           adultPrice: ADULT_PRICE,
           childPrice: CHILD_PRICE,
+          infantPrice: INFANT_PRICE,
           selectedExtras,
           initialPickup: selectedPickup,
           paymentOption: paymentOption // 'pay_now' or 'reserve_later'
@@ -211,7 +215,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
                                 <div>
                                     <div className="font-bold text-[#1a1a1a]">Infant</div>
                                     <div className="text-xs text-gray-500">Age {tour?.infantAgeRange || '0-3'}</div>
-                                    <div className="text-sm font-semibold mt-1">Free</div>
+                                    <div className="text-sm font-semibold mt-1">{INFANT_PRICE > 0 ? `$${INFANT_PRICE}` : 'Free'}</div>
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <button 

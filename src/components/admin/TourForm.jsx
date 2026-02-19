@@ -27,6 +27,8 @@ export default function TourForm({ initialData = null, isEdit = false }) {
     adultAgeRange: '',
     childPrice: '',
     childAgeRange: '',
+    infantPrice: '',
+    infantAgeRange: '',
     min_age: '',
     max_guests: '',
     is_featured: false,
@@ -63,8 +65,8 @@ export default function TourForm({ initialData = null, isEdit = false }) {
     },
     tags: [],
     extraServices: [],
-    activity: '',
-    category: ''
+    activities: [],
+    categories: []
   });
 
   useEffect(() => {
@@ -110,6 +112,9 @@ export default function TourForm({ initialData = null, isEdit = false }) {
           },
           tags: initialData.tags || [],
           extraServices: initialData.extraServices || [],
+          // Handle migration: categories -> array, category -> array
+          categories: initialData.categories ? initialData.categories.map(c => typeof c === 'string' ? c : c._id) : (initialData.category ? [typeof initialData.category === 'string' ? initialData.category : initialData.category._id] : []),
+          activities: initialData.activities ? initialData.activities.map(a => typeof a === 'string' ? a : a._id) : (initialData.activity ? [typeof initialData.activity === 'string' ? initialData.activity : initialData.activity._id] : []),
           what_to_include: initialData.what_to_include || [],
           exclusions: initialData.exclusions || [],
           booking_options: { ...prev.booking_options, ...(initialData.booking_options || {}) },
@@ -117,7 +122,9 @@ export default function TourForm({ initialData = null, isEdit = false }) {
             ...prev.pickup_configuration, 
             ...(initialData.pickup_configuration || {}),
             pickup_locations: initialData.pickup_configuration?.pickup_locations?.map(l => typeof l === 'string' ? l : l._id) || []
-          }
+          },
+          infantPrice: initialData.infantPrice || '',
+          infantAgeRange: initialData.infantAgeRange || ''
       }));
     }
   }, [initialData]);
@@ -147,6 +154,14 @@ export default function TourForm({ initialData = null, isEdit = false }) {
         // Auto-generate slug if title changes
         if (name === 'title') {
             newData.slug = generateSlug(value);
+        }
+
+        // Sync base_price and adultPrice
+        if (name === 'base_price') {
+            newData.adultPrice = value;
+        }
+        if (name === 'adultPrice') {
+            newData.base_price = value;
         }
 
         return newData;
@@ -355,24 +370,60 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                             <label className="block text-sm font-medium text-gray-700 mb-1">Duration</label>
                             <input name="duration" value={formData.duration} onChange={handleChange} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#15531B] focus:border-transparent outline-none text-[#1a1a1a]" placeholder="e.g. 4 hours" />
                         </div>
-                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Activity Type</label>
-                            <select required name="activity" value={formData.activity} onChange={handleChange} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#15531B] focus:border-transparent outline-none text-[#1a1a1a]">
-                                <option value="">Select Activity</option>
-                                {activities.map(a => (
-                                    <option key={a._id} value={a._id}>{a.title}</option>
-                                ))}
-                            </select>
-                        </div>
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                            <select required name="category" value={formData.category} onChange={handleChange} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#15531B] focus:border-transparent outline-none text-[#1a1a1a]">
-                                <option value="">Select Category</option>
-                                {categories.map(c => (
-                                    <option key={c._id} value={c._id}>{c.name}</option>
-                                ))}
-                            </select>
-                        </div>
+                           <label className="block text-sm font-medium text-gray-700 mb-2">Activities (Select all that apply)</label>
+                           <div className="border rounded-lg p-3 max-h-40 overflow-y-auto bg-gray-50">
+                               {activities.map(a => (
+                                   <label key={a._id} className="flex items-center gap-2 mb-2 last:mb-0 cursor-pointer">
+                                       <input 
+                                           type="checkbox" 
+                                           checked={formData.activities?.includes(a._id)}
+                                           onChange={(e) => {
+                                               const checked = e.target.checked;
+                                               setFormData(prev => {
+                                                   const current = prev.activities || [];
+                                                   return {
+                                                       ...prev,
+                                                       activities: checked 
+                                                           ? [...current, a._id]
+                                                           : current.filter(id => id !== a._id)
+                                                   };
+                                               });
+                                           }}
+                                           className="w-4 h-4 text-[#15531B] rounded focus:ring-[#15531B]"
+                                       />
+                                       <span className="text-sm text-[#1a1a1a]">{a.title}</span>
+                                   </label>
+                               ))}
+                           </div>
+                       </div>
+                       <div>
+                           <label className="block text-sm font-medium text-gray-700 mb-2">Categories (Select all that apply)</label>
+                           <div className="border rounded-lg p-3 max-h-40 overflow-y-auto bg-gray-50">
+                               {categories.map(c => (
+                                   <label key={c._id} className="flex items-center gap-2 mb-2 last:mb-0 cursor-pointer">
+                                       <input 
+                                           type="checkbox" 
+                                           checked={formData.categories?.includes(c._id)}
+                                           onChange={(e) => {
+                                               const checked = e.target.checked;
+                                               setFormData(prev => {
+                                                   const current = prev.categories || [];
+                                                   return {
+                                                       ...prev,
+                                                       categories: checked 
+                                                           ? [...current, c._id]
+                                                           : current.filter(id => id !== c._id)
+                                                   };
+                                               });
+                                           }}
+                                           className="w-4 h-4 text-[#15531B] rounded focus:ring-[#15531B]"
+                                       />
+                                       <span className="text-sm text-[#1a1a1a]">{c.name}</span>
+                                   </label>
+                               ))}
+                           </div>
+                       </div>
                       </div>
 
                       {/* Booking Options */}
@@ -688,9 +739,15 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                       </div>
                       <div className="grid grid-cols-2 gap-4">
                           <div>
-                              <label className="block text-sm font-medium text-gray-700 mb-1">Max Guests</label>
-                              <input type="number" name="max_guests" value={formData.max_guests} onChange={handleChange} className="w-full p-2 border rounded-lg text-[#1a1a1a]" />
+                              <label className="block text-sm font-medium text-gray-700 mb-1">Infant Price (Leave blank for Free)</label>
+                              <input type="number" name="infantPrice" value={formData.infantPrice} onChange={handleChange} className="w-full p-2 border rounded-lg text-[#1a1a1a]" placeholder="0" />
                           </div>
+                          <div>
+                              <label className="block text-sm font-medium text-gray-700 mb-1">Infant Age Range</label>
+                              <input type="text" name="infantAgeRange" value={formData.infantAgeRange} onChange={handleChange} className="w-full p-2 border rounded-lg text-[#1a1a1a]" placeholder="e.g. 0-3" />
+                          </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
                           <div>
                               <label className="block text-sm font-medium text-gray-700 mb-1">Min Age</label>
                               <input type="number" name="min_age" value={formData.min_age} onChange={handleChange} className="w-full p-2 border rounded-lg text-[#1a1a1a]" />

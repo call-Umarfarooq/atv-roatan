@@ -2,6 +2,9 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/db';
 import Tour from '@/models/Tour';
+import '@/models/Location';
+import '@/models/Activity'; // Good practice to import all refs
+import '@/models/Category';
 
 
 export async function GET(request, { params }) {
