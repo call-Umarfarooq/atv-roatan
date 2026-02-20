@@ -292,20 +292,16 @@ export default function CheckoutPage() {
 
                            <hr className="border-gray-200" />
 
-                           {/* Meeting Point */}
+                           {/* Meeting Point & Activity Info */}
                            <div>
-                               <h4 className="font-bold text-[#1a1a1a] text-base mb-2">Meeting point</h4>
-                               {activityResult.meetingType === 'pickup' ? (
-                                   <div className="space-y-1 text-sm text-gray-600">
-                                       <div className="font-bold text-[#1a1a1a]">{activityResult.pickupLocation}</div>
-                                       {activityResult.cruiseShip && <div><span className="text-gray-500">Cruise ship:</span> {activityResult.cruiseShip}</div>}
-                                       {activityResult.disembarkationTime && <div><span className="text-gray-500">Disembarkation time:</span> {activityResult.disembarkationTime}</div>}
-                                       {activityResult.boardingTime && <div><span className="text-gray-500">Boarding time:</span> {activityResult.boardingTime}</div>}
-                                       {activityResult.dropOffLocation && <div><span className="text-gray-500">Where would you like to be dropped off?:</span> {activityResult.dropOffLocation}</div>}
-                                   </div>
-                               ) : (
-                                   <p className="text-sm text-gray-600">{activityResult.meetingPoint}</p>
-                               )}
+                               <h4 className="font-bold text-[#1a1a1a] text-base mb-2">Activity Details</h4>
+                               <div className="space-y-1 text-sm text-gray-600">
+                                   <div><span className="text-gray-500">Date of Arrival:</span> {activityResult.dateOfArrival}</div>
+                                   <div><span className="text-gray-500">Time of Arrival:</span> {activityResult.timeOfArrival}</div>
+                                   {activityResult.cruiseShipName && <div><span className="text-gray-500">Cruise ship:</span> {activityResult.cruiseShipName}</div>}
+                                   {activityResult.placeOfStay && <div><span className="text-gray-500">Place of stay:</span> {activityResult.placeOfStay}</div>}
+                                   {activityResult.orderNotes && <div><span className="text-gray-500">Order Notes:</span> {activityResult.orderNotes}</div>}
+                               </div>
                            </div>
                            
                            <hr className="border-gray-200" />
@@ -381,8 +377,7 @@ export default function CheckoutPage() {
                                             if (data.success) {
                                                 // Clear local storage
                                                 localStorage.removeItem('checkoutData');
-                                                alert('Booking Confirmed! Redirecting...');
-                                                router.push('/'); 
+                                                router.push(`/booking-confirmation?id=${data.data._id}`); 
                                             } else {
                                                 alert('Booking failed: ' + data.error);
                                                 setLoading(false);
@@ -602,22 +597,49 @@ export default function CheckoutPage() {
 
 function ContactForm({ onNext }) {
     const [formData, setFormData] = useState({ firstName: '', lastName: '', email: '', phone: '' });
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const handleChange = (e) => setFormData({...formData, [e.target.name]: e.target.value});
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
+        setError(null);
         
-        // Generate Token (Mock - normally this would come from backend registration/login)
-        const token = 'mock_token_' + Math.random().toString(36).substr(2);
-        localStorage.setItem('authToken', token);
-        console.log('Token set:', token);
-
-        onNext(formData);
+        try {
+            // Auto-register user during checkout
+            const res = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            
+            const data = await res.json();
+            
+            if (res.ok && data.success) {
+                // Save JWT auth token to localStorage
+                localStorage.setItem('authToken', data.token);
+                console.log('User registered and authenticated');
+                onNext(formData);
+            } else {
+                setError(data.error || 'Failed to register account');
+            }
+        } catch (err) {
+            console.error('Registration error:', err);
+            setError('Connection error. Please try again.');
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
+            {error && (
+                 <div className="bg-red-50 text-red-600 text-sm p-3 rounded-lg border border-red-100">
+                    {error}
+                 </div>
+            )}
             <div className="grid grid-cols-2 gap-4">
                 <div>
                     <input required name="firstName" placeholder="First Name" className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg focus:border-black focus:ring-0 outline-none text-sm transition-colors" onChange={handleChange} />
@@ -649,8 +671,18 @@ function ContactForm({ onNext }) {
                 />
             </div>
 
-            <div className="pt-4">
-                <button type="submit" className="bg-[#15531B] hover:bg-[#006966] text-white font-bold py-3 px-8 rounded-full transition-colors w-full sm:w-auto">Next</button>
+            <div className="pt-4 flex items-center gap-4">
+                <button 
+                  type="submit" 
+                  disabled={isLoading}
+                  className="bg-[#15531B] hover:bg-[#006966] text-white font-bold py-3 px-8 rounded-full transition-colors w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center"
+                >
+                    {isLoading ? (
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    ) : (
+                        "Next"
+                    )}
+                </button>
             </div>
         </form>
     )
@@ -660,6 +692,7 @@ function ContactForm({ onNext }) {
 function ActivityForm({ travelers, pickupConfig, initialPickup, onNext, onBack }) {
     const [formData, setFormData] = useState({ 
         dateOfArrival: '', 
+        timeOfArrival: '',
         cruiseShipName: '', 
         placeOfStay: '', 
         orderNotes: '',
@@ -699,6 +732,7 @@ function ActivityForm({ travelers, pickupConfig, initialPickup, onNext, onBack }
         
         const newErrors = {};
         if (!formData.dateOfArrival) newErrors.dateOfArrival = true;
+        if (!formData.timeOfArrival) newErrors.timeOfArrival = true;
 
         if (Object.keys(newErrors).length > 0) {
             setErrors(newErrors);
@@ -723,17 +757,30 @@ function ActivityForm({ travelers, pickupConfig, initialPickup, onNext, onBack }
 
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Date of Arrival */}
-            <div className="relative">
-                <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-[#15531B] font-medium z-10">Date of Arrival *</label>
-                <input 
-                    type="date"
-                    name="dateOfArrival" 
-                    className={getInputClass('dateOfArrival')}
-                    onChange={handleChange}
-                    value={formData.dateOfArrival}
-                />
-                {errors.dateOfArrival && <p className="text-[10px] text-red-500 mt-1 font-medium">Required</p>}
+            {/* Date and Time of Arrival */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="relative">
+                    <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-[#15531B] font-medium z-10">Date of Arrival *</label>
+                    <input 
+                        type="date"
+                        name="dateOfArrival" 
+                        className={getInputClass('dateOfArrival')}
+                        onChange={handleChange}
+                        value={formData.dateOfArrival}
+                    />
+                    {errors.dateOfArrival && <p className="text-[10px] text-red-500 mt-1 font-medium">Required</p>}
+                </div>
+                <div className="relative">
+                    <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-[#15531B] font-medium z-10">Time of Arrival *</label>
+                    <input 
+                        type="time"
+                        name="timeOfArrival" 
+                        className={getInputClass('timeOfArrival')}
+                        onChange={handleChange}
+                        value={formData.timeOfArrival}
+                    />
+                    {errors.timeOfArrival && <p className="text-[10px] text-red-500 mt-1 font-medium">Required</p>}
+                </div>
             </div>
 
             {/* Cruise Ship Name */}

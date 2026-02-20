@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { CreditCard, Lock, Calendar } from 'lucide-react';
 import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 // --- Payment Icons ---
 const VisaIcon = () => (
@@ -46,11 +47,18 @@ const PaypalIcon = () => (
     </svg>
 );
 
+const PixelPayIcon = () => (
+    <svg width="60" height="24" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+        <text x="5" y="100" fontFamily="Arial, sans-serif" fontSize="100" fontWeight="bold" fill="#007bff">Pixel</text>
+        <text x="250" y="100" fontFamily="Arial, sans-serif" fontSize="100" fontWeight="bold" fill="#28a745">Pay</text>
+    </svg>
+);
+
 export default function PaymentSection({ bookingData, onPaymentComplete }) {
   const stripe = useStripe();
   const elements = useElements();
   const [paymentType, setPaymentType] = useState(bookingData?.paymentOption || 'pay_now'); // Respect selected option
-  const [paymentMethod, setPaymentMethod] = useState('card'); // 'card' | 'paypal'
+  const [paymentMethod, setPaymentMethod] = useState('card'); // 'card' | 'paypal' | 'pixelpay'
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -59,9 +67,8 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
     setLoading(true);
     setErrorMessage(null);
 
-    // Handle Reserve Now (No Payment needed immediately, or just auth)
-    if (paymentType === 'reserve_later') {
-         // Just proceed to create booking as 'pending' or 'pay_later'
+    // Handle Reserve Now (If they selected standard reserve without PixelPay)
+    if (paymentType === 'reserve_later' && paymentMethod !== 'pixelpay') {
          onPaymentComplete({ 
             method: 'reserve_now', 
             status: 'unpaid',
@@ -71,10 +78,49 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
     }
 
     if (paymentMethod === 'paypal') {
-        // Mock PayPal
-        setTimeout(() => {
-            onPaymentComplete({ method: 'paypal', status: 'completed' });
-        }, 1500);
+        // Handled by PayPalButtons
+        setLoading(false);
+        return;
+    }
+
+    if (paymentMethod === 'pixelpay') {
+        try {
+            const response = await fetch('/api/pixelpay/create-order', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    tourId: bookingData.tour._id,
+                    travelers: bookingData.travelers,
+                    extraServices: bookingData.selectedExtras,
+                    paymentType: paymentType // Pass 'pay_now' or 'reserve_later'
+                })
+            });
+            const data = await response.json();
+            
+            if (data.success) {
+                // In a real PixelPay integration, you redirect the user to data.paymentUrl
+                // Or use the inline SDK token. For this demo we'll simulate success:
+                console.log("PixelPay Session Created:", data);
+                
+                // Simulate redirect and return
+                setTimeout(() => {
+                     onPaymentComplete({ 
+                        method: 'pixelpay', 
+                        id: data.orderID,
+                        status: paymentType === 'reserve_later' ? 'authorized' : 'paid',
+                        type: paymentType 
+                    });
+                }, 1500);
+
+            } else {
+                setErrorMessage(data.error || 'Failed to initialize PixelPay.');
+                setLoading(false);
+            }
+        } catch (err) {
+            console.error("PixelPay error:", err);
+            setErrorMessage("Could not connect to PixelPay. Please try again.");
+            setLoading(false);
+        }
         return;
     }
 
@@ -84,11 +130,11 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
       return;
     }
 
-    // Confirm Payment
+    // Confirm Stripe Payment
     const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/booking-confirmation`, // This is usually required for PaymentElement
+        return_url: `${window.location.origin}/booking-confirmation`,
         payment_method_data: {
              billing_details: {
                 name: bookingData.customer?.firstName + ' ' + bookingData.customer?.lastName,
@@ -96,7 +142,7 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
              }
         }
       },
-      redirect: "if_required", // Handle redirect manually if needed, or stick to 'always'
+      redirect: "if_required",
     });
 
     if (error) {
@@ -111,7 +157,6 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
           status: 'paid',
           type: paymentType 
       });
-      // Don't set loading false here, wait for parent to redirect
     } else {
        setLoading(false);
        setErrorMessage(`Payment status: ${paymentIntent.status}`);
@@ -153,7 +198,6 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
       </div>
 
       {/* Pay with */}
-      {paymentType === 'pay_now' && (
       <div>
         <div className="flex justify-between items-center mb-3">
             <h3 className="font-bold text-sm">Pay with</h3>
@@ -164,61 +208,160 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
         
         <div className="border border-gray-200 rounded-lg overflow-hidden">
             
-            {/* Credit Card Option */}
-            <div className={`border-b border-gray-200 transition-colors ${paymentMethod === 'card' ? 'bg-gray-50' : 'bg-white'}`}>
-                <div 
-                    className="p-4 flex items-center justify-between cursor-pointer"
-                    onClick={() => setPaymentMethod('card')}
-                >
-                    <div className="flex items-center gap-3">
-                         <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'card' ? 'border-[#15531B]' : 'border-gray-300 bg-white'}`}>
-                             {paymentMethod === 'card' && <div className="w-2 h-2 bg-[#15531B] rounded-full"></div>}
+            {/* Credit Card Option - Hide if Reserve Later */}
+            {paymentType === 'pay_now' && (
+                <div className={`border-b border-gray-200 transition-colors ${paymentMethod === 'card' ? 'bg-gray-50' : 'bg-white'}`}>
+                    <div 
+                        className="p-4 flex items-center justify-between cursor-pointer"
+                        onClick={() => setPaymentMethod('card')}
+                    >
+                        <div className="flex items-center gap-3">
+                             <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'card' ? 'border-[#15531B]' : 'border-gray-300 bg-white'}`}>
+                                 {paymentMethod === 'card' && <div className="w-2 h-2 bg-[#15531B] rounded-full"></div>}
+                            </div>
+                            <span className="font-bold text-[#1a1a1a]">Credit or Debit Card</span>
                         </div>
-                        <span className="font-bold text-[#1a1a1a]">Credit or Debit Card</span>
+                        <div className="flex gap-2">
+                            <VisaIcon />
+                            <MastercardIcon />
+                            <AmexIcon />
+                            <DiscoverIcon />
+                            <JCBIcon />
+                            <UnionPayIcon />
+                        </div>
                     </div>
-                    <div className="flex gap-2">
-                        <VisaIcon />
-                        <MastercardIcon />
-                        <AmexIcon />
-                        <DiscoverIcon />
-                        <JCBIcon />
-                        <UnionPayIcon />
-                    </div>
+
+                    {paymentMethod === 'card' && (
+                        <div className="p-4 bg-white space-y-4 animate-fadeIn border-t border-gray-100">
+                            {/* Stripe Payment Element */}
+                            <PaymentElement />
+                        </div>
+                    )}
                 </div>
+            )}
 
-                {paymentMethod === 'card' && (
-                    <div className="p-4 bg-white space-y-4 animate-fadeIn border-t border-gray-100">
-                        {/* Stripe Payment Element */}
-                        <PaymentElement />
+            {/* PayPal Option - Hide if Reserve Later */}
+            {paymentType === 'pay_now' && (
+                <div className={`border-b border-gray-200 transition-colors ${paymentMethod === 'paypal' ? 'bg-gray-50' : 'bg-white'}`}>
+                     <div 
+                        className="p-4 flex items-center justify-between cursor-pointer"
+                        onClick={() => setPaymentMethod('paypal')}
+                    >
+                        <div className="flex items-center gap-3">
+                             <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'paypal' ? 'border-[#15531B]' : 'border-gray-300 bg-white'}`}>
+                                     {paymentMethod === 'paypal' && <div className="w-2 h-2 bg-[#15531B] rounded-full"></div>}
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className="font-bold text-[#1a1a1a]">PayPal</span>
+                                <PaypalIcon />
+                            </div>
+                        </div>
                     </div>
-                )}
-            </div>
+                     {paymentMethod === 'paypal' && (
+                        <div className="p-4 bg-white animate-fadeIn border-t border-gray-100">
+                            {/* Official PayPal Integration */}
+                            <div className="min-h-[150px] relative">
+                                {(!process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID === 'your_paypal_client_id_here') && (
+                                    <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center text-center p-4 border border-orange-200 rounded-lg">
+                                        <span className="text-orange-600 font-bold text-sm mb-1">PayPal Not Configured</span>
+                                        <span className="text-gray-500 text-xs text-balance">Add your <b>NEXT_PUBLIC_PAYPAL_CLIENT_ID</b> to your .env.local file to enable PayPal checkout.</span>
+                                    </div>
+                                )}
+                                <PayPalScriptProvider options={{ "client-id": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "test", currency: "USD" }}>
+                                    <PayPalButtons 
+                                        style={{ layout: "vertical", shape: "rect", color: "gold" }}
+                                        disabled={loading || !bookingData}
+                                        createOrder={async () => {
+                                            setErrorMessage(null);
+                                            try {
+                                                const response = await fetch('/api/paypal/create-order', {
+                                                    method: 'POST',
+                                                    headers: { 'Content-Type': 'application/json' },
+                                                    body: JSON.stringify({
+                                                        tourId: bookingData.tour._id,
+                                                        travelers: bookingData.travelers,
+                                                        extraServices: bookingData.selectedExtras
+                                                    })
+                                                });
+                                                const data = await response.json();
+                                                if (data.orderID) {
+                                                    return data.orderID;
+                                                } else {
+                                                    throw new Error(data.error || 'Failed to initialize PayPal order');
+                                                }
+                                            } catch (err) {
+                                                console.error("PayPal Create Order fallback:", err);
+                                                setErrorMessage("Could not connect to PayPal. Please try again.");
+                                                throw err;
+                                            }
+                                        }}
+                                        onApprove={async (data, actions) => {
+                                            setLoading(true);
+                                            setErrorMessage(null);
+                                            try {
+                                                const response = await fetch('/api/paypal/capture-order', {
+                                                    method: 'POST',
+                                                    headers: { 'Content-Type': 'application/json' },
+                                                    body: JSON.stringify({ orderID: data.orderID })
+                                                });
+                                                const captureData = await response.json();
+                                                
+                                                if (captureData.success) {
+                                                    onPaymentComplete({ 
+                                                        method: 'paypal', 
+                                                        id: captureData.captureId,
+                                                        status: 'paid', // Or depending on captureData.status
+                                                        type: paymentType 
+                                                    });
+                                                } else {
+                                                    setErrorMessage(captureData.error || 'Payment failed to capture.');
+                                                    setLoading(false);
+                                                }
+                                            } catch (err) {
+                                                setErrorMessage("Error capturing payment. Please contact support.");
+                                                setLoading(false);
+                                            }
+                                        }}
+                                        onError={(err) => {
+                                            console.error("PayPal Checkout Error:", err);
+                                            setErrorMessage("PayPal checkout encountered an error. Please try again.");
+                                            setLoading(false);
+                                        }}
+                                    />
+                                </PayPalScriptProvider>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            )}
 
-            {/* PayPal Option */}
-            <div className={`transition-colors ${paymentMethod === 'paypal' ? 'bg-gray-50' : 'bg-white'}`}>
+            {/* PixelPay Option - Always Visible */}
+            <div className={`transition-colors ${paymentMethod === 'pixelpay' || (paymentType === 'reserve_later' && paymentMethod !== 'pixelpay') ? 'bg-gray-50' : 'bg-white'}`}>
                  <div 
                     className="p-4 flex items-center justify-between cursor-pointer"
-                    onClick={() => setPaymentMethod('paypal')}
+                    onClick={() => setPaymentMethod('pixelpay')}
                 >
                     <div className="flex items-center gap-3">
-                         <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'paypal' ? 'border-[#15531B]' : 'border-gray-300 bg-white'}`}>
-                                 {paymentMethod === 'paypal' && <div className="w-2 h-2 bg-[#15531B] rounded-full"></div>}
+                         <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'pixelpay' || paymentType === 'reserve_later' ? 'border-[#15531B]' : 'border-gray-300 bg-white'}`}>
+                                 {(paymentMethod === 'pixelpay' || paymentType === 'reserve_later') && <div className="w-2 h-2 bg-[#15531B] rounded-full"></div>}
                         </div>
                         <div className="flex items-center gap-2">
-                            <span className="font-bold text-[#1a1a1a]">PayPal</span>
-                            <PaypalIcon />
+                            <span className="font-bold text-[#1a1a1a]">PixelPay {paymentType === 'reserve_later' && '(Hold Card on File)'}</span>
+                            <PixelPayIcon />
                         </div>
                     </div>
                 </div>
-                 {paymentMethod === 'paypal' && (
+                 {(paymentMethod === 'pixelpay' || paymentType === 'reserve_later') && (
                     <div className="p-4 bg-white text-sm text-gray-500 animate-fadeIn border-t border-gray-100">
-                        You will be redirected to PayPal to complete your purchase securely.
+                        {paymentType === 'reserve_later' 
+                            ? 'We will securely authorize your card via PixelPay to hold your reservation, but you will not be charged until the day of your tour.'
+                            : 'You will be securely redirected to PixelPay to complete your purchase.'}
                     </div>
                 )}
             </div>
+
        </div>
        </div>
-       )}
        
        {errorMessage && (
         <div className="p-3 bg-red-50 text-red-600 text-sm rounded-md">
@@ -227,19 +370,20 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
       )}
 
       <div className="text-xs text-center text-gray-500 mt-4">
-        By clicking 'Book Now', you agree to our Terms of Use and Privacy Policy.
+        By clicking '{paymentType === 'pay_now' ? 'Pay & Book' : 'Reserve & Hold Card'}', you agree to our Terms of Use and Privacy Policy.
       </div>
 
       <button 
         type="submit" 
-        disabled={loading || (paymentType === 'pay_now' && !stripe)}
+        disabled={loading || (paymentType === 'pay_now' && paymentMethod === 'card' && !stripe)}
         className={`w-full bg-[#15531B] hover:bg-[#006966] text-white font-bold py-3.5 rounded-full transition-colors flex items-center justify-center gap-2 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
       >
-        {loading ? (
+        {loading && paymentMethod !== 'paypal' ? (
              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
         ) : (
             <>
-                <Lock size={16} /> {paymentType === 'pay_now' ? 'Pay & Book' : 'Reserve Now'}
+                <Lock size={16} /> 
+                {paymentType === 'pay_now' ? 'Pay & Book' : 'Reserve & Hold Card'}
             </>
         )}
       </button>

@@ -1,34 +1,31 @@
 "use client";
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const ReviewsWidget = () => {
+  const widgetRef = useRef(null);
+
   useEffect(() => {
-    // Function to load the Beaver Reviews script
-    const loadScript = () => {
+    if (widgetRef.current) {
       const script = document.createElement('script');
       script.src = "https://reviews.beaver.codes/widget/web-google-reviews.js";
       script.async = true;
-      script.id = "beaver-reviews-script";
-      document.body.appendChild(script);
-    };
+      widgetRef.current.appendChild(script);
 
-    // If script already exists, we might need to remove and re-add or just re-run
-    // Some widgets auto-initialize on DOM nodes. If it doesn't re-init, we re-inject.
-    const existingScript = document.getElementById('beaver-reviews-script');
-    if (existingScript) {
-      existingScript.remove();
+      return () => {
+        try {
+          if (widgetRef.current && widgetRef.current.contains(script)) {
+            widgetRef.current.removeChild(script);
+          }
+        } catch (e) {
+          console.error("Error removing script", e);
+        }
+      };
     }
-    loadScript();
-
-    return () => {
-      const script = document.getElementById('beaver-reviews-script');
-      if (script) script.remove();
-    };
   }, []);
 
   return (
-    <div className="w-full py-16 px-4">
-      <div className="max-w-4xl mx-auto text-center mb-10">
+    <div className="w-full px-4">
+      <div className="max-w-4xl mx-auto text-center mb-6">
         <h2 className="text-[32px] font-bold text-[#1a1a1a] mb-2">
           What Our Guests Say
         </h2>
@@ -37,8 +34,8 @@ const ReviewsWidget = () => {
         </p>
       </div>
 
-      <div className="max-w-7xl mx-auto">
-        <div data-instance-id="PyN41i3Dnr8orSp5czzI">
+      <div className="max-w-7xl mx-auto flex justify-center w-full">
+        <div ref={widgetRef} data-instance-id="PyN41i3Dnr8orSp5czzI" className="w-full">
             <style dangerouslySetInnerHTML={{ __html: `
                 [data-instance-id="PyN41i3Dnr8orSp5czzI"] .beaver-widget_review-footer,
                 [data-instance-id="PyN41i3Dnr8orSp5czzI"] .beaver-widget_text,

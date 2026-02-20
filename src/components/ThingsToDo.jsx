@@ -92,7 +92,7 @@ const ThingsToDo = ({ activities }) => {
                 <Link 
                     key={activity._id} 
                     href={`/activities/${activity.slug}`} 
-                    className="flex-none w-[85vw] sm:w-[400px] snap-center sm:snap-start group/card relative rounded-3xl overflow-hidden aspect-[4/5] shadow-lg cursor-pointer transition-transform hover:-translate-y-1 duration-300"
+                    className="flex-none w-[85vw] sm:w-[calc(50vw-44px)] md:w-[calc(33.333vw-37px)] lg:w-[calc(25vw-34px)] snap-center sm:snap-start group/card relative rounded-3xl overflow-hidden aspect-[4/5] shadow-lg cursor-pointer transition-transform hover:-translate-y-1 duration-300"
                 >
                   <img 
                     src={getImageUrl(activity.image)} 

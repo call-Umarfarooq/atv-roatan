@@ -16,7 +16,7 @@ const features = [
   },
   {
     
-    image: '/images/image copy 3.png',
+    image: '/images/1.png',
     title: 'Roatan ATV  \nBuggy Tours',
   },
   {

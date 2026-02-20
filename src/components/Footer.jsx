@@ -20,7 +20,7 @@ const Footer = () => {
             Ready for an adrenaline rush? Join our professional guides for the ultimate ATV adventure across Roatan's breathtaking landscapes.
           </p>
           <Link 
-            href="#" 
+            href="/claim-gift" 
             className="inline-flex items-center gap-2 bg-[#00694B] hover:bg-[#005a40] text-white px-8 py-3.5 rounded-full font-bold text-sm transition-all hover:-translate-y-1 hover:shadow-lg"
           >
             Let's Get Started <ChevronRight size={18} />

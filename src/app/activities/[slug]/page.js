@@ -24,7 +24,7 @@ export default async function ActivityDetailsPage({ params }) {
   }
 
   // Fetch tours related to this activity
-  const tours = await Tour.find({ activity: activity._id }).lean();
+  const tours = await Tour.find({ activities: activity._id }).lean();
 
   return (
     <main className="bg-white min-h-screen pb-20">

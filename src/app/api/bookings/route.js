@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/db';
 import Booking from '@/models/Booking';
 import Tour from '@/models/Tour';
+import { sendBookingConfirmationEmail } from '@/lib/mail';
 
 export async function POST(request) {
   await dbConnect();
@@ -59,10 +60,24 @@ export async function POST(request) {
         externalPaymentId: paymentIntentId
     });
 
+    // 3. Send Emails (Non-Blocking)
+    sendBookingConfirmationEmail(newBooking, tour).catch(console.error);
+
     return NextResponse.json({ success: true, data: newBooking }, { status: 201 });
 
   } catch (error) {
     console.error('Booking Error:', error);
+    return NextResponse.json({ success: false, error: 'Server Error' }, { status: 500 });
+  }
+}
+
+export async function GET(request) {
+  await dbConnect();
+  try {
+    const bookings = await Booking.find({}).sort({ createdAt: -1 }).limit(100);
+    return NextResponse.json({ success: true, data: bookings }, { status: 200 });
+  } catch (error) {
+    console.error('Fetch Bookings Error:', error);
     return NextResponse.json({ success: false, error: 'Server Error' }, { status: 500 });
   }
 }
