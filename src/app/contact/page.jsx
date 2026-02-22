@@ -1,13 +1,62 @@
-import React from 'react';
-import Image from 'next/image';
-import { MapPin, Mail, Phone, CheckCircle2 } from 'lucide-react';
+'use client';
 
-export const metadata = {
-  title: "Contact Us - Roatan ATV Buggy and Golf Cart Adventure Tours",
-  description: "Get in touch with us for your next adventure in Roatan.",
-};
+import React, { useState } from 'react';
+import Image from 'next/image';
+import { MapPin, Mail, Phone, CheckCircle2, Loader2 } from 'lucide-react';
 
 const ContactPage = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleChange = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    setSuccess(false);
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        throw new Error('Something went wrong. Please try again.');
+      }
+
+      setSuccess(true);
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+      
+      // Auto-hide success message after 5 seconds
+      setTimeout(() => setSuccess(false), 5000);
+      
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <main className="bg-[#fcfcfc] min-h-screen">
       {/* 1. Hero Section */}
@@ -34,7 +83,7 @@ const ContactPage = () => {
             With Us
           </h1>
           <p className="text-gray-200 max-w-2xl mx-auto text-sm md:text-base">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+            Whether you have questions about our tours, need help with a booking, or just want to say hello, we are here to assist you and ensure you have an unforgettable adventure in Roatan.
           </p>
         </div>
       </section>
@@ -58,22 +107,43 @@ const ContactPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           
           {/* Left: Contact Form */}
-          <div className="bg-[#1a1a1a] rounded-3xl p-8 md:p-12 shadow-2xl">
+          <div className="bg-[#1a1a1a] rounded-3xl p-8 md:p-12 shadow-2xl relative">
             <h3 className="text-[#ffffff] text-2xl font-bold mb-8 bg-white/10 px-4 py-2 rounded-lg inline-block">Send Us A Message</h3>
             
-            <form className="space-y-6">
+            {success && (
+              <div className="mb-6 p-4 bg-[#15531B]/20 border border-[#15531B]/50 text-[#4ade80] rounded-lg flex items-center gap-3">
+                <CheckCircle2 size={20} />
+                <span>Message sent successfully! We'll be in touch soon.</span>
+              </div>
+            )}
+
+            {error && (
+              <div className="mb-6 p-4 bg-red-500/10 border border-red-500/50 text-red-400 rounded-lg text-sm">
+                {error}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <input 
                     type="text" 
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
                     placeholder="Name" 
+                    required
                     className="w-full bg-[#2a2a2a] text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#15531B] border border-transparent transition-all"
                   />
                 </div>
                 <div>
                   <input 
                     type="email" 
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     placeholder="Email" 
+                    required
                     className="w-full bg-[#2a2a2a] text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#15531B] border border-transparent transition-all"
                   />
                 </div>
@@ -82,24 +152,40 @@ const ContactPage = () => {
               <div>
                 <input 
                   type="text" 
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
                   placeholder="Subject" 
+                  required
                   className="w-full bg-[#2a2a2a] text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#15531B] border border-transparent transition-all"
                 />
               </div>
 
               <div>
                 <textarea 
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
                   placeholder="Message" 
                   rows={6}
+                  required
                   className="w-full bg-[#2a2a2a] text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#15531B] border border-transparent transition-all resize-none"
                 ></textarea>
               </div>
 
               <button 
                 type="submit" 
-                className="w-full bg-[#15531B] text-white font-bold text-lg py-4 rounded-full hover:bg-[#0e3d14] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 duration-300"
+                disabled={loading}
+                className="w-full bg-[#15531B] text-white flex items-center justify-center gap-2 font-bold text-lg py-4 rounded-full hover:bg-[#0e3d14] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 duration-300 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
               >
-                Send Now
+                {loading ? (
+                  <>
+                    <Loader2 size={24} className="animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  'Send Now'
+                )}
               </button>
             </form>
           </div>
@@ -120,7 +206,7 @@ const ContactPage = () => {
             <div className="pt-6">
               <h4 className="text-xl font-bold text-[#1a1a1a] mb-4">Why Reach Out To Us?</h4>
               <p className="text-gray-600 mb-6">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+                Our dedicated team is passionate about delivering the ultimate offshore adventure. We ensure every detail is tailored to your excitement and safety requirements.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

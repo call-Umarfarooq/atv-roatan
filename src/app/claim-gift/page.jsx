@@ -1,5 +1,5 @@
 import React from 'react';
-import { Send } from 'lucide-react'; // Replaces font-awesome paper-plane
+import ClaimGiftForm from '@/components/ClaimGiftForm';
 
 export const metadata = {
   title: "Claim Your Gift Code | ATV Roatan",
@@ -59,84 +59,8 @@ export default function ClaimGiftPage() {
 
         </div>
 
-        {/* Submission Form Section */}
-        <section className="bg-white border border-[#e0e0e0] rounded-2xl p-8 md:p-12 shadow-[0_10px_30px_rgba(0,0,0,0.05)]">
-          <h2 className="text-3xl font-bold text-black text-center mb-8">
-            Submit Verification
-          </h2>
-          
-          <form className="space-y-6">
-            
-            {/* Row 1 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="flex flex-col gap-2">
-                <label className="font-bold text-black text-sm">Full Name</label>
-                <input 
-                  type="text" 
-                  placeholder="e.g. John Doe" 
-                  required
-                  className="px-4 py-3 border border-[#e0e0e0] rounded-lg text-base outline-none focus:ring-2 focus:ring-[#00694B] focus:border-transparent transition-all"
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <label className="font-bold text-black text-sm">Your Email</label>
-                <input 
-                  type="email" 
-                  placeholder="email@example.com" 
-                  required
-                  className="px-4 py-3 border border-[#e0e0e0] rounded-lg text-base outline-none focus:ring-2 focus:ring-[#00694B] focus:border-transparent transition-all"
-                />
-              </div>
-            </div>
-
-            {/* Link Inputs */}
-            <div className="flex flex-col gap-2">
-                <label className="font-bold text-black text-sm">Link to Review 1 (Google/Facebook)</label>
-                <input 
-                  type="url" 
-                  placeholder="https://..." 
-                  required
-                  className="px-4 py-3 border border-[#e0e0e0] rounded-lg text-base outline-none focus:ring-2 focus:ring-[#00694B] focus:border-transparent transition-all"
-                />
-            </div>
-
-            <div className="flex flex-col gap-2">
-                <label className="font-bold text-black text-sm">Link to Review 2 (TripAdvisor)</label>
-                <input 
-                  type="url" 
-                  placeholder="https://..." 
-                  required
-                  className="px-4 py-3 border border-[#e0e0e0] rounded-lg text-base outline-none focus:ring-2 focus:ring-[#00694B] focus:border-transparent transition-all"
-                />
-            </div>
-
-            <div className="flex flex-col gap-2">
-                <label className="font-bold text-black text-sm">Link to Social Media Story</label>
-                <input 
-                  type="url" 
-                  placeholder="https://instagram.com/stories/..." 
-                  required
-                  className="px-4 py-3 border border-[#e0e0e0] rounded-lg text-base outline-none focus:ring-2 focus:ring-[#00694B] focus:border-transparent transition-all"
-                />
-            </div>
-
-            {/* Submit Button */}
-            <div className="pt-4">
-                <button 
-                  type="submit" 
-                  className="w-full bg-[#00694B] text-white py-4 rounded-lg text-lg font-bold flex items-center justify-center gap-3 hover:bg-[#005a40] transition-colors shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
-                >
-                  <span>Claim Gift Code</span>
-                  <Send size={20} />
-                </button>
-            </div>
-
-          </form>
-
-          <p className="text-black text-center mt-8 text-sm font-semibold">
-            Verification usually takes 12-24 hours. The code will be sent to your email.
-          </p>
-        </section>
+        {/* Submission Form Component */}
+        <ClaimGiftForm />
 
       </div>
     </main>

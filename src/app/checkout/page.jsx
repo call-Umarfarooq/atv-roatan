@@ -165,6 +165,11 @@ export default function CheckoutPage() {
                       <ContactForm 
                         onNext={(data) => {
                             setContactResult(data);
+                            setBookingData(prev => {
+                                const newData = { ...prev, contactResult: data };
+                                localStorage.setItem('checkoutData', JSON.stringify(newData));
+                                return newData;
+                            });
                             setStep(2);
                             window.scrollTo(0, 0);
                         }} 
@@ -255,6 +260,11 @@ export default function CheckoutPage() {
                         initialPickup={bookingData.initialPickup}
                         onNext={(data) => {
                             setActivityResult(data);
+                            setBookingData(prev => {
+                                const newData = { ...prev, activityResult: data };
+                                localStorage.setItem('checkoutData', JSON.stringify(newData));
+                                return newData;
+                            });
                             setStep(3);
                             window.scrollTo(0, 0);
                         }}

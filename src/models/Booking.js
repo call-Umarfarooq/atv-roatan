@@ -42,7 +42,12 @@ const BookingSchema = new mongoose.Schema({
       cruiseShip: String,
       disembarkationTime: String,
       boardingTime: String,
-      dropOffLocation: String
+      dropOffLocation: String,
+      dateOfArrival: String,
+      timeOfArrival: String,
+      cruiseShipName: String,
+      placeOfStay: String,
+      orderNotes: String
   },
   status: {
     type: String,
@@ -67,5 +72,10 @@ const BookingSchema = new mongoose.Schema({
 }, {
   timestamps: true,
 });
+
+// Force model recompilation in dev to pick up schema changes
+if (process.env.NODE_ENV === 'development') {
+  delete mongoose.models.Booking;
+}
 
 export default mongoose.models.Booking || mongoose.model('Booking', BookingSchema);

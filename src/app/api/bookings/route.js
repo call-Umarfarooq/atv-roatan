@@ -10,7 +10,7 @@ export async function POST(request) {
 
   try {
     const body = await request.json();
-    const { tourId, tourSlug, date, travelers, selectedExtras, customer, paymentIntentId, paymentStatus, paymentType } = body;
+    const { tourId, tourSlug, date, travelers, selectedExtras, customer, paymentIntentId, paymentStatus, paymentType, pickupDetails } = body;
 
     // Basic Validation
     if (!tourId || !date || !travelers) {
@@ -57,7 +57,8 @@ export async function POST(request) {
         status: 'confirmed',
         paymentStatus: paymentStatus || 'unpaid',
         paymentType: paymentType || 'pay_now',
-        externalPaymentId: paymentIntentId
+        externalPaymentId: paymentIntentId,
+        pickupDetails
     });
 
     // 3. Send Emails (Non-Blocking)

@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { CheckCircle2, Ticket, MapPin, Calendar, Users, Loader2 } from 'lucide-react';
+import { CheckCircle2, Ticket, MapPin, Calendar, Users, Loader2, Clock, Anchor, Building2, Info } from 'lucide-react';
 
 function ConfirmationContent() {
     const searchParams = useSearchParams();
@@ -107,8 +107,18 @@ function ConfirmationContent() {
         );
     }
 
-    const { tourTitle, customer, travelers, date, totalPrice, _id, paymentStatus, paymentType } = booking;
+    const { tourTitle, customer, travelers, date, totalPrice, _id, paymentStatus, paymentType, pickupDetails, selectedExtras, tour } = booking;
     const formattedDate = new Date(date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+    // Format arrival date nicely if present
+    const formattedArrivalDate = pickupDetails?.dateOfArrival
+        ? new Date(pickupDetails.dateOfArrival + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+        : null;
+
+    // Format arrival time to 12-hour format if present
+    const formattedArrivalTime = pickupDetails?.timeOfArrival
+        ? (() => { const [h, m] = pickupDetails.timeOfArrival.split(':'); const hour = parseInt(h); const ampm = hour >= 12 ? 'PM' : 'AM'; return `${hour % 12 || 12}:${m} ${ampm}`; })()
+        : null;
 
     return (
         <div className="max-w-3xl mx-auto px-4 py-12">
@@ -155,6 +165,51 @@ function ConfirmationContent() {
                                 <div className="font-bold text-[#1a1a1a]">{formattedDate}</div>
                             </div>
                         </div>
+                        {formattedArrivalDate && (
+                            <div className="flex gap-3">
+                                <Calendar className="text-[#15531B] shrink-0" />
+                                <div>
+                                    <div className="text-sm text-gray-500">Date of Arrival</div>
+                                    <div className="font-bold text-[#1a1a1a]">{formattedArrivalDate}</div>
+                                </div>
+                            </div>
+                        )}
+                        {formattedArrivalTime && (
+                            <div className="flex gap-3">
+                                <Clock className="text-[#15531B] shrink-0" />
+                                <div>
+                                    <div className="text-sm text-gray-500">Time of Arrival</div>
+                                    <div className="font-bold text-[#1a1a1a]">{formattedArrivalTime}</div>
+                                </div>
+                            </div>
+                        )}
+                        {(pickupDetails?.cruiseShipName || pickupDetails?.cruiseShip) && (
+                            <div className="flex gap-3">
+                                <Anchor className="text-[#15531B] shrink-0" />
+                                <div>
+                                    <div className="text-sm text-gray-500">Cruise Ship</div>
+                                    <div className="font-bold text-[#1a1a1a]">{pickupDetails.cruiseShipName || pickupDetails.cruiseShip}</div>
+                                </div>
+                            </div>
+                        )}
+                        {pickupDetails?.placeOfStay && (
+                            <div className="flex gap-3">
+                                <Building2 className="text-[#15531B] shrink-0" />
+                                <div>
+                                    <div className="text-sm text-gray-500">Place of Stay</div>
+                                    <div className="font-bold text-[#1a1a1a]">{pickupDetails.placeOfStay}</div>
+                                </div>
+                            </div>
+                        )}
+                        {pickupDetails?.orderNotes && (
+                            <div className="flex gap-3 md:col-span-2">
+                                <Info className="text-[#15531B] shrink-0" />
+                                <div>
+                                    <div className="text-sm text-gray-500">Order Notes</div>
+                                    <div className="font-bold text-[#1a1a1a] whitespace-pre-line">{pickupDetails.orderNotes}</div>
+                                </div>
+                            </div>
+                        )}
                         <div className="flex gap-3">
                             <Users className="text-[#15531B] shrink-0" />
                             <div>
@@ -171,6 +226,33 @@ function ConfirmationContent() {
                                 <div className="text-xs text-gray-500">({paymentType === 'pay_now' ? 'Paid in full' : 'To be paid flat/on arrival'})</div>
                             </div>
                         </div>
+
+                        {/* Extra Services Display */}
+                        {selectedExtras && Object.keys(selectedExtras).length > 0 && tour?.extraServices && (
+                            <div className="md:col-span-2 mt-4 pt-4 border-t border-gray-100">
+                                <h4 className="font-bold text-[#1a1a1a] mb-3 text-sm">Extra Services Selected:</h4>
+                                <div className="space-y-2">
+                                    {Object.entries(selectedExtras).map(([indexStr, count]) => {
+                                        const idx = parseInt(indexStr);
+                                        if (count > 0 && tour.extraServices[idx]) {
+                                            const extra = tour.extraServices[idx];
+                                            return (
+                                                <div key={idx} className="flex justify-between items-center bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                                    <div>
+                                                        <div className="font-medium text-[#1a1a1a] text-sm">{extra.name}</div>
+                                                        <div className="text-xs text-gray-500">{count}x ${Number(extra.price).toFixed(2)}</div>
+                                                    </div>
+                                                    <div className="font-bold text-[#1a1a1a] text-sm">
+                                                        ${(count * Number(extra.price)).toFixed(2)}
+                                                    </div>
+                                                </div>
+                                            );
+                                        }
+                                        return null;
+                                    })}
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
