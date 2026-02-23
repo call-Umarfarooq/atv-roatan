@@ -135,7 +135,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
                         dateFormat="EEE, MMM d"
                         className="w-full font-bold text-[#1a1a1a] text-sm outline-none cursor-pointer caret-transparent"
                         wrapperClassName="w-full"
-                        minDate={new Date()}
+                        minDate={new Date(new Date().setHours(0, 0, 0, 0))}
                         onFocus={(e) => e.target.blur()} // Prevent mobile keyboard
                         placeholderText="Select a date"
                     />
@@ -159,7 +159,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
                 {/* Travelers Dropdown using absolute positioning to act as popover */}
                 {showTravelers && (
                     <div className="absolute top-full left-0 w-full bg-white border border-gray-200 shadow-xl rounded-xl p-5 z-20 mt-2">
-                        <div className="space-y-6">
+                        <div className="space-y-2">
                             {/* Adults */}
                             <div className="flex items-center justify-between">
                                 <div>
@@ -217,7 +217,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
                                     <div className="text-xs text-gray-500">Age {tour?.infantAgeRange || '0-3'}</div>
                                     <div className="text-sm font-semibold mt-1">{INFANT_PRICE > 0 ? `$${INFANT_PRICE}` : 'Free'}</div>
                                 </div>
-                                <div className="flex items-center gap-3">
+                                <div className="flex items-center gap-2">
                                     <button 
                                         onClick={(e) => { e.stopPropagation(); updateTravelers('infants', 'dec'); }}
                                         className={`w-8 h-8 rounded-full border flex items-center justify-center transition-colors ${travelers.infants <= 0 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-300 text-gray-600 hover:border-black hover:bg-gray-50'}`}
@@ -235,12 +235,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
                                 </div>
                             </div>
 
-                            <button 
-                                onClick={() => setShowTravelers(false)}
-                                className="w-full bg-[#15531B] text-white font-bold py-2 rounded-full hover:bg-[#006966] transition-colors"
-                            >
-                                Apply
-                            </button>
+
                         </div>
                     </div>
                 )}

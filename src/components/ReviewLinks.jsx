@@ -12,7 +12,7 @@ const ReviewLinks = () => {
           
           {/* Google */}
           <Link 
-            href="https://g.page/r/ExampleGoogleReview" 
+            href="https://www.google.com/maps/place/ATV+Dune+Buggy+ROATAN+Eco-Jungle+Adventure+Tours/@16.3456999,-86.4813591,17z/data=!4m6!3m5!1s0x8f69e5bf4a59efa3:0xa0efd3ab20c41c7e!8m2!3d16.3456999!4d-86.4787842!16s%2Fg%2F11g8wgzth0?entry=tts&g_ep=EgoyMDI1MDgxNy" 
             target="_blank"
             className="group flex items-center gap-3 px-8 py-3 rounded-full border-2 border-[#EA4335] bg-white hover:bg-gray-50 transition-all duration-300 hover:scale-105"
           >
@@ -27,7 +27,7 @@ const ReviewLinks = () => {
 
           {/* TripAdvisor */}
           <Link 
-            href="https://www.tripadvisor.com/" 
+            href="https://www.tripadvisor.com/Attraction_Review-g292019-d14192427-Reviews-ATV_Buggy_Jungle_Tours-Roatan_Bay_Islands.html" 
             target="_blank"
             className="group flex items-center gap-3 px-8 py-3 rounded-full border-2 border-[#00aa6c] bg-white hover:bg-gray-50 transition-all duration-300 hover:scale-105"
           >
@@ -40,7 +40,7 @@ const ReviewLinks = () => {
 
           {/* Facebook */}
           <Link 
-            href="https://facebook.com/" 
+            href="https://www.facebook.com/atvjungletoursroatan/" 
             target="_blank"
             className="group flex items-center gap-3 px-8 py-3 rounded-full border-2 border-[#1877F2] bg-white hover:bg-gray-50 transition-all duration-300 hover:scale-105"
           >

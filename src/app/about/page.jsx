@@ -129,7 +129,7 @@ const AboutPage = () => {
       </section>
 
       {/* 3. Call To Action Footer */}
-      <section className="w-full bg-[#1da025] py-16 mt-10">
+      <section className="w-full bg-[#00694B] py-16 mt-10">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Ready to Start Your Adventure?

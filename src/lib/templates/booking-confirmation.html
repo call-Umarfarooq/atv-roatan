@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking Confirmation</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f4f7fa; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #f4f7fa;">
+    <tr>
+      <td align="center" style="padding: 20px 0;">
+        <table width="100%" max-width="600" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; width: 100%; background-color: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+          <!-- Header -->
+          <tr>
+            <td style="background-color: #00694B; padding: 30px 20px 80px 20px; text-align: center;">
+              <img src="cid:logo" alt="ATV Roatan" width="85" style="display: inline-block; border-radius: 50%; border: 3px solid rgba(255,255,255,0.3);" />
+              <div style="margin-top: 15px;">
+                <div style="background-color: rgba(255,255,255,0.15); display: inline-block; padding: 6px 14px; border-radius: 20px; color: #ffffff; font-size: 13px; margin-bottom: 12px;">
+                  🎫 Your Booking is Confirmed! (Order #{{orderId}})
+                </div>
+                <h1 style="color: #ffffff; font-size: 24px; margin: 0; line-height: 1.2; font-weight: bold;">
+                  Hi {{customerName}},<br>get ready for an unforgettable experience!
+                </h1>
+              </div>
+            </td>
+          </tr>
+          
+          <!-- Content Body -->
+          <tr>
+            <td style="padding: 0 20px 20px 20px; background-color: #ffffff;">
+              
+              <!-- Tour Details Card (Overlapping High) -->
+              <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; margin-top: -65px; position: relative; z-index: 10; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);">
+                <tr>
+                  <td style="padding: 20px;">
+                    <p style="margin: 0 0 10px 0; font-size: 16px; color: #334155;"><strong>Tour:</strong> {{tourTitle}}</p>
+                    <div style="border-top: 1px solid #f1f5f9; margin-top: 10px; padding-top: 10px;">
+                        <p style="margin: 0 0 8px 0; font-size: 14px; color: #475569;">📅 <strong>Date:</strong> {{bookingDate}}</p>
+                        <p style="margin: 0 0 8px 0; font-size: 14px; color: #475569;">👥 <strong>Guests:</strong> {{guests}} People</p>
+                        <p style="margin: 0; font-size: 14px; color: #475569;">⏰ <strong>Time:</strong> {{time}}</p>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Price Breakdown Card -->
+              <div style="margin-top: 20px;">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #e8f5ef; border-radius: 12px;">
+                    <tr>
+                      <td style="padding: 15px;">
+                        <h3 style="margin: 0 0 12px 0; font-size: 15px; color: #00694B; border-bottom: 1px solid #a7d9be; padding-bottom: 8px;">💳 Price Breakdown</h3>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td style="padding: 4px 0; font-size: 14px; color: #1a5c39;">Tour Base Price</td>
+                            <td align="right" style="padding: 4px 0; font-size: 14px; color: #1a5c39;">${{basePrice}}</td>
+                          </tr>
+                          {{extrasHtml}}
+                          <tr>
+                            <td style="padding: 10px 0 4px 0; font-size: 14px; color: #1a5c39; border-top: 1px dashed #a7d9be;"><strong>Total Amount Paid</strong></td>
+                            <td align="right" style="padding: 10px 0 4px 0; font-size: 15px; color: #00694B; font-weight: bold; border-top: 1px dashed #a7d9be;">${{totalPrice}}</td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+              </div>
+
+              <!-- Pickup & Arrival Details Card -->
+              <div style="margin-top: 20px;">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #e8f5ef; border-radius: 12px;">
+                    <tr>
+                      <td style="padding: 15px;">
+                        <h3 style="margin: 0 0 12px 0; font-size: 15px; color: #00694B; border-bottom: 1px solid #a7d9be; padding-bottom: 8px;">📍 Pickup &amp; Arrival</h3>
+                        
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom: 12px;">
+                          <tr>
+                            <td width="28" valign="top" style="font-size: 18px;">🚢</td>
+                            <td style="font-size: 14px; color: #1a5c39; line-height: 1.4;">
+                              <strong>Arrival:</strong> {{arrivalInfo}}
+                            </td>
+                          </tr>
+                        </table>
+                        
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom: 12px;">
+                          <tr>
+                            <td width="28" valign="top" style="font-size: 18px;">🚙</td>
+                            <td style="font-size: 14px; color: #1a5c39; line-height: 1.4;">
+                              <strong>Adventure:</strong> Get ready for an amazing ATV tour! Please arrive 15 minutes early.
+                            </td>
+                          </tr>
+                        </table>
+
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td width="28" valign="top" style="font-size: 18px;">👀</td>
+                            <td style="font-size: 14px; color: #1a5c39; line-height: 1.4;">
+                              <strong>Guide:</strong> Driver will be waiting with a sign, wearing an 'ATV Roatan' shirt.
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+              </div>
+
+              <!-- Customer Details Card -->
+              <div style="margin-top: 20px;">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #f8fafc; border-radius: 12px; border: 1px solid #f1f5f9;">
+                    <tr>
+                      <td style="padding: 15px;">
+                        <h3 style="margin: 0 0 12px 0; font-size: 14px; color: #334155; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">👤 Customer Details</h3>
+                        <p style="margin: 0 0 6px 0; font-size: 14px; color: #475569;"><strong>Name:</strong> {{customerNameFull}}</p>
+                        <p style="margin: 0 0 6px 0; font-size: 14px; color: #475569;"><strong>Email:</strong> {{email}}</p>
+                        <p style="margin: 0; font-size: 14px; color: #475569;"><strong>Phone:</strong> {{phone}}</p>
+                      </td>
+                    </tr>
+                  </table>
+              </div>
+
+              <!-- Footer Information -->
+              <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-top: 1px solid #e2e8f0; margin-top: 25px; padding-top: 15px;">
+                <tr>
+                  <td style="font-size: 12px; color: #64748b; line-height: 1.6; text-align: center;">
+                    <strong>Cancellation Policy:</strong> Please notify us 24h in advance if you need to reschedule.<br>
+                    <strong>Contact Info:</strong> Need help? Reply to this email.
+                    <p style="margin-top: 15px; color: #94a3b8;">&copy; 2026 ATV Roatan. All rights reserved.</p>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

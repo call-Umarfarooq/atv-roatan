@@ -99,13 +99,17 @@ const ThingsToDo = ({ activities }) => {
                     alt={activity.title} 
                     className="w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300">
-                      <h3 className="text-white font-bold text-2xl mb-2 leading-tight translate-y-4 group-hover/card:translate-y-0 transition-transform duration-300">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8">
+                      <h3 className="text-white font-bold text-2xl leading-tight mb-0 group-hover/card:mb-2 transition-all duration-300">
                           {activity.title}
                       </h3>
-                      <p className="text-white/90 text-sm font-medium line-clamp-3 translate-y-4 group-hover/card:translate-y-0 transition-transform duration-300 delay-75">
-                        {activity.description || "Explore this amazing experience in Roatan with the best local guides."}
-                      </p>
+                      <div className="grid grid-rows-[0fr] group-hover/card:grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-in-out">
+                          <div className="overflow-hidden">
+                              <p className="text-white/90 text-sm font-medium line-clamp-3 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 delay-150">
+                                {activity.description || "Explore this amazing experience in Roatan with the best local guides."}
+                              </p>
+                          </div>
+                      </div>
                   </div>
                 </Link>
               ))}

@@ -11,7 +11,7 @@ const navLinks = [
   { label: 'Gallery', href: '/gallery' },
   { label: 'About Us', href: '/about' },
   { label: 'Contact Us', href: '/contact' },
-  { label: 'Reviews', href: '/reviews' },
+  { label: 'Reviews', href: 'https://maps.app.goo.gl/aZUsRT1JTetqxSrg7' },
 ];
 
 

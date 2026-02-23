@@ -167,81 +167,77 @@ export default function TourDetailsClient({ initialTour }) {
             </div>
         </div>
 
-        {/* Title Section */}
-        <h1 className="text-2xl md:text-[30px] font-semibold text-[#1a1a1a] mb-3 leading-[1.2] tracking-tight">
-        {tour.title}
-      </h1>
-
-
-        {/* Badges & Rating Row */}
-      <div className="flex flex-wrap items-center text-[13.5px] mb-6 gap-x-2.5">
-        
-        {/* Ratings */}
-        {tour.marketing_badges?.stars && (
-             <div className="flex items-center">
-                <div className="flex gap-0.5 text-[#15531B]">
-                    {[...Array(Math.round(tour.marketing_badges.stars))].map((_, i) => (
-                    <Star key={i} size={16} fill="currentColor" stroke="none" />
-                    ))}
-                </div>
-                <span className="text-[#1a1a1a] font-bold hover:underline cursor-pointer ml-2">
-                    {tour.marketing_badges?.reviews_text}
-                </span>
-             </div>
-        )}
-
-
-        <div className="text-gray-300 text-xl font-light">|</div>
-
-        {/* Recommendation */}
-        {tour.marketing_badges?.recommendation_text && (
-            <div className="flex items-center gap-1.5 text-[#1a1a1a]">
-            <div className="relative">
-                <Flame size={16} className="text-[#df3c23]" fill="#df3c23" stroke="none" />
-            </div>
-            <span className="font-semibold text-gray-800">{tour.marketing_badges?.recommendation_text}</span>
-            <div className="w-[15px] h-[15px] rounded-full border border-gray-400 text-gray-500 text-[9px] flex items-center justify-center font-bold cursor-help">
-                i
-            </div>
-            </div>
-        )}
-
-        {tour.marketing_badges?.badge_text && (
-            <>
-                <div className="text-gray-300 text-xl font-light">|</div>
-                {/* Badge of Excellence */}
-                <div className="flex items-center gap-2 text-[#1a1a1a]">
-                <div className="bg-[#cc9b33] rounded-full p-0.5">
-                    <Award size={13} className="text-white" fill="white" strokeWidth={1} />
-                </div>
-                <span className="text-gray-600 font-medium">{tour.marketing_badges?.badge_text}</span>
-                </div>
-            </>
-        )}
-
-        <div className="text-gray-300 text-xl font-light">|</div>
-
-        {/* Location */}
-        <span className="text-[#1a1a1a] font-medium hover:underline cursor-pointer">
-          {tour.marketing_badges?.location_text || 'Roatan, Honduras'}
-        </span>
-      </div>
-
-       {/* Booking Flags / Badges */}
-            <div className="flex gap-4 mb-6">
-               
-                {tour.booking_options?.free_cancellation && (
-                    <div className="flex items-center gap-2 px-3 py-1 bg-gray-100 rounded-md text-sm font-semibold text-[#1a1a1a]">
-                        <Calendar size={16} /> Free Cancellation
-                    </div>
-                )}
-            </div>
-
         {/* Gallery & Sidebar Layout Container */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative">
           
-          {/* Left Column: Gallery */}
+          {/* Left Column: Content */}
           <div className="lg:col-span-2">
+            {/* Title Section */}
+            <h1 className="text-2xl md:text-[30px] font-semibold text-[#1a1a1a] mb-3 leading-[1.2] tracking-tight">
+              {tour.title}
+            </h1>
+
+            {/* Badges & Rating Row */}
+            <div className="flex flex-wrap items-center text-[13.5px] mb-6 gap-x-2.5">
+              {/* Ratings */}
+              {tour.marketing_badges?.stars && (
+                <div className="flex items-center">
+                  <div className="flex gap-0.5 text-[#15531B]">
+                    {[...Array(Math.round(tour.marketing_badges.stars))].map((_, i) => (
+                      <Star key={i} size={16} fill="currentColor" stroke="none" />
+                    ))}
+                  </div>
+                  <span className="text-[#1a1a1a] font-bold hover:underline cursor-pointer ml-2">
+                    {tour.marketing_badges?.reviews_text}
+                  </span>
+                </div>
+              )}
+
+              <div className="text-gray-300 text-xl font-light">|</div>
+
+              {/* Recommendation */}
+              {tour.marketing_badges?.recommendation_text && (
+                <div className="flex items-center gap-1.5 text-[#1a1a1a]">
+                  <div className="relative">
+                    <Flame size={16} className="text-[#df3c23]" fill="#df3c23" stroke="none" />
+                  </div>
+                  <span className="font-semibold text-gray-800">{tour.marketing_badges?.recommendation_text}</span>
+                  <div className="w-[15px] h-[15px] rounded-full border border-gray-400 text-gray-500 text-[9px] flex items-center justify-center font-bold cursor-help">
+                    i
+                  </div>
+                </div>
+              )}
+
+              {tour.marketing_badges?.badge_text && (
+                <>
+                  <div className="text-gray-300 text-xl font-light">|</div>
+                  {/* Badge of Excellence */}
+                  <div className="flex items-center gap-2 text-[#1a1a1a]">
+                    <div className="bg-[#cc9b33] rounded-full p-0.5">
+                      <Award size={13} className="text-white" fill="white" strokeWidth={1} />
+                    </div>
+                    <span className="text-gray-600 font-medium">{tour.marketing_badges?.badge_text}</span>
+                  </div>
+                </>
+              )}
+
+              <div className="text-gray-300 text-xl font-light">|</div>
+
+              {/* Location */}
+              <span className="text-[#1a1a1a] font-medium hover:underline cursor-pointer">
+                {tour.marketing_badges?.location_text || 'Roatan, Honduras'}
+              </span>
+            </div>
+
+            {/* Booking Flags / Badges */}
+            <div className="flex gap-4 mb-6">
+              {tour.booking_options?.free_cancellation && (
+                <div className="flex items-center gap-2 px-3 py-1 bg-gray-100 rounded-md text-sm font-semibold text-[#1a1a1a]">
+                  <Calendar size={16} /> Free Cancellation
+                </div>
+              )}
+            </div>
+
             <div className="flex gap-3 h-[300px] md:h-[400px] lg:h-[500px] mb-6">
                 
                 {/* Thumbnails Strip */}

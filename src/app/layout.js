@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,8 +29,10 @@ export default function RootLayout({ children }) {
       >
         <Header />
         {children}
+        
         <Footer />
-        <WhatsAppButton />
+        {/* <WhatsAppButton /> */}
+        <script src="//code.tidio.co/bxpgyt5mdoulzj9kjkgbdghxc8vhntwm.js" async></script>
       </body>
     </html>
   );

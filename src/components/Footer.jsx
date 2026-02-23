@@ -38,19 +38,19 @@ const Footer = () => {
                atv Roatan
             </div>
             <div className="flex flex-col gap-4 text-white/80 text-sm leading-relaxed max-w-xs">
-                <div className="flex items-start gap-3">
+                <Link href={"https://www.google.com/maps/place/ATV+Dune+Buggy+ROATAN+Eco-Jungle+Adventure+Tours/@16.3456999,-86.4813591,17z/data=!4m6!3m5!1s0x8f69e5bf4a59efa3:0xa0efd3ab20c41c7e!8m2!3d16.3456999!4d-86.4787842!16s%2Fg%2F11g8wgzth0?entry=tts&g_ep=EgoyMDI1MDgxNy"} className="flex items-start gap-3">
                     <MapPin size={18} className="shrink-0 mt-0.5" />
                     <p>Roatan, Honduras — Jl. Adventure Way,<br />No. 11 West End, 31588</p>
-                </div>
+                </Link>
             </div>
             <div className="flex gap-4 mt-8">
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+              <a href="https://www.facebook.com/atvjungletoursroatan" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
                 <Facebook size={18} />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+              <a href="https://x.com/AtvPark" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
                 <Twitter size={18} />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+              <a href="https://www.instagram.com/atvjungletours" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
                 <Instagram size={18} />
               </a>
             </div>
@@ -62,7 +62,7 @@ const Footer = () => {
             <ul className="space-y-4">
               <li><Link href="/" className="text-white/70 hover:text-white hover:pl-2 transition-all text-[0.95rem]">Home</Link></li>
               <li><Link href="/tours" className="text-white/70 hover:text-white hover:pl-2 transition-all text-[0.95rem]">All Tours</Link></li>
-              <li><Link href="/reviews" className="text-white/70 hover:text-white hover:pl-2 transition-all text-[0.95rem]">Reviews</Link></li>
+              <li><Link href="https://maps.app.goo.gl/aZUsRT1JTetqxSrg7" className="text-white/70 hover:text-white hover:pl-2 transition-all text-[0.95rem]">Reviews</Link></li>
               <li><Link href="/contact" className="text-white/70 hover:text-white hover:pl-2 transition-all text-[0.95rem]">Contact Us</Link></li>
             </ul>
           </div>
