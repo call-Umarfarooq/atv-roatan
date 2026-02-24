@@ -107,12 +107,48 @@ export default function CheckoutPage() {
     .finally(() => setIsFetchingSecret(false));
   }, [bookingData]);
 
-  // Fetch PaymentIntent when entering Step 3
+  // Fetch PaymentIntent when entering Step 2 (Merged Activity + Payment)
   useEffect(() => {
-    if (step === 3 && bookingData && !clientSecret && !isFetchingSecret && !paymentError) {
+    if (step === 2 && bookingData && !clientSecret && !isFetchingSecret && !paymentError) {
        fetchPaymentIntent();
     }
   }, [step, bookingData, clientSecret, isFetchingSecret, paymentError, fetchPaymentIntent]);
+
+  // Price Calculation Logic (Sync with sidebar)
+  const calculateFinalPrice = () => {
+    if (!bookingData) return 0;
+    const { travelers, adultPrice, childPrice, tour, selectedExtras } = bookingData;
+    
+    // Base Price
+    const basePrice = (travelers.adults * adultPrice) + (travelers.children * childPrice);
+    
+    // Extras
+    let extrasTotal = 0;
+    if (tour.extraServices) {
+        Object.entries(selectedExtras || {}).forEach(([index, count]) => {
+            if (count > 0) {
+                const extra = tour.extraServices[index];
+                if (extra) extrasTotal += count * parseFloat(extra.price);
+            }
+        });
+    }
+
+    const fullTourPrice = basePrice + extrasTotal;
+    const taxRate = 0.10;
+    
+    // Pay Now Discount (2%) - Apply as specified in sidebar
+    const hasPayNowDiscount = !!bookingData.discountApplied;
+    
+    // Final Amount = (Base + Extras) * 1.10 (Tax) * 0.98 (Discount)
+    let finalAmount = fullTourPrice * (1 + taxRate);
+    if (hasPayNowDiscount) {
+        finalAmount = finalAmount * 0.98;
+    }
+    
+    return finalAmount;
+  };
+
+  const finalAmountToPay = calculateFinalPrice();
 
   if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
   if (!bookingData) return null;
@@ -239,171 +275,109 @@ export default function CheckoutPage() {
                         </div>
                     )}
 
-               {/* Step 2: Activity Details */}
-               <div className={`bg-white p-6 rounded-xl border transition-all ${step === 2 ? 'border-gray-200 shadow-sm' : 'border-transparent'}`}>
-                  <div className="flex justify-between items-start mb-6">
-                    <h2 className="text-xl font-bold flex items-center gap-3">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${step > 2 ? 'bg-[#15531B] text-white' : step === 2 ? 'bg-black text-white' : 'bg-gray-200 text-gray-500'}`}>
-                            {step > 2 ? <Check size={16} /> : '2'}
-                        </div>
-                        Activity details
-                    </h2>
-                     {step > 2 && (
-                        <button onClick={() => setStep(2)} className="text-[#1a1a1a] text-sm font-bold underline hover:no-underline">Edit</button>
-                    )}
-                  </div>
+                {/* Step 2: Activity & Payment Details (Single Card) */}
+                <div className={`transition-all ${step === 2 ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden pointer-events-none'}`}>
+                   
+                   <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                       
+                       {/* Activity Details Sub-section */}
+                       <div className="p-6 border-b border-gray-100">
+                          <div className="flex justify-between items-start mb-6">
+                            <h2 className="text-xl font-bold flex items-center gap-3">
+                                <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-black text-white">2</div>
+                                Activity details
+                            </h2>
+                          </div>
 
-                  {step === 2 && (
-                      <ActivityForm 
-                        travelers={travelers} 
-                        pickupConfig={tour.pickup_configuration}
-                        initialPickup={bookingData.initialPickup}
-                        onNext={(data) => {
-                            setActivityResult(data);
-                            setBookingData(prev => {
-                                const newData = { ...prev, activityResult: data };
-                                localStorage.setItem('checkoutData', JSON.stringify(newData));
-                                return newData;
-                            });
-                            setStep(3);
-                            window.scrollTo(0, 0);
-                        }}
-                        onBack={() => setStep(1)}
-                      />
-                  )}
-                  {step > 2 && activityResult && (
-                       <div className="ml-11 space-y-6">
-                           
-                           {/* Tour Snippet */}
-                           <div className="flex gap-4">
-                                <img src={getImageUrl(tour.image_url)} alt="" className="w-24 h-16 rounded-md object-cover bg-gray-100" />
-                                <div>
-                                    <h3 className="font-bold text-[#1a1a1a] text-sm mb-1">{tour.title}</h3>
-                                    <div className="flex items-center gap-2 text-xs text-gray-600 mb-1">
-                                        <User size={12} /> {travelers.adults + travelers.children + travelers.infants} Adults
-                                    </div>
-                                    <div className="flex items-center gap-2 text-xs text-gray-600 mb-2">
-                                        <Calendar size={12} /> {formattedDate} • 6:30 AM
-                                    </div>
-                                    <div className="flex items-start gap-1 text-[11px]">
-                                        <Check size={12} className="text-green-600 mt-0.5 shrink-0" />
-                                        <span className="text-gray-600"><span className="font-bold underline text-gray-900">Free cancellation</span> + <span className="font-bold underline text-gray-900">Unlimited rescheduling</span> before 6:30 AM on {formattedDate}</span>
-                                    </div>
-                                </div>
-                           </div>
-                           
-                           <hr className="border-gray-200" />
-
-                           {/* Travelers */}
-                           <div>
-                               <h4 className="font-bold text-[#1a1a1a] text-base mb-2">Travelers</h4>
-                               <p className="text-sm text-gray-600">Lead Traveler: {contactResult.firstName} {contactResult.lastName}</p>
-                           </div>
-
-                           <hr className="border-gray-200" />
-
-                           {/* Meeting Point & Activity Info */}
-                           <div>
-                               <h4 className="font-bold text-[#1a1a1a] text-base mb-2">Activity Details</h4>
-                               <div className="space-y-1 text-sm text-gray-600">
-                                   <div><span className="text-gray-500">Date of Arrival:</span> {activityResult.dateOfArrival}</div>
-                                   <div><span className="text-gray-500">Time of Arrival:</span> {activityResult.timeOfArrival}</div>
-                                   {activityResult.cruiseShipName && <div><span className="text-gray-500">Cruise ship:</span> {activityResult.cruiseShipName}</div>}
-                                   {activityResult.placeOfStay && <div><span className="text-gray-500">Place of stay:</span> {activityResult.placeOfStay}</div>}
-                                   {activityResult.orderNotes && <div><span className="text-gray-500">Order Notes:</span> {activityResult.orderNotes}</div>}
-                               </div>
-                           </div>
-                           
-                           <hr className="border-gray-200" />
-                           
-                           {/* Other Details */}
-                           <div>
-                               <h4 className="font-bold text-[#1a1a1a] text-base mb-2">Other details</h4>
-                               <p className="text-sm text-gray-600"><span className="text-gray-500">Tour language:</span> English - Guide</p>
-                           </div>
-
+                          <ActivityForm 
+                            travelers={travelers} 
+                            pickupConfig={tour.pickup_configuration}
+                            initialPickup={bookingData.initialPickup}
+                            onChange={(data) => {
+                                setActivityResult(data);
+                            }}
+                          />
                        </div>
-                  )}
-               </div>
 
-               {/* Step 3: Payment Details */}
-               <div className={`bg-white p-6 rounded-xl border transition-all ${step === 3 ? 'border-gray-200 shadow-sm' : 'border-transparent opacity-60'}`}>
-                  <div className="mb-6">
-                    <h2 className="text-xl font-bold mb-2 flex items-center gap-3">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${step === 3 ? 'bg-black text-white' : 'bg-gray-200 text-gray-500'}`}>3</div>
-                        Payment details
-                    </h2>
-                  </div>
+                       {/* Payment Details Sub-section */}
+                       <div className="p-6 bg-gray-50/30">
+                          <div className="mb-6">
+                            <h2 className="text-xl font-bold mb-2 flex items-center gap-3">
+                                <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold bg-black text-white">3</div>
+                                Payment details
+                            </h2>
+                          </div>
 
-                  {step === 3 && (
-                      <div>
-                          {isFetchingSecret && (
-                              <div className="flex flex-col items-center justify-center p-8 text-gray-500">
-                                  <div className="w-8 h-8 border-4 border-gray-200 border-t-[#15531B] rounded-full animate-spin mb-3"></div>
-                                  <p className="text-sm">Preparing secure checkout...</p>
-                              </div>
-                          )}
+                          <div>
+                              {isFetchingSecret && (
+                                  <div className="flex flex-col items-center justify-center p-8 text-gray-500">
+                                      <div className="w-8 h-8 border-4 border-gray-200 border-t-[#15531B] rounded-full animate-spin mb-3"></div>
+                                      <p className="text-sm">Preparing secure checkout...</p>
+                                  </div>
+                              )}
 
-                          {paymentError && (
-                              <div className="bg-red-50 border border-red-100 p-4 rounded-lg text-center">
-                                  <p className="text-red-600 text-sm font-medium mb-3">{paymentError}</p>
-                                  <button 
-                                    onClick={fetchPaymentIntent}
-                                    className="px-4 py-2 bg-white border border-red-200 text-red-600 rounded-md text-sm font-bold hover:bg-red-50 transition-colors"
-                                  >
-                                      Try Again
-                                  </button>
-                              </div>
-                          )}
+                              {paymentError && (
+                                  <div className="bg-red-50 border border-red-100 p-4 rounded-lg text-center">
+                                      <p className="text-red-600 text-sm font-medium mb-3">{paymentError}</p>
+                                      <button 
+                                        onClick={fetchPaymentIntent}
+                                        className="px-4 py-2 bg-white border border-red-200 text-red-600 rounded-md text-sm font-bold hover:bg-red-50 transition-colors"
+                                      >
+                                          Try Again
+                                      </button>
+                                  </div>
+                              )}
 
-                          {!isFetchingSecret && !paymentError && bookingData && clientSecret && (
-                            <Elements stripe={stripePromise} options={{ clientSecret, appearance: { theme: 'stripe' } }}>
-                                <PaymentSection 
-                                    bookingData={bookingData} 
-                                    onPaymentComplete={async (result) => {
-                                        console.log('Payment Result:', result);
-                                        
-                                        try {
-                                            setLoading(true);
-                                            const response = await fetch('/api/bookings', {
-                                                method: 'POST',
-                                                headers: { 'Content-Type': 'application/json' },
-                                                body: JSON.stringify({
-                                                    tourId: tour._id,
-                                                    tourSlug: tour.slug,
-                                                    date: date,
-                                                    travelers: travelers,
-                                                    selectedExtras: bookingData.selectedExtras,
-                                                    customer: contactResult,
-                                                    paymentIntentId: result.id,
-                                                    paymentStatus: result.status === 'paid' ? 'paid' : 'unpaid',
-                                                    paymentType: result.type,
-                                                    pickupDetails: activityResult
-                                                })
-                                            });
+                              {!isFetchingSecret && !paymentError && bookingData && clientSecret && (
+                                <Elements stripe={stripePromise} options={{ clientSecret, appearance: { theme: 'stripe' } }}>
+                                    <PaymentSection 
+                                        bookingData={{ ...bookingData, totalPrice: finalAmountToPay }} 
+                                        onPaymentComplete={async (result) => {
+                                            console.log('Payment Result:', result);
+                                            
+                                            try {
+                                                setLoading(true);
+                                                const response = await fetch('/api/bookings', {
+                                                    method: 'POST',
+                                                    headers: { 'Content-Type': 'application/json' },
+                                                    body: JSON.stringify({
+                                                        tourId: tour._id,
+                                                        tourSlug: tour.slug,
+                                                        date: date,
+                                                        travelers: travelers,
+                                                        selectedExtras: bookingData.selectedExtras,
+                                                        customer: contactResult,
+                                                        paymentIntentId: result.id,
+                                                        paymentStatus: result.status === 'paid' ? 'paid' : 'unpaid',
+                                                        paymentType: result.type,
+                                                        pickupDetails: activityResult,
+                                                        totalPrice: finalAmountToPay // Send the calculated price
+                                                    })
+                                                });
 
-                                            const data = await response.json();
+                                                const data = await response.json();
 
-                                            if (data.success) {
-                                                // Clear local storage
-                                                localStorage.removeItem('checkoutData');
-                                                router.push(`/booking-confirmation?id=${data.data._id}`); 
-                                            } else {
-                                                alert('Booking failed: ' + data.error);
+                                                if (data.success) {
+                                                    // Clear local storage
+                                                    localStorage.removeItem('checkoutData');
+                                                    router.push(`/booking-confirmation?id=${data.data._id}`); 
+                                                } else {
+                                                    alert('Booking failed: ' + data.error);
+                                                    setLoading(false);
+                                                }
+                                            } catch (err) {
+                                                console.error('Booking creation error:', err);
+                                                alert('Failed to create booking. Please contact support.');
                                                 setLoading(false);
                                             }
-                                        } catch (err) {
-                                            console.error('Booking creation error:', err);
-                                            alert('Failed to create booking. Please contact support.');
-                                            setLoading(false);
-                                        }
-                                    }}
-                                />
-                            </Elements>
-                          )}
-                      </div>
-                  )}
-               </div>
+                                        }}
+                                    />
+                                </Elements>
+                              )}
+                          </div>
+                       </div>
+                   </div>
+                </div>
 
           </div>
 
@@ -435,17 +409,9 @@ export default function CheckoutPage() {
 
                   {/* Price Breakdown - New Layout */}
                    {(() => {
-                        // Calculate base price (before any discounts)
-                        // Standard Price Logic
-                        // We strictly show the adultPrice and childPrice as the base rates.
-                        // Savings are calculated if cutoff_price > adultPrice.
-
                         const displayAdultPrice = adultPrice;
-                        
-                        // Calculate Base Price (what user actually pays before tax)
                         const basePrice = (travelers.adults * displayAdultPrice) + (travelers.children * childPrice);
                         
-                        // Calculate extras total
                         let extrasTotal = 0;
                         if (tour.extraServices) {
                             Object.entries(selectedExtras || {}).forEach(([index, count]) => {
@@ -456,36 +422,17 @@ export default function CheckoutPage() {
                             });
                         }
 
-                        // Tax Rate
                         const taxRate = 0.10;
-
-                        // Full Tour Price (Base + Extras)
                         const fullTourPrice = basePrice + extrasTotal;
-
-                        // Calculate Tax
                         const tax = fullTourPrice * taxRate;
-                        
-                        // Total Regular Price
                         const totalRegularPrice = fullTourPrice + tax;
 
-                        // Savings Calculation
-                        // If cutoff_price exists and is > adultPrice, user is saving money.
-                        // Saving per adult = cutoff_price - adultPrice
-                        // Total Saving = (cutoff_price - adultPrice) * adults
                         const cutoffPrice = tour.cutoff_price ? parseFloat(tour.cutoff_price) : 0;
                         const hasSavings = cutoffPrice > adultPrice;
                         const totalSavings = hasSavings ? (cutoffPrice - adultPrice) * travelers.adults : 0;
 
-                        // Pay Now Discount (2%)
                         const hasPayNowDiscount = !!bookingData.discountApplied;
-                        
-                         // Final Amount User Pays
-                        // If PayNow applied: (Base + Extras) * 0.98 * 1.10
-                        const finalAmountToPay = hasPayNowDiscount 
-                            ? (fullTourPrice * 0.98 * 1.10) 
-                            : (fullTourPrice * 1.10);
-
-                        const payNowDiscount = hasPayNowDiscount ? (fullTourPrice * 1.10 * 0.02) : 0;
+                        const payNowDiscount = hasPayNowDiscount ? (totalRegularPrice * 0.02) : 0;
                         
                         return (
                             <div className="space-y-0">
@@ -699,10 +646,8 @@ function ContactForm({ onNext }) {
 }
 
 
-function ActivityForm({ travelers, pickupConfig, initialPickup, onNext, onBack }) {
+function ActivityForm({ travelers, pickupConfig, initialPickup, onChange }) {
     const [formData, setFormData] = useState({ 
-        dateOfArrival: '', 
-        timeOfArrival: '',
         cruiseShipName: '', 
         placeOfStay: '', 
         orderNotes: '',
@@ -712,45 +657,12 @@ function ActivityForm({ travelers, pickupConfig, initialPickup, onNext, onBack }
 
     const [errors, setErrors] = useState({});
 
-    const cruiseShips = [
-        'Carnival Vista',
-        'Royal Caribbean Allure',
-        'Norwegian Pearl',
-        'MSC Seaside',
-        'Celebrity Edge',
-        'Holland America Nieuw Amsterdam',
-        'Princess Regal',
-        'Disney Fantasy',
-        'Costa Luminosa',
-        'Other'
-    ];
-
-    const placesOfStay = [
-        'Mahogany Bay',
-        'West Bay Beach',
-        'West End',
-        'Coxen Hole',
-        'French Harbour',
-        'Sandy Bay',
-        'Parrot Tree',
-        'Camp Bay',
-        'Other'
-    ];
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        
-        const newErrors = {};
-        if (!formData.dateOfArrival) newErrors.dateOfArrival = true;
-        if (!formData.timeOfArrival) newErrors.timeOfArrival = true;
-
-        if (Object.keys(newErrors).length > 0) {
-            setErrors(newErrors);
-            return;
+    // Sync state with parent on change
+    useEffect(() => {
+        if (onChange) {
+            onChange(formData);
         }
-
-        onNext({ ...formData });
-    }
+    }, [formData, onChange]);
 
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value});
@@ -766,65 +678,32 @@ function ActivityForm({ travelers, pickupConfig, initialPickup, onNext, onBack }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Date and Time of Arrival */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="relative">
-                    <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-[#15531B] font-medium z-10">Date of Arrival *</label>
-                    <input 
-                        type="date"
-                        name="dateOfArrival" 
-                        className={getInputClass('dateOfArrival')}
-                        onChange={handleChange}
-                        value={formData.dateOfArrival}
-                    />
-                    {errors.dateOfArrival && <p className="text-[10px] text-red-500 mt-1 font-medium">Required</p>}
-                </div>
-                <div className="relative">
-                    <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-[#15531B] font-medium z-10">Time of Arrival *</label>
-                    <input 
-                        type="time"
-                        name="timeOfArrival" 
-                        className={getInputClass('timeOfArrival')}
-                        onChange={handleChange}
-                        value={formData.timeOfArrival}
-                    />
-                    {errors.timeOfArrival && <p className="text-[10px] text-red-500 mt-1 font-medium">Required</p>}
-                </div>
-            </div>
+        <div className="space-y-4">
 
             {/* Cruise Ship Name */}
             <div className="relative">
                 <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-[#15531B] font-medium z-10">Cruise Ship Name (optional)</label>
-                <select 
+                <input 
+                    type="text"
                     name="cruiseShipName" 
-                    className="w-full p-3 bg-white border border-gray-200 rounded-lg text-sm outline-none focus:border-[#15531B] focus:ring-1 focus:ring-[#15531B] appearance-none cursor-pointer"
+                    placeholder="Enter cruise ship name..."
+                    className="w-full p-3 bg-white border border-gray-200 rounded-lg text-sm outline-none focus:border-[#15531B] focus:ring-1 focus:ring-[#15531B]"
                     onChange={handleChange}
                     value={formData.cruiseShipName}
-                >
-                    <option value="">Choose...</option>
-                    {cruiseShips.map((ship, i) => (
-                        <option key={i} value={ship}>{ship}</option>
-                    ))}
-                </select>
-                <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                />
             </div>
 
             {/* Place of Stay */}
             <div className="relative">
                 <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-[#15531B] font-medium z-10">Place of Stay (optional)</label>
-                <select 
+                <input 
+                    type="text"
                     name="placeOfStay" 
-                    className="w-full p-3 bg-white border border-gray-200 rounded-lg text-sm outline-none focus:border-[#15531B] focus:ring-1 focus:ring-[#15531B] appearance-none cursor-pointer"
+                    placeholder="Enter hotel or place of stay..."
+                    className="w-full p-3 bg-white border border-gray-200 rounded-lg text-sm outline-none focus:border-[#15531B] focus:ring-1 focus:ring-[#15531B]"
                     onChange={handleChange}
                     value={formData.placeOfStay}
-                >
-                    <option value="">Choose...</option>
-                    {placesOfStay.map((place, i) => (
-                        <option key={i} value={place}>{place}</option>
-                    ))}
-                </select>
-                <ChevronDown size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                />
             </div>
 
             {/* Order Notes */}
@@ -838,11 +717,7 @@ function ActivityForm({ travelers, pickupConfig, initialPickup, onNext, onBack }
                     value={formData.orderNotes}
                 />
             </div>
-
-            <div className="pt-4 flex items-center gap-4">
-                <button type="submit" className="bg-[#15531B] hover:bg-[#006966] text-white font-bold py-3 px-8 rounded-full transition-colors">Next</button>
-            </div>
-        </form>
+        </div>
     )
 }
 

@@ -59,6 +59,8 @@ export async function POST(request) {
     const taxRate = 0.10;
     const taxAmount = totalAmount * taxRate;
     totalAmount += taxAmount;
+    // Apply 2% Discount for Pay Now
+    totalAmount = totalAmount * 0.98;
 
     totalAmount = Number(totalAmount.toFixed(2)); // format for paypal
 

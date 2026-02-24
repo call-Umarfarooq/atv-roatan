@@ -46,6 +46,9 @@ export async function POST(request) {
     const taxAmount = totalAmount * taxRate;
     totalAmount += taxAmount;
 
+    // Apply 2% Discount for Pay Now
+    totalAmount = totalAmount * 0.98;
+
     // 3. Create PaymentIntent
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Math.round(totalAmount * 100), // Convert to cents

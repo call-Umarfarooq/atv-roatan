@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
 
 const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(null);
   const [showTravelers, setShowTravelers] = useState(false);
   const [travelers, setTravelers] = useState({
       adults: 2,
@@ -16,6 +16,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
   const [selectedExtras, setSelectedExtras] = useState({}); // { index: count }
   const [totalPrice, setTotalPrice] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [dateError, setDateError] = useState(false);
 
   // Price Constants (fallback if tour prop missing temporarily)
   const ADULT_PRICE = tour?.adultPrice || tour?.base_price || 0;
@@ -59,6 +60,14 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
   const router = useRouter();
 
   const handleBooking = async (paymentOption) => {
+      // 1. Validate Date
+      if (!date) {
+        setDateError(true);
+        // Scroll to error if needed or let the UI handle it
+        return;
+      }
+
+      // 2. Validate Travelers (existing rule)
       if (travelers.adults < 2) {
         alert('A minimum of 2 adults is required to book this tour.');
         return;
@@ -127,20 +136,28 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
             
             {/* Date Picker */}
             <div className="relative">
-                <div className="border border-gray-300 rounded-lg p-3 hover:border-black transition-colors cursor-pointer group bg-white relative">
-                    <label className="text-xs text-gray-500 font-bold block mb-1 group-hover:text-gray-800">Date</label>
+                <div className={`border rounded-lg p-3 transition-all cursor-pointer group bg-white relative ${dateError ? 'border-red-500 bg-red-50/30' : 'border-gray-300 hover:border-black'}`}>
+                    <label className={`text-xs font-bold block mb-1 transition-colors ${dateError ? 'text-red-600' : 'text-gray-500 group-hover:text-gray-800'}`}>Date</label>
                     <DatePicker 
                         selected={date} 
-                        onChange={(date) => setDate(date)} 
+                        onChange={(date) => {
+                            setDate(date);
+                            setDateError(false);
+                        }} 
                         dateFormat="EEE, MMM d"
-                        className="w-full font-bold text-[#1a1a1a] text-sm outline-none cursor-pointer caret-transparent"
+                        className={`w-full font-bold text-sm outline-none cursor-pointer caret-transparent bg-transparent ${dateError ? 'text-red-700' : 'text-[#1a1a1a]'}`}
                         wrapperClassName="w-full"
                         minDate={new Date(new Date().setHours(0, 0, 0, 0))}
                         onFocus={(e) => e.target.blur()} // Prevent mobile keyboard
                         placeholderText="Select a date"
                     />
-                     <ChevronDown className="absolute right-3 top-1/2 translate-y-1 text-gray-400 pointer-events-none group-hover:text-black" size={16} />
+                     <ChevronDown className={`absolute right-3 top-1/2 translate-y-1 transition-colors pointer-events-none ${dateError ? 'text-red-500' : 'text-gray-400 group-hover:text-black'}`} size={16} />
                 </div>
+                {dateError && (
+                    <p className="text-red-500 text-[11px] font-bold mt-1 ml-1 animate-pulse">
+                        Please choose a date to continue
+                    </p>
+                )}
             </div>
 
              {/* Travelers Popover Trigger */}

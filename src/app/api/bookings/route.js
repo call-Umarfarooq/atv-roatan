@@ -45,6 +45,11 @@ export async function POST(request) {
     const taxAmount = calculatedTotal * taxRate;
     calculatedTotal += taxAmount;
 
+    // 3. Apply Discount for Pay Now
+    if (paymentType === 'pay_now') {
+        calculatedTotal = calculatedTotal * 0.98;
+    }
+
     const newBooking = await Booking.create({
         tour: tourId,
         tourSlug: tour.slug,

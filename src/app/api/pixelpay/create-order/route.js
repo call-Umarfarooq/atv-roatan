@@ -48,6 +48,11 @@ export async function POST(request) {
     const taxAmount = totalAmount * taxRate;
     totalAmount += taxAmount;
 
+    // Apply 2% Discount for Pay Now
+    if (paymentType === 'pay_now') {
+        totalAmount = totalAmount * 0.98;
+    }
+
     totalAmount = Number(totalAmount.toFixed(2)); // format for PixelPay
 
     // 3. Define if it's a straight Sale or an Authorization (Reserve Now)
