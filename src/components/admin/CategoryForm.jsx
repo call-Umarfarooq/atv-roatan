@@ -10,6 +10,7 @@ export default function CategoryForm({ initialData = null, isEdit = false }) {
   const [formData, setFormData] = useState({
     name: '',
     slug: '',
+    description: '',
   });
 
   useEffect(() => {
@@ -114,6 +115,17 @@ export default function CategoryForm({ initialData = null, isEdit = false }) {
               <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Slug</label>
                   <input required name="slug" value={formData.slug} onChange={handleChange} className="w-full p-2 border rounded-lg bg-gray-50 text-gray-500" />
+              </div>
+              <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                  <textarea 
+                    name="description" 
+                    value={formData.description} 
+                    onChange={handleChange} 
+                    rows={4}
+                    className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#15531B] focus:border-transparent outline-none text-[#1a1a1a]"
+                    placeholder="Enter category description..."
+                  />
               </div>
           </div>
       </div>

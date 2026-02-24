@@ -2,12 +2,14 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { Search, Phone, X, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin, Youtube, ChevronDown, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const navLinks = [
-  { label: 'Home', href: '/', active: true },
+  { label: 'Home', href: '/' },
   { label: 'All Tours', href: '/tours' },
+  { label: 'Categories', href: '/category' },
   { label: 'Gallery', href: '/gallery' },
   { label: 'About Us', href: '/about' },
   { label: 'Contact Us', href: '/contact' },
@@ -16,6 +18,7 @@ const navLinks = [
 
 
 const Header = () => {
+  const pathname = usePathname();
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [tours, setTours] = useState([]);
@@ -134,7 +137,7 @@ const Header = () => {
               key={link.label}
               href={link.href}
               className={`text-sm font-medium transition-colors ${
-                link.active
+                pathname === link.href
                   ? 'text-[#00694B] border-b-2 border-[#00694B] pb-0.5'
                   : 'text-gray-600 hover:text-[#00694B]'
               }`}
@@ -178,7 +181,7 @@ const Header = () => {
                       searchResults.map((tour) => (
                         <a 
                           key={tour._id} 
-                          href={`/roatan/${tour.slug}`}
+                          href={`/product/${tour.slug}`}
                           className="flex items-center gap-3 p-3 hover:bg-gray-50 border-b border-gray-100 last:border-0 transition-colors"
                           onClick={() => setSearchOpen(false)}
                         >
@@ -242,7 +245,7 @@ const Header = () => {
                         tours.map((tour) => (
                           <a 
                             key={tour._id} 
-                            href={`/roatan/${tour.slug}`} 
+                            href={`/product/${tour.slug}`} 
                             className="flex flex-col gap-2 group/item"
                           >
                             <div className="relative w-full aspect-4/3 rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">

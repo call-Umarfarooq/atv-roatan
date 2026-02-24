@@ -42,7 +42,7 @@ const TourCard = ({
   };
 
   return (
-    <Link href={slug ? `/roatan/${slug}` : '#'} className="block h-full"> 
+    <Link href={slug ? `/product/${slug}` : '#'} className="block h-full"> 
     <div 
         className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer border border-gray-100 flex flex-col h-full"
     >
@@ -206,7 +206,7 @@ const TourCard = ({
             <span className="text-[#1a1a1a] font-extrabold text-xl">{currency}{price}</span>
         </div>
            {/* Button */}
-           <Link href={`/roatan/${slug}`} className="bg-[#285340] cursor-pointer hover:bg-[#1f4232] text-white px-5 py-2.5 rounded-full font-bold text-sm transition-colors flex items-center gap-2">
+           <Link href={`/product/${slug}`} className="bg-[#285340] cursor-pointer hover:bg-[#1f4232] text-white px-5 py-2.5 rounded-full font-bold text-sm transition-colors flex items-center gap-2">
                Book Now 
                {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg> */}
            </Link>

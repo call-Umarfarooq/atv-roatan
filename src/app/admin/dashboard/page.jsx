@@ -108,7 +108,7 @@ export default function DashboardPage() {
                                         <div className="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden shrink-0">
                                             <img src={getImageUrl(tour.image_url)} alt="" className="w-full h-full object-cover" />
                                         </div>
-                                            <Link href={`/roatan/${tour.slug}`} target="_blank" className="hover:text-[#15531B] transition-colors block">
+                                            <Link href={`/product/${tour.slug}`} target="_blank" className="hover:text-[#15531B] transition-colors block">
                                                 <div className="font-medium text-[#1a1a1a] truncate max-w-[200px]">{tour.title}</div>
                                                 <div className="text-xs text-gray-500 hover:underline">{tour.slug}</div>
                                             </Link>

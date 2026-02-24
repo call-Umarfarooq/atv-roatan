@@ -28,15 +28,34 @@ const HomeClient = ({ initialTours, categories }) => {
        <section className="bg-white ">
          <div className="max-w-7xl mx-auto px-4">
            
-           {/* Section Heading */}
-           <div className="text-center mb-8">
-             <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4">
-               Choose Your Adventure
-             </h2>
-             <p className="text-gray-600 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
-               Explore the hidden gems of Roatan with our expertly guided tours. From adrenaline-pumping rides to relaxing wildlife encounters.
-             </p>
-           </div>
+            {/* Section Heading */}
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4">
+                Choose Your Adventure
+              </h2>
+              
+              {/* Dynamic & SEO Friendly Descriptions */}
+              <div className="relative min-h-12 max-w-2xl mx-auto">
+                {/* General "All" Description */}
+                <p className={`text-gray-600 text-base md:text-lg leading-relaxed transition-all duration-300 ${
+                  selectedCategory === 'All' ? 'opacity-100 relative z-10' : 'opacity-0 absolute inset-0 -z-10 pointer-events-none'
+                }`}>
+                  Explore the hidden gems of Roatan with our expertly guided tours. From adrenaline-pumping rides to relaxing wildlife encounters.
+                </p>
+
+                {/* Specific Category Descriptions */}
+                {categories.map((category) => (
+                  <p 
+                    key={`desc-${category._id}`}
+                    className={`text-gray-600 text-base md:text-lg leading-relaxed transition-all duration-300 ${
+                      selectedCategory === category._id ? 'opacity-100 relative z-10' : 'opacity-0 absolute inset-0 -z-10 pointer-events-none'
+                    }`}
+                  >
+                    {category.description || `Explore our ${category.name} collection and discover the best of Roatan.`}
+                  </p>
+                ))}
+              </div>
+            </div>
 
            {/* Filter Buttons */}
            <div className="flex justify-center overflow-x-auto no-scrollbar pb-2">

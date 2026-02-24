@@ -73,6 +73,7 @@ export default function CategoriesPage() {
                     <tr>
                         <th className="px-6 py-4">Name</th>
                         <th className="px-6 py-4">Slug</th>
+                        <th className="px-6 py-4">Description</th>
                         <th className="px-6 py-4 text-right">Actions</th>
                     </tr>
                 </thead>
@@ -86,6 +87,7 @@ export default function CategoriesPage() {
                             <tr key={category._id} className="hover:bg-gray-50 transition-colors group">
                                 <td className="px-6 py-4 font-medium text-[#1a1a1a]">{category.name}</td>
                                 <td className="px-6 py-4 text-gray-500 text-sm">{category.slug}</td>
+                                <td className="px-6 py-4 text-gray-500 text-sm truncate max-w-[200px]">{category.description || '-'}</td>
                                 <td className="px-6 py-4 text-right">
                                     <div className="flex items-center justify-end gap-2 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity">
                                         <Link href={`/admin/categories/${category.slug}/edit`}>

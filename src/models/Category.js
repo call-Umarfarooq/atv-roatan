@@ -11,6 +11,10 @@ const CategorySchema = new mongoose.Schema({
     required: [true, 'Please provide a slug for this category.'],
     unique: true,
   },
+  description: {
+    type: String,
+    default: '',
+  },
 }, {
   timestamps: true,
 });

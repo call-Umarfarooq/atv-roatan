@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/db';
 import Category from '@/models/Category';
+import Tour from '@/models/Tour';
 
 export async function GET(request, { params }) {
   await dbConnect();
@@ -13,7 +14,16 @@ export async function GET(request, { params }) {
       return NextResponse.json({ success: false, error: 'Category not found' }, { status: 404 });
     }
 
-    return NextResponse.json({ success: true, data: category });
+    // Fetch tours associated with this category
+    const tours = await Tour.find({ categories: category._id }).lean();
+
+    return NextResponse.json({ 
+      success: true, 
+      data: {
+        ...category.toObject(),
+        tours
+      } 
+    });
   } catch (error) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
