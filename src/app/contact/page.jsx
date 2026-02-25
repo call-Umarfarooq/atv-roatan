@@ -79,7 +79,7 @@ const ContactPage = () => {
              </span>
           </div>
           <h1 className="text-white text-5xl md:text-7xl font-bold tracking-tight mb-6 drop-shadow-lg">
-            Get In <span className="text-[#15531B] italic font-serif px-3 rounded-lg mr-1 ml-1 ">Touch</span><br />
+            Get In <span className="text-[#00694B] italic font-serif px-3 rounded-lg mr-1 ml-1 ">Touch</span><br />
             With Us
           </h1>
           <p className="text-gray-200 max-w-2xl mx-auto text-sm md:text-base">
@@ -111,7 +111,7 @@ const ContactPage = () => {
             <h3 className="text-[#ffffff] text-2xl font-bold mb-8 bg-white/10 px-4 py-2 rounded-lg inline-block">Send Us A Message</h3>
             
             {success && (
-              <div className="mb-6 p-4 bg-[#15531B]/20 border border-[#15531B]/50 text-[#4ade80] rounded-lg flex items-center gap-3">
+              <div className="mb-6 p-4 bg-[#00694B]/20 border border-[#00694B]/50 text-[#4ade80] rounded-lg flex items-center gap-3">
                 <CheckCircle2 size={20} />
                 <span>Message sent successfully! We'll be in touch soon.</span>
               </div>
@@ -133,7 +133,7 @@ const ContactPage = () => {
                     onChange={handleChange}
                     placeholder="Name" 
                     required
-                    className="w-full bg-[#2a2a2a] text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#15531B] border border-transparent transition-all"
+                    className="w-full bg-[#2a2a2a] text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#00694B] border border-transparent transition-all"
                   />
                 </div>
                 <div>
@@ -144,7 +144,7 @@ const ContactPage = () => {
                     onChange={handleChange}
                     placeholder="Email" 
                     required
-                    className="w-full bg-[#2a2a2a] text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#15531B] border border-transparent transition-all"
+                    className="w-full bg-[#2a2a2a] text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#00694B] border border-transparent transition-all"
                   />
                 </div>
               </div>
@@ -157,7 +157,7 @@ const ContactPage = () => {
                   onChange={handleChange}
                   placeholder="Subject" 
                   required
-                  className="w-full bg-[#2a2a2a] text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#15531B] border border-transparent transition-all"
+                  className="w-full bg-[#2a2a2a] text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#00694B] border border-transparent transition-all"
                 />
               </div>
 
@@ -169,14 +169,14 @@ const ContactPage = () => {
                   placeholder="Message" 
                   rows={6}
                   required
-                  className="w-full bg-[#2a2a2a] text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#15531B] border border-transparent transition-all resize-none"
+                  className="w-full bg-[#2a2a2a] text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#00694B] border border-transparent transition-all resize-none"
                 ></textarea>
               </div>
 
               <button 
                 type="submit" 
                 disabled={loading}
-                className="w-full bg-[#15531B] text-white flex items-center justify-center gap-2 font-bold text-lg py-4 rounded-full hover:bg-[#0e3d14] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 duration-300 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
+                className="w-full bg-[#00694B] text-white flex items-center justify-center gap-2 font-bold text-lg py-4 rounded-full hover:bg-[#0e3d14] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 duration-300 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
               >
                 {loading ? (
                   <>
@@ -192,12 +192,12 @@ const ContactPage = () => {
 
           {/* Right: Info Text */}
           <div className="space-y-6">
-             <span className="inline-block px-4 py-1 rounded-full border border-[#15531B]/30 text-[#15531B] font-semibold text-sm bg-[#15531B]/5">
+             <span className="inline-block px-4 py-1 rounded-full border border-[#00694B]/30 text-[#00694B] font-semibold text-sm bg-[#00694B]/5">
               Contact Us
             </span>
             <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] leading-tight">
               Get In Touch With <br />
-              <span className="text-[#15531B] italic font-serif">ATV Roatan</span>
+              <span className="text-[#00694B] italic font-serif">ATV Roatan</span>
             </h2>
             <p className="text-gray-600 text-lg">
               Have questions or need help planning your next trip? Contact us and let's make your travel experience hassle-free!
@@ -218,7 +218,7 @@ const ContactPage = () => {
                   "Exclusive Travel Deals"
                 ].map((item, index) => (
                   <div key={index} className="flex items-center gap-2">
-                    <CheckCircle2 size={20} className="text-[#15531B] shrink-0 fill-[#15531B]/10" />
+                    <CheckCircle2 size={20} className="text-[#00694B] shrink-0 fill-[#00694B]/10" />
                     <span className="text-[#1a1a1a] font-medium text-sm">{item}</span>
                   </div>
                 ))}
@@ -239,8 +239,8 @@ const ContactPage = () => {
               Prefer to visit our office? Our travel experts are ready to assist you.
             </p>
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[#15531B]/10 flex items-center justify-center shrink-0">
-                <MapPin size={24} className="text-[#15531B]" />
+              <div className="w-12 h-12 rounded-xl bg-[#00694B]/10 flex items-center justify-center shrink-0">
+                <MapPin size={24} className="text-[#00694B]" />
               </div>
               <span className="text-[#1a1a1a] font-semibold">Roatan, Honduras</span>
             </div>
@@ -253,8 +253,8 @@ const ContactPage = () => {
               Send us your travel queries, and our team will reply as soon as possible!
             </p>
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[#15531B]/10 flex items-center justify-center shrink-0">
-                <Mail size={24} className="text-[#15531B]" />
+              <div className="w-12 h-12 rounded-xl bg-[#00694B]/10 flex items-center justify-center shrink-0">
+                <Mail size={24} className="text-[#00694B]" />
               </div>
               <span className="text-[#1a1a1a] font-semibold break-all">info@atvroatan.com</span>
             </div>
@@ -267,8 +267,8 @@ const ContactPage = () => {
               Need assistance? Call us, and we'll make your travel planning hassle-free!
             </p>
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-[#15531B]/10 flex items-center justify-center shrink-0">
-                <Phone size={24} className="text-[#15531B]" />
+              <div className="w-12 h-12 rounded-xl bg-[#00694B]/10 flex items-center justify-center shrink-0">
+                <Phone size={24} className="text-[#00694B]" />
               </div>
               <span className="text-[#1a1a1a] font-semibold">+504 1234-5678</span>
             </div>
@@ -284,3 +284,4 @@ const ContactPage = () => {
 };
 
 export default ContactPage;
+

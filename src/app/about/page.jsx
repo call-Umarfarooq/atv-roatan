@@ -30,7 +30,7 @@ const AboutPage = () => {
              </span>
           </div>
           <h1 className="text-white text-5xl md:text-7xl font-bold tracking-tight mb-6 drop-shadow-lg">
-            Who <span className="text-[#15531B] italic font-serif px-3 rounded-lg mr-1 ml-1 ">We</span> Are
+            Who <span className="text-[#00694B] italic font-serif px-3 rounded-lg mr-1 ml-1 ">We</span> Are
           </h1>
           <p className="text-gray-200 max-w-2xl mx-auto text-sm md:text-base">
             Dedicated to providing unforgettable adventures and showing the true beauty of Roatan through our guided tours.
@@ -67,12 +67,12 @@ const AboutPage = () => {
 
           {/* Right: Text Content */}
           <div className="space-y-6 md:pl-8">
-             <span className="inline-block px-4 py-1 rounded-full border border-[#15531B]/30 text-[#15531B] font-semibold text-sm bg-[#15531B]/5">
+             <span className="inline-block px-4 py-1 rounded-full border border-[#00694B]/30 text-[#00694B] font-semibold text-sm bg-[#00694B]/5">
               Our Story
             </span>
             <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] leading-tight mt-2">
               Discover the <br />
-              <span className="text-[#15531B] italic font-serif">Heart of Roatan</span>
+              <span className="text-[#00694B] italic font-serif">Heart of Roatan</span>
             </h2>
             <p className="text-gray-600 text-lg leading-relaxed">
               We started with a simple belief: the best way to experience the magic of Roatan is feeling the breeze, hearing the sounds of the jungle, and venturing off the beaten path. Over the years, we've grown into the leading provider for ATV, Dune Buggy, and Golf Cart excursions.
@@ -84,8 +84,8 @@ const AboutPage = () => {
             {/* Core Values / Features */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-[#15531B]/10 flex items-center justify-center shrink-0 mt-1">
-                  <Shield className="text-[#15531B]" size={24} />
+                <div className="w-12 h-12 rounded-xl bg-[#00694B]/10 flex items-center justify-center shrink-0 mt-1">
+                  <Shield className="text-[#00694B]" size={24} />
                 </div>
                 <div>
                   <h4 className="text-[#1a1a1a] font-bold text-lg mb-1">Safety First</h4>
@@ -94,8 +94,8 @@ const AboutPage = () => {
               </div>
               
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-[#15531B]/10 flex items-center justify-center shrink-0 mt-1">
-                  <Users className="text-[#15531B]" size={24} />
+                <div className="w-12 h-12 rounded-xl bg-[#00694B]/10 flex items-center justify-center shrink-0 mt-1">
+                  <Users className="text-[#00694B]" size={24} />
                 </div>
                 <div>
                   <h4 className="text-[#1a1a1a] font-bold text-lg mb-1">Expert Guides</h4>
@@ -104,8 +104,8 @@ const AboutPage = () => {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-[#15531B]/10 flex items-center justify-center shrink-0 mt-1">
-                  <Map className="text-[#15531B]" size={24} />
+                <div className="w-12 h-12 rounded-xl bg-[#00694B]/10 flex items-center justify-center shrink-0 mt-1">
+                  <Map className="text-[#00694B]" size={24} />
                 </div>
                 <div>
                   <h4 className="text-[#1a1a1a] font-bold text-lg mb-1">Scenic Routes</h4>
@@ -114,8 +114,8 @@ const AboutPage = () => {
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-[#15531B]/10 flex items-center justify-center shrink-0 mt-1">
-                  <CheckCircle2 className="text-[#15531B]" size={24} />
+                <div className="w-12 h-12 rounded-xl bg-[#00694B]/10 flex items-center justify-center shrink-0 mt-1">
+                  <CheckCircle2 className="text-[#00694B]" size={24} />
                 </div>
                 <div>
                   <h4 className="text-[#1a1a1a] font-bold text-lg mb-1">Satisfaction</h4>
@@ -137,7 +137,7 @@ const AboutPage = () => {
           <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
             Book now and witness the pristine beauty of Roatan through an unbeatable adventure tour.
           </p>
-          <a href="/tours" className="inline-block bg-white text-[#15531B] font-bold text-lg px-8 py-4 rounded-full hover:bg-gray-100 transition-colors shadow-lg transform hover:-translate-y-1 duration-300">
+          <a href="/tours" className="inline-block bg-white text-[#00694B] font-bold text-lg px-8 py-4 rounded-full hover:bg-gray-100 transition-colors shadow-lg transform hover:-translate-y-1 duration-300">
             View Our Tours
           </a>
         </div>
@@ -148,3 +148,4 @@ const AboutPage = () => {
 };
 
 export default AboutPage;
+

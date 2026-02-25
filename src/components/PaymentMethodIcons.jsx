@@ -41,3 +41,4 @@ const PaymentMethodIcons = () => {
 };
 
 export default PaymentMethodIcons;
+

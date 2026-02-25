@@ -33,7 +33,7 @@ export default async function AllToursPage() {
           <h1 className="text-white text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg font-serif">
             All Tours
           </h1>
-          <div className="w-24 h-1 bg-[#15531B] rounded-full"></div>
+          <div className="w-24 h-1 bg-[#00694B] rounded-full"></div>
         </div>
         
         {/* Back Button */}
@@ -62,7 +62,7 @@ export default async function AllToursPage() {
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center border-t border-gray-100 pt-8">
                 <Link 
                     href="/contact"
-                    className="px-8 py-3 bg-[#15531B] text-white rounded-full font-bold text-center hover:bg-[#006f6c] transition-colors shadow-lg"
+                    className="px-8 py-3 bg-[#00694B] text-white rounded-full font-bold text-center hover:bg-[#005a3c] transition-colors shadow-lg"
                 >
                     Contact for Group Booking
                 </Link>
@@ -81,10 +81,10 @@ export default async function AllToursPage() {
       <div className="max-w-7xl mx-auto px-4 mt-10 text-left relative z-10">
         <div className="bg-[#f8faf9] border border-[#e9edea] rounded-3xl p-4 md:p-4 shadow-sm flex flex-col lg:flex-row gap-12 items-center">
             <div className="flex-1 space-y-6">
-                <div className="inline-block px-4 py-1.5 rounded-full border border-[#15531B]/30 text-[#15531B] font-semibold text-sm bg-[#15531B]/5">
+                <div className="inline-block px-4 py-1.5 rounded-full border border-[#00694B]/30 text-[#00694B] font-semibold text-sm bg-[#00694B]/5">
                    Featured Passes
                 </div>
-                <h2 className="text-4xl font-bold text-[#1a1a1a]">Roatan <span className="text-[#15531B] italic font-serif">All-Inclusive</span></h2>
+                <h2 className="text-4xl font-bold text-[#1a1a1a]">Roatan <span className="text-[#00694B] italic font-serif">All-Inclusive</span></h2>
                 <p className="text-gray-600 leading-relaxed text-lg">
                     Roatan offers several All-Inclusive day passes. The majority of these packages are located at resort properties on West Bay Beach, a 20-30 minutes scenic drive from the Port of Roatan and the Mahogany Bay Cruise Center.
                 </p>
@@ -131,3 +131,4 @@ export default async function AllToursPage() {
     </main>
   );
 }
+

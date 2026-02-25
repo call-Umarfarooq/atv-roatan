@@ -11,9 +11,9 @@ import {
   Phone, CheckCircle2
 } from 'lucide-react';
 
-/* ── Metadata (exported from a separate layout or handled in head) ── */
+/* â”€â”€ Metadata (exported from a separate layout or handled in head) â”€â”€ */
 
-/* ── FAQ Data ── */
+/* â”€â”€ FAQ Data â”€â”€ */
 const faqData = [
   {
     question: "Which cruise lines dock at the Port of Roatan?",
@@ -21,7 +21,7 @@ const faqData = [
   },
   {
     question: "How far is the port from popular beaches?",
-    answer: "West Bay Beach is approximately 20–25 minutes from Coxen Hole and 15 minutes from Mahogany Bay by taxi. West End is about 15–20 minutes from Coxen Hole. Most tour operators, including us, provide complimentary round-trip port transportation."
+    answer: "West Bay Beach is approximately 20â€“25 minutes from Coxen Hole and 15 minutes from Mahogany Bay by taxi. West End is about 15â€“20 minutes from Coxen Hole. Most tour operators, including us, provide complimentary round-trip port transportation."
   },
   {
     question: "Is it safe to explore Roatan on my own?",
@@ -45,7 +45,7 @@ const faqData = [
   }
 ];
 
-/* ── Excursion Categories ── */
+/* â”€â”€ Excursion Categories â”€â”€ */
 const excursionCategories = [
   { icon: <Bike size={28} />, title: "ATV & Buggy Tours", description: "Off-road adventure through jungle trails and scenic hilltops.", color: "from-emerald-500 to-emerald-700" },
   { icon: <PawPrint size={28} />, title: "Animal Parks", description: "Meet sloths, monkeys, macaws, and exotic wildlife up close.", color: "from-amber-500 to-amber-700" },
@@ -57,10 +57,10 @@ const excursionCategories = [
   { icon: <Sun size={28} />, title: "All-Inclusive", description: "Complete packages combining multiple activities in one day.", color: "from-orange-500 to-orange-700" },
 ];
 
-/* ── Cruise Lines Info ── */
+/* â”€â”€ Cruise Lines Info â”€â”€ */
 const cruisePortData = [
   {
-    port: "Port of Roatan — Coxen Hole",
+    port: "Port of Roatan â€” Coxen Hole",
     image: "/images/hero.png",
     description: "Located in the heart of Coxen Hole, the island's capital, the Port of Roatan (also known as Town Center at Port of Roatan) officially opened in 2007. This public port offers an authentic Roatan experience, giving passengers direct access to local shops, eateries, cultural sites, and the vibrant island atmosphere.",
     features: [
@@ -70,7 +70,7 @@ const cruisePortData = [
       "Walking distance to downtown Coxen Hole",
       "Used by Royal Caribbean, Norwegian, MSC, Celebrity & Virgin Voyages"
     ],
-    highlight: "Public Port • Authentic Local Experience"
+    highlight: "Public Port â€¢ Authentic Local Experience"
   },
   {
     port: "Mahogany Bay Cruise Center",
@@ -83,11 +83,11 @@ const cruisePortData = [
       "Modern, resort-style terminal complex",
       "Used by Carnival, Princess Cruises & Holland America Line"
     ],
-    highlight: "Private Port • Resort-Style Experience"
+    highlight: "Private Port â€¢ Resort-Style Experience"
   }
 ];
 
-/* ── Port Quick Facts ── */
+/* â”€â”€ Port Quick Facts â”€â”€ */
 const portFacts = [
   { icon: <Ship size={24} />, label: "2 Cruise Ports", sublabel: "Coxen Hole & Mahogany Bay" },
   { icon: <Users size={24} />, label: "Up to 12,000+", sublabel: "Passengers per day" },
@@ -95,7 +95,7 @@ const portFacts = [
   { icon: <Anchor size={24} />, label: "Year-Round", sublabel: "Cruise ship arrivals" },
 ];
 
-/* ── Component ── */
+/* â”€â”€ Component â”€â”€ */
 const PortOfRoatan = () => {
   const [openFaq, setOpenFaq] = useState(null);
 
@@ -106,13 +106,13 @@ const PortOfRoatan = () => {
   return (
     <main className="bg-white">
 
-      {/* ═══════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           HERO SECTION
-      ═══════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative w-full h-[70vh] min-h-[500px]">
         <Image
           src="/images/hero.png"
-          alt="Port of Roatan — Cruise Ship Terminal"
+          alt="Port of Roatan â€” Cruise Ship Terminal"
           fill
           priority
           className="object-cover"
@@ -146,7 +146,7 @@ const PortOfRoatan = () => {
           <div className="flex flex-col sm:flex-row items-center gap-4">
             <Link
               href="#excursions"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#15531B] hover:bg-[#0e3d14] text-white rounded-full font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300"
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#00694B] hover:bg-[#0e3d14] text-white rounded-full font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300"
             >
               Explore Shore Excursions
               <ArrowRight size={18} />
@@ -162,17 +162,17 @@ const PortOfRoatan = () => {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           PORT QUICK FACTS STRIP
-      ═══════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative w-full px-4 -mt-16 z-10 mb-16">
         <div className="max-w-7xl mx-auto">
           <div className="bg-white rounded-2xl shadow-xl px-6 py-8 md:px-10 md:py-10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
               {portFacts.map((fact, i) => (
                 <div key={i} className="flex flex-col items-center text-center group">
-                  <div className="w-16 h-16 rounded-full bg-[#15531B]/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <div className="text-[#15531B]">{fact.icon}</div>
+                  <div className="w-16 h-16 rounded-full bg-[#00694B]/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <div className="text-[#00694B]">{fact.icon}</div>
                   </div>
                   <h3 className="text-xl font-bold text-[#1a1a1a] mb-1">{fact.label}</h3>
                   <p className="text-gray-500 text-sm">{fact.sublabel}</p>
@@ -183,14 +183,14 @@ const PortOfRoatan = () => {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           PORT OVERVIEW
-      ═══════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4">Welcome to the Port of Roatan</h2>
-            <div className="w-20 h-1 bg-[#15531B] mx-auto rounded-full mb-6"></div>
+            <div className="w-20 h-1 bg-[#00694B] mx-auto rounded-full mb-6"></div>
             <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
               Roatan, the largest of Honduras' Bay Islands, is one of the most popular cruise ship destinations 
               in the Western Caribbean. With two world-class cruise terminals, pristine beaches, the world's 
@@ -220,8 +220,8 @@ const PortOfRoatan = () => {
               <h3 className="text-2xl font-bold text-[#1a1a1a] mb-6">The Caribbean's Premier Cruise Destination</h3>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  Every week, thousands of cruise ship passengers arrive at Roatan's two cruise terminals — 
-                  the <strong>Port of Roatan</strong> in Coxen Hole and <strong>Mahogany Bay</strong> Cruise Center — 
+                  Every week, thousands of cruise ship passengers arrive at Roatan's two cruise terminals â€” 
+                  the <strong>Port of Roatan</strong> in Coxen Hole and <strong>Mahogany Bay</strong> Cruise Center â€” 
                   ready to explore everything this stunning island has to offer.
                 </p>
                 <p>
@@ -231,14 +231,14 @@ const PortOfRoatan = () => {
                 </p>
                 <p>
                   As a <strong>local, family-owned tour operator</strong>, we provide premium shore excursions 
-                  with complimentary port pickup and our signature <strong>100% Back-to-Ship Guarantee</strong> — 
+                  with complimentary port pickup and our signature <strong>100% Back-to-Ship Guarantee</strong> â€” 
                   so you can explore worry-free.
                 </p>
               </div>
-              <div className="mt-8 flex items-center gap-3 p-4 bg-[#15531B]/5 rounded-xl border border-[#15531B]/10">
-                <ShieldCheck size={24} className="text-[#15531B] shrink-0" />
+              <div className="mt-8 flex items-center gap-3 p-4 bg-[#00694B]/5 rounded-xl border border-[#00694B]/10">
+                <ShieldCheck size={24} className="text-[#00694B] shrink-0" />
                 <div>
-                  <p className="font-bold text-[#15531B] text-sm">100% Back-to-Ship Guarantee</p>
+                  <p className="font-bold text-[#00694B] text-sm">100% Back-to-Ship Guarantee</p>
                   <p className="text-gray-500 text-xs">We monitor your departure time and ensure you're back 30+ minutes early.</p>
                 </div>
               </div>
@@ -247,14 +247,14 @@ const PortOfRoatan = () => {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           CRUISE TERMINALS (THE TWO PORTS)
-      ═══════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section id="ports" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4">Roatan Cruise Ship Terminals</h2>
-            <div className="w-20 h-1 bg-[#15531B] mx-auto rounded-full mb-6"></div>
+            <div className="w-20 h-1 bg-[#00694B] mx-auto rounded-full mb-6"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Roatan has two cruise ship ports. Depending on your cruise line, you'll dock at one of these terminals.
               We offer pickup from both locations.
@@ -277,7 +277,7 @@ const PortOfRoatan = () => {
                       className="object-cover"
                     />
                     <div className="absolute top-4 left-4">
-                      <span className="inline-flex items-center gap-1.5 bg-[#15531B] text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg">
+                      <span className="inline-flex items-center gap-1.5 bg-[#00694B] text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg">
                         <Anchor size={14} />
                         {port.highlight}
                       </span>
@@ -291,7 +291,7 @@ const PortOfRoatan = () => {
                     <ul className="space-y-3">
                       {port.features.map((feature, fi) => (
                         <li key={fi} className="flex items-start gap-3">
-                          <CheckCircle2 size={18} className="text-[#15531B] mt-0.5 shrink-0" />
+                          <CheckCircle2 size={18} className="text-[#00694B] mt-0.5 shrink-0" />
                           <span className="text-gray-700 text-sm">{feature}</span>
                         </li>
                       ))}
@@ -304,17 +304,17 @@ const PortOfRoatan = () => {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           SHORE EXCURSION CATEGORIES
-      ═══════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section id="excursions" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4">Shore Excursions & Tours</h2>
-            <div className="w-20 h-1 bg-[#15531B] mx-auto rounded-full mb-6"></div>
+            <div className="w-20 h-1 bg-[#00694B] mx-auto rounded-full mb-6"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Discover the best of Roatan with our curated shore excursions. From thrilling adventures 
-              to relaxing beach days — we have something for everyone.
+              to relaxing beach days â€” we have something for everyone.
             </p>
           </div>
 
@@ -331,11 +331,11 @@ const PortOfRoatan = () => {
                 <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${cat.color} flex items-center justify-center mb-5 text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                   {cat.icon}
                 </div>
-                <h3 className="text-lg font-bold text-[#1a1a1a] mb-2 group-hover:text-[#15531B] transition-colors">
+                <h3 className="text-lg font-bold text-[#1a1a1a] mb-2 group-hover:text-[#00694B] transition-colors">
                   {cat.title}
                 </h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{cat.description}</p>
-                <div className="mt-4 flex items-center gap-1 text-[#15531B] text-sm font-semibold opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all duration-300">
+                <div className="mt-4 flex items-center gap-1 text-[#00694B] text-sm font-semibold opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all duration-300">
                   <span>Explore</span>
                   <ArrowRight size={14} />
                 </div>
@@ -346,7 +346,7 @@ const PortOfRoatan = () => {
           <div className="flex justify-center mt-12">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#15531B] text-white rounded-full font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 hover:bg-[#0e3d14]"
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#00694B] text-white rounded-full font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 hover:bg-[#0e3d14]"
             >
               View All Shore Excursions
               <ArrowRight size={18} />
@@ -355,14 +355,14 @@ const PortOfRoatan = () => {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           CRUISE LINE INFORMATION
-      ═══════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4">Cruise Lines at Roatan</h2>
-            <div className="w-20 h-1 bg-[#15531B] mx-auto rounded-full mb-6"></div>
+            <div className="w-20 h-1 bg-[#00694B] mx-auto rounded-full mb-6"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Major cruise lines dock at Roatan weekly. Here's where your ship will arrive.
             </p>
@@ -371,7 +371,7 @@ const PortOfRoatan = () => {
           <div className="grid md:grid-cols-2 gap-8">
             {/* Coxen Hole Cruise Lines */}
             <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-              <div className="bg-[#15531B] p-6">
+              <div className="bg-[#00694B] p-6">
                 <div className="flex items-center gap-3">
                   <Anchor size={24} className="text-white" />
                   <div>
@@ -383,14 +383,14 @@ const PortOfRoatan = () => {
               <div className="p-6">
                 <ul className="space-y-4">
                   {[
-                    { line: "Royal Caribbean International", note: "Primary user — typically docks at pier" },
+                    { line: "Royal Caribbean International", note: "Primary user â€” typically docks at pier" },
                     { line: "Norwegian Cruise Line", note: "May tender when multiple ships present" },
                     { line: "MSC Cruises", note: "Regular weekly calls" },
                     { line: "Celebrity Cruises", note: "Part of Royal Caribbean Group" },
                     { line: "Virgin Voyages", note: "Newer addition to the port" },
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3 pb-4 border-b border-gray-100 last:border-0 last:pb-0">
-                      <Ship size={18} className="text-[#15531B] mt-0.5 shrink-0" />
+                      <Ship size={18} className="text-[#00694B] mt-0.5 shrink-0" />
                       <div>
                         <p className="font-semibold text-[#1a1a1a] text-sm">{item.line}</p>
                         <p className="text-gray-400 text-xs">{item.note}</p>
@@ -415,7 +415,7 @@ const PortOfRoatan = () => {
               <div className="p-6">
                 <ul className="space-y-4">
                   {[
-                    { line: "Carnival Cruise Line", note: "Primary user — developed by Carnival Corp." },
+                    { line: "Carnival Cruise Line", note: "Primary user â€” developed by Carnival Corp." },
                     { line: "Princess Cruises", note: "Part of Carnival Corporation" },
                     { line: "Holland America Line", note: "Part of Carnival Corporation" },
                     { line: "P&O Cruises", note: "Occasional calls" },
@@ -436,14 +436,14 @@ const PortOfRoatan = () => {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           TRANSPORTATION & TIPS
-      ═══════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4">Getting Around Roatan</h2>
-            <div className="w-20 h-1 bg-[#15531B] mx-auto rounded-full mb-6"></div>
+            <div className="w-20 h-1 bg-[#00694B] mx-auto rounded-full mb-6"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Essential tips for navigating the island during your cruise ship port call.
             </p>
@@ -454,7 +454,7 @@ const PortOfRoatan = () => {
               {
                 icon: <Navigation size={28} />,
                 title: "Taxi Service",
-                description: "Taxis are the primary transport for cruise passengers. Agree on the fare beforehand — meters are not used.",
+                description: "Taxis are the primary transport for cruise passengers. Agree on the fare beforehand â€” meters are not used.",
                 tip: "Tip: Negotiate before boarding"
               },
               {
@@ -472,17 +472,17 @@ const PortOfRoatan = () => {
               {
                 icon: <Clock size={28} />,
                 title: "Time Management",
-                description: "Most excursions last 3–5 hours, giving you plenty of time to explore and return safely to your ship.",
+                description: "Most excursions last 3â€“5 hours, giving you plenty of time to explore and return safely to your ship.",
                 tip: "We guarantee ship return"
               }
             ].map((tip, i) => (
               <div key={i} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:bg-white hover:shadow-lg transition-all duration-300 group">
-                <div className="w-14 h-14 rounded-xl bg-[#15531B]/10 flex items-center justify-center mb-5 text-[#15531B] group-hover:bg-[#15531B] group-hover:text-white transition-all duration-300">
+                <div className="w-14 h-14 rounded-xl bg-[#00694B]/10 flex items-center justify-center mb-5 text-[#00694B] group-hover:bg-[#00694B] group-hover:text-white transition-all duration-300">
                   {tip.icon}
                 </div>
                 <h3 className="text-lg font-bold text-[#1a1a1a] mb-3">{tip.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed mb-4">{tip.description}</p>
-                <div className="flex items-center gap-2 text-[#15531B] text-xs font-bold bg-[#15531B]/5 rounded-lg px-3 py-2">
+                <div className="flex items-center gap-2 text-[#00694B] text-xs font-bold bg-[#00694B]/5 rounded-lg px-3 py-2">
                   <Info size={14} />
                   <span>{tip.tip}</span>
                 </div>
@@ -492,14 +492,14 @@ const PortOfRoatan = () => {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           FAQ SECTION
-      ═══════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4">Frequently Asked Questions</h2>
-            <div className="w-20 h-1 bg-[#15531B] mx-auto rounded-full mb-6"></div>
+            <div className="w-20 h-1 bg-[#00694B] mx-auto rounded-full mb-6"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Everything you need to know about visiting the Port of Roatan on your cruise.
             </p>
@@ -510,7 +510,7 @@ const PortOfRoatan = () => {
               <div
                 key={i}
                 className={`bg-white rounded-xl border transition-all duration-300 overflow-hidden ${
-                  openFaq === i ? 'border-[#15531B]/30 shadow-lg' : 'border-gray-100 shadow-sm hover:shadow-md'
+                  openFaq === i ? 'border-[#00694B]/30 shadow-lg' : 'border-gray-100 shadow-sm hover:shadow-md'
                 }`}
               >
                 <button
@@ -518,12 +518,12 @@ const PortOfRoatan = () => {
                   className="w-full flex items-center justify-between p-5 text-left group"
                 >
                   <span className={`font-bold text-sm md:text-base pr-4 transition-colors ${
-                    openFaq === i ? 'text-[#15531B]' : 'text-[#1a1a1a] group-hover:text-[#15531B]'
+                    openFaq === i ? 'text-[#00694B]' : 'text-[#1a1a1a] group-hover:text-[#00694B]'
                   }`}>
                     {faq.question}
                   </span>
                   <div className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
-                    openFaq === i ? 'bg-[#15531B] text-white rotate-180' : 'bg-gray-100 text-gray-500'
+                    openFaq === i ? 'bg-[#00694B] text-white rotate-180' : 'bg-gray-100 text-gray-500'
                   }`}>
                     <ChevronDown size={16} />
                   </div>
@@ -543,9 +543,9 @@ const PortOfRoatan = () => {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           CTA SECTION
-      ═══════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative py-24 overflow-hidden">
         <Image
           src="/images/hero.png"
@@ -553,7 +553,7 @@ const PortOfRoatan = () => {
           fill
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#15531B]/90 via-[#15531B]/80 to-[#0e3d14]/90" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#00694B]/90 via-[#00694B]/80 to-[#0e3d14]/90" />
         <div className="relative max-w-4xl mx-auto px-4 text-center">
           <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-5 py-2 mb-6">
             <ShieldCheck size={16} className="text-[#FFD700]" />
@@ -563,13 +563,13 @@ const PortOfRoatan = () => {
             Ready to Explore Roatan?
           </h2>
           <p className="text-white/80 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-            Book directly with us — a local, family-owned operator — and save up to $20 per person 
+            Book directly with us â€” a local, family-owned operator â€” and save up to $20 per person 
             compared to cruise line excursions or OTAs. Pickup from both ports included.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-10 py-4 bg-white text-[#15531B] rounded-full font-bold shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-300 text-lg"
+              className="inline-flex items-center gap-2 px-10 py-4 bg-white text-[#00694B] rounded-full font-bold shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-300 text-lg"
             >
               Browse All Tours
               <ArrowRight size={20} />

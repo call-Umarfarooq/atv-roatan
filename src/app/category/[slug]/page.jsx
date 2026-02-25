@@ -6,9 +6,26 @@ import Category from "@/models/Category";
 import Tour from "@/models/Tour";
 import TourCard from '@/components/TourCard';
 import { notFound } from 'next/navigation';
+import { getImageUrl } from '@/utils/imageUrl';
 
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
+
+export async function generateMetadata({ params }) {
+  await dbConnect();
+  const { slug } = await params;
+  const category = await Category.findOne({ slug }).lean();
+  if (!category) return { title: 'Category Not Found' };
+  return {
+    title: category.meta_title || `${category.name} Tours | ATV Roatan`,
+    description: category.meta_description || category.description || `Explore our ${category.name} tours in Roatan, Honduras.`,
+    openGraph: {
+      title: category.meta_title || category.name,
+      description: category.meta_description || category.description,
+      images: category.image ? [{ url: category.image, alt: category.image_alt || category.name }] : [],
+    },
+  };
+}
 
 export default async function CategoryDetailPage({ params }) {
   await dbConnect();
@@ -28,31 +45,53 @@ export default async function CategoryDetailPage({ params }) {
   const serializedTours = JSON.parse(JSON.stringify(tours));
 
   return (
-    <main className="bg-gray-50 min-h-screen pt-32 pb-20">
+    <main className="bg-gray-50 min-h-screen pb-20">
+
+      {/* Hero — show category image if available, else plain header */}
+      {serializedCategory.image ? (
+        <div className="relative w-full h-[40vh] min-h-[280px] mb-12">
+          <img
+            src={getImageUrl(serializedCategory.image)}
+            alt={serializedCategory.image_alt || serializedCategory.name}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg text-center px-4">
+              {serializedCategory.name}
+            </h1>
+          </div>
+        </div>
+      ) : (
+        <div className="pt-32 pb-8" />
+      )}
+
       <div className="max-w-7xl mx-auto px-4">
         {/* Breadcrumbs & Back Button */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
             <nav className="flex items-center gap-2 text-sm text-gray-500">
-                <Link href="/" className="hover:text-[#15531B]">Home</Link>
+                <Link href="/" className="hover:text-[#00694B]">Home</Link>
                 <ChevronRight size={14} />
-                <Link href="/category" className="hover:text-[#15531B]">Categories</Link>
+                <Link href="/category" className="hover:text-[#00694B]">Categories</Link>
                 <ChevronRight size={14} />
                 <span className="text-[#1a1a1a] font-medium">{serializedCategory.name}</span>
             </nav>
-            <Link href="/category" className="flex items-center gap-2 text-sm font-bold text-[#15531B] hover:underline">
+            <Link href="/category" className="flex items-center gap-2 text-sm font-bold text-[#00694B] hover:underline">
                 <ArrowLeft size={16} /> Back to All Categories
             </Link>
         </div>
 
-        {/* Header */}
-        <div className="mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-6">{serializedCategory.name}</h1>
-            <div className="max-w-3xl">
-                <p className="text-gray-600 text-lg leading-relaxed">
-                    {serializedCategory.description || `Explore our curated selection of ${serializedCategory.name} tours in Roatan. We work with the best local guides to ensure you have an unforgettable experience.`}
-                </p>
-            </div>
-        </div>
+        {/* Header / Description */}
+        {!serializedCategory.image && (
+          <div className="mb-12">
+              <h1 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-6">{serializedCategory.name}</h1>
+          </div>
+        )}
+        {serializedCategory.description && (
+          <div className="max-w-3xl mb-10">
+              <p className="text-gray-600 text-lg leading-relaxed">{serializedCategory.description}</p>
+          </div>
+        )}
 
         {/* Tours Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -85,7 +124,7 @@ export default async function CategoryDetailPage({ params }) {
                 </div>
                 <h3 className="text-lg font-bold text-gray-900">No tours found</h3>
                 <p className="text-gray-500 mt-2">We haven't added any tours to this category yet. Check back soon!</p>
-                <Link href="/" className="mt-8 inline-block bg-[#15531B] text-white px-8 py-3 rounded-full font-bold hover:bg-[#006966] transition-colors">
+                <Link href="/" className="mt-8 inline-block bg-[#00694B] text-white px-8 py-3 rounded-full font-bold hover:bg-[#005a3c] transition-colors">
                     Browse All Adventures
                 </Link>
             </div>

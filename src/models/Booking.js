@@ -79,3 +79,4 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export default mongoose.models.Booking || mongoose.model('Booking', BookingSchema);
+

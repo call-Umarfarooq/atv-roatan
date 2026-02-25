@@ -173,12 +173,12 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
             <div className="flex items-center gap-2">
                 {paymentType === 'pay_now' ? (
                     <>
-                        <div className="w-5 h-5 rounded-full bg-[#15531B] flex items-center justify-center">
+                        <div className="w-5 h-5 rounded-full bg-[#00694B] flex items-center justify-center">
                             <CreditCard size={12} className="text-white" />
                         </div>
                         <div>
                             <span className="font-bold text-[#1a1a1a] block">Pay Now</span>
-                            <span className="text-xs text-[#15531B] font-bold">2% Discount Applied</span>
+                            <span className="text-xs text-[#00694B] font-bold">2% Discount Applied</span>
                         </div>
                     </>
                 ) : (
@@ -216,8 +216,8 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
                         onClick={() => setPaymentMethod('card')}
                     >
                         <div className="flex items-center gap-3">
-                             <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'card' ? 'border-[#15531B]' : 'border-gray-300 bg-white'}`}>
-                                 {paymentMethod === 'card' && <div className="w-2 h-2 bg-[#15531B] rounded-full"></div>}
+                             <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'card' ? 'border-[#00694B]' : 'border-gray-300 bg-white'}`}>
+                                 {paymentMethod === 'card' && <div className="w-2 h-2 bg-[#00694B] rounded-full"></div>}
                             </div>
                             <span className="font-bold text-[#1a1a1a]">Credit or Debit Card</span>
                         </div>
@@ -248,8 +248,8 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
                         onClick={() => setPaymentMethod('paypal')}
                     >
                         <div className="flex items-center gap-3">
-                             <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'paypal' ? 'border-[#15531B]' : 'border-gray-300 bg-white'}`}>
-                                     {paymentMethod === 'paypal' && <div className="w-2 h-2 bg-[#15531B] rounded-full"></div>}
+                             <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'paypal' ? 'border-[#00694B]' : 'border-gray-300 bg-white'}`}>
+                                     {paymentMethod === 'paypal' && <div className="w-2 h-2 bg-[#00694B] rounded-full"></div>}
                             </div>
                             <div className="flex items-center gap-2">
                                 <span className="font-bold text-[#1a1a1a]">PayPal</span>
@@ -342,8 +342,8 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
                     onClick={() => setPaymentMethod('pixelpay')}
                 >
                     <div className="flex items-center gap-3">
-                         <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'pixelpay' || paymentType === 'reserve_later' ? 'border-[#15531B]' : 'border-gray-300 bg-white'}`}>
-                                 {(paymentMethod === 'pixelpay' || paymentType === 'reserve_later') && <div className="w-2 h-2 bg-[#15531B] rounded-full"></div>}
+                         <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'pixelpay' || paymentType === 'reserve_later' ? 'border-[#00694B]' : 'border-gray-300 bg-white'}`}>
+                                 {(paymentMethod === 'pixelpay' || paymentType === 'reserve_later') && <div className="w-2 h-2 bg-[#00694B] rounded-full"></div>}
                         </div>
                         <div className="flex items-center gap-2">
                             <span className="font-bold text-[#1a1a1a]">PixelPay {paymentType === 'reserve_later' && '(Hold Card on File)'}</span>
@@ -376,7 +376,7 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
       <button 
         type="submit" 
         disabled={loading || (paymentType === 'pay_now' && paymentMethod === 'card' && !stripe)}
-        className={`w-full bg-[#15531B] hover:bg-[#006966] text-white font-bold py-3.5 rounded-full transition-colors flex items-center justify-center gap-2 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+        className={`w-full bg-[#00694B] hover:bg-[#005a3c] text-white font-bold py-3.5 rounded-full transition-colors flex items-center justify-center gap-2 ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
       >
         {loading && paymentMethod !== 'paypal' ? (
              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -391,3 +391,4 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
     </form>
   );
 }
+

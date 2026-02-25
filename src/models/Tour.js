@@ -127,6 +127,23 @@ const TourSchema = new mongoose.Schema({
   tags: {
     type: [String],
   },
+  // SEO & Media Alt Text
+  image_alt: {
+    type: String,
+    default: '',
+  },
+  gallery_alts: {
+    type: [String],
+    default: [],
+  },
+  meta_title: {
+    type: String,
+    default: '',
+  },
+  meta_description: {
+    type: String,
+    default: '',
+  },
 }, {
   timestamps: true,
 });
@@ -137,3 +154,4 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export default mongoose.models.Tour || mongoose.model('Tour', TourSchema);
+

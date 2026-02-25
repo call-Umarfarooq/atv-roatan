@@ -15,6 +15,22 @@ const CategorySchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  image: {
+    type: String,
+    default: '',
+  },
+  image_alt: {
+    type: String,
+    default: '',
+  },
+  meta_title: {
+    type: String,
+    default: '',
+  },
+  meta_description: {
+    type: String,
+    default: '',
+  },
 }, {
   timestamps: true,
 });
@@ -25,3 +41,4 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export default mongoose.models.Category || mongoose.model('Category', CategorySchema);
+

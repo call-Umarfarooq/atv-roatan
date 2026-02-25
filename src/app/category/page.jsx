@@ -27,7 +27,7 @@ export default function CategoryListPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="w-12 h-12 border-4 border-[#15531B] border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-12 h-12 border-4 border-[#00694B] border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -37,7 +37,7 @@ export default function CategoryListPage() {
       <div className="max-w-7xl mx-auto px-4">
         {/* Breadcrumbs */}
         <nav className="flex items-center gap-2 text-sm text-gray-500 mb-8">
-            <Link href="/" className="hover:text-[#15531B]">Home</Link>
+            <Link href="/" className="hover:text-[#00694B]">Home</Link>
             <ChevronRight size={14} />
             <span className="text-[#1a1a1a] font-medium">Categories</span>
         </nav>
@@ -58,14 +58,14 @@ export default function CategoryListPage() {
                     href={`/category/${category.slug}`}
                     className="group bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                 >
-                    <div className="w-14 h-14 bg-gray-50 rounded-xl flex items-center justify-center text-[#15531B] mb-6 group-hover:bg-[#15531B] group-hover:text-white transition-colors">
+                    <div className="w-14 h-14 bg-gray-50 rounded-xl flex items-center justify-center text-[#00694B] mb-6 group-hover:bg-[#00694B] group-hover:text-white transition-colors">
                         <LayoutGrid size={28} />
                     </div>
-                    <h2 className="text-2xl font-bold text-[#1a1a1a] mb-3 group-hover:text-[#15531B] transition-colors">{category.name}</h2>
+                    <h2 className="text-2xl font-bold text-[#1a1a1a] mb-3 group-hover:text-[#00694B] transition-colors">{category.name}</h2>
                     <p className="text-gray-500 line-clamp-3 mb-6">
                         {category.description || `Discover our wide range of ${category.name} activities and make the most of your visit to Roatan.`}
                     </p>
-                    <div className="flex items-center gap-2 text-[#15531B] font-bold text-sm">
+                    <div className="flex items-center gap-2 text-[#00694B] font-bold text-sm">
                         Explore Category <ChevronRight size={16} />
                     </div>
                 </Link>
@@ -81,3 +81,4 @@ export default function CategoryListPage() {
     </main>
   );
 }
+

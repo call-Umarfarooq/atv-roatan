@@ -60,7 +60,7 @@ const FeatureHighlights = () => {
                     />
                   </div>
                 </div>
-                <p className="text-sm font-bold text-gray-800 leading-tight whitespace-pre-line group-hover:text-[#15531B] transition-colors">
+                <p className="text-sm font-bold text-gray-800 leading-tight whitespace-pre-line group-hover:text-[#00694B] transition-colors">
                   {feature.title}
                 </p>
               </div>
@@ -73,3 +73,4 @@ const FeatureHighlights = () => {
 };
 
 export default FeatureHighlights;
+

@@ -63,7 +63,7 @@ const ThingsToDo = ({ activities }) => {
         {/* Header - Centered */}
         <div className="max-w-7xl mx-auto px-4 mb-12 text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4">Things to Do in Roatan</h2>
-            <div className="w-20 h-1 bg-[#15531B] mx-auto rounded-full"></div>
+            <div className="w-20 h-1 bg-[#00694B] mx-auto rounded-full"></div>
             <p className="text-gray-600 mt-4 max-w-2xl mx-auto">Discover the best activities and experiences Roatan has to offer, curated just for you.</p>
         </div>
 
@@ -76,7 +76,7 @@ const ThingsToDo = ({ activities }) => {
             {/* Left Button */}
             <button 
                 onClick={() => scroll('left')}
-                className="absolute left-8 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/90 backdrop-blur-sm rounded-full shadow-lg text-[#15531B] hover:bg-[#15531B] hover:text-white transition-all duration-300 opacity-0 group-hover:opacity-100 disabled:opacity-0"
+                className="absolute left-8 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/90 backdrop-blur-sm rounded-full shadow-lg text-[#00694B] hover:bg-[#00694B] hover:text-white transition-all duration-300 opacity-0 group-hover:opacity-100 disabled:opacity-0"
                 aria-label="Scroll left"
             >
                 <ChevronLeft size={24} />
@@ -118,7 +118,7 @@ const ThingsToDo = ({ activities }) => {
             {/* Right Button */}
             <button 
                 onClick={() => scroll('right')}
-                className="absolute right-8 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/90 backdrop-blur-sm rounded-full shadow-lg text-[#15531B] hover:bg-[#15531B] hover:text-white transition-all duration-300 opacity-0 group-hover:opacity-100 disabled:opacity-0"
+                className="absolute right-8 top-1/2 -translate-y-1/2 z-10 p-3 bg-white/90 backdrop-blur-sm rounded-full shadow-lg text-[#00694B] hover:bg-[#00694B] hover:text-white transition-all duration-300 opacity-0 group-hover:opacity-100 disabled:opacity-0"
                 aria-label="Scroll right"
             >
                 <ChevronRight size={24} />
@@ -127,7 +127,7 @@ const ThingsToDo = ({ activities }) => {
 
         {/* View All Button */}
         <div className="flex justify-center mt-8">
-            <Link href="/activities" className="inline-flex items-center gap-2 px-8 py-3 bg-[#15531B] text-white rounded-full font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 hover:bg-[#006f6c]">
+            <Link href="/activities" className="inline-flex items-center gap-2 px-8 py-3 bg-[#00694B] text-white rounded-full font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 hover:bg-[#005a3c]">
                 View All Activities
                 <ArrowRight size={20} />
             </Link>
@@ -137,3 +137,4 @@ const ThingsToDo = ({ activities }) => {
 };
 
 export default ThingsToDo;
+

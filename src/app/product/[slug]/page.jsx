@@ -26,13 +26,16 @@ export async function generateMetadata({ params }) {
     }
   }
 
+  const metaTitle = tour.meta_title || `${tour.title} | ATV Roatan Tours`;
+  const metaDescription = tour.meta_description || tour.description?.substring(0, 160) || 'Book the best ATV tours in Roatan.';
+
   return {
-    title: `${tour.title} | ATV Roatan Tours`,
-    description: tour.description?.substring(0, 160) || 'Book the best ATV tours in Roatan.',
+    title: metaTitle,
+    description: metaDescription,
     openGraph: {
-      title: tour.title,
-      description: tour.description?.substring(0, 160),
-      images: [tour.image_url],
+      title: tour.meta_title || tour.title,
+      description: metaDescription,
+      images: [{ url: tour.image_url, alt: tour.image_alt || tour.title }],
     },
   }
 }

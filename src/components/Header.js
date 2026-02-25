@@ -23,6 +23,7 @@ const Header = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [tours, setTours] = useState([]);
   const [allTours, setAllTours] = useState([]);
+  const [activities, setActivities] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const searchRef = useRef(null);
@@ -36,6 +37,12 @@ const Header = () => {
         if (data.success) {
           setAllTours(data.data);
           setTours(data.data.slice(0, 10));
+        }
+        // Fetch Activities
+        const activitiesRes = await fetch('/api/activities');
+        const activitiesData = await activitiesRes.json();
+        if (activitiesData.success) {
+           setActivities(activitiesData.data.slice(0, 5)); // Show up to 5 activities in the dropdown
         }
       } catch (error) {
         console.error('Failed to fetch tours for header:', error);
@@ -79,46 +86,7 @@ const Header = () => {
 
   return (
     <>
-      {/* Top Strip */}
-      {/* <div className="bg-[#2C2C2C] text-white py-2 text-xs md:text-sm">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-2">
-          
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 md:gap-6">
-            <a href="tel:+01977259912" className="flex items-center gap-2 hover:text-gray-300 transition-colors">
-              <Phone size={14} className="shrink-0" />
-              <span>+01 (977) 2599 12</span>
-            </a>
-            <a href="mailto:company@domain.com" className="flex items-center gap-2 hover:text-gray-300 transition-colors">
-              <Mail size={14} className="shrink-0" />
-              <span>company@domain.com</span>
-            </a>
-            <div className="flex items-center gap-2">
-              <MapPin size={14} className="shrink-0" />
-              <span>3146 Koontz Lane, California</span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <a href="#" className="hover:text-gray-300 transition-colors" aria-label="Facebook">
-              <Facebook size={16} />
-            </a>
-            <a href="#" className="hover:text-gray-300 transition-colors" aria-label="Twitter">
-              <Twitter size={16} />
-            </a>
-            <a href="#" className="hover:text-gray-300 transition-colors" aria-label="Youtube">
-              <Youtube size={16} />
-            </a>
-            <a href="#" className="hover:text-gray-300 transition-colors" aria-label="Instagram">
-              <Instagram size={16} />
-            </a>
-            <a href="#" className="hover:text-gray-300 transition-colors" aria-label="LinkedIn">
-              <Linkedin size={16} />
-            </a>
-          </div>
-
-        </div>
-      </div> */}
-
+     
       <header className="w-full border-b border-gray-200 bg-white sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
          <div className="shrink-0">
@@ -132,19 +100,29 @@ const Header = () => {
         </div>
 
         <nav className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className={`text-sm font-medium transition-colors ${
-                pathname === link.href
-                  ? 'text-[#00694B] border-b-2 border-[#00694B] pb-0.5'
-                  : 'text-gray-600 hover:text-[#00694B]'
-              }`}
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const isExternal = link.href.startsWith('http');
+            const isActive = !isExternal && (
+              link.href === '/'
+                ? pathname === '/'
+                : pathname === link.href || pathname.startsWith(link.href + '/')
+            );
+            return (
+              <a
+                key={link.label}
+                href={link.href}
+                target={isExternal ? '_blank' : undefined}
+                rel={isExternal ? 'noopener noreferrer' : undefined}
+                className={`text-sm font-medium transition-colors ${
+                  isActive
+                    ? 'text-[#00694B] border-b-2 border-[#00694B] pb-0.5'
+                    : 'text-gray-600 hover:text-[#00694B]'
+                }`}
+              >
+                {link.label}
+              </a>
+            );
+          })}
         </nav>
        
 
@@ -241,28 +219,28 @@ const Header = () => {
                 {activeDropdown === 'excursions' && (
                   <div className="absolute top-12 left-0 w-[900px] bg-white text-gray-800 shadow-xl rounded-b-md border-t-2 border-[#004d36] animate-in fade-in slide-in-from-top-2 duration-200 z-50">
                     <div className="grid grid-cols-5 gap-4 p-6">
-                      {tours.length > 0 ? (
-                        tours.map((tour) => (
+                      {activities.length > 0 ? (
+                        activities.map((activity) => (
                           <a 
-                            key={tour._id} 
-                            href={`/product/${tour.slug}`} 
+                            key={activity._id} 
+                            href={`/#choose-your-adventure`} 
                             className="flex flex-col gap-2 group/item"
                           >
                             <div className="relative w-full aspect-4/3 rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
                               <Image
-                                src={tour.image_url || '/images/placeholder.jpg'}
-                                alt={tour.title}
+                                src={activity.image || '/images/placeholder.jpg'}
+                                alt={activity.title}
                                 fill
                                 className="object-cover group-hover/item:scale-105 transition-transform duration-300"
                               />
                             </div>
                             <span className="text-xs font-bold text-gray-700 text-center uppercase tracking-tight group-hover/item:text-[#00694B] leading-tight">
-                              {tour.title}
+                              {activity.title}
                             </span>
                           </a>
                         ))
                       ) : (
-                        <div className="col-span-5 p-4 text-center text-gray-500">Loading tours...</div>
+                        <div className="col-span-5 p-4 text-center text-gray-500">Loading activities...</div>
                       )}
                     </div>
                   </div>
@@ -296,7 +274,7 @@ const Header = () => {
                       <a href="/port-of-roatan-cruise-ship-schedule" className="flex flex-col gap-2 group/item">
                         <div className="relative w-full aspect-video rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
                            <div className="absolute inset-0 bg-blue-50 flex items-center justify-center">
-                              <span className="text-4xl">📅</span>
+                              <span className="text-4xl">ðŸ“…</span>
                            </div>
                         </div>
                         <span className="text-sm font-bold text-gray-700 text-center group-hover/item:text-[#00694B]">Port of Roatan Schedule</span>
@@ -314,7 +292,7 @@ const Header = () => {
                       <a href="/isla-tropicale-cruise-ship-port-schedule" className="flex flex-col gap-2 group/item">
                         <div className="relative w-full aspect-video rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
                            <div className="absolute inset-0 bg-green-50 flex items-center justify-center">
-                              <span className="text-4xl">📅</span>
+                              <span className="text-4xl">ðŸ“…</span>
                            </div>
                         </div>
                         <span className="text-sm font-bold text-gray-700 text-center group-hover/item:text-[#00694B]">Isla Tropicale Schedule</span>
@@ -326,37 +304,15 @@ const Header = () => {
             </div>
 
             {/* Back to Ship Guarantee */}
-            <div className="flex items-center gap-2 text-[#FFD700]">
-              <ShieldCheck size={18} />
+            <div className="flex items-center gap-2 text-white">
+              <ShieldCheck size={18} className="text-white" />
               <span>BACK TO SHIP GUARANTEE</span>
             </div>
 
           </div>
         </div>
       </div>
-      {/* Moving Info Strip */}
-      {/* <div className="bg-yellow-50 overflow-hidden border-b border-gray-200 pause-on-hover group">
-        <div className="flex py-2 relative">
-          <div 
-            className="flex shrink-0 gap-12 pr-12 whitespace-nowrap min-w-full animate-marquee"
-          >
-            {marqueeItems.concat(marqueeItems).map((item, index) => (
-              <span key={index} className="text-sm font-medium text-gray-800 flex items-center gap-2">
-                {item}
-              </span>
-            ))}
-          </div>
-          <div 
-            className="flex shrink-0 gap-12 pr-12 whitespace-nowrap min-w-full animate-marquee"
-          >
-            {marqueeItems.concat(marqueeItems).map((item, index) => (
-              <span key={`dup-${index}`} className="text-sm font-medium text-gray-800 flex items-center gap-2">
-                {item}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div> */}
+     
     </header>
     </>
   );

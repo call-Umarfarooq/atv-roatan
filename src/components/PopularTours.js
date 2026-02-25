@@ -24,7 +24,7 @@ export default function PopularTours({ initialTours }) {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="appearance-none bg-white border border-gray-300 hover:border-[#15531B] px-4 py-2 pr-8 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#15531B] focus:border-transparent text-gray-700 cursor-pointer text-sm font-medium transition-colors"
+            className="appearance-none bg-white border border-gray-300 hover:border-[#00694B] px-4 py-2 pr-8 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#00694B] focus:border-transparent text-gray-700 cursor-pointer text-sm font-medium transition-colors"
           >
             <option value="default">Sort by: Recommended</option>
             <option value="price-asc">Price: Low to High</option>
@@ -58,3 +58,4 @@ export default function PopularTours({ initialTours }) {
     </div>
   );
 }
+

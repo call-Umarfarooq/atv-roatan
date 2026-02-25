@@ -13,6 +13,22 @@ import { ArrowLeft, MapPin, Clock, CheckCircle } from 'lucide-react';
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
 
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  await dbConnect();
+  const activity = await Activity.findOne({ slug }).lean();
+  if (!activity) return { title: 'Activity Not Found' };
+  return {
+    title: activity.meta_title || `${activity.title} | ATV Roatan Activities`,
+    description: activity.meta_description || activity.description?.substring(0, 160) || 'Discover this amazing activity in Roatan.',
+    openGraph: {
+      title: activity.meta_title || activity.title,
+      description: activity.meta_description || activity.description?.substring(0, 160),
+      images: [{ url: activity.image, alt: activity.image_alt || activity.title }],
+    },
+  };
+}
+
 export default async function ActivityDetailsPage({ params }) {
   const { slug } = await params;
   await dbConnect();
@@ -32,7 +48,7 @@ export default async function ActivityDetailsPage({ params }) {
       <div className="relative w-full h-[60vh] min-h-[400px]">
         <img
           src={getImageUrl(activity.image)}
-          alt={activity.title}
+          alt={activity.image_alt || activity.title}
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black/40" />
@@ -40,7 +56,7 @@ export default async function ActivityDetailsPage({ params }) {
           <h1 className="text-white text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg font-serif">
             {activity.title}
           </h1>
-          <div className="w-24 h-1 bg-[#15531B] rounded-full"></div>
+          <div className="w-24 h-1 bg-[#00694B] rounded-full"></div>
         </div>
         
         {/* Back Button */}
@@ -61,7 +77,7 @@ export default async function ActivityDetailsPage({ params }) {
             <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center border-t border-gray-100 pt-6">
                 <Link 
                     href="/contact"
-                    className="px-8 py-3 bg-[#15531B] text-white rounded-full font-bold text-center hover:bg-[#006f6c] transition-colors shadow-lg"
+                    className="px-8 py-3 bg-[#00694B] text-white rounded-full font-bold text-center hover:bg-[#005a3c] transition-colors shadow-lg"
                 >
                     Contact for Booking
                 </Link>

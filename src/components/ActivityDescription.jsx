@@ -19,7 +19,7 @@ export default function ActivityDescription({ description }) {
         {shouldTruncate && (
           <button 
             onClick={() => setIsExpanded(!isExpanded)}
-            className="text-[#15531B] font-bold text-sm underline hover:no-underline mt-2 inline-block focus:outline-none"
+            className="text-[#00694B] font-bold text-sm underline hover:no-underline mt-2 inline-block focus:outline-none"
           >
             {isExpanded ? 'Read less' : 'Read more'}
           </button>
@@ -28,3 +28,4 @@ export default function ActivityDescription({ description }) {
     </>
   );
 }
+

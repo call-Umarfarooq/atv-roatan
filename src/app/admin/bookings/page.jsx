@@ -75,7 +75,7 @@ export default function AdminBookingsPage() {
                                 <tr>
                                     <td colSpan="6" className="p-12 text-center text-gray-500">
                                         <div className="flex flex-col items-center justify-center">
-                                            <Loader2 size={32} className="animate-spin text-[#15531B] mb-2" />
+                                            <Loader2 size={32} className="animate-spin text-[#00694B] mb-2" />
                                             <span>Loading reservations...</span>
                                         </div>
                                     </td>
@@ -105,7 +105,7 @@ export default function AdminBookingsPage() {
                                             <div className="text-xs text-gray-500">{booking.customer.phone}</div>
                                         </td>
                                         <td className="p-4 align-top">
-                                            <div className="font-bold text-[#15531B] text-sm mb-1 line-clamp-2">{booking.tourTitle}</div>
+                                            <div className="font-bold text-[#00694B] text-sm mb-1 line-clamp-2">{booking.tourTitle}</div>
                                             <div className="flex items-center gap-1 text-xs text-gray-500 mb-0.5">
                                                 <Calendar size={12} /> {new Date(booking.date).toLocaleDateString()}
                                             </div>
@@ -127,7 +127,7 @@ export default function AdminBookingsPage() {
                                             </div>
                                         </td>
                                         <td className="p-4 align-top text-right">
-                                            <button className="text-sm font-bold text-[#15531B] hover:underline bg-[#15531B]/10 px-3 py-1.5 rounded-lg transition-colors">
+                                            <button className="text-sm font-bold text-[#00694B] hover:underline bg-[#00694B]/10 px-3 py-1.5 rounded-lg transition-colors">
                                                 View
                                             </button>
                                         </td>
@@ -141,3 +141,4 @@ export default function AdminBookingsPage() {
         </div>
     );
 }
+

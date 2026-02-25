@@ -4,25 +4,25 @@ import { Headset, ShieldCheck, Leaf, Map, Check, X } from 'lucide-react';
 const WhyChooseUs = () => {
   const features = [
     {
-      icon: <Headset size={32} className="text-[#15531B]" />,
+      icon: <Headset size={32} className="text-[#00694B]" />,
       title: "Always Here for You",
       description: "24/7 support for your travel needs.",
       bg: "bg-red-50"
     },
     {
-      icon: <ShieldCheck size={32} className="text-[#15531B]" />,
+      icon: <ShieldCheck size={32} className="text-[#00694B]" />,
       title: "Your Safety Guaranteed",
       description: "Fully insured tours with Ship-Back Guarantee.",
       bg: "bg-green-50"
     },
     {
-      icon: <Leaf size={32} className="text-[#15531B]" />,
+      icon: <Leaf size={32} className="text-[#00694B]" />,
       title: "Sustainability",
       description: "Eco-conscious tours that respect nature and communities.",
       bg: "bg-yellow-50"
     },
     {
-      icon: <Map size={32} className="text-[#15531B]" />,
+      icon: <Map size={32} className="text-[#00694B]" />,
       title: "Local Expertise",
       description: "Discover through the eyes of passionate local experts.",
       bg: "bg-blue-50"
@@ -69,7 +69,7 @@ const WhyChooseUs = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4">Why to choose ATV Roatan?</h2>
-          <div className="w-20 h-1 bg-[#15531B] mx-auto rounded-full"></div>
+          <div className="w-20 h-1 bg-[#00694B] mx-auto rounded-full"></div>
         </div>
 
         {/* Features Grid */}
@@ -89,7 +89,7 @@ const WhyChooseUs = () => {
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
             {/* Table Header */}
-            <div className="bg-[#15531B] p-6 text-center">
+            <div className="bg-[#00694B] p-6 text-center">
               <h3 className="text-2xl font-bold text-white">Why Book Direct with the Fleet Owners?</h3>
             </div>
 
@@ -99,7 +99,7 @@ const WhyChooseUs = () => {
                 <thead>
                   <tr className="bg-gray-50 border-b border-gray-200">
                     <th className="p-4 font-bold text-gray-700 w-1/3">Feature</th>
-                    <th className="p-4 font-bold text-[#15531B] w-1/3 bg-[#15531B]/5">ATV Roatan (Direct)</th>
+                    <th className="p-4 font-bold text-[#00694B] w-1/3 bg-[#00694B]/5">ATV Roatan (Direct)</th>
                     <th className="p-4 font-bold text-gray-500 w-1/3">OTAs (Viator/Expedia)</th>
                   </tr>
                 </thead>
@@ -107,7 +107,7 @@ const WhyChooseUs = () => {
                   {comparisonData.map((row, index) => (
                     <tr key={index} className="border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors">
                       <td className="p-4 font-medium text-gray-700">{row.feature}</td>
-                      <td className="p-4 font-bold text-[#15531B] bg-[#15531B]/5 flex items-center gap-2">
+                      <td className="p-4 font-bold text-[#00694B] bg-[#00694B]/5 flex items-center gap-2">
                         {row.highlight && <Check size={16} strokeWidth={3} />}
                         {row.direct}
                       </td>
@@ -128,3 +128,4 @@ const WhyChooseUs = () => {
 };
 
 export default WhyChooseUs;
+

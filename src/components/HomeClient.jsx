@@ -64,7 +64,7 @@ const HomeClient = ({ initialTours, categories }) => {
                  onClick={() => setSelectedCategory('All')}
                  className={`px-6 py-2.5 rounded-full font-bold transition-all whitespace-nowrap ${
                    selectedCategory === 'All' 
-                     ? 'bg-[#15531B] text-white shadow-md' 
+                     ? 'bg-[#00694B] text-white shadow-md' 
                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                  }`}
                >
@@ -76,7 +76,7 @@ const HomeClient = ({ initialTours, categories }) => {
                    onClick={() => setSelectedCategory(category._id)}
                    className={`px-6 py-2.5 rounded-full font-bold transition-all whitespace-nowrap ${
                      selectedCategory === category._id 
-                       ? 'bg-[#15531B] text-white shadow-md' 
+                       ? 'bg-[#00694B] text-white shadow-md' 
                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                    }`}
                  >
@@ -89,13 +89,13 @@ const HomeClient = ({ initialTours, categories }) => {
        </section>
 
        {/* Tours Carousel */}
-       <section className="max-w-7xl mx-auto px-4 py-12 relative group">
+       <section className="max-w-7xl mx-auto px-4 py-12 relative">
           {filteredTours.length > 0 ? (
             <div className="relative">
                 {/* Left Arrow */}
                 <button 
                     onClick={() => carouselRef.current.scrollBy({ left: -350, behavior: 'smooth' })}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 bg-white text-gray-800 rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 hover:scale-110 transition-all opacity-0 group-hover:opacity-100 disabled:opacity-0 focus:outline-none"
+                    className="absolute left-0 top-1/2 -translate-y-1/2 xs:-translate-x-2 md:-translate-x-4 z-10 w-12 h-12 bg-white text-gray-800 rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 hover:scale-110 transition-all focus:outline-none"
                     aria-label="Scroll Left"
                 >
                     <ChevronLeft size={24} />
@@ -104,7 +104,7 @@ const HomeClient = ({ initialTours, categories }) => {
                 {/* Right Arrow */}
                 <button 
                     onClick={() => carouselRef.current.scrollBy({ left: 350, behavior: 'smooth' })}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-12 h-12 bg-white text-gray-800 rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 hover:scale-110 transition-all opacity-0 group-hover:opacity-100 disabled:opacity-0 focus:outline-none"
+                    className="absolute right-0 top-1/2 -translate-y-1/2 xs:translate-x-2 md:translate-x-4 z-10 w-12 h-12 bg-white text-gray-800 rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 hover:scale-110 transition-all focus:outline-none"
                     aria-label="Scroll Right"
                 >
                     <ChevronRight size={24} />
@@ -113,7 +113,7 @@ const HomeClient = ({ initialTours, categories }) => {
                 {/* Scroll Container */}
                 <div 
                     ref={carouselRef}
-                    className="flex gap-6 overflow-x-auto pb-8 -mb-8 snap-x snap-mandatory scrollbar-hide px-2"
+                    className="flex gap-6 overflow-x-auto py-8 -my-8 snap-x snap-mandatory scrollbar-hide px-2"
                     style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                 >
                     {filteredTours.map((tour) => (
@@ -147,3 +147,4 @@ const HomeClient = ({ initialTours, categories }) => {
 };
 
 export default HomeClient;
+

@@ -85,20 +85,20 @@ body {
 
 .react-datepicker__day--selected,
 .react-datepicker__day--keyboard-selected {
-  background-color: #15531B !important;
+  background-color: #00694B !important;
   color: white !important;
   font-weight: 700 !important;
 }
 
 .react-datepicker__day--today {
-  color: #15531B !important;
+  color: #00694B !important;
   font-weight: 900 !important;
   background-color: transparent !important;
-  border: 1px solid #15531B !important;
+  border: 1px solid #00694B !important;
 }
 
 .react-datepicker__day--today.react-datepicker__day--selected {
-  background-color: #15531B !important;
+  background-color: #00694B !important;
   color: white !important;
   border: none !important;
 }
@@ -132,3 +132,4 @@ body {
 .pause-on-hover:hover .animate-marquee {
   animation-play-state: paused;
 }
+

@@ -50,11 +50,11 @@ const FAQsPage = () => {
     },
     {
       question: "Should I Bring Any Form Of Identification?",
-      answer: "YES. It’s recommended you have some form of valid identification on your person."
+      answer: "YES. Itâ€™s recommended you have some form of valid identification on your person."
     },
     {
       question: "Should I Print My Port Exit & Meetup Instructions?",
-      answer: "YES. It’s recommended you also print the map and watch the video. A digital copy on your phone may work as well."
+      answer: "YES. Itâ€™s recommended you also print the map and watch the video. A digital copy on your phone may work as well."
     },
     {
       question: "Do I Bring Cash, Credit Card, Or Both?",
@@ -66,7 +66,7 @@ const FAQsPage = () => {
     },
     {
       question: "May I Bring My Wheelchair OR Mobility Scooter?",
-      answer: "YES. Unit must fold or collapse and prior notice must be given to Discover Roatan™ Excursions & Tours. Keep in mind, not all island attractions are 100% wheelchair accessible."
+      answer: "YES. Unit must fold or collapse and prior notice must be given to Discover Roatanâ„¢ Excursions & Tours. Keep in mind, not all island attractions are 100% wheelchair accessible."
     },
     {
       question: "May I Bring/Use Non Prescribed Drugs or Medications?",
@@ -95,7 +95,7 @@ const FAQsPage = () => {
           </div>
           <h1 className="text-white text-4xl md:text-6xl font-bold tracking-tight mb-6 drop-shadow-lg">
             Frequently Asked<br />
-            <span className="text-[#15531B] italic font-serif px-2 drop-shadow-md">Questions</span>
+            <span className="text-[#00694B] italic font-serif px-2 drop-shadow-md">Questions</span>
           </h1>
           <p className="text-gray-300 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
@@ -110,7 +110,7 @@ const FAQsPage = () => {
           {/* Left Column (Sticky info) */}
           <div className="lg:col-span-5 relative">
             <div className="sticky top-32 space-y-6 lg:pr-8">
-              <span className="inline-block px-4 py-1 rounded-full border border-[#15531B] text-[#15531B] font-bold text-xs uppercase tracking-wider bg-[#15531B]/5">
+              <span className="inline-block px-4 py-1 rounded-full border border-[#00694B] text-[#00694B] font-bold text-xs uppercase tracking-wider bg-[#00694B]/5">
                 FAQ'S
               </span>
               <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] leading-[1.15]">
@@ -120,7 +120,7 @@ const FAQsPage = () => {
               <p className="text-gray-600 text-[15px] leading-relaxed mb-8">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
               </p>
-              <button className="inline-flex items-center gap-2 bg-[#15531B] hover:bg-[#0e3d14] text-white px-8 py-3.5 rounded-full font-bold transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+              <button className="inline-flex items-center gap-2 bg-[#00694B] hover:bg-[#0e3d14] text-white px-8 py-3.5 rounded-full font-bold transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
                 See More
                 <ChevronRight size={18} className="text-white/80" />
               </button>
@@ -183,7 +183,7 @@ const FAQsPage = () => {
                 className="object-cover group-hover:scale-105 transition-transform duration-700" 
               />
               <div className="absolute inset-0 bg-black/10 flex items-center justify-center">
-                 <div className="w-20 h-20 rounded-full border border-white/50 bg-white/20 backdrop-blur-md flex items-center justify-center cursor-pointer group-hover:bg-[#15531B] group-hover:border-[#15531B] transition-all duration-300 shadow-xl">
+                 <div className="w-20 h-20 rounded-full border border-white/50 bg-white/20 backdrop-blur-md flex items-center justify-center cursor-pointer group-hover:bg-[#00694B] group-hover:border-[#00694B] transition-all duration-300 shadow-xl">
                     <Play className="text-white ml-2" fill="white" size={32} />
                  </div>
               </div>
@@ -191,12 +191,12 @@ const FAQsPage = () => {
 
             {/* Right Support Info */}
             <div className="space-y-6">
-               <span className="inline-block px-4 py-1 rounded-full border border-[#15531B]/20 text-[#15531B] font-bold text-xs uppercase tracking-wider bg-[#15531B]/5">
+               <span className="inline-block px-4 py-1 rounded-full border border-[#00694B]/20 text-[#00694B] font-bold text-xs uppercase tracking-wider bg-[#00694B]/5">
                 Support
               </span>
               <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] leading-tight">
                 Don't Found Your <br />
-                Queries? <span className="text-[#15531B] italic font-serif">Contact Us!</span>
+                Queries? <span className="text-[#00694B] italic font-serif">Contact Us!</span>
               </h2>
               <p className="text-gray-600 text-[15px] leading-relaxed md:pr-10">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
@@ -204,8 +204,8 @@ const FAQsPage = () => {
 
               {/* Call Card */}
               <div className="bg-[#f8faf9] border border-[#e9edea] rounded-2xl p-6 md:p-8 flex items-center gap-6 mt-8 max-w-sm shadow-sm hover:shadow-md transition-shadow">
-                 <div className="w-16 h-16 bg-[#15531B]/10 rounded-full flex items-center justify-center shrink-0">
-                     <Phone className="text-[#15531B]" size={28} />
+                 <div className="w-16 h-16 bg-[#00694B]/10 rounded-full flex items-center justify-center shrink-0">
+                     <Phone className="text-[#00694B]" size={28} />
                  </div>
                  <div>
                      <p className="text-gray-500 text-xs uppercase tracking-wider font-bold mb-1">Call Us Anytime!</p>
@@ -221,3 +221,4 @@ const FAQsPage = () => {
 };
 
 export default FAQsPage;
+

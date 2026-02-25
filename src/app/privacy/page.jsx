@@ -27,7 +27,7 @@ export default function PrivacyPolicyPage() {
              </span>
           </div>
           <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 drop-shadow-lg">
-            Privacy <span className="text-[#15531B] italic font-serif px-2">Policy</span>
+            Privacy <span className="text-[#00694B] italic font-serif px-2">Policy</span>
           </h1>
           <p className="text-gray-200 text-sm md:text-base max-w-xl">
             Last Updated: January 2024
@@ -103,7 +103,7 @@ export default function PrivacyPolicyPage() {
           <div>
             <h2 className="text-2xl font-bold text-[#1a1a1a] mb-4">7. Contact Us</h2>
             <p>
-              If you have any questions about this privacy policy or our privacy practices, please contact us at: <a href="mailto:info@atvroatan.com" className="text-[#15531B] font-semibold hover:underline">info@atvroatan.com</a>.
+              If you have any questions about this privacy policy or our privacy practices, please contact us at: <a href="mailto:info@atvroatan.com" className="text-[#00694B] font-semibold hover:underline">info@atvroatan.com</a>.
             </p>
           </div>
 
@@ -112,3 +112,4 @@ export default function PrivacyPolicyPage() {
     </main>
   );
 }
+

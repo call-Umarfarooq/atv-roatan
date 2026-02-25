@@ -19,7 +19,7 @@ export default async function ActivitiesPage() {
         {/* Header */}
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-4 font-serif">All Activities</h1>
-          <div className="w-24 h-1 bg-[#15531B] mx-auto rounded-full"></div>
+          <div className="w-24 h-1 bg-[#00694B] mx-auto rounded-full"></div>
           <p className="text-gray-600 mt-6 max-w-2xl mx-auto text-lg">
             Explore all the amazing experiences Roatan has to offer.
           </p>
@@ -32,7 +32,7 @@ export default async function ActivitiesPage() {
               <div className="relative w-full h-full">
                  <img 
                     src={getImageUrl(activity.image)} 
-                    alt={activity.title} 
+                    alt={activity.image_alt || activity.title} 
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
@@ -57,3 +57,4 @@ export default async function ActivitiesPage() {
     </main>
   );
 }
+

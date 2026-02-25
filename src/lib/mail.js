@@ -48,7 +48,7 @@ export async function sendBookingConfirmationEmail(booking, tour) {
               extrasHtml += `
                 <tr>
                   <td style="padding: 4px 0; font-size: 14px; color: #1a5c39;">
-                    ➕ ${extra.name} (${count}x)
+                    âž• ${extra.name} (${count}x)
                   </td>
                   <td align="right" style="padding: 4px 0; font-size: 14px; color: #1a5c39;">
                     $${cost.toFixed(2)}
@@ -177,7 +177,7 @@ export async function sendClaimGiftEmail({ name, email, reviewLink1, reviewLink2
 
     const adminHtml = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
-        <h2 style="color: #15531B;">New Gift Claim Submission</h2>
+        <h2 style="color: #00694B;">New Gift Claim Submission</h2>
         <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin: 20px 0; line-height: 1.6;">
             <p><strong>Name:</strong> ${name}</p>
             <p><strong>Email:</strong> ${email}</p>
@@ -246,7 +246,7 @@ export async function sendContactEmail({ name, email, subject, message }) {
 
     const adminHtml = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
-        <h2 style="color: #15531B;">New Contact Form Message</h2>
+        <h2 style="color: #00694B;">New Contact Form Message</h2>
         <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin: 20px 0; line-height: 1.6;">
             <p><strong>Name:</strong> ${name}</p>
             <p><strong>Email:</strong> ${email}</p>
@@ -282,5 +282,6 @@ export async function sendContactEmail({ name, email, subject, message }) {
     return false;
   }
 }
+
 
 

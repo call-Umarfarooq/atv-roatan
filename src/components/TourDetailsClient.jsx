@@ -86,6 +86,7 @@ export default function TourDetailsClient({ initialTour }) {
   };
 
   const images = [tour.image_url, ...(tour.gallery || [])].filter(Boolean);
+  const imageAlts = [tour.image_alt || tour.title, ...(tour.gallery_alts || []).map((a, i) => a || `${tour.title} gallery ${i + 1}`)];
 
   const nextImage = () => {
     if (images.length === 0) return;
@@ -157,7 +158,7 @@ export default function TourDetailsClient({ initialTour }) {
                 <ChevronLeft size={16} />
                 <span className="font-bold text-gray-900 ml-1">All Experiences in Roatan</span>
             </div>
-            <span>•</span>
+            <span>â€¢</span>
             <span className="hover:underline cursor-pointer">Home</span> <span>/</span>
             <span className="hover:underline cursor-pointer">Tours</span> <span>/</span>
             <span className="text-gray-900">{tour.title}</span>
@@ -182,7 +183,7 @@ export default function TourDetailsClient({ initialTour }) {
               {/* Ratings */}
               {tour.marketing_badges?.stars && (
                 <div className="flex items-center">
-                  <div className="flex gap-0.5 text-[#15531B]">
+                  <div className="flex gap-0.5 text-[#00694B]">
                     {[...Array(Math.round(tour.marketing_badges.stars))].map((_, i) => (
                       <Star key={i} size={16} fill="currentColor" stroke="none" />
                     ))}
@@ -248,7 +249,7 @@ export default function TourDetailsClient({ initialTour }) {
                             onClick={() => setCurrentImageIndex(i)}
                             className={`relative w-full h-[90px] rounded-lg overflow-hidden cursor-pointer transition-all ${currentImageIndex === i ? 'ring-2 ring-black opacity-100' : 'opacity-70 hover:opacity-100'}`}
                         >
-                            <img src={getImageUrl(img)} className="w-full h-full object-cover" alt={`thumbnail ${i}`} />
+                            <img src={getImageUrl(img)} className="w-full h-full object-cover" alt={imageAlts[i] || tour.title} />
                         </div>
                      ))}
                      <div className="relative w-full h-[90px] rounded-lg overflow-hidden cursor-pointer bg-gray-100 flex flex-col items-center justify-center text-gray-700 font-bold text-xs hover:bg-gray-200">
@@ -259,7 +260,7 @@ export default function TourDetailsClient({ initialTour }) {
 
                 {/* Main Hero Image */}
                 <div className="flex-1 relative rounded-xl overflow-hidden group">
-                     <img src={getImageUrl(images[currentImageIndex])} className="w-full h-full object-cover transition-opacity duration-300" alt="Main Hero" />
+                     <img src={getImageUrl(images[currentImageIndex])} className="w-full h-full object-cover transition-opacity duration-300" alt={imageAlts[currentImageIndex] || tour.title} />
                      
                      {/* Overlay Buttons */}
                      <div className="absolute top-4 right-4 flex gap-3">
@@ -290,21 +291,21 @@ export default function TourDetailsClient({ initialTour }) {
             {/* Quick Info Bar below images */}
             <div className="flex flex-wrap gap-x-8 gap-y-4 text-sm text-[#1a1a1a] mb-8">
                 <div className="flex items-center gap-2">
-                    <Clock className="w-5 h-5 text-[#15531B]" /> 
+                    <Clock className="w-5 h-5 text-[#00694B]" /> 
                     <span className="font-normal text-gray-600">{tour.duration} (approx.)</span>
                 </div>
                 {/* <div className="flex items-center gap-2">
-                    <div className="w-5 h-5 rounded-full border-2 border-[#15531B] flex items-center justify-center p-0.5">
-                        <div className="w-full h-[2px] bg-[#15531B]"></div>
+                    <div className="w-5 h-5 rounded-full border-2 border-[#00694B] flex items-center justify-center p-0.5">
+                        <div className="w-full h-[2px] bg-[#00694B]"></div>
                     </div>
                      <span className="font-normal text-gray-600">Pickup offered</span>
                 </div> */}
                  <div className="flex items-center gap-2">
-                    <Ticket className="w-5 h-5 text-[#15531B]" />
+                    <Ticket className="w-5 h-5 text-[#00694B]" />
                     <span className="font-normal text-gray-600">Mobile ticket</span>
                 </div>
                  <div className="flex items-center gap-2">
-                    <MessageCircle className="w-5 h-5 text-[#15531B]" />
+                    <MessageCircle className="w-5 h-5 text-[#00694B]" />
                     <span className="font-normal text-gray-600">Offered in: <span className="underline cursor-pointer">English</span></span>
                 </div>
             </div>
@@ -431,7 +432,7 @@ export default function TourDetailsClient({ initialTour }) {
                                     <div className="flex items-center gap-3 text-sm text-gray-500 mb-2">
                                         {stop.stop_type === 'Stop' ? (
                                             <span className="font-bold text-[#1a1a1a] flex items-center gap-1">
-                                                <MapPin size={14} className="text-[#15531B]" /> Stop
+                                                <MapPin size={14} className="text-[#00694B]" /> Stop
                                             </span>
                                         ) : stop.stop_type === 'Pass By' ? (
                                             <span className="italic text-gray-500 flex items-center gap-1">
@@ -441,9 +442,9 @@ export default function TourDetailsClient({ initialTour }) {
                                             <span className="font-medium text-[#1a1a1a]">{stop.stop_type}</span>
                                         )}
                                         
-                                        {stop.duration && <span>• {stop.duration}</span>}
+                                        {stop.duration && <span>â€¢ {stop.duration}</span>}
                                         {stop.admission_included && (
-                                            <span>• {stop.admission_included}</span>
+                                            <span>â€¢ {stop.admission_included}</span>
                                         )}
                                     </div>
 
@@ -589,3 +590,4 @@ export default function TourDetailsClient({ initialTour }) {
     </div>
   );
 }
+

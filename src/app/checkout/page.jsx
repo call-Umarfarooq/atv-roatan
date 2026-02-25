@@ -38,7 +38,7 @@ const StepIndicator = ({ step, currentStep, title }) => {
     return (
         <div className={`flex items-center gap-3 ${isCurrent ? 'text-black' : 'text-gray-400'}`}>
             <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm transition-colors
-                ${isCompleted ? 'bg-[#15531B] text-white' : isCurrent ? 'bg-black text-white' : 'bg-gray-200 text-gray-500'}
+                ${isCompleted ? 'bg-[#00694B] text-white' : isCurrent ? 'bg-black text-white' : 'bg-gray-200 text-gray-500'}
             `}>
                 {isCompleted ? <Check size={16} /> : step}
             </div>
@@ -177,7 +177,7 @@ export default function CheckoutPage() {
                               <div className="text-xs text-gray-500">Book faster and manage your reservations.</div>
                           </div>
                       </div>
-                      <button className="text-[#15531B] font-bold text-sm hover:underline">Log in</button>
+                      <button className="text-[#00694B] font-bold text-sm hover:underline">Log in</button>
                   </div>
               )}
 
@@ -185,7 +185,7 @@ export default function CheckoutPage() {
               <div className={`bg-white p-6 rounded-xl border transition-all ${step === 1 ? 'border-gray-200 shadow-sm' : 'border-transparent'}`}>
                   <div className="flex justify-between items-start mb-6">
                     <h2 className="text-xl font-bold flex items-center gap-3">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${step > 1 ? 'bg-[#15531B] text-white' : 'bg-black text-white'}`}>
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${step > 1 ? 'bg-[#00694B] text-white' : 'bg-black text-white'}`}>
                             {step > 1 ? <Check size={16} /> : '1'}
                         </div>
                         Contact details
@@ -223,8 +223,8 @@ export default function CheckoutPage() {
                     
                     {/* Extra Services - Always Visible */}
                     {tour.extraServices && tour.extraServices.length > 0 && (
-                        <div className="mt-6 border border-dashed border-[#15531B]/40 rounded-xl p-4 bg-[#15531B]/5">
-                            <h4 className="font-bold text-sm text-[#15531B] mb-1">🎯 Enhance Your Experience</h4>
+                        <div className="mt-6 border border-dashed border-[#00694B]/40 rounded-xl p-4 bg-[#00694B]/5">
+                            <h4 className="font-bold text-sm text-[#00694B] mb-1">ðŸŽ¯ Enhance Your Experience</h4>
                             <p className="text-xs text-gray-500 mb-4">Add optional services to make your tour even more memorable!</p>
                             <div className="space-y-3">
                                 {tour.extraServices.map((service, index) => {
@@ -233,7 +233,7 @@ export default function CheckoutPage() {
                                         <div key={index} className="flex items-center justify-between bg-white rounded-lg p-3 border border-gray-100">
                                             <div>
                                                 <h5 className="font-bold text-xs text-[#1a1a1a]">{service.name}</h5>
-                                                <p className="text-xs text-[#15531B] font-semibold">${parseFloat(service.price).toFixed(2)}</p>
+                                                <p className="text-xs text-[#00694B] font-semibold">${parseFloat(service.price).toFixed(2)}</p>
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <button
@@ -248,9 +248,9 @@ export default function CheckoutPage() {
                                                         localStorage.setItem('checkoutData', JSON.stringify(stored));
                                                     }}
                                                     disabled={count === 0}
-                                                    className={`w-7 h-7 rounded-full border flex items-center justify-center text-sm font-bold transition-colors ${count === 0 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-[#15531B] text-[#15531B] hover:bg-[#15531B] hover:text-white'}`}
+                                                    className={`w-7 h-7 rounded-full border flex items-center justify-center text-sm font-bold transition-colors ${count === 0 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-[#00694B] text-[#00694B] hover:bg-[#00694B] hover:text-white'}`}
                                                 >
-                                                    −
+                                                    âˆ’
                                                 </button>
                                                 <span className="w-5 text-center font-bold text-xs">{count}</span>
                                                 <button
@@ -263,7 +263,7 @@ export default function CheckoutPage() {
                                                         stored.selectedExtras = newExtras;
                                                         localStorage.setItem('checkoutData', JSON.stringify(stored));
                                                     }}
-                                                    className="w-7 h-7 rounded-full border border-[#15531B] text-[#15531B] flex items-center justify-center text-sm font-bold hover:bg-[#15531B] hover:text-white transition-colors"
+                                                    className="w-7 h-7 rounded-full border border-[#00694B] text-[#00694B] flex items-center justify-center text-sm font-bold hover:bg-[#00694B] hover:text-white transition-colors"
                                                 >
                                                     +
                                                 </button>
@@ -311,7 +311,7 @@ export default function CheckoutPage() {
                           <div>
                               {isFetchingSecret && (
                                   <div className="flex flex-col items-center justify-center p-8 text-gray-500">
-                                      <div className="w-8 h-8 border-4 border-gray-200 border-t-[#15531B] rounded-full animate-spin mb-3"></div>
+                                      <div className="w-8 h-8 border-4 border-gray-200 border-t-[#00694B] rounded-full animate-spin mb-3"></div>
                                       <p className="text-sm">Preparing secure checkout...</p>
                                   </div>
                               )}
@@ -393,7 +393,7 @@ export default function CheckoutPage() {
 
                   {/* Tour Info */}
                   <div className="flex gap-4 mb-4">
-                      <img src={getImageUrl(tour.image_url)} alt="" className="w-16 h-16 rounded-md object-cover bg-gray-100" />
+                      <img src={getImageUrl(tour.image_url)} alt={tour.image_alt || tour.title} className="w-16 h-16 rounded-md object-cover bg-gray-100" />
                       <div>
                           <h3 className="font-bold text-sm leading-tight text-[#1a1a1a] mb-1 line-clamp-2">{tour.title}</h3>
                           <div className="flex items-center gap-1 text-xs text-gray-500">
@@ -500,15 +500,15 @@ export default function CheckoutPage() {
                                         <>
                                             {hasSavings && (
                                                 <div className="flex justify-between items-center py-1">
-                                                    <span className="text-sm italic text-[#15531B] font-medium">You Saved</span>
-                                                    <span className="font-semibold text-sm text-[#15531B]">-${totalSavings.toFixed(2)}</span>
+                                                    <span className="text-sm italic text-[#00694B] font-medium">You Saved</span>
+                                                    <span className="font-semibold text-sm text-[#00694B]">-${totalSavings.toFixed(2)}</span>
                                                 </div>
                                             )}
                                             
                                             {hasPayNowDiscount && (
                                                 <div className="flex justify-between items-center py-1">
-                                                    <span className="text-sm italic text-[#15531B] font-medium">Advance Booking (Pay-Now)</span>
-                                                    <span className="font-semibold text-sm text-[#15531B]">-${payNowDiscount.toFixed(2)}</span>
+                                                    <span className="text-sm italic text-[#00694B] font-medium">Advance Booking (Pay-Now)</span>
+                                                    <span className="font-semibold text-sm text-[#00694B]">-${payNowDiscount.toFixed(2)}</span>
                                                 </div>
                                             )}
                                             <div className="border-t border-gray-200 my-2"></div>
@@ -533,7 +533,7 @@ export default function CheckoutPage() {
               </div>
               
               <div className="mt-6 text-center">
-                   <div className="flex items-center justify-center gap-1 text-xs text-[#15531B] font-bold">
+                   <div className="flex items-center justify-center gap-1 text-xs text-[#00694B] font-bold">
                        <p>Book with confidence</p>
                    </div>
                    <PaymentMethodIcons />
@@ -632,7 +632,7 @@ function ContactForm({ onNext }) {
                 <button 
                   type="submit" 
                   disabled={isLoading}
-                  className="bg-[#15531B] hover:bg-[#006966] text-white font-bold py-3 px-8 rounded-full transition-colors w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center"
+                  className="bg-[#00694B] hover:bg-[#005a3c] text-white font-bold py-3 px-8 rounded-full transition-colors w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center"
                 >
                     {isLoading ? (
                         <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
@@ -674,7 +674,7 @@ function ActivityForm({ travelers, pickupConfig, initialPickup, onChange }) {
     const getInputClass = (fieldName) => {
         return errors[fieldName] 
             ? "w-full p-3 bg-[#feF2F2] border border-red-500 rounded-lg text-sm outline-none focus:border-red-500 placeholder-red-400"
-            : "w-full p-3 bg-white border border-gray-200 rounded-lg text-sm outline-none focus:border-[#15531B] focus:ring-1 focus:ring-[#15531B]";
+            : "w-full p-3 bg-white border border-gray-200 rounded-lg text-sm outline-none focus:border-[#00694B] focus:ring-1 focus:ring-[#00694B]";
     };
 
     return (
@@ -682,12 +682,12 @@ function ActivityForm({ travelers, pickupConfig, initialPickup, onChange }) {
 
             {/* Cruise Ship Name */}
             <div className="relative">
-                <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-[#15531B] font-medium z-10">Cruise Ship Name (optional)</label>
+                <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-[#00694B] font-medium z-10">Cruise Ship Name (optional)</label>
                 <input 
                     type="text"
                     name="cruiseShipName" 
                     placeholder="Enter cruise ship name..."
-                    className="w-full p-3 bg-white border border-gray-200 rounded-lg text-sm outline-none focus:border-[#15531B] focus:ring-1 focus:ring-[#15531B]"
+                    className="w-full p-3 bg-white border border-gray-200 rounded-lg text-sm outline-none focus:border-[#00694B] focus:ring-1 focus:ring-[#00694B]"
                     onChange={handleChange}
                     value={formData.cruiseShipName}
                 />
@@ -695,12 +695,12 @@ function ActivityForm({ travelers, pickupConfig, initialPickup, onChange }) {
 
             {/* Place of Stay */}
             <div className="relative">
-                <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-[#15531B] font-medium z-10">Place of Stay (optional)</label>
+                <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-[#00694B] font-medium z-10">Place of Stay (optional)</label>
                 <input 
                     type="text"
                     name="placeOfStay" 
                     placeholder="Enter hotel or place of stay..."
-                    className="w-full p-3 bg-white border border-gray-200 rounded-lg text-sm outline-none focus:border-[#15531B] focus:ring-1 focus:ring-[#15531B]"
+                    className="w-full p-3 bg-white border border-gray-200 rounded-lg text-sm outline-none focus:border-[#00694B] focus:ring-1 focus:ring-[#00694B]"
                     onChange={handleChange}
                     value={formData.placeOfStay}
                 />
@@ -712,7 +712,7 @@ function ActivityForm({ travelers, pickupConfig, initialPickup, onChange }) {
                 <textarea 
                     name="orderNotes" 
                     rows={4}
-                    className="w-full p-3 pt-4 bg-white border border-gray-200 rounded-lg text-sm outline-none focus:border-[#15531B] focus:ring-1 focus:ring-[#15531B] resize-y"
+                    className="w-full p-3 pt-4 bg-white border border-gray-200 rounded-lg text-sm outline-none focus:border-[#00694B] focus:ring-1 focus:ring-[#00694B] resize-y"
                     onChange={handleChange}
                     value={formData.orderNotes}
                 />
@@ -720,5 +720,6 @@ function ActivityForm({ travelers, pickupConfig, initialPickup, onChange }) {
         </div>
     )
 }
+
 
 

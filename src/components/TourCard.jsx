@@ -122,93 +122,30 @@ const TourCard = ({
             <span className="leading-tight font-medium">Best Price Guarantee: We'll refund 110% of the difference!</span>
         </div>
 
-        {/* Structured Capsules (6 total, 3 per row) */}
-        <div className="flex flex-col gap-2 mb-4">
-          {/* Helper to extract emoji/text */}
-          {(() => {
-            const getCapsuleContent = (text) => {
-              if (!text) return { icon: null, content: '' };
-              const emojiRegex = /^(\p{Emoji_Presentation}|\p{Emoji}\uFE0F)/u;
-              const match = text.match(emojiRegex);
-              if (match) {
-                const emoji = match[0];
-                return {
-                  icon: <span className="mr-1.5 text-xs shrink-0 leading-none">{emoji}</span>,
-                  content: text.replace(emoji, '').trim()
-                };
-              }
-              return {
-                icon: <Check size={10} className="mr-1.5 text-[#2d5141] shrink-0" />,
-                content: text
-              };
-            };
-
-            const renderCapsule = (text, isGuarantee = false, idx = 0) => {
-              if (!text && !isGuarantee) return <div key={idx} />;
-              
-              const { icon, content } = isGuarantee 
-                ? { icon: <ShieldCheck size={12} className="mr-1 text-[#115e3b] shrink-0" />, content: "100% Back to Ship Guarantee" }
-                : getCapsuleContent(text);
-
-              return (
-                <div key={idx} className="h-full ">
-                  <div className={`h-full text-[9px] ${isGuarantee ? 'font-bold bg-[#f1fcf4] text-[#115e3b]' : 'font-medium bg-[#f8faf9] text-[#113123]'} px-1.5 py-1 rounded-full border border-[#e9edea] flex items-center shadow-sm leading-tight`}>
-                    {icon}
-                    <span className="flex-1 wrap-break-word">{content}</span>
-                  </div>
-                </div>
-              );
-            };
-
-            return (
-              <>
-                {/* Row 1: Info 0, Guarantee, Info 1 */}
-                <div className="grid grid-cols-3 gap-1">
-                  {renderCapsule(additionalInfo?.[0], false, 0)}
-                  {renderCapsule("Back to Ship Guarantee", true, 1)}
-                  {renderCapsule(additionalInfo?.[1], false, 2)}
-                </div>
-
-                {/* Row 2: Info 2, Info 3, Info 4 */}
-                <div className="grid grid-cols-3 gap-1">
-                  {[2, 3, 4].map(idx => renderCapsule(additionalInfo?.[idx], false, idx))}
-                </div>
-              </>
-            );
-          })()}
+        {/* Back to Ship Guarantee */}
+        <div className="flex items-center gap-2 mb-3 text-xs text-[#115e3b] bg-[#f1fcf4] px-2 py-1.5 rounded-lg border border-[#e9edea]">
+            <ShieldCheck size={16} className="text-[#115e3b] shrink-0" />
+            <span className="leading-tight font-bold">100% Back to Ship Guarantee</span>
         </div>
-           {/* Location */}
-        {/* <div className="flex items-center gap-2 text-[#1a1a1a] text-sm mb-3">
-             <MapPin size={18} />
-             <span>{location}</span>
-        </div> */}
 
-        {/* Spacer */}
         <div className="grow"></div>
 
         {/* Footer: Duration & Button */}
         <div className="flex items-center justify-between mt-2">
-           {/* Duration */}
-           {/* {duration && (
-            <div className="flex items-center gap-2 text-[#1a1a1a] text-sm font-medium">
-                <Clock size={18} />
-                <span>{duration}</span>
+       
+        <div className="flex flex-col">
+            <span className="text-gray-500 text-sm font-medium leading-tight mb-0.5">from</span>
+            <div className="flex items-baseline gap-1">
+                {cutoff_price && (
+                    <span className="text-gray-400 text-sm line-through decoration-gray-400 decoration-1">
+                        {currency}{cutoff_price}
+                    </span>
+                )}
+                <span className="text-[#1a1a1a] font-extrabold text-2xl leading-none">{currency}{price}</span>
             </div>
-           )} */}
-             {/* Price */}
-        <div className="flex items-baseline gap-1 mb-2">
-            <span className="text-[#1a1a1a] font-extrabold">from</span>
-            {cutoff_price && (
-                <span className="text-gray-400 text-sm line-through decoration-gray-400 decoration-1">
-                    {currency}{cutoff_price}
-                </span>
-            )}
-            <span className="text-[#1a1a1a] font-extrabold text-xl">{currency}{price}</span>
         </div>
-           {/* Button */}
-           <Link href={`/product/${slug}`} className="bg-[#285340] cursor-pointer hover:bg-[#1f4232] text-white px-5 py-2.5 rounded-full font-bold text-sm transition-colors flex items-center gap-2">
+           <Link href={`/product/${slug}`} className="bg-[#00694B] cursor-pointer hover:bg-[#1f4232] text-white px-5 py-2.5 rounded-full font-bold text-sm transition-colors flex items-center gap-2">
                Book Now 
-               {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg> */}
            </Link>
         </div>
       </div>
@@ -218,3 +155,4 @@ const TourCard = ({
 };
 
 export default TourCard;
+

@@ -9,7 +9,7 @@ import {
   ChevronLeft, ChevronRight
 } from 'lucide-react';
 
-/* ── Mock Schedule Data ── */
+/* â”€â”€ Mock Schedule Data â”€â”€ */
 // Generates some realistic looking data for 2025-2026
 const generateScheduleParams = () => {
   const ships = [
@@ -74,9 +74,9 @@ const PortOfRoatanCruiseShipSchedule = () => {
   return (
     <main className="bg-gray-50 min-h-screen">
       
-      {/* ═══════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           HERO HEADER
-      ═══════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative w-full h-[50vh] min-h-[400px]">
         <Image
           src="/images/hero.png" // Placeholder
@@ -88,7 +88,7 @@ const PortOfRoatanCruiseShipSchedule = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
         
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-          <div className="inline-flex items-center gap-2 bg-[#15531B] text-white text-xs md:text-sm font-bold px-4 py-1.5 rounded-full mb-6 shadow-lg border border-[#15531B]/50">
+          <div className="inline-flex items-center gap-2 bg-[#00694B] text-white text-xs md:text-sm font-bold px-4 py-1.5 rounded-full mb-6 shadow-lg border border-[#00694B]/50">
             <Calendar size={14} />
             <span>2025 - 2026 Season</span>
           </div>
@@ -101,9 +101,9 @@ const PortOfRoatanCruiseShipSchedule = () => {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           CONTENT CONTAINER
-      ═══════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <div className="max-w-7xl mx-auto px-4 py-12 -mt-20 relative z-10">
         
         {/* Info Card */}
@@ -121,7 +121,7 @@ const PortOfRoatanCruiseShipSchedule = () => {
                     <AlertCircle size={16} />
                     <span>Schedules subject to change</span>
                  </div>
-                 <Link href="/port-of-roatan" className="inline-flex items-center gap-2 text-[#15531B] bg-[#15531B]/5 px-3 py-1.5 rounded-md text-sm font-medium hover:bg-[#15531B]/10 transition-colors">
+                 <Link href="/port-of-roatan" className="inline-flex items-center gap-2 text-[#00694B] bg-[#00694B]/5 px-3 py-1.5 rounded-md text-sm font-medium hover:bg-[#00694B]/10 transition-colors">
                     <Info size={16} />
                     <span>View Port Guide</span>
                  </Link>
@@ -144,15 +144,15 @@ const PortOfRoatanCruiseShipSchedule = () => {
           </div>
         </div>
 
-        {/* ═══════════════════════════════════════════════════════
+        {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
             SCHEDULE TABLE
-        ═══════════════════════════════════════════════════════ */}
+        â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
           
           {/* Table Toolbar */}
           <div className="p-5 border-b border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4 bg-gray-50/50">
             <h3 className="font-bold text-lg text-gray-800 flex items-center gap-2">
-              <Calendar size={20} className="text-[#15531B]" />
+              <Calendar size={20} className="text-[#00694B]" />
               Schedule Arrivals
             </h3>
 
@@ -165,12 +165,12 @@ const PortOfRoatanCruiseShipSchedule = () => {
                   placeholder="Search ship or date..." 
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#15531B]/50 focus:border-[#15531B] text-sm"
+                  className="w-full pl-9 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#00694B]/50 focus:border-[#00694B] text-sm"
                 />
               </div>
               
               {/* Filter Button (Visual only for now) */}
-              <button className="p-2 bg-white border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-[#15531B] transition-colors">
+              <button className="p-2 bg-white border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-[#00694B] transition-colors">
                 <Filter size={18} />
               </button>
             </div>
@@ -209,7 +209,7 @@ const PortOfRoatanCruiseShipSchedule = () => {
                       <td className="p-4 text-center">
                         <Link 
                           href="/activities" 
-                          className="inline-flex items-center justify-center px-4 py-1.5 bg-[#15531B] text-white text-xs font-bold rounded-full opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 hover:bg-[#0e3d14] shadow-md"
+                          className="inline-flex items-center justify-center px-4 py-1.5 bg-[#00694B] text-white text-xs font-bold rounded-full opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 hover:bg-[#0e3d14] shadow-md"
                         >
                           Book Tours
                         </Link>
@@ -250,10 +250,10 @@ const PortOfRoatanCruiseShipSchedule = () => {
           </div>
         </div>
 
-        {/* ═══════════════════════════════════════════════════════
+        {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
             CTA FOOTER
-        ═══════════════════════════════════════════════════════ */}
-        <div className="mt-16 bg-[#15531B] rounded-2xl p-8 md:p-12 text-center text-white relative overflow-hidden">
+        â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+        <div className="mt-16 bg-[#00694B] rounded-2xl p-8 md:p-12 text-center text-white relative overflow-hidden">
           {/* Decorative Circles */}
           <div className="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
           <div className="absolute bottom-0 right-0 w-64 h-64 bg-white/5 rounded-full translate-x-1/3 translate-y-1/3"></div>
@@ -267,13 +267,13 @@ const PortOfRoatanCruiseShipSchedule = () => {
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link 
                 href="/activities"
-                className="px-8 py-3.5 bg-white text-[#15531B] font-bold rounded-full hover:bg-gray-100 transition-colors shadow-lg"
+                className="px-8 py-3.5 bg-white text-[#00694B] font-bold rounded-full hover:bg-gray-100 transition-colors shadow-lg"
               >
                 Browse Shore Excursions
               </Link>
               <Link 
                 href="/contact"
-                className="px-8 py-3.5 bg-[#15531B] border-2 border-white/30 text-white font-bold rounded-full hover:bg-white/10 transition-colors"
+                className="px-8 py-3.5 bg-[#00694B] border-2 border-white/30 text-white font-bold rounded-full hover:bg-white/10 transition-colors"
               >
                 Contact Us
               </Link>

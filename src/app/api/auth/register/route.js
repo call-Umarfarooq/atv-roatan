@@ -54,3 +54,4 @@ export async function POST(request) {
     return Response.json({ error: "Failed to process registration" }, { status: 500 });
   }
 }
+

@@ -85,7 +85,7 @@ function ConfirmationContent() {
     if (loading) {
         return (
             <div className="min-h-[60vh] flex flex-col items-center justify-center">
-                <Loader2 size={40} className="animate-spin text-[#15531B] mb-4" />
+                <Loader2 size={40} className="animate-spin text-[#00694B] mb-4" />
                 <h2 className="text-xl font-bold">Verifying your booking...</h2>
                 <p className="text-gray-500">Please do not close this page.</p>
             </div>
@@ -100,7 +100,7 @@ function ConfirmationContent() {
                 </div>
                 <h2 className="text-2xl font-bold text-[#1a1a1a] mb-2">We couldn't load your booking</h2>
                 <p className="text-gray-500 mb-6">{error}</p>
-                <button onClick={() => router.push('/')} className="bg-[#15531B] text-white px-6 py-2 rounded-full font-bold hover:bg-[#0c3110] transition-colors">
+                <button onClick={() => router.push('/')} className="bg-[#00694B] text-white px-6 py-2 rounded-full font-bold hover:bg-[#0c3110] transition-colors">
                     Return to Home
                 </button>
             </div>
@@ -124,7 +124,7 @@ function ConfirmationContent() {
         <div className="max-w-3xl mx-auto px-4 py-12">
             <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
                 {/* Header Section */}
-                <div className="bg-[#15531B] p-8 text-center text-white">
+                <div className="bg-[#00694B] p-8 text-center text-white">
                     <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
                         <CheckCircle2 size={48} className="text-white" />
                     </div>
@@ -148,18 +148,18 @@ function ConfirmationContent() {
                         </div>
                     </div>
 
-                    <h3 className="text-xl font-bold text-[#1a1a1a] mb-6 border-b-2 border-[#15531B] pb-2 inline-block">Tour Details</h3>
+                    <h3 className="text-xl font-bold text-[#1a1a1a] mb-6 border-b-2 border-[#00694B] pb-2 inline-block">Tour Details</h3>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                         <div className="flex gap-3">
-                            <Ticket className="text-[#15531B] shrink-0" />
+                            <Ticket className="text-[#00694B] shrink-0" />
                             <div>
                                 <div className="text-sm text-gray-500">Activity</div>
                                 <div className="font-bold text-[#1a1a1a]">{tourTitle}</div>
                             </div>
                         </div>
                         <div className="flex gap-3">
-                            <Calendar className="text-[#15531B] shrink-0" />
+                            <Calendar className="text-[#00694B] shrink-0" />
                             <div>
                                 <div className="text-sm text-gray-500">Date</div>
                                 <div className="font-bold text-[#1a1a1a]">{formattedDate}</div>
@@ -167,7 +167,7 @@ function ConfirmationContent() {
                         </div>
                         {formattedArrivalDate && (
                             <div className="flex gap-3">
-                                <Calendar className="text-[#15531B] shrink-0" />
+                                <Calendar className="text-[#00694B] shrink-0" />
                                 <div>
                                     <div className="text-sm text-gray-500">Date of Arrival</div>
                                     <div className="font-bold text-[#1a1a1a]">{formattedArrivalDate}</div>
@@ -176,7 +176,7 @@ function ConfirmationContent() {
                         )}
                         {formattedArrivalTime && (
                             <div className="flex gap-3">
-                                <Clock className="text-[#15531B] shrink-0" />
+                                <Clock className="text-[#00694B] shrink-0" />
                                 <div>
                                     <div className="text-sm text-gray-500">Time of Arrival</div>
                                     <div className="font-bold text-[#1a1a1a]">{formattedArrivalTime}</div>
@@ -185,7 +185,7 @@ function ConfirmationContent() {
                         )}
                         {(pickupDetails?.cruiseShipName || pickupDetails?.cruiseShip) && (
                             <div className="flex gap-3">
-                                <Anchor className="text-[#15531B] shrink-0" />
+                                <Anchor className="text-[#00694B] shrink-0" />
                                 <div>
                                     <div className="text-sm text-gray-500">Cruise Ship</div>
                                     <div className="font-bold text-[#1a1a1a]">{pickupDetails.cruiseShipName || pickupDetails.cruiseShip}</div>
@@ -194,7 +194,7 @@ function ConfirmationContent() {
                         )}
                         {pickupDetails?.placeOfStay && (
                             <div className="flex gap-3">
-                                <Building2 className="text-[#15531B] shrink-0" />
+                                <Building2 className="text-[#00694B] shrink-0" />
                                 <div>
                                     <div className="text-sm text-gray-500">Place of Stay</div>
                                     <div className="font-bold text-[#1a1a1a]">{pickupDetails.placeOfStay}</div>
@@ -203,7 +203,7 @@ function ConfirmationContent() {
                         )}
                         {pickupDetails?.orderNotes && (
                             <div className="flex gap-3 md:col-span-2">
-                                <Info className="text-[#15531B] shrink-0" />
+                                <Info className="text-[#00694B] shrink-0" />
                                 <div>
                                     <div className="text-sm text-gray-500">Order Notes</div>
                                     <div className="font-bold text-[#1a1a1a] whitespace-pre-line">{pickupDetails.orderNotes}</div>
@@ -211,7 +211,7 @@ function ConfirmationContent() {
                             </div>
                         )}
                         <div className="flex gap-3">
-                            <Users className="text-[#15531B] shrink-0" />
+                            <Users className="text-[#00694B] shrink-0" />
                             <div>
                                 <div className="text-sm text-gray-500">Travelers</div>
                                 <div className="font-bold text-[#1a1a1a]">{travelers.adults + travelers.children} People</div>
@@ -219,7 +219,7 @@ function ConfirmationContent() {
                             </div>
                         </div>
                         <div className="flex gap-3">
-                            <MapPin className="text-[#15531B] shrink-0" />
+                            <MapPin className="text-[#00694B] shrink-0" />
                             <div>
                                 <div className="text-sm text-gray-500">Total Price</div>
                                 <div className="font-bold text-[#1a1a1a]">${totalPrice.toFixed(2)}</div>
@@ -266,7 +266,7 @@ function ConfirmationContent() {
                 </div>
                 
                 <div className="bg-gray-50 p-4 text-center border-t border-gray-100">
-                    <button onClick={() => router.push('/')} className="text-[#15531B] font-bold hover:underline">
+                    <button onClick={() => router.push('/')} className="text-[#00694B] font-bold hover:underline">
                         Return to site
                     </button>
                 </div>
@@ -280,7 +280,7 @@ export default function BookingConfirmationPage() {
         <div className="min-h-screen bg-[#f5f5f5]">
             <Suspense fallback={
                 <div className="min-h-[60vh] flex items-center justify-center">
-                    <Loader2 size={40} className="animate-spin text-[#15531B]" />
+                    <Loader2 size={40} className="animate-spin text-[#00694B]" />
                 </div>
             }>
                 <ConfirmationContent />
@@ -288,3 +288,4 @@ export default function BookingConfirmationPage() {
         </div>
     );
 }
+

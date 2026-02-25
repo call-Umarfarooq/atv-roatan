@@ -14,6 +14,9 @@ export default function ActivityForm({ initialData = null, isEdit = false }) {
     slug: '',
     description: '',
     image: '',
+    image_alt: '',
+    meta_title: '',
+    meta_description: '',
   });
 
   useEffect(() => {
@@ -129,7 +132,7 @@ export default function ActivityForm({ initialData = null, isEdit = false }) {
             <button 
                 type="submit" 
                 disabled={loading || uploading}
-                className="bg-[#15531B] hover:bg-[#006966] text-white px-8 py-2 rounded-lg font-bold flex items-center gap-2 transition-colors disabled:opacity-50 shadow-md"
+                className="bg-[#00694B] hover:bg-[#005a3c] text-white px-8 py-2 rounded-lg font-bold flex items-center gap-2 transition-colors disabled:opacity-50 shadow-md"
             >
                 <Save size={18} /> {loading ? 'Saving...' : 'Save Activity'}
             </button>
@@ -143,7 +146,7 @@ export default function ActivityForm({ initialData = null, isEdit = false }) {
                   <div className="space-y-4">
                       <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                          <input required name="title" value={formData.title} onChange={handleChange} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#15531B] focus:border-transparent outline-none text-[#1a1a1a]" />
+                          <input required name="title" value={formData.title} onChange={handleChange} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#00694B] focus:border-transparent outline-none text-[#1a1a1a]" />
                       </div>
                       <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">Slug</label>
@@ -151,7 +154,44 @@ export default function ActivityForm({ initialData = null, isEdit = false }) {
                       </div>
                       <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                          <textarea required name="description" value={formData.description} onChange={handleChange} rows={6} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#15531B] focus:border-transparent outline-none text-[#1a1a1a]" />
+                          <textarea required name="description" value={formData.description} onChange={handleChange} rows={6} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#00694B] focus:border-transparent outline-none text-[#1a1a1a]" />
+                      </div>
+                  </div>
+              </div>
+
+              {/* SEO */}
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                  <h2 className="text-lg font-bold text-[#1a1a1a] mb-1">SEO</h2>
+                  <p className="text-xs text-gray-400 mb-4">Controls how this activity appears in search engine results.</p>
+                  <div className="space-y-4">
+                      <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                              Meta Title <span className="text-gray-400 font-normal text-xs">(recommended: 50â€“60 chars)</span>
+                          </label>
+                          <input
+                              name="meta_title"
+                              value={formData.meta_title}
+                              onChange={handleChange}
+                              placeholder={formData.title || 'Page title for search engines'}
+                              maxLength={60}
+                              className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#00694B] focus:border-transparent outline-none text-[#1a1a1a]"
+                          />
+                          <p className="text-xs text-gray-400 mt-1 text-right">{(formData.meta_title || '').length}/60</p>
+                      </div>
+                      <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                              Meta Description <span className="text-gray-400 font-normal text-xs">(recommended: 150â€“160 chars)</span>
+                          </label>
+                          <textarea
+                              name="meta_description"
+                              value={formData.meta_description}
+                              onChange={handleChange}
+                              placeholder="Brief description for search engines"
+                              maxLength={160}
+                              rows={3}
+                              className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#00694B] focus:border-transparent outline-none text-[#1a1a1a] resize-none"
+                          />
+                          <p className="text-xs text-gray-400 mt-1 text-right">{(formData.meta_description || '').length}/160</p>
                       </div>
                   </div>
               </div>
@@ -162,7 +202,7 @@ export default function ActivityForm({ initialData = null, isEdit = false }) {
                   <h2 className="text-lg font-bold text-[#1a1a1a] mb-4">Media</h2>
                   <div className="mb-6">
                       <label className="block text-sm font-medium text-gray-700 mb-2">Main Image</label>
-                      <div className="relative aspect-video rounded-lg bg-gray-100 overflow-hidden border-2 border-dashed border-gray-300 flex items-center justify-center group hover:border-[#15531B] transition-colors">
+                      <div className="relative aspect-video rounded-lg bg-gray-100 overflow-hidden border-2 border-dashed border-gray-300 flex items-center justify-center group hover:border-[#00694B] transition-colors">
                           {formData.image ? (
                               <img src={getImageUrl(formData.image)} alt="Main" className="w-full h-full object-cover" />
                           ) : (
@@ -173,6 +213,16 @@ export default function ActivityForm({ initialData = null, isEdit = false }) {
                           )}
                           <input type="file" onChange={handleFileUpload} className="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" />
                       </div>
+                      <div className="mt-3">
+                          <label className="block text-xs font-medium text-gray-500 mb-1">Image Alt Text</label>
+                          <input
+                              name="image_alt"
+                              value={formData.image_alt}
+                              onChange={handleChange}
+                              placeholder="Describe the image for SEO & accessibility"
+                              className="w-full p-2 border rounded-lg text-sm text-[#1a1a1a] focus:ring-2 focus:ring-[#00694B] focus:border-transparent outline-none"
+                          />
+                      </div>
                   </div>
               </div>
           </div>
@@ -180,3 +230,4 @@ export default function ActivityForm({ initialData = null, isEdit = false }) {
     </form>
   );
 }
+

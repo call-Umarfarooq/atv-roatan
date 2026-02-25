@@ -11,10 +11,10 @@ import {
   Phone, CheckCircle2, ShoppingBag, Zap, Utensils, Calendar
 } from 'lucide-react';
 
-/* ── Excursion Categories (Specific to Isla Tropicale / Mahogany Bay) ── */
+/* â”€â”€ Excursion Categories (Specific to Isla Tropicale / Mahogany Bay) â”€â”€ */
 const excursionCategories = [
   { icon: <Bike size={28} />, title: "ATV Jungle Adventure", description: "Ride through muddy trails and lush jungle canopies.", color: "from-emerald-500 to-emerald-700" },
-  { icon: <PawPrint size={28} />, title: "Sloth & Monkey Parks", description: "Hold a sloth and meet playful monkeys – a Roatan must-do!", color: "from-amber-500 to-amber-700" },
+  { icon: <PawPrint size={28} />, title: "Sloth & Monkey Parks", description: "Hold a sloth and meet playful monkeys â€“ a Roatan must-do!", color: "from-amber-500 to-amber-700" },
   { icon: <Umbrella size={28} />, title: "Beach Breaks", description: "Relax at West Bay or private island resorts.", color: "from-cyan-500 to-cyan-700" },
   { icon: <TreePine size={28} />, title: "Zipline Canopy Tours", description: "Fly high above the trees with stunning ocean views.", color: "from-green-500 to-green-700" },
   { icon: <Waves size={28} />, title: "Snorkel & Boat Tours", description: "Discover the vibrant coral reef and shipwrecks.", color: "from-blue-500 to-blue-700" },
@@ -23,7 +23,7 @@ const excursionCategories = [
   { icon: <Star size={28} />, title: "All-Inclusive Combos", description: "Combine ATVs, Ziplines, and Sloths for one low price.", color: "from-violet-500 to-violet-700" },
 ];
 
-/* ── FAQ Data ── */
+/* â”€â”€ FAQ Data â”€â”€ */
 const faqData = [
   {
     question: "Where exactly is Isla Tropicale (Mahogany Bay)?",
@@ -57,9 +57,9 @@ const IslaTropicalePort = () => {
   return (
     <main className="bg-white">
 
-      {/* ═══════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           HERO SECTION
-      ═══════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="relative w-full h-[70vh] min-h-[500px]">
         <Image
           src="/images/hero.png" // Placeholder
@@ -111,9 +111,9 @@ const IslaTropicalePort = () => {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           OVERVIEW & FEATURES
-      ═══════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
@@ -121,7 +121,7 @@ const IslaTropicalePort = () => {
             <div className="space-y-6">
               <div>
                 <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-2">Welcome to Isla Tropicale</h2>
-                <div className="h-1 w-20 bg-[#15531B] rounded-full"></div>
+                <div className="h-1 w-20 bg-[#00694B] rounded-full"></div>
               </div>
               <p className="text-gray-600 text-lg leading-relaxed">
                 Located in Dixon Cove, approximately 3 miles east of Coxen Hole, the <strong>Isla Tropicale Cruise Ship Port</strong> (formerly Mahogany Bay) is a state-of-the-art facility spanning 20 acres.
@@ -130,8 +130,8 @@ const IslaTropicalePort = () => {
                 This private destination is designed exclusively for Carnival Corporation cruise ships. It features a duty-free shopping village, bars, restaurants, and a dedicated chairlift system transporting guests to the private Mahogany Beach.
               </p>
               
-              <div className="bg-[#15531B]/5 border border-[#15531B]/10 rounded-xl p-5 mt-4">
-                 <h4 className="font-bold text-[#15531B] mb-2 flex items-center gap-2">
+              <div className="bg-[#00694B]/5 border border-[#00694B]/10 rounded-xl p-5 mt-4">
+                 <h4 className="font-bold text-[#00694B] mb-2 flex items-center gap-2">
                     <Info size={18} />
                     Meeting Your Independent Tour Guide
                  </h4>
@@ -180,16 +180,16 @@ const IslaTropicalePort = () => {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           EXCURSION CATEGORIES
-      ═══════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section id="excursions" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4">Shore Excursions from Isla Tropicale</h2>
-            <div className="w-20 h-1 bg-[#15531B] mx-auto rounded-full mb-6"></div>
+            <div className="w-20 h-1 bg-[#00694B] mx-auto rounded-full mb-6"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Skip the crowded cruise line tours. Book a private or small group adventure with us — 
+              Skip the crowded cruise line tours. Book a private or small group adventure with us â€” 
               we pick up right outside the main gate!
             </p>
           </div>
@@ -207,11 +207,11 @@ const IslaTropicalePort = () => {
                 <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${cat.color} flex items-center justify-center mb-5 text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                   {cat.icon}
                 </div>
-                <h3 className="text-lg font-bold text-[#1a1a1a] mb-2 group-hover:text-[#15531B] transition-colors">
+                <h3 className="text-lg font-bold text-[#1a1a1a] mb-2 group-hover:text-[#00694B] transition-colors">
                   {cat.title}
                 </h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{cat.description}</p>
-                <div className="mt-4 flex items-center gap-1 text-[#15531B] text-sm font-semibold opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all duration-300">
+                <div className="mt-4 flex items-center gap-1 text-[#00694B] text-sm font-semibold opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all duration-300">
                   <span>View Tours</span>
                   <ArrowRight size={14} />
                 </div>
@@ -222,7 +222,7 @@ const IslaTropicalePort = () => {
           <div className="flex justify-center mt-12">
             <Link
               href="/activities"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#15531B] text-white rounded-full font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 hover:bg-[#0e3d14]"
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#00694B] text-white rounded-full font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 hover:bg-[#0e3d14]"
             >
               Browse All Activities
               <ArrowRight size={18} />
@@ -231,14 +231,14 @@ const IslaTropicalePort = () => {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           FAQ SECTION
-      ═══════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4">Frequently Asked Questions</h2>
-            <div className="w-20 h-1 bg-[#15531B] mx-auto rounded-full mb-6"></div>
+            <div className="w-20 h-1 bg-[#00694B] mx-auto rounded-full mb-6"></div>
           </div>
 
           <div className="space-y-3">
@@ -246,7 +246,7 @@ const IslaTropicalePort = () => {
               <div
                 key={i}
                 className={`bg-white rounded-xl border transition-all duration-300 overflow-hidden ${
-                  openFaq === i ? 'border-[#15531B]/30 shadow-lg' : 'border-gray-100 shadow-sm hover:shadow-md'
+                  openFaq === i ? 'border-[#00694B]/30 shadow-lg' : 'border-gray-100 shadow-sm hover:shadow-md'
                 }`}
               >
                 <button
@@ -254,12 +254,12 @@ const IslaTropicalePort = () => {
                   className="w-full flex items-center justify-between p-5 text-left group"
                 >
                   <span className={`font-bold text-sm md:text-base pr-4 transition-colors ${
-                    openFaq === i ? 'text-[#15531B]' : 'text-[#1a1a1a] group-hover:text-[#15531B]'
+                    openFaq === i ? 'text-[#00694B]' : 'text-[#1a1a1a] group-hover:text-[#00694B]'
                   }`}>
                     {faq.question}
                   </span>
                   <div className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
-                    openFaq === i ? 'bg-[#15531B] text-white rotate-180' : 'bg-gray-100 text-gray-500'
+                    openFaq === i ? 'bg-[#00694B] text-white rotate-180' : 'bg-gray-100 text-gray-500'
                   }`}>
                     <ChevronDown size={16} />
                   </div>
@@ -279,9 +279,9 @@ const IslaTropicalePort = () => {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
           CTA & SCHEDULE LINK
-      ═══════════════════════════════════════════════════════ */}
+      â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
        <section className="relative py-24 overflow-hidden">
         <Image
           src="/images/hero.png" // Placeholder
@@ -289,7 +289,7 @@ const IslaTropicalePort = () => {
           fill
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0e3d14]/90 via-[#0e3d14]/80 to-[#15531B]/90" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0e3d14]/90 via-[#0e3d14]/80 to-[#00694B]/90" />
         <div className="relative max-w-4xl mx-auto px-4 text-center">
           
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
@@ -302,7 +302,7 @@ const IslaTropicalePort = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/isla-tropicale-cruise-ship-port-schedule"
-              className="inline-flex items-center gap-2 px-10 py-4 bg-white text-[#15531B] rounded-full font-bold shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-300 text-lg"
+              className="inline-flex items-center gap-2 px-10 py-4 bg-white text-[#00694B] rounded-full font-bold shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-300 text-lg"
             >
               <Calendar size={20} />
               View Port Schedule

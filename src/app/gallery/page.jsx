@@ -40,7 +40,7 @@ const GalleryPage = () => {
              </span>
           </div>
           <h1 className="text-white text-5xl md:text-7xl font-bold tracking-tight mb-6 drop-shadow-lg">
-            Moments To <span className="text-[#15531B] italic font-serif px-3 rounded-lg mr-1 ml-1 ">Remember</span>
+            Moments To <span className="text-[#00694B] italic font-serif px-3 rounded-lg mr-1 ml-1 ">Remember</span>
           </h1>
           <p className="text-gray-200 max-w-2xl mx-auto text-sm md:text-base">
             Take a look at the thrilling adventures and beautiful scenery experienced by our guests on the trails of Roatan.
@@ -51,11 +51,11 @@ const GalleryPage = () => {
       {/* 2. Gallery Grid */}
       <section className="max-w-7xl mx-auto px-4 py-16 md:py-24">
         <div className="text-center mb-12">
-          <span className="text-[#15531B] font-semibold text-sm tracking-wider uppercase mb-3 block">
+          <span className="text-[#00694B] font-semibold text-sm tracking-wider uppercase mb-3 block">
             Tour Highlights
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1a1a1a] leading-tight">
-            See The <span className="text-[#15531B] italic font-serif">Adventure</span>
+            See The <span className="text-[#00694B] italic font-serif">Adventure</span>
           </h2>
         </div>
 
@@ -82,3 +82,4 @@ const GalleryPage = () => {
 };
 
 export default GalleryPage;
+

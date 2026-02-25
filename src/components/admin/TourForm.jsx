@@ -33,6 +33,8 @@ export default function TourForm({ initialData = null, isEdit = false }) {
     max_guests: '',
     is_featured: false,
     image_url: '',
+    image_alt: '',
+    gallery_alts: [],
     gallery: [],
     itinerary: [],
     pickup_configuration: {
@@ -50,11 +52,11 @@ export default function TourForm({ initialData = null, isEdit = false }) {
         policy_text: 'up to 24 hours before the experience starts (local time)'
     }, 
     additional_info: [
-      '⛑️ Port Round Trip Transport Included',
-      '✅ Free Cancellation & Full Refund',
-      '🚺 Kids & Family Friendly',
-      '♀️ Women-Led, Family Owned',
-      '♻️ Sustainable (GSTC Registered)'
+      'â›‘ï¸ Port Round Trip Transport Included',
+      'âœ… Free Cancellation & Full Refund',
+      'ðŸšº Kids & Family Friendly',
+      'â™€ï¸ Women-Led, Family Owned',
+      'â™»ï¸ Sustainable (GSTC Registered)'
     ],
     marketing_badges: {
         reviews_text: '106 Reviews',
@@ -99,6 +101,8 @@ export default function TourForm({ initialData = null, isEdit = false }) {
           ...initialData,
           cutoff_price: initialData.cutoff_price || '',
           gallery: initialData.gallery || [],
+          image_alt: initialData.image_alt || '',
+          gallery_alts: initialData.gallery_alts || [],
           itinerary: initialData.itinerary || [],
           faq: initialData.faq || [],
           additional_info: initialData.additional_info || [],
@@ -345,7 +349,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
             <button 
                 type="submit" 
                 disabled={loading || uploading}
-                className="bg-[#15531B] hover:bg-[#006966] text-white px-8 py-2 rounded-lg font-bold flex items-center gap-2 transition-colors disabled:opacity-50 shadow-md"
+                className="bg-[#00694B] hover:bg-[#005a3c] text-white px-8 py-2 rounded-lg font-bold flex items-center gap-2 transition-colors disabled:opacity-50 shadow-md"
             >
                 <Save size={18} /> {loading ? 'Saving...' : 'Save Experience'}
             </button>
@@ -363,12 +367,28 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                   <div className="space-y-4">
                       <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                          <input required name="title" value={formData.title} onChange={handleChange} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#15531B] focus:border-transparent outline-none text-[#1a1a1a]" />
+                          <input required name="title" value={formData.title} onChange={handleChange} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#00694B] focus:border-transparent outline-none text-[#1a1a1a]" />
+                      </div>
+                      <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                              Slug <span className="text-gray-400 font-normal text-xs">(auto-generated, editable)</span>
+                          </label>
+                          <div className="flex items-center gap-2">
+                              <span className="text-gray-400 text-sm">/product/</span>
+                              <input 
+                                  name="slug" 
+                                  value={formData.slug} 
+                                  onChange={handleChange}
+                                  className="flex-1 p-2 border rounded-lg focus:ring-2 focus:ring-[#00694B] focus:border-transparent outline-none text-[#1a1a1a] font-mono text-sm"
+                                  placeholder="auto-generated-from-title"
+                              />
+                          </div>
+                          <p className="text-xs text-gray-400 mt-1">This determines the page URL. Auto-updates when you type the title.</p>
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">Duration</label>
-                            <input name="duration" value={formData.duration} onChange={handleChange} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#15531B] focus:border-transparent outline-none text-[#1a1a1a]" placeholder="e.g. 4 hours" />
+                            <input name="duration" value={formData.duration} onChange={handleChange} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#00694B] focus:border-transparent outline-none text-[#1a1a1a]" placeholder="e.g. 4 hours" />
                         </div>
                         <div>
                            <label className="block text-sm font-medium text-gray-700 mb-2">Activities (Select all that apply)</label>
@@ -390,7 +410,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                                                    };
                                                });
                                            }}
-                                           className="w-4 h-4 text-[#15531B] rounded focus:ring-[#15531B]"
+                                           className="w-4 h-4 text-[#00694B] rounded focus:ring-[#00694B]"
                                        />
                                        <span className="text-sm text-[#1a1a1a]">{a.title}</span>
                                    </label>
@@ -417,7 +437,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                                                    };
                                                });
                                            }}
-                                           className="w-4 h-4 text-[#15531B] rounded focus:ring-[#15531B]"
+                                           className="w-4 h-4 text-[#00694B] rounded focus:ring-[#00694B]"
                                        />
                                        <span className="text-sm text-[#1a1a1a]">{c.name}</span>
                                    </label>
@@ -432,9 +452,9 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                           <div className="space-y-3">
 
 
-                              <div className="p-3 bg-white border border-gray-200 rounded-lg hover:border-[#15531B] transition-colors">
+                              <div className="p-3 bg-white border border-gray-200 rounded-lg hover:border-[#00694B] transition-colors">
                                   <label className="flex items-start gap-3 cursor-pointer mb-2">
-                                      <input type="checkbox" name="free_cancellation" checked={formData.booking_options.free_cancellation} onChange={handleBookingOptionChange} className="mt-1 w-4 h-4 text-[#15531B] rounded border-gray-300 focus:ring-[#15531B]" />
+                                      <input type="checkbox" name="free_cancellation" checked={formData.booking_options.free_cancellation} onChange={handleBookingOptionChange} className="mt-1 w-4 h-4 text-[#00694B] rounded border-gray-300 focus:ring-[#00694B]" />
                                       <div>
                                           <span className="block text-sm font-bold text-gray-900">Free Cancellation</span>
                                           <span className="block text-xs text-gray-500">Allow customers to cancel for free.</span>
@@ -458,7 +478,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                       </div>
                       <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                          <textarea required name="description" value={formData.description} onChange={handleChange} rows={4} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#15531B] focus:border-transparent outline-none text-[#1a1a1a]" />
+                          <textarea required name="description" value={formData.description} onChange={handleChange} rows={4} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#00694B] focus:border-transparent outline-none text-[#1a1a1a]" />
                       </div>
                   </div>
               </div>
@@ -467,7 +487,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                   <div className="flex justify-between items-center mb-4">
                     <h2 className="text-lg font-bold text-[#1a1a1a]">Itinerary</h2>
-                    <button type="button" onClick={() => addComplexItem('itinerary', { title: '', description: '', duration: '' })} className="text-[#15531B] text-sm font-bold flex items-center gap-1"><Plus size={16} /> Add Stop</button>
+                    <button type="button" onClick={() => addComplexItem('itinerary', { title: '', description: '', duration: '' })} className="text-[#00694B] text-sm font-bold flex items-center gap-1"><Plus size={16} /> Add Stop</button>
                   </div>
                   <div className="space-y-4">
                       {formData.itinerary?.map((stop, i) => (
@@ -488,7 +508,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                       <div className="flex justify-between items-center mb-4">
                         <h2 className="text-lg font-bold text-[#1a1a1a]">Included</h2>
-                        <button type="button" onClick={() => addArrayItem('what_to_include')} className="text-[#15531B] text-sm font-bold"><Plus size={16} /></button>
+                        <button type="button" onClick={() => addArrayItem('what_to_include')} className="text-[#00694B] text-sm font-bold"><Plus size={16} /></button>
                       </div>
                       <div className="space-y-2">
                           {formData.what_to_include?.map((item, i) => (
@@ -533,7 +553,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                    <div>
                       <div className="flex justify-between items-center mb-4">
                         <label className="block text-sm font-medium text-gray-700">FAQ</label>
-                        <button type="button" onClick={() => addComplexItem('faq', { question: '', answer: '' })} className="text-[#15531B] text-sm font-bold flex items-center gap-1"><Plus size={16} /> Add Question</button>
+                        <button type="button" onClick={() => addComplexItem('faq', { question: '', answer: '' })} className="text-[#00694B] text-sm font-bold flex items-center gap-1"><Plus size={16} /> Add Question</button>
                       </div>
                       <div className="space-y-4">
                           {formData.faq?.map((item, i) => (
@@ -558,7 +578,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                           type="checkbox" 
                           checked={formData.pickup_configuration?.pickup_offered || false} 
                           onChange={(e) => setFormData(prev => ({...prev, pickup_configuration: {...prev.pickup_configuration, pickup_offered: e.target.checked}}))}
-                          className="w-4 h-4 text-[#15531B] rounded focus:ring-[#15531B]" 
+                          className="w-4 h-4 text-[#00694B] rounded focus:ring-[#00694B]" 
                         />
                         <label className="font-medium text-gray-700">Pickup Offered?</label>
                       </div>
@@ -581,14 +601,14 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                           <div>
                             <div className="flex justify-between items-center mb-2">
                               <label className="block text-sm font-medium text-gray-700">Active Global Pickup Locations (All enabled)</label>
-                              <button type="button" onClick={() => setShowAddLocation(!showAddLocation)} className="text-[#15531B] text-sm font-bold flex items-center gap-1">
+                              <button type="button" onClick={() => setShowAddLocation(!showAddLocation)} className="text-[#00694B] text-sm font-bold flex items-center gap-1">
                                 {showAddLocation ? 'Cancel' : '+ New Global Location'}
                               </button>
                             </div>
 
                             {/* Add New Location Form */}
                             {showAddLocation && (
-                                <div className="bg-gray-50 p-3 rounded-lg border border-dashed border-[#15531B] mb-3">
+                                <div className="bg-gray-50 p-3 rounded-lg border border-dashed border-[#00694B] mb-3">
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-2">
                                         <select 
                                             value={newLocation.type}
@@ -616,7 +636,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                                         type="button" 
                                         onClick={handleCreateLocation}
                                         disabled={!newLocation.name}
-                                        className="bg-[#15531B] text-white px-4 py-1.5 rounded text-sm font-bold w-full disabled:opacity-50"
+                                        className="bg-[#00694B] text-white px-4 py-1.5 rounded text-sm font-bold w-full disabled:opacity-50"
                                     >
                                         Add New Location
                                     </button>
@@ -628,7 +648,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                                 {locations.length === 0 && <p className="text-sm text-gray-500 text-center py-2">No locations found. Add one above.</p>}
                                 {locations.map(loc => (
                                     <div key={loc._id} className="flex items-center gap-2 p-2 rounded">
-                                        <div className="w-4 h-4 bg-[#15531B] rounded flex items-center justify-center shrink-0">
+                                        <div className="w-4 h-4 bg-[#00694B] rounded flex items-center justify-center shrink-0">
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
                                                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                             </svg>
@@ -669,37 +689,68 @@ export default function TourForm({ initialData = null, isEdit = false }) {
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                   <h2 className="text-lg font-bold text-[#1a1a1a] mb-4">Media</h2>
                   
-                  {/* Main Image */}
-                  <div className="mb-6">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Main Image</label>
-                      <div className="relative aspect-video rounded-lg bg-gray-100 overflow-hidden border-2 border-dashed border-gray-300 flex items-center justify-center group hover:border-[#15531B] transition-colors">
-                          {formData.image_url ? (
-                              <img src={getImageUrl(formData.image_url)} alt="Main" className="w-full h-full object-cover" />
-                          ) : (
-                              <div className="text-center text-gray-400">
-                                  <ImageIcon className="mx-auto mb-2" />
-                                  <span className="text-xs">Upload Image</span>
-                              </div>
-                          )}
-                          <input type="file" onChange={(e) => handleFileUpload(e, 'main')} className="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" />
-                      </div>
-                  </div>
+                   {/* Main Image */}
+                   <div className="mb-6">
+                       <label className="block text-sm font-medium text-gray-700 mb-2">Main Image</label>
+                       <div className="relative aspect-video rounded-lg bg-gray-100 overflow-hidden border-2 border-dashed border-gray-300 flex items-center justify-center group hover:border-[#00694B] transition-colors">
+                           {formData.image_url ? (
+                               <img src={getImageUrl(formData.image_url)} alt={formData.image_alt || 'Main'} className="w-full h-full object-cover" />
+                           ) : (
+                               <div className="text-center text-gray-400">
+                                   <ImageIcon className="mx-auto mb-2" />
+                                   <span className="text-xs">Upload Image</span>
+                               </div>
+                           )}
+                           <input type="file" onChange={(e) => handleFileUpload(e, 'main')} className="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" />
+                       </div>
+                       <div className="mt-2">
+                           <label className="block text-xs font-medium text-gray-500 mb-1">Image Alt Text</label>
+                           <input
+                               name="image_alt"
+                               value={formData.image_alt || ''}
+                               onChange={handleChange}
+                               placeholder="Describe the image for SEO & accessibility"
+                               className="w-full p-2 border rounded-lg text-sm text-[#1a1a1a] focus:ring-2 focus:ring-[#00694B] focus:border-transparent outline-none"
+                           />
+                       </div>
+                   </div>
 
                   {/* Gallery */}
                   <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">Gallery</label>
-                      <div className="grid grid-cols-3 gap-2">
-                          {formData.gallery?.map((img, i) => (
-                              <div key={i} className="relative aspect-square rounded-lg overflow-hidden group">
-                                  <img src={getImageUrl(img)} alt="" className="w-full h-full object-cover" />
-                                  <button type="button" onClick={() => removeArrayItem(i, 'gallery')} className="absolute top-1 right-1 bg-black/50 text-white rounded-full p-1 hover:bg-red-500 transition-colors"><X size={12}/></button>
-                              </div>
-                          ))}
-                          <div className="aspect-square rounded-lg bg-gray-50 border-2 border-dashed border-gray-300 flex items-center justify-center relative hover:border-[#15531B] transition-colors">
-                              <Plus className="text-gray-400" />
-                              <input type="file" onChange={(e) => handleFileUpload(e, 'gallery')} className="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" />
-                          </div>
-                      </div>
+                       <div className="space-y-3">
+                           {formData.gallery?.map((img, i) => (
+                               <div key={i} className="flex gap-3 items-center bg-gray-50 p-2 rounded-lg border border-gray-200">
+                                   <div className="relative w-20 h-16 rounded-md overflow-hidden shrink-0 group">
+                                       <img src={getImageUrl(img)} alt={formData.gallery_alts?.[i] || ''} className="w-full h-full object-cover" />
+                                       <button type="button" onClick={() => {
+                                           removeArrayItem(i, 'gallery');
+                                           setFormData(prev => {
+                                               const newAlts = [...(prev.gallery_alts || [])];
+                                               newAlts.splice(i, 1);
+                                               return { ...prev, gallery_alts: newAlts };
+                                           });
+                                       }} className="absolute top-0.5 right-0.5 bg-black/50 text-white rounded-full p-0.5 hover:bg-red-500 transition-colors">
+                                           <X size={10}/>
+                                       </button>
+                                   </div>
+                                   <input
+                                       value={formData.gallery_alts?.[i] || ''}
+                                       onChange={(e) => {
+                                           const newAlts = [...(formData.gallery_alts || [])];
+                                           newAlts[i] = e.target.value;
+                                           setFormData(prev => ({ ...prev, gallery_alts: newAlts }));
+                                       }}
+                                       placeholder={`Alt text for image ${i + 1}`}
+                                       className="flex-1 p-2 border rounded-lg text-sm text-[#1a1a1a] outline-none focus:ring-2 focus:ring-[#00694B] focus:border-transparent"
+                                   />
+                               </div>
+                           ))}
+                           <div className="h-12 rounded-lg bg-gray-50 border-2 border-dashed border-gray-300 flex items-center justify-center relative hover:border-[#00694B] transition-colors cursor-pointer">
+                               <div className="flex items-center gap-2 text-gray-400 text-sm pointer-events-none"><Plus size={16} /> Add Image</div>
+                               <input type="file" onChange={(e) => handleFileUpload(e, 'gallery')} className="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" />
+                           </div>
+                       </div>
                   </div>
               </div>
 
@@ -760,7 +811,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                       <div className="flex justify-between items-center mb-4">
                         <h2 className="text-lg font-bold text-[#1a1a1a]">Extra Services (Add-ons)</h2>
-                        <button type="button" onClick={() => addComplexItem('extraServices', { name: '', price: '' })} className="text-[#15531B] text-sm font-bold flex items-center gap-1"><Plus size={16}/> Add Service</button>
+                        <button type="button" onClick={() => addComplexItem('extraServices', { name: '', price: '' })} className="text-[#00694B] text-sm font-bold flex items-center gap-1"><Plus size={16}/> Add Service</button>
                       </div>
                       <div className="space-y-3">
                         {formData.extraServices?.map((service, i) => (
@@ -806,7 +857,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                         />
                    </div>
                       <div className="mt-4 flex items-center gap-2">
-                          <input type="checkbox" name="is_featured" checked={formData.is_featured} onChange={handleChange} className="w-4 h-4 text-[#15531B] rounded border-gray-300 focus:ring-[#15531B]" />
+                          <input type="checkbox" name="is_featured" checked={formData.is_featured} onChange={handleChange} className="w-4 h-4 text-[#00694B] rounded border-gray-300 focus:ring-[#00694B]" />
                           <label className="text-sm font-medium text-gray-700">Mark as Featured</label>
                       </div>
                 </div>
@@ -875,7 +926,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                       <div className="flex justify-between items-center mb-4">
                         <h2 className="text-lg font-bold text-[#1a1a1a]">Additional Info</h2>
-                        <button type="button" onClick={() => addArrayItem('additional_info')} className="text-[#15531B] text-sm font-bold"><Plus size={16} /></button>
+                        <button type="button" onClick={() => addArrayItem('additional_info')} className="text-[#00694B] text-sm font-bold"><Plus size={16} /></button>
                       </div>
                       <div className="space-y-2">
                           {formData.additional_info?.map((item, i) => (
@@ -892,4 +943,5 @@ export default function TourForm({ initialData = null, isEdit = false }) {
     </form>
   );
 }
+
 

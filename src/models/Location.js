@@ -27,3 +27,4 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export default mongoose.models.Location || mongoose.model('Location', LocationSchema);
+

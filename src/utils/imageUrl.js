@@ -13,3 +13,4 @@ export const getImageUrl = (path) => {
   const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
   return `${cleanBase}/${path}`;
 };
+

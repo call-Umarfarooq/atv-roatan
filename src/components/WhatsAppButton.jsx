@@ -46,7 +46,7 @@ const WhatsAppButton = () => {
                         onClick={toggleOpen}
                         className="bg-white px-5 py-3 rounded-[20px] shadow-[0_4px_12px_rgba(0,0,0,0.1)] text-[15px] font-semibold text-[#1a1a1a] cursor-pointer hover:bg-gray-50 transition-colors animate-fadeIn whitespace-nowrap flex items-center gap-2"
                     >
-                        Chat with us <span className="text-xl">👋</span>
+                        Chat with us <span className="text-xl">ðŸ‘‹</span>
                     </div>
                 )}
                 <button 
@@ -66,3 +66,4 @@ const WhatsAppButton = () => {
 };
 
 export default WhatsAppButton;
+
