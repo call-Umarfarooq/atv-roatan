@@ -79,7 +79,7 @@ const ContactPage = () => {
              </span>
           </div>
           <h1 className="text-white text-5xl md:text-7xl font-bold tracking-tight mb-6 drop-shadow-lg">
-            Get In <span className="text-[#00694B] italic font-serif px-3 rounded-lg mr-1 ml-1 ">Touch</span><br />
+            Get In <span className="text-[#00694B] italic font-uber-move px-3 rounded-lg mr-1 ml-1 ">Touch</span><br />
             With Us
           </h1>
           <p className="text-gray-200 max-w-2xl mx-auto text-sm md:text-base">
@@ -197,7 +197,7 @@ const ContactPage = () => {
             </span>
             <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] leading-tight">
               Get In Touch With <br />
-              <span className="text-[#00694B] italic font-serif">ATV Roatan</span>
+              <span className="text-[#00694B] italic font-uber-move">ATV Roatan</span>
             </h2>
             <p className="text-gray-600 text-lg">
               Have questions or need help planning your next trip? Contact us and let's make your travel experience hassle-free!

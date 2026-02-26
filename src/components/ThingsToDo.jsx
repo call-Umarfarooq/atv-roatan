@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import Link from 'next/link';
 import { getImageUrl } from '@/utils/imageUrl';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import StaggeredTextReveal from '@/components/StaggeredTextReveal';
 
 const ThingsToDo = ({ activities }) => {
   const scrollContainerRef = useRef(null);
@@ -62,7 +63,11 @@ const ThingsToDo = ({ activities }) => {
       
         {/* Header - Centered */}
         <div className="max-w-7xl mx-auto px-4 mb-12 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4">Things to Do in Roatan</h2>
+            <StaggeredTextReveal 
+              el="h2" 
+              className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4" 
+              text="Things to Do in Roatan" 
+            />
             <div className="w-20 h-1 bg-[#00694B] mx-auto rounded-full"></div>
             <p className="text-gray-600 mt-4 max-w-2xl mx-auto">Discover the best activities and experiences Roatan has to offer, curated just for you.</p>
         </div>

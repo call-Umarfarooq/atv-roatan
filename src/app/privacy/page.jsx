@@ -27,7 +27,7 @@ export default function PrivacyPolicyPage() {
              </span>
           </div>
           <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 drop-shadow-lg">
-            Privacy <span className="text-[#00694B] italic font-serif px-2">Policy</span>
+            Privacy <span className="text-[#00694B] italic font-uber-move px-2">Policy</span>
           </h1>
           <p className="text-gray-200 text-sm md:text-base max-w-xl">
             Last Updated: January 2024

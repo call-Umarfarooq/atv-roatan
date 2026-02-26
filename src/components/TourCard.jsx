@@ -54,6 +54,11 @@ const TourCard = ({
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
         />
         
+        {/* Top Left Badge */}
+        <div className="absolute top-2 left-2 z-6 w-10 w-16">
+          <img src="/images/Backto.png" alt="Back to Ship Guarantee" className="w-full h-auto drop-shadow-md" />
+        </div>
+
         {/* Navigation Arrows */}
         {images.length > 1 && (
             <>
@@ -112,41 +117,46 @@ const TourCard = ({
 
       
 
-        {/* Best Price Guarantee */}
-        <div className="flex items-center gap-2 mb-3 text-xs text-gray-700 bg-blue-50/50 px-2 py-1.5 rounded-lg border border-blue-100">
-            <div className="bg-red-600 rounded-full w-6 h-6 flex items-center justify-center shrink-0 border border-white shadow-sm">
-                 <div className="text-white text-[6px] font-bold text-center leading-none">
+       
+         {/* Best Price Guarantee */}
+         <div className="bg-gradient-to-r from-[#115e3b] to-[#468262] flex justify-center items-center gap-2 sm:gap-2.5 text-white text-[10px] sm:text-xs font-bold px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-full w-fit max-w-full shadow-md hover:shadow-lg transition-shadow border border-[#468262]/30 leading-tight mb-1 relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/10 pointer-events-none rounded-lg sm:rounded-full" />
+            
+            <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-full w-7 h-7 flex items-center justify-center shrink-0 border-[1.5px] border-white/90 shadow-sm relative z-10">
+                <div className="text-white text-[6px] font-black text-center leading-[1.1] tracking-wider">
                     BEST<br/>PRICE
                 </div>
+            </div> 
+            
+            <div className="flex flex-wrap items-baseline gap-1 relative z-10 drop-shadow-sm pb-[1px]">
+                  <span className="text-emerald-50 tracking-wide">Best Price Guarantee:</span> 
+                  <span className="whitespace-normal text-[#A3E635]">110% refund</span>
             </div>
-            <span className="leading-tight font-medium">Best Price Guarantee: We'll refund 110% of the difference!</span>
-        </div>
-
-        {/* Back to Ship Guarantee */}
-        <div className="flex items-center gap-2 mb-3 text-xs text-[#115e3b] bg-[#f1fcf4] px-2 py-1.5 rounded-lg border border-[#e9edea]">
-            <ShieldCheck size={16} className="text-[#115e3b] shrink-0" />
-            <span className="leading-tight font-bold">100% Back to Ship Guarantee</span>
-        </div>
+         </div>
 
         <div className="grow"></div>
 
-        {/* Footer: Duration & Button */}
-        <div className="flex items-center justify-between mt-2">
-       
-        <div className="flex flex-col">
-            <span className="text-gray-500 text-sm font-medium leading-tight mb-0.5">from</span>
-            <div className="flex items-baseline gap-1">
-                {cutoff_price && (
-                    <span className="text-gray-400 text-sm line-through decoration-gray-400 decoration-1">
-                        {currency}{cutoff_price}
-                    </span>
-                )}
-                <span className="text-[#1a1a1a] font-extrabold text-2xl leading-none">{currency}{price}</span>
+        {/* Footer: Pricing & Button */}
+        <div className="mt-1 flex flex-col gap-2 relative">
+            
+            <div className="flex items-end justify-between gap-2 w-full">
+                <div className="flex flex-col min-w-0">
+                    <span className="text-[10px] sm:text-xs text-gray-500 font-medium leading-none mb-0.5 ml-0.5">from</span>
+                    <div className="flex items-baseline gap-1 sm:gap-2">
+                        <span className="text-[#153b2d] font-black text-[26px] sm:text-[32px] leading-none">{currency}{price}</span>
+                        {cutoff_price && (
+                            <span className="text-gray-400 text-xs sm:text-sm line-through font-medium truncate">
+                                {currency}{cutoff_price}
+                            </span>
+                        )}
+                    </div>
+                </div>
+                
+                <Link href={`/product/${slug}`} className="bg-[#00694B] shrink-0 whitespace-nowrap cursor-pointer hover:bg-[#1f4232] text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-full font-bold text-xs sm:text-sm transition-all flex items-center gap-1.5 shadow-md">
+                    <svg width="20" height="20" className="sm:w-[18px] sm:h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+                    BOOK NOW 
+                </Link>
             </div>
-        </div>
-           <Link href={`/product/${slug}`} className="bg-[#00694B] cursor-pointer hover:bg-[#1f4232] text-white px-5 py-2.5 rounded-full font-bold text-sm transition-colors flex items-center gap-2">
-               Book Now 
-           </Link>
         </div>
       </div>
     </div>

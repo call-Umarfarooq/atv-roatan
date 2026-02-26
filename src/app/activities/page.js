@@ -18,7 +18,7 @@ export default async function ActivitiesPage() {
         
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-4 font-serif">All Activities</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-4 font-uber-move">All Activities</h1>
           <div className="w-24 h-1 bg-[#00694B] mx-auto rounded-full"></div>
           <p className="text-gray-600 mt-6 max-w-2xl mx-auto text-lg">
             Explore all the amazing experiences Roatan has to offer.

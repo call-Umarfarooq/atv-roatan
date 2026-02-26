@@ -1,12 +1,17 @@
 import React from 'react';
 import Link from 'next/link';
 import { Facebook } from 'lucide-react';
+import StaggeredTextReveal from '@/components/StaggeredTextReveal';
 
 const ReviewLinks = () => {
   return (
     <section className="py-12 bg-white">
       <div className="max-w-7xl mx-auto px-4 text-center">
-        <h2 className="text-3xl font-bold text-[#1a1a1a] mb-8 font-serif">Reviews for Us</h2>
+        <StaggeredTextReveal 
+          el="h2" 
+          className="text-3xl font-bold text-[#1a1a1a] mb-8 font-uber-move" 
+          text="Reviews for Us" 
+        />
         
         <div className="flex flex-wrap justify-center gap-6">
           

@@ -157,7 +157,7 @@ export default function CheckoutPage() {
   const formattedDate = new Date(date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
 
   return (
-    <div className="min-h-screen bg-[#f5f5f5] font-sans text-[#1a1a1a]">
+    <div className="min-h-screen bg-[#f5f5f5] text-[#1a1a1a]">
       
       {/* Header */}
      

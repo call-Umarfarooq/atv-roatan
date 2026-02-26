@@ -4,7 +4,7 @@ import { Facebook, Twitter, Instagram, ChevronRight, Mail, Phone, MapPin } from 
 
 const Footer = () => {
   return (
-    <footer className="w-full font-sans">
+    <footer className="w-full">
       {/* Top CTA Section */}
       <section 
         className="relative text-center py-24 px-6 bg-cover bg-center"
@@ -40,7 +40,7 @@ const Footer = () => {
             <div className="flex flex-col gap-4 text-white/80 text-sm leading-relaxed max-w-xs">
                 <Link href={"https://www.google.com/maps/place/ATV+Dune+Buggy+ROATAN+Eco-Jungle+Adventure+Tours/@16.3456999,-86.4813591,17z/data=!4m6!3m5!1s0x8f69e5bf4a59efa3:0xa0efd3ab20c41c7e!8m2!3d16.3456999!4d-86.4787842!16s%2Fg%2F11g8wgzth0?entry=tts&g_ep=EgoyMDI1MDgxNy"} className="flex items-start gap-3">
                     <MapPin size={18} className="shrink-0 mt-0.5" />
-                    <p>Roatan, Honduras â€” Jl. Adventure Way,<br />No. 11 West End, 31588</p>
+                    <p>Roatan, Honduras &mdash; Jl. Adventure Way,<br />No. 11 West End, 31588</p>
                 </Link>
             </div>
             <div className="flex gap-4 mt-8">
@@ -84,8 +84,8 @@ const Footer = () => {
       {/* Bottom Copyright Bar */}
       <div className="bg-[#00694B] border-t border-white/10 px-6 py-8">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-xs text-white/50 gap-4">
-          <p>Â© 2026 Roatan ATV Buggy Tours</p>
-          <p>Copyright Â© 2026. All rights reserved</p>
+          <p>&copy; 2026 Roatan ATV Buggy Tours</p>
+          <p>Copyright &copy; 2026. All rights reserved</p>
         </div>
       </div>
     </footer>

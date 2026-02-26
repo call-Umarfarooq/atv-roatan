@@ -14,7 +14,7 @@ import {
 /* â”€â”€ Excursion Categories (Specific to Isla Tropicale / Mahogany Bay) â”€â”€ */
 const excursionCategories = [
   { icon: <Bike size={28} />, title: "ATV Jungle Adventure", description: "Ride through muddy trails and lush jungle canopies.", color: "from-emerald-500 to-emerald-700" },
-  { icon: <PawPrint size={28} />, title: "Sloth & Monkey Parks", description: "Hold a sloth and meet playful monkeys â€“ a Roatan must-do!", color: "from-amber-500 to-amber-700" },
+  { icon: <PawPrint size={28} />, title: "Sloth & Monkey Parks", description: "Hold a sloth and meet playful monkeys &ndash; a Roatan must-do!", color: "from-amber-500 to-amber-700" },
   { icon: <Umbrella size={28} />, title: "Beach Breaks", description: "Relax at West Bay or private island resorts.", color: "from-cyan-500 to-cyan-700" },
   { icon: <TreePine size={28} />, title: "Zipline Canopy Tours", description: "Fly high above the trees with stunning ocean views.", color: "from-green-500 to-green-700" },
   { icon: <Waves size={28} />, title: "Snorkel & Boat Tours", description: "Discover the vibrant coral reef and shipwrecks.", color: "from-blue-500 to-blue-700" },
@@ -189,7 +189,7 @@ const IslaTropicalePort = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4">Shore Excursions from Isla Tropicale</h2>
             <div className="w-20 h-1 bg-[#00694B] mx-auto rounded-full mb-6"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Skip the crowded cruise line tours. Book a private or small group adventure with us â€” 
+              Skip the crowded cruise line tours. Book a private or small group adventure with us &mdash; 
               we pick up right outside the main gate!
             </p>
           </div>

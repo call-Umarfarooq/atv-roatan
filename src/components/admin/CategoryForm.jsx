@@ -144,7 +144,7 @@ export default function CategoryForm({ initialData = null, isEdit = false }) {
                       </label>
                       <div className="flex items-center gap-2">
                           <span className="text-gray-400 text-sm">/category/</span>
-                          <input required name="slug" value={formData.slug} onChange={handleChange} className="flex-1 p-2 border rounded-lg focus:ring-2 focus:ring-[#00694B] focus:border-transparent outline-none text-[#1a1a1a] font-mono text-sm" />
+                          <input required name="slug" value={formData.slug} onChange={handleChange} className="flex-1 p-2 border rounded-lg focus:ring-2 focus:ring-[#00694B] focus:border-transparent outline-none text-[#1a1a1a] text-sm" />
                       </div>
                   </div>
                   <div>
@@ -168,7 +168,7 @@ export default function CategoryForm({ initialData = null, isEdit = false }) {
               <div className="space-y-4">
                   <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Meta Title <span className="text-gray-400 font-normal text-xs">(recommended: 50â€“60 chars)</span>
+                          Meta Title <span className="text-gray-400 font-normal text-xs">(recommended: 50&ndash;60 chars)</span>
                       </label>
                       <input
                           name="meta_title"
@@ -182,7 +182,7 @@ export default function CategoryForm({ initialData = null, isEdit = false }) {
                   </div>
                   <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
-                          Meta Description <span className="text-gray-400 font-normal text-xs">(recommended: 150â€“160 chars)</span>
+                          Meta Description <span className="text-gray-400 font-normal text-xs">(recommended: 150&ndash;160 chars)</span>
                       </label>
                       <textarea
                           name="meta_description"
@@ -200,7 +200,7 @@ export default function CategoryForm({ initialData = null, isEdit = false }) {
 
         </div>
 
-        {/* Right Sidebar â€” Media */}
+        {/* Right Sidebar &mdash; Media */}
         <div className="space-y-8">
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <h2 className="text-lg font-bold text-[#1a1a1a] mb-4">Media</h2>

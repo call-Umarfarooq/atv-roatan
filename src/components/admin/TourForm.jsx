@@ -379,7 +379,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                                   name="slug" 
                                   value={formData.slug} 
                                   onChange={handleChange}
-                                  className="flex-1 p-2 border rounded-lg focus:ring-2 focus:ring-[#00694B] focus:border-transparent outline-none text-[#1a1a1a] font-mono text-sm"
+                                  className="flex-1 p-2 border rounded-lg focus:ring-2 focus:ring-[#00694B] focus:border-transparent outline-none text-[#1a1a1a] text-sm"
                                   placeholder="auto-generated-from-title"
                               />
                           </div>

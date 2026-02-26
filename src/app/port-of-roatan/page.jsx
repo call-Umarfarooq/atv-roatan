@@ -21,7 +21,7 @@ const faqData = [
   },
   {
     question: "How far is the port from popular beaches?",
-    answer: "West Bay Beach is approximately 20â€“25 minutes from Coxen Hole and 15 minutes from Mahogany Bay by taxi. West End is about 15â€“20 minutes from Coxen Hole. Most tour operators, including us, provide complimentary round-trip port transportation."
+    answer: "West Bay Beach is approximately 20-25 minutes from Coxen Hole and 15 minutes from Mahogany Bay by taxi. West End is about 15-20 minutes from Coxen Hole. Most tour operators, including us, provide complimentary round-trip port transportation."
   },
   {
     question: "Is it safe to explore Roatan on my own?",
@@ -60,7 +60,7 @@ const excursionCategories = [
 /* â”€â”€ Cruise Lines Info â”€â”€ */
 const cruisePortData = [
   {
-    port: "Port of Roatan â€” Coxen Hole",
+    port: "Port of Roatan &mdash; Coxen Hole",
     image: "/images/hero.png",
     description: "Located in the heart of Coxen Hole, the island's capital, the Port of Roatan (also known as Town Center at Port of Roatan) officially opened in 2007. This public port offers an authentic Roatan experience, giving passengers direct access to local shops, eateries, cultural sites, and the vibrant island atmosphere.",
     features: [
@@ -70,7 +70,7 @@ const cruisePortData = [
       "Walking distance to downtown Coxen Hole",
       "Used by Royal Caribbean, Norwegian, MSC, Celebrity & Virgin Voyages"
     ],
-    highlight: "Public Port â€¢ Authentic Local Experience"
+    highlight: "Public Port \u2022 Authentic Local Experience"
   },
   {
     port: "Mahogany Bay Cruise Center",
@@ -83,7 +83,7 @@ const cruisePortData = [
       "Modern, resort-style terminal complex",
       "Used by Carnival, Princess Cruises & Holland America Line"
     ],
-    highlight: "Private Port â€¢ Resort-Style Experience"
+    highlight: "Private Port \u2022 Resort-Style Experience"
   }
 ];
 
@@ -112,7 +112,7 @@ const PortOfRoatan = () => {
       <section className="relative w-full h-[70vh] min-h-[500px]">
         <Image
           src="/images/hero.png"
-          alt="Port of Roatan â€” Cruise Ship Terminal"
+          alt="Port of Roatan &mdash; Cruise Ship Terminal"
           fill
           priority
           className="object-cover"
@@ -220,8 +220,8 @@ const PortOfRoatan = () => {
               <h3 className="text-2xl font-bold text-[#1a1a1a] mb-6">The Caribbean's Premier Cruise Destination</h3>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  Every week, thousands of cruise ship passengers arrive at Roatan's two cruise terminals â€” 
-                  the <strong>Port of Roatan</strong> in Coxen Hole and <strong>Mahogany Bay</strong> Cruise Center â€” 
+                  Every week, thousands of cruise ship passengers arrive at Roatan's two cruise terminals &mdash; 
+                  the <strong>Port of Roatan</strong> in Coxen Hole and <strong>Mahogany Bay</strong> Cruise Center &mdash; 
                   ready to explore everything this stunning island has to offer.
                 </p>
                 <p>
@@ -231,7 +231,7 @@ const PortOfRoatan = () => {
                 </p>
                 <p>
                   As a <strong>local, family-owned tour operator</strong>, we provide premium shore excursions 
-                  with complimentary port pickup and our signature <strong>100% Back-to-Ship Guarantee</strong> â€” 
+                  with complimentary port pickup and our signature <strong>100% Back-to-Ship Guarantee</strong> &mdash; 
                   so you can explore worry-free.
                 </p>
               </div>
@@ -314,7 +314,7 @@ const PortOfRoatan = () => {
             <div className="w-20 h-1 bg-[#00694B] mx-auto rounded-full mb-6"></div>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Discover the best of Roatan with our curated shore excursions. From thrilling adventures 
-              to relaxing beach days â€” we have something for everyone.
+              to relaxing beach days &mdash; we have something for everyone.
             </p>
           </div>
 
@@ -383,7 +383,7 @@ const PortOfRoatan = () => {
               <div className="p-6">
                 <ul className="space-y-4">
                   {[
-                    { line: "Royal Caribbean International", note: "Primary user â€” typically docks at pier" },
+                    { line: "Royal Caribbean International", note: "Primary user &mdash; typically docks at pier" },
                     { line: "Norwegian Cruise Line", note: "May tender when multiple ships present" },
                     { line: "MSC Cruises", note: "Regular weekly calls" },
                     { line: "Celebrity Cruises", note: "Part of Royal Caribbean Group" },
@@ -415,7 +415,7 @@ const PortOfRoatan = () => {
               <div className="p-6">
                 <ul className="space-y-4">
                   {[
-                    { line: "Carnival Cruise Line", note: "Primary user â€” developed by Carnival Corp." },
+                    { line: "Carnival Cruise Line", note: "Primary user &mdash; developed by Carnival Corp." },
                     { line: "Princess Cruises", note: "Part of Carnival Corporation" },
                     { line: "Holland America Line", note: "Part of Carnival Corporation" },
                     { line: "P&O Cruises", note: "Occasional calls" },
@@ -454,7 +454,7 @@ const PortOfRoatan = () => {
               {
                 icon: <Navigation size={28} />,
                 title: "Taxi Service",
-                description: "Taxis are the primary transport for cruise passengers. Agree on the fare beforehand â€” meters are not used.",
+                description: "Taxis are the primary transport for cruise passengers. Agree on the fare beforehand &mdash; meters are not used.",
                 tip: "Tip: Negotiate before boarding"
               },
               {
@@ -472,7 +472,7 @@ const PortOfRoatan = () => {
               {
                 icon: <Clock size={28} />,
                 title: "Time Management",
-                description: "Most excursions last 3â€“5 hours, giving you plenty of time to explore and return safely to your ship.",
+                description: "Most excursions last 3-5 hours, giving you plenty of time to explore and return safely to your ship.",
                 tip: "We guarantee ship return"
               }
             ].map((tip, i) => (
@@ -563,7 +563,7 @@ const PortOfRoatan = () => {
             Ready to Explore Roatan?
           </h2>
           <p className="text-white/80 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
-            Book directly with us â€” a local, family-owned operator â€” and save up to $20 per person 
+            Book directly with us &mdash; a local, family-owned operator &mdash; and save up to $20 per person 
             compared to cruise line excursions or OTAs. Pickup from both ports included.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

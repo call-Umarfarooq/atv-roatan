@@ -1,5 +1,6 @@
 import React from 'react';
 import { Headset, ShieldCheck, Leaf, Map, Check, X } from 'lucide-react';
+import StaggeredTextReveal from '@/components/StaggeredTextReveal';
 
 const WhyChooseUs = () => {
   const features = [
@@ -68,7 +69,11 @@ const WhyChooseUs = () => {
         
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4">Why to choose ATV Roatan?</h2>
+          <StaggeredTextReveal 
+            el="h2" 
+            className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4" 
+            text="Why to choose ATV Roatan?" 
+          />
           <div className="w-20 h-1 bg-[#00694B] mx-auto rounded-full"></div>
         </div>
 

@@ -30,7 +30,7 @@ const AboutPage = () => {
              </span>
           </div>
           <h1 className="text-white text-5xl md:text-7xl font-bold tracking-tight mb-6 drop-shadow-lg">
-            Who <span className="text-[#00694B] italic font-serif px-3 rounded-lg mr-1 ml-1 ">We</span> Are
+            Who <span className="text-[#00694B] italic font-uber-move px-3 rounded-lg mr-1 ml-1 ">We</span> Are
           </h1>
           <p className="text-gray-200 max-w-2xl mx-auto text-sm md:text-base">
             Dedicated to providing unforgettable adventures and showing the true beauty of Roatan through our guided tours.
@@ -72,7 +72,7 @@ const AboutPage = () => {
             </span>
             <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] leading-tight mt-2">
               Discover the <br />
-              <span className="text-[#00694B] italic font-serif">Heart of Roatan</span>
+              <span className="text-[#00694B] italic font-uber-move">Heart of Roatan</span>
             </h2>
             <p className="text-gray-600 text-lg leading-relaxed">
               We started with a simple belief: the best way to experience the magic of Roatan is feeling the breeze, hearing the sounds of the jungle, and venturing off the beaten path. Over the years, we've grown into the leading provider for ATV, Dune Buggy, and Golf Cart excursions.

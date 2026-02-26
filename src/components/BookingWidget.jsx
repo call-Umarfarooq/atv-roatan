@@ -155,7 +155,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
               <ChevronDown size={13} className={`absolute right-2.5 bottom-2.5 text-gray-400 pointer-events-none transition-transform ${showTravelers ? 'rotate-180' : ''}`} />
             </div>
 
-            {/* Travelers Dropdown â€” full width, below the field */}
+            {/* Travelers Dropdown &mdash; full width, below the field */}
             {showTravelers && (
               <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 shadow-lg rounded-xl p-3 z-30 mt-1.5 min-w-[220px]">
                 {[
@@ -166,7 +166,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
                   <div key={key} className="flex items-center justify-between py-1.5 border-b border-gray-100 last:border-0">
                     <div>
                       <p className="text-sm font-semibold text-[#1a1a1a] leading-tight">{label}</p>
-                      <p className="text-[11px] text-gray-400">{sub} Â· {free ? 'Free' : `$${price}`}</p>
+                      <p className="text-[11px] text-gray-400">{sub} &middot; {free ? 'Free' : `$${price}`}</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <button
@@ -217,13 +217,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
 
         {/* Action Buttons */}
         <div className="space-y-2">
-          <button
-            onClick={() => handleBooking('reserve_later')}
-            disabled={loading}
-            className="w-full bg-white hover:bg-gray-50 text-[#1a1a1a] border border-[#1a1a1a] font-bold py-2.5 rounded-lg transition-colors text-sm disabled:opacity-60"
-          >
-            {loading ? <Loader2 size={16} className="animate-spin mx-auto" /> : 'Reserve Now & Pay Later'}
-          </button>
+         
 
           <div className="relative">
             <span className="absolute -top-2 right-2 bg-red-100 text-red-600 text-[9px] font-bold px-1.5 py-0.5 rounded-full border border-red-200">
@@ -238,6 +232,13 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
               <span className="text-[10px] font-normal opacity-80">Pay now & save 2%</span>
             </button>
           </div>
+           <button
+            onClick={() => handleBooking('reserve_later')}
+            disabled={loading}
+            className="w-full bg-white hover:bg-gray-50 text-[#1a1a1a] border border-[#1a1a1a] font-bold py-2.5 rounded-lg transition-colors text-sm disabled:opacity-60"
+          >
+            {loading ? <Loader2 size={16} className="animate-spin mx-auto" /> : 'Reserve Now & Pay Later'}
+          </button>
         </div>
 
         {/* Trust Signals */}
@@ -247,7 +248,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
               <Check size={10} className="text-[#00694B]" strokeWidth={3} />
             </div>
             <p className="text-xs text-gray-500">
-              <span className="font-semibold text-gray-700">Free cancellation</span> Â· {tour?.booking_options?.policy_text || 'Up to 24 hours before'}
+              <span className="font-semibold text-gray-700">Free cancellation</span> &middot; {tour?.booking_options?.policy_text || 'Up to 24 hours before'}
             </p>
           </div>
           <div className="flex items-start gap-2">
@@ -255,7 +256,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
               <Check size={10} className="text-[#00694B]" strokeWidth={3} />
             </div>
             <p className="text-xs text-gray-500">
-              <span className="font-semibold text-gray-700">Reserve now, pay later</span> â€” stay flexible
+              <span className="font-semibold text-gray-700">Reserve now, pay later</span> &mdash; stay flexible
             </p>
           </div>
         </div>

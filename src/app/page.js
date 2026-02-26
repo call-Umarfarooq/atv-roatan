@@ -10,6 +10,7 @@ import mongoose from "mongoose";
 import "@/models/Activity"; // Ensure model is registered
 import ReviewLinks from "@/components/ReviewLinks";
 import ReviewsWidget from "@/components/ReviewsWidget";
+import StaggeredTextReveal from "@/components/StaggeredTextReveal";
 
 // Force dynamic rendering to ensure fresh data
 export const dynamic = 'force-dynamic';
@@ -43,13 +44,17 @@ console.log(tours);
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60" />
         {/* Text content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-          <h1 className="text-white text-4xl md:text-6xl font-light tracking-wide mb-4 drop-shadow-md">
-            Roatan Shore Excursions
-          </h1>
+          <StaggeredTextReveal
+            el="h1"
+            className="text-white text-4xl md:text-6xl font-uber-move font-bold tracking-wide mb-4 drop-shadow-md"
+            text="Roatan Shore Excursions"
+          />
           <span className="text-white/90 text-sm md:text-xl uppercase tracking-widest mb-2 font-medium">Operated By</span>
-          <h2 className="text-white text-2xl md:text-4xl font-bold tracking-wide drop-shadow-lg">
-            Roatan ATV Buggy and Golf Cart Adventure Tours
-          </h2>
+          <StaggeredTextReveal
+            el="h2"
+            className="text-white text-xl md:text-2xl font-uber-move font-light tracking-wide drop-shadow-lg"
+            text="Roatan ATV Buggy and Golf Cart Adventure Tours"
+          />
         </div>
       </section>
       <FeatureHighlights />

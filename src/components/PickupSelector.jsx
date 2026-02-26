@@ -132,7 +132,7 @@ export default function PickupSelector({ configuration, selectedLocation, onSele
                 rel="noreferrer"
                 className="mt-3 inline-flex items-center gap-1 text-[#1a1a1a] font-bold underline hover:no-underline text-[15px]"
             >
-                Open in Google Maps <span className="text-lg leading-none">â€º</span>
+                Open in Google Maps <span className="text-lg leading-none">&rsaquo;</span>
             </a>
           </div>
         )}

@@ -148,7 +148,7 @@ export default function TourDetailsClient({ initialTour }) {
   if (error || !tour) return <div className="min-h-screen flex items-center justify-center text-red-500">{error || 'Tour not found'}</div>;
 
   return (
-    <div className="bg-white min-h-screen font-sans text-[#1a1a1a] pb-20">
+    <div className="bg-white min-h-screen text-[#1a1a1a] pb-20">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
         
         {/* Breadcrumb - Top Line */}
@@ -158,7 +158,7 @@ export default function TourDetailsClient({ initialTour }) {
                 <ChevronLeft size={16} />
                 <span className="font-bold text-gray-900 ml-1">All Experiences in Roatan</span>
             </div>
-            <span>â€¢</span>
+            <span>&#8226;</span>
             <span className="hover:underline cursor-pointer">Home</span> <span>/</span>
             <span className="hover:underline cursor-pointer">Tours</span> <span>/</span>
             <span className="text-gray-900">{tour.title}</span>
@@ -442,9 +442,9 @@ export default function TourDetailsClient({ initialTour }) {
                                             <span className="font-medium text-[#1a1a1a]">{stop.stop_type}</span>
                                         )}
                                         
-                                        {stop.duration && <span>â€¢ {stop.duration}</span>}
+                                        {stop.duration && <span>&#8226; {stop.duration}</span>}
                                         {stop.admission_included && (
-                                            <span>â€¢ {stop.admission_included}</span>
+                                            <span>&#8226; {stop.admission_included}</span>
                                         )}
                                     </div>
 

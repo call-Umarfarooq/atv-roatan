@@ -30,7 +30,7 @@ export default async function AllToursPage() {
         />
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pt-20">
-          <h1 className="text-white text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg font-serif">
+          <h1 className="text-white text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg font-uber-move">
             All Tours
           </h1>
           <div className="w-24 h-1 bg-[#00694B] rounded-full"></div>
@@ -84,7 +84,7 @@ export default async function AllToursPage() {
                 <div className="inline-block px-4 py-1.5 rounded-full border border-[#00694B]/30 text-[#00694B] font-semibold text-sm bg-[#00694B]/5">
                    Featured Passes
                 </div>
-                <h2 className="text-4xl font-bold text-[#1a1a1a]">Roatan <span className="text-[#00694B] italic font-serif">All-Inclusive</span></h2>
+                <h2 className="text-4xl font-bold text-[#1a1a1a]">Roatan <span className="text-[#00694B] italic font-uber-move">All-Inclusive</span></h2>
                 <p className="text-gray-600 leading-relaxed text-lg">
                     Roatan offers several All-Inclusive day passes. The majority of these packages are located at resort properties on West Bay Beach, a 20-30 minutes scenic drive from the Port of Roatan and the Mahogany Bay Cruise Center.
                 </p>

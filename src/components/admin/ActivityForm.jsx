@@ -166,7 +166,7 @@ export default function ActivityForm({ initialData = null, isEdit = false }) {
                   <div className="space-y-4">
                       <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
-                              Meta Title <span className="text-gray-400 font-normal text-xs">(recommended: 50â€“60 chars)</span>
+                              Meta Title <span className="text-gray-400 font-normal text-xs">(recommended: 50&ndash;60 chars)</span>
                           </label>
                           <input
                               name="meta_title"
@@ -180,7 +180,7 @@ export default function ActivityForm({ initialData = null, isEdit = false }) {
                       </div>
                       <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">
-                              Meta Description <span className="text-gray-400 font-normal text-xs">(recommended: 150â€“160 chars)</span>
+                              Meta Description <span className="text-gray-400 font-normal text-xs">(recommended: 150&ndash;160 chars)</span>
                           </label>
                           <textarea
                               name="meta_description"

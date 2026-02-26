@@ -53,7 +53,7 @@ export default async function ActivityDetailsPage({ params }) {
         />
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
-          <h1 className="text-white text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg font-serif">
+          <h1 className="text-white text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg font-uber-move">
             {activity.title}
           </h1>
           <div className="w-24 h-1 bg-[#00694B] rounded-full"></div>

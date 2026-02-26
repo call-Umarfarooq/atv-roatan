@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function ClaimGiftPage() {
   return (
-    <main className="bg-white min-h-screen py-20 px-4 font-sans">
+    <main className="bg-white min-h-screen py-20 px-4">
       <div className="max-w-4xl mx-auto">
         
         {/* Header */}

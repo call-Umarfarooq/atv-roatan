@@ -50,11 +50,11 @@ const FAQsPage = () => {
     },
     {
       question: "Should I Bring Any Form Of Identification?",
-      answer: "YES. Itâ€™s recommended you have some form of valid identification on your person."
+      answer: "YES. It's recommended you have some form of valid identification on your person."
     },
     {
       question: "Should I Print My Port Exit & Meetup Instructions?",
-      answer: "YES. Itâ€™s recommended you also print the map and watch the video. A digital copy on your phone may work as well."
+      answer: "YES. It's recommended you also print the map and watch the video. A digital copy on your phone may work as well."
     },
     {
       question: "Do I Bring Cash, Credit Card, Or Both?",
@@ -95,7 +95,7 @@ const FAQsPage = () => {
           </div>
           <h1 className="text-white text-4xl md:text-6xl font-bold tracking-tight mb-6 drop-shadow-lg">
             Frequently Asked<br />
-            <span className="text-[#00694B] italic font-serif px-2 drop-shadow-md">Questions</span>
+            <span className="text-[#00694B] italic font-uber-move px-2 drop-shadow-md">Questions</span>
           </h1>
           <p className="text-gray-300 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
@@ -196,7 +196,7 @@ const FAQsPage = () => {
               </span>
               <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a1a] leading-tight">
                 Don't Found Your <br />
-                Queries? <span className="text-[#00694B] italic font-serif">Contact Us!</span>
+                Queries? <span className="text-[#00694B] italic font-uber-move">Contact Us!</span>
               </h2>
               <p className="text-gray-600 text-[15px] leading-relaxed md:pr-10">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.

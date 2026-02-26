@@ -1,34 +1,29 @@
 "use client";
 import React, { useEffect, useRef } from 'react';
+import StaggeredTextReveal from '@/components/StaggeredTextReveal';
 
 const ReviewsWidget = () => {
   const widgetRef = useRef(null);
+  const isLoaded = useRef(false);
 
   useEffect(() => {
-    if (widgetRef.current) {
+    if (widgetRef.current && !isLoaded.current) {
+      isLoaded.current = true;
       const script = document.createElement('script');
       script.src = "https://reviews.beaver.codes/widget/web-google-reviews.js";
       script.async = true;
       widgetRef.current.appendChild(script);
-
-      return () => {
-        try {
-          if (widgetRef.current && widgetRef.current.contains(script)) {
-            widgetRef.current.removeChild(script);
-          }
-        } catch (e) {
-          console.error("Error removing script", e);
-        }
-      };
     }
   }, []);
 
   return (
     <div className="w-full px-4">
       <div className="max-w-4xl mx-auto text-center mb-6">
-        <h2 className="text-[32px] font-bold text-[#1a1a1a] mb-2">
-          What Our Guests Say
-        </h2>
+        <StaggeredTextReveal
+          el="h2"
+          className="text-[32px] font-bold text-[#1a1a1a] mb-2"
+          text="What Our Guests Say"
+        />
         <p className="text-[#4a4a4a] text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
           Don't just take our word for it. Read honest reviews from travelers who have experienced the magic of Roatan with us
         </p>

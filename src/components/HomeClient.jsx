@@ -2,6 +2,7 @@
 import React, { useState, useRef, useMemo } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import TourCard from '@/components/TourCard';
+import StaggeredTextReveal from '@/components/StaggeredTextReveal';
 
 const HomeClient = ({ initialTours, categories }) => {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -30,9 +31,11 @@ const HomeClient = ({ initialTours, categories }) => {
            
             {/* Section Heading */}
             <div className="text-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-4">
-                Choose Your Adventure
-              </h2>
+              <StaggeredTextReveal 
+                el="h2"
+                className="text-3xl md:text-4xl font-uber-move font-bold text-[#1a1a1a] mb-4"
+                text="Choose Your Adventure"
+              />
               
               {/* Dynamic & SEO Friendly Descriptions */}
               <div className="relative min-h-12 max-w-2xl mx-auto">

@@ -92,7 +92,7 @@ export default function AdminBookingsPage() {
                                 filteredBookings.map((booking) => (
                                     <tr key={booking._id} className="hover:bg-gray-50 transition-colors">
                                         <td className="p-4 align-top">
-                                            <div className="font-mono text-xs font-bold bg-gray-100 px-2 py-1 rounded inline-block text-gray-700">
+                                            <div className="text-xs font-bold bg-gray-100 px-2 py-1 rounded inline-block text-gray-700">
                                                 {booking._id.substring(0, 8).toUpperCase()}
                                             </div>
                                             <div className="text-xs text-gray-400 mt-1">

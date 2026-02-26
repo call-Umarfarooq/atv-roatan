@@ -138,7 +138,7 @@ function ConfirmationContent() {
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-100 pb-6 mb-6 gap-4">
                         <div>
                             <div className="text-sm text-gray-500 mb-1">Booking Reference</div>
-                            <div className="font-mono font-bold text-lg text-[#1a1a1a]">{_id.substring(0, 8).toUpperCase()}</div>
+                            <div className="font-bold text-lg text-[#1a1a1a]">{_id.substring(0, 8).toUpperCase()}</div>
                         </div>
                         <div className="text-left md:text-right">
                             <div className="text-sm text-gray-500 mb-1">Payment Status</div>
