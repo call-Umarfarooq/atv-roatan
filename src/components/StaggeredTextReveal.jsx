@@ -12,7 +12,7 @@ export default function StaggeredTextReveal({ text, className = "", el: Wrapper 
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.15, // slower stagger
       },
     },
   };
@@ -23,7 +23,7 @@ export default function StaggeredTextReveal({ text, className = "", el: Wrapper 
     show: { 
       opacity: 1, 
       y: 0, 
-      transition: { duration: 0.5, ease: "easeOut" } 
+      transition: { duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] } // smoother custom cubic bezier
     },
   };
 
@@ -33,9 +33,9 @@ export default function StaggeredTextReveal({ text, className = "", el: Wrapper 
         variants={containerVariants}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true }}
+        viewport={{ once: false, margin: "-10% 0px -10% 0px" }} // fires every time it enters, with a small margin so it triggers when somewhat inside the screen
         // Using inline-flex and flex-wrap ensures words flow correctly like normal text
-        className="inline-flex font-uber-move flex-wrap" 
+        className="inline-flex font-uber-move flex-wrap justify-center" 
       >
         {words.map((word, index) => (
           // The overflow-hidden span creates the "reveal" boundary

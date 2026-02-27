@@ -9,9 +9,71 @@ import PopularTours from '@/components/PopularTours';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: "All Tours - Roatan ATV Buggy and Golf Cart Adventure Tours",
-  description: "Explore our full selection of ATV buggy, golf cart tours, and excursions across Roatan.",
+  // General & SEO
+  title: "Roatan ATV Tours – Best Excursions & Adventures",
+  description: "Discover top ATV tours in Roatan. Ride the beach and jungle trails with expert guides. Book your unforgettable adventure today!",
+  applicationName: "ATV Roatan",
+  keywords: [
+"adventure tours",
+"roatan adventure tours",
+"adventure touring motorcycle",
+"tours honduras",
+"honduras tours",
+"tours en roatan honduras",
+"roatan honduras tours",
+"tours en honduras",
+"honduras tour guide",
+"roatan excursions and tours",
+"roatan excursions west bay tours",
+"roatan excursions & tours",
+"roatan tours excursions"
+  ],
+  generator: "Next.js",
+  creator: "Roatan ATV Buggy and Golf Cart Adventure Tours",
+  authors: [{ name: "Roatan ATV Buggy and Golf Cart Adventure Tours", url: "" }],
+
+  // Indexing & Canonical URL
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  alternates: {
+    canonical: "/tours",
+  },
+
+  metadataBase: new URL('https://roatanatvbuggytours.com'),
+
+  // Favicon
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+  },
+
+  // Open Graph (for Facebook, Discord, etc.)
+  openGraph: {
+    type: 'website',
+    url: '/tours',
+    title: "ATV Roatan – Jungle Buggy & Island Tours in Honduras",
+    description: 'Roatan shore excursions, ATV buggy tours, family friendly Roatan tours',
+    siteName: 'ATV Roatan',
+    images: [
+      {
+        url: '/assets/Banner.png',
+      },
+    ],
+  },
+
+  // Twitter Card (for X/Twitter)
+  twitter: {
+    card: 'summary_large_image',
+    site: '@ATVRoatan',
+    title: "ATV Roatan – Jungle Buggy & Island Tours in Honduras",
+    description: 'Roatan shore excursions, ATV buggy tours, family friendly Roatan tours',
+    images: ['/assets/Banner.png'],
+  },
 };
+
 
 export default async function AllToursPage() {
   await dbConnect();

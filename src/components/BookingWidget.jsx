@@ -12,7 +12,9 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
   const [totalPrice, setTotalPrice] = useState(0);
   const [loading, setLoading] = useState(false);
   const [dateError, setDateError] = useState(false);
+  const [isAvailabilityChecked, setIsAvailabilityChecked] = useState(false);
   const travelersRef = useRef(null);
+  const datePickerRef = useRef(null);
 
   const ADULT_PRICE = tour?.adultPrice || tour?.base_price || 0;
   const CHILD_PRICE = tour?.childPrice || 0;
@@ -84,20 +86,73 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
     <div className={className}>
       <style>{`
         .bw-datepicker .react-datepicker {
-          font-family: inherit; border: 1px solid #e5e7eb;
-          border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); overflow: hidden;
+          border: none;
+          border-radius: 12px;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+          padding: 16px;
+          font-family: inherit;
+          background: white;
         }
-        .bw-datepicker .react-datepicker__header { background: #00694B; border-bottom: none; padding: 10px 0 6px; }
-        .bw-datepicker .react-datepicker__current-month { color: white; font-weight: 700; font-size: 13px; }
-        .bw-datepicker .react-datepicker__navigation-icon::before { border-color: white; }
-        .bw-datepicker .react-datepicker__day-name { color: rgba(255,255,255,0.8); font-weight: 600; font-size: 11px; }
-        .bw-datepicker .react-datepicker__day { border-radius: 50%; font-size: 12px; width: 1.8rem; line-height: 1.8rem; color: #1a1a1a; }
-        .bw-datepicker .react-datepicker__day:hover { background: #e6f2ed; border-radius: 50%; }
-        .bw-datepicker .react-datepicker__day--selected { background: #00694B !important; color: white !important; font-weight: 700; }
-        .bw-datepicker .react-datepicker__day--today { font-weight: 700; color: #00694B; }
+        .bw-datepicker .react-datepicker__header {
+          background: white;
+          border-bottom: none;
+          padding: 10px 0 6px;
+        }
+        .bw-datepicker .react-datepicker__current-month {
+          color: #1a1a1a;
+          font-weight: 700;
+          font-size: 15px;
+          margin-bottom: 10px;
+        }
+        .bw-datepicker .react-datepicker__navigation-icon::before {
+          border-color: #1a1a1a;
+          border-width: 2px 2px 0 0;
+        }
+        .bw-datepicker .react-datepicker__day-name {
+          color: #666;
+          font-weight: 500;
+          font-size: 12px;
+          width: 2.5rem;
+          line-height: 2.5rem;
+        }
+        .bw-datepicker .react-datepicker__day {
+          border-radius: 4px;
+          font-size: 14px;
+          width: 2.5rem;
+          line-height: 2.5rem;
+          color: #1a1a1a;
+          margin: 0;
+        }
+        .bw-datepicker .react-datepicker__day:hover {
+          background: #f3f4f6;
+          border-radius: 4px;
+        }
+        .bw-datepicker .react-datepicker__day--selected {
+          background: #00694B !important;
+          color: white !important;
+          font-weight: 700;
+          border-radius: 4px;
+        }
+        .bw-datepicker .react-datepicker__day--today { font-weight: 700; }
         .bw-datepicker .react-datepicker__day--disabled { color: #d1d5db; }
         .bw-datepicker .react-datepicker-popper { z-index: 50; }
         .bw-datepicker .react-datepicker__triangle { display: none; }
+        .bw-datepicker .react-datepicker__month-container {
+          padding: 0 8px;
+        }
+        .bw-datepicker .react-datepicker__month-container + .react-datepicker__month-container {
+          border-left: 1px solid #eee;
+        }
+        .bw-datepicker .react-datepicker__children-container {
+          width: 100%;
+          border-top: 1px solid #eee;
+          padding-top: 12px;
+          margin-top: 10px;
+          font-size: 12px;
+          color: #666;
+          text-align: center;
+          clear: both;
+        }
       `}</style>
 
       <div className="border border-gray-200 rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.08)] p-4 bg-white">
@@ -127,7 +182,14 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
               <label className={`text-[10px] font-bold uppercase tracking-wide block mb-0.5 ${dateError ? 'text-red-500' : 'text-gray-400'}`}>Date</label>
               <DatePicker
                 selected={date}
-                onChange={(d) => { setDate(d); setDateError(false); }}
+                onChange={(d) => { 
+                  setDate(d); 
+                  setDateError(false); 
+                  if (!isAvailabilityChecked) {
+                    setTimeout(() => setShowTravelers(true), 50);
+                  }
+                }}
+                ref={datePickerRef}
                 dateFormat="MMM d, yyyy"
                 className={`w-full font-semibold text-sm outline-none cursor-pointer caret-transparent bg-transparent leading-none ${dateError ? 'text-red-600' : 'text-[#1a1a1a]'}`}
                 wrapperClassName="w-full"
@@ -135,6 +197,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
                 onFocus={(e) => e.target.blur()}
                 placeholderText="Select date"
                 popperPlacement="bottom-start"
+                popperClassName="bw-datepicker-popper"
               />
               <ChevronDown size={13} className={`absolute right-2.5 bottom-2.5 pointer-events-none ${dateError ? 'text-red-400' : 'text-gray-400'}`} />
             </div>
@@ -157,106 +220,149 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
 
             {/* Travelers Dropdown &mdash; full width, below the field */}
             {showTravelers && (
-              <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 shadow-lg rounded-xl p-3 z-30 mt-1.5 min-w-[220px]">
-                {[
-                  { key: 'adults', label: 'Adults', sub: `Age ${tour?.adultAgeRange || '12+'}`, price: ADULT_PRICE, min: 1 },
-                  { key: 'children', label: 'Children', sub: `Age ${tour?.childAgeRange || '4-11'}`, price: CHILD_PRICE, min: 0 },
-                  { key: 'infants', label: 'Infants', sub: `Age ${tour?.infantAgeRange || '0-3'}`, price: INFANT_PRICE, min: 0, free: INFANT_PRICE === 0 },
-                ].map(({ key, label, sub, price, min, free }) => (
-                  <div key={key} className="flex items-center justify-between py-1.5 border-b border-gray-100 last:border-0">
-                    <div>
-                      <p className="text-sm font-semibold text-[#1a1a1a] leading-tight">{label}</p>
-                      <p className="text-[11px] text-gray-400">{sub} &middot; {free ? 'Free' : `$${price}`}</p>
+              <div className="absolute top-full -right-[2px] bg-white border border-gray-200 shadow-xl rounded-xl p-5 z-30 mt-1.5 min-w-[340px]">
+                <p className="text-sm text-gray-600 mb-4 pb-3 border-b border-gray-100">Select up to 15 travelers in total.</p>
+                <div className="space-y-4">
+                  {[
+                    { key: 'adults', label: 'Adult', sub: `Age ${tour?.adultAgeRange || '11-90'}`, min: 2, max: 15 },
+                    { key: 'children', label: 'Child', sub: `Age ${tour?.childAgeRange || '4-10'}`, min: 0, max: 15,  },
+                    { key: 'infants', label: 'Infant', sub: `Age ${tour?.infantAgeRange || '0-3'}`, min: 0, max: 15, tag: 'FREE*' },
+                  ].map(({ key, label, sub, min, max, tag }) => (
+                    <div key={key} className="flex items-center justify-between pb-4 border-b border-gray-100 last:border-0 last:pb-0">
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <p className="text-[15px] font-bold text-[#1a1a1a] leading-tight flex items-center gap-1">
+                            {label} <span className="font-normal text-gray-500">({sub})</span>
+                          </p>
+                          {tag && <span className="bg-[#e6f2ed] text-[#00694B] text-[11px] font-bold px-1.5 py-0.5 rounded">{tag}</span>}
+                        </div>
+                        <p className="text-[11px] text-gray-500">Minimum: {min}, Maximum: {max}</p>
+                      </div>
+                      <div className="flex items-center gap-4">
+                        <button
+                          onClick={(e) => { e.stopPropagation(); updateTravelers(key, 'dec'); }}
+                          disabled={travelers[key] <= min}
+                          className={`w-8 h-8 rounded-full border flex items-center justify-center transition-colors ${travelers[key] <= min ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-[#00694B] text-[#00694B] hover:bg-gray-50'}`}
+                        ><Minus size={16} /></button>
+                        <span className="text-[15px] font-medium text-[#1a1a1a] w-4 text-center">{travelers[key]}</span>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); updateTravelers(key, 'inc'); }}
+                          disabled={totalTravelers >= 15 || travelers[key] >= max}
+                          className={`w-8 h-8 rounded-full border flex items-center justify-center transition-colors ${totalTravelers >= 15 || travelers[key] >= max ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-[#00694B] text-[#00694B] hover:bg-gray-50'}`}
+                        ><Plus size={16} /></button>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={(e) => { e.stopPropagation(); updateTravelers(key, 'dec'); }}
-                        disabled={travelers[key] <= min}
-                        className={`w-6 h-6 rounded-full border flex items-center justify-center text-xs transition-colors ${travelers[key] <= min ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-400 text-gray-600 hover:border-gray-800'}`}
-                      ><Minus size={10} /></button>
-                      <span className="text-sm font-bold text-[#1a1a1a] w-4 text-center">{travelers[key]}</span>
-                      <button
-                        onClick={(e) => { e.stopPropagation(); updateTravelers(key, 'inc'); }}
-                        className="w-6 h-6 rounded-full border border-gray-400 text-gray-600 flex items-center justify-center hover:border-gray-800 transition-colors"
-                      ><Plus size={10} /></button>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+                <div className="mt-5 pt-4">
+                  <button
+                    onClick={(e) => { 
+                      e.stopPropagation(); 
+                      setShowTravelers(false);
+                      if (date) {
+                        setIsAvailabilityChecked(true);
+                      } else {
+                        if (datePickerRef.current) datePickerRef.current.setOpen(true);
+                      }
+                    }}
+                    className="w-full bg-[#00694B] text-white py-3 rounded-lg text-[15px] font-bold hover:bg-[#1a6b24] transition-colors shadow-sm"
+                  >
+                    Apply
+                  </button>
+                  <p className="text-center text-[10px] text-gray-500 mt-2">*Maximum discount rates shown may vary by date.</p>
+                </div>
               </div>
             )}
           </div>
         </div>
 
-        {/* Extra Services */}
-        {tour?.extraServices && tour.extraServices.length > 0 && (
-          <div className="border border-gray-200 rounded-lg p-3 mb-3">
-            <label className="text-[10px] font-bold uppercase tracking-wide text-gray-400 block mb-2">Add-ons</label>
-            <div className="space-y-2">
-              {tour.extraServices.map((extra, i) => (
-                <div key={i} className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-semibold text-[#1a1a1a] leading-tight">{extra.name}</p>
-                    <p className="text-[11px] text-gray-400">${extra.price} / person</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button onClick={() => updateExtras(i, -1)} disabled={!selectedExtras[i]} className={`w-6 h-6 rounded-full border flex items-center justify-center transition-colors ${!selectedExtras[i] ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-400 text-gray-600 hover:border-gray-800'}`}><Minus size={10} /></button>
-                    <span className="text-sm font-bold text-[#1a1a1a] w-4 text-center">{selectedExtras[i] || 0}</span>
-                    <button onClick={() => updateExtras(i, 1)} className="w-6 h-6 rounded-full border border-gray-400 text-gray-600 flex items-center justify-center hover:border-gray-800 transition-colors"><Plus size={10} /></button>
-                  </div>
+        
+        {isAvailabilityChecked ? (
+          <>
+            {/* Extra Services */}
+            {tour?.extraServices && tour.extraServices.length > 0 && (
+              <div className="border border-gray-200 rounded-lg p-3 mb-3">
+                <label className="text-[10px] font-bold uppercase tracking-wide text-gray-400 block mb-2">Add-ons</label>
+                <div className="space-y-2">
+                  {tour.extraServices.map((extra, i) => (
+                    <div key={i} className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-semibold text-[#1a1a1a] leading-tight">{extra.name}</p>
+                        <p className="text-[11px] text-gray-400">${extra.price} / person</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button onClick={() => updateExtras(i, -1)} disabled={!selectedExtras[i]} className={`w-6 h-6 rounded-full border flex items-center justify-center transition-colors ${!selectedExtras[i] ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-gray-400 text-gray-600 hover:border-gray-800'}`}><Minus size={10} /></button>
+                        <span className="text-sm font-bold text-[#1a1a1a] w-4 text-center">{selectedExtras[i] || 0}</span>
+                        <button onClick={() => updateExtras(i, 1)} className="w-6 h-6 rounded-full border border-gray-400 text-gray-600 flex items-center justify-center hover:border-gray-800 transition-colors"><Plus size={10} /></button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+            )}
+
+            {/* Total */}
+            <div className="flex justify-between items-center mb-3 px-0.5">
+              <span className="font-bold text-[#1a1a1a] text-sm">Total</span>
+              <span className="text-xl font-bold text-[#1a1a1a]">${totalPrice}</span>
             </div>
+
+            {/* Action Buttons */}
+            <div className="space-y-3">
+              <div className="relative mt-2">
+                <span className="absolute -top-3 right-0 bg-white text-[#00694B] text-[10px] font-bold px-2 py-0.5 rounded-full border border-[#00694B] z-10 shadow-sm">
+                  Save 2%!
+                </span>
+                <button
+                  onClick={() => handleBooking('pay_now')}
+                  disabled={loading}
+                  className="w-full bg-[#00694B] hover:bg-[#1a6b24] text-white font-bold py-2.5 rounded-lg transition-colors text-[15px] disabled:opacity-60 flex flex-col items-center leading-tight shadow-sm"
+                >
+                  <span>Book Now</span>
+                </button>
+              </div>
+              <button
+                onClick={() => handleBooking('reserve_later')}
+                disabled={loading}
+                className="w-full bg-white hover:bg-gray-50 text-[#1a1a1a] border border-[#1a1a1a] font-bold py-2 rounded-lg transition-colors text-[15px] disabled:opacity-60 flex items-center justify-center shadow-sm"
+              >
+                {loading ? <Loader2 size={16} className="animate-spin" /> : 'Reserve Now & Pay Later'}
+              </button>
+            </div>
+          </>
+        ) : (
+          <div className="mb-3">
+            <button
+              onClick={() => {
+                if (!date) {
+                  if (datePickerRef.current) datePickerRef.current.setOpen(true);
+                } else {
+                  setShowTravelers(true);
+                }
+              }}
+              className="w-full bg-[#00694B] hover:bg-[#1a6b24] text-white font-bold py-3.5 rounded-lg transition-colors text-[15px] shadow-sm"
+            >
+              Check Availability
+            </button>
           </div>
         )}
 
-        {/* Total */}
-        <div className="flex justify-between items-center mb-3 px-0.5">
-          <span className="font-bold text-[#1a1a1a] text-sm">Total</span>
-          <span className="text-xl font-bold text-[#1a1a1a]">${totalPrice}</span>
-        </div>
-
-        {/* Action Buttons */}
-        <div className="space-y-2">
-         
-
-          <div className="relative">
-            <span className="absolute -top-2 right-2 bg-red-100 text-red-600 text-[9px] font-bold px-1.5 py-0.5 rounded-full border border-red-200">
-              Save 2%!
-            </span>
-            <button
-              onClick={() => handleBooking('pay_now')}
-              disabled={loading}
-              className="w-full bg-[#00694B] hover:bg-[#1a6b24] text-white font-bold py-2.5 rounded-lg transition-colors text-sm disabled:opacity-60 flex flex-col items-center leading-tight"
-            >
-              <span>Book Now</span>
-              <span className="text-[10px] font-normal opacity-80">Pay now & save 2%</span>
-            </button>
-          </div>
-           <button
-            onClick={() => handleBooking('reserve_later')}
-            disabled={loading}
-            className="w-full bg-white hover:bg-gray-50 text-[#1a1a1a] border border-[#1a1a1a] font-bold py-2.5 rounded-lg transition-colors text-sm disabled:opacity-60"
-          >
-            {loading ? <Loader2 size={16} className="animate-spin mx-auto" /> : 'Reserve Now & Pay Later'}
-          </button>
-        </div>
-
-        {/* Trust Signals */}
-        <div className="space-y-1.5 pt-3 mt-3 border-t border-gray-100">
-          <div className="flex items-start gap-2">
-            <div className="mt-0.5 bg-[#dff7eb] rounded-full p-0.5 shrink-0">
-              <Check size={10} className="text-[#00694B]" strokeWidth={3} />
+        {/* Form Trust Signals Area */}
+        <div className="bg-[#f0f9f5] p-4 rounded-xl space-y-3 mt-5 mb-1">
+          <div className="flex items-start gap-2.5">
+            <div className="bg-[#00694B] rounded-full p-0.5 mt-0.5 shrink-0">
+              <Check size={10} className="text-white" strokeWidth={4} />
             </div>
-            <p className="text-xs text-gray-500">
-              <span className="font-semibold text-gray-700">Free cancellation</span> &middot; {tour?.booking_options?.policy_text || 'Up to 24 hours before'}
+            <p className="text-[#1a1a1a] text-[13px] leading-snug">
+              <span className="font-bold">Free cancellation</span> up to 24 hours before the experience starts (local time)
             </p>
           </div>
-          <div className="flex items-start gap-2">
-            <div className="mt-0.5 bg-[#dff7eb] rounded-full p-0.5 shrink-0">
-              <Check size={10} className="text-[#00694B]" strokeWidth={3} />
+          <div className="flex items-start gap-2.5">
+            <div className="bg-[#00694B] rounded-full p-0.5 mt-0.5 shrink-0">
+              <Check size={10} className="text-white" strokeWidth={4} />
             </div>
-            <p className="text-xs text-gray-500">
-              <span className="font-semibold text-gray-700">Reserve now, pay later</span> &mdash; stay flexible
+            <p className="text-[#1a1a1a] text-[13px] leading-snug">
+              <span className="font-bold">Reserve Now and Pay Later</span> &mdash; Secure your spot while staying flexible
             </p>
           </div>
         </div>
@@ -270,4 +376,3 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
 };
 
 export default BookingWidget;
-
