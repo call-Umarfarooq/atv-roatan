@@ -27,7 +27,7 @@ export async function POST(request) {
     }
 
     await dbConnect();
-    const { tourId, travelers, extraServices } = await request.json();
+    const { tourId, travelers, extraServices, paymentType } = await request.json();
 
     // 1. Fetch Tour from DB to get REAL prices
     const tour = await Tour.findById(tourId);
@@ -60,7 +60,9 @@ export async function POST(request) {
     const taxAmount = totalAmount * taxRate;
     totalAmount += taxAmount;
     // Apply 2% Discount for Pay Now
-    totalAmount = totalAmount * 0.98;
+    if (paymentType === 'pay_now') {
+        totalAmount = totalAmount * 0.98;
+    }
 
     totalAmount = Number(totalAmount.toFixed(2)); // format for paypal
 
@@ -68,9 +70,12 @@ export async function POST(request) {
     const paypalClient = client();
     const paypalRequest = new paypal.orders.OrdersCreateRequest();
     
+    // Set Intent to AUTHORIZE if reserving for later
+    const intent = paymentType === 'reserve_later' ? 'AUTHORIZE' : 'CAPTURE';
+
     paypalRequest.prefer("return=representation");
     paypalRequest.requestBody({
-      intent: 'CAPTURE',
+      intent: intent,
       purchase_units: [
         {
           reference_id: tourId,

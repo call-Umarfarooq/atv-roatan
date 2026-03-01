@@ -67,15 +67,8 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
     setLoading(true);
     setErrorMessage(null);
 
-    // Handle Reserve Now (If they selected standard reserve without PixelPay)
-    if (paymentType === 'reserve_later' && paymentMethod !== 'pixelpay') {
-         onPaymentComplete({ 
-            method: 'reserve_now', 
-            status: 'unpaid',
-            type: 'reserve_now'
-         });
-         return;
-    }
+    // If "Reserve Later" but the user clicks the Reserve button while focused on a gateway that isn't connected
+    // (We now process them below instead of blocking)
 
     if (paymentMethod === 'paypal') {
         // Handled by PayPalButtons
@@ -105,7 +98,8 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
                 // Simulate redirect and return
                 setTimeout(() => {
                      onPaymentComplete({ 
-                        method: 'pixelpay', 
+                        method: 'pixelpay',
+                        gateway: 'pixelpay', 
                         id: data.orderID,
                         status: paymentType === 'reserve_later' ? 'authorized' : 'paid',
                         type: paymentType 
@@ -146,20 +140,40 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
     });
 
     if (error) {
+      // If it's the specific "awaiting capture" error, we can technically treat it as a successful authorization for Reserve Later
+      if (paymentType === 'reserve_later' && error.type === 'invalid_request_error' && error.message.includes('awaiting capture')) {
+          console.log('Payment Authorized (Awaiting Capture):', error);
+          // We need the payment intent ID, which is on the paymentIntent object if it exists, or we might need to extract it
+          // confirmPayment usually returns the paymentIntent even if there's an error if it reached the server
+          const intentId = paymentIntent?.id || error.payment_intent?.id;
+          
+          if (intentId) {
+             onPaymentComplete({ 
+                method: 'card', 
+                gateway: 'stripe',
+                id: intentId, 
+                status: 'authorized',
+                type: paymentType 
+            });
+            return; // Exit successful
+          }
+      }
+      
       console.log('[error]', error);
       setErrorMessage(error.message);
       setLoading(false);
-    } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-      console.log('Payment Succeeded:', paymentIntent);
+    } else if (paymentIntent && (paymentIntent.status === 'succeeded' || paymentIntent.status === 'requires_capture')) {
+      console.log('Payment Succeeded/Authorized:', paymentIntent);
       onPaymentComplete({ 
           method: 'card', 
+          gateway: 'stripe',
           id: paymentIntent.id, 
-          status: 'paid',
+          status: paymentIntent.status === 'requires_capture' ? 'authorized' : 'paid',
           type: paymentType 
       });
     } else {
        setLoading(false);
-       setErrorMessage(`Payment status: ${paymentIntent.status}`);
+       setErrorMessage(`Payment status: ${paymentIntent?.status || 'Unknown'}`);
     }
   };
 
@@ -208,13 +222,12 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
         
         <div className="border border-gray-200 rounded-lg overflow-hidden">
             
-            {/* Credit Card Option - Hide if Reserve Later */}
-            {paymentType === 'pay_now' && (
-                <div className={`border-b border-gray-200 transition-colors ${paymentMethod === 'card' ? 'bg-gray-50' : 'bg-white'}`}>
-                    <div 
-                        className="p-4 flex items-center justify-between cursor-pointer"
-                        onClick={() => setPaymentMethod('card')}
-                    >
+            {/* Credit Card Option - Always Show */}
+            <div className={`border-b border-gray-200 transition-colors ${paymentMethod === 'card' ? 'bg-gray-50' : 'bg-white'}`}>
+                <div 
+                    className="p-4 flex items-center justify-between cursor-pointer"
+                    onClick={() => setPaymentMethod('card')}
+                >
                         <div className="flex items-center gap-3">
                              <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'card' ? 'border-[#00694B]' : 'border-gray-300 bg-white'}`}>
                                  {paymentMethod === 'card' && <div className="w-2 h-2 bg-[#00694B] rounded-full"></div>}
@@ -238,15 +251,13 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
                         </div>
                     )}
                 </div>
-            )}
 
-            {/* PayPal Option - Hide if Reserve Later */}
-            {paymentType === 'pay_now' && (
-                <div className={`border-b border-gray-200 transition-colors ${paymentMethod === 'paypal' ? 'bg-gray-50' : 'bg-white'}`}>
-                     <div 
-                        className="p-4 flex items-center justify-between cursor-pointer"
-                        onClick={() => setPaymentMethod('paypal')}
-                    >
+            {/* PayPal Option - Always Show */}
+            <div className={`border-b border-gray-200 transition-colors ${paymentMethod === 'paypal' ? 'bg-gray-50' : 'bg-white'}`}>
+                 <div 
+                    className="p-4 flex items-center justify-between cursor-pointer"
+                    onClick={() => setPaymentMethod('paypal')}
+                >
                         <div className="flex items-center gap-3">
                              <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'paypal' ? 'border-[#00694B]' : 'border-gray-300 bg-white'}`}>
                                      {paymentMethod === 'paypal' && <div className="w-2 h-2 bg-[#00694B] rounded-full"></div>}
@@ -269,6 +280,7 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
                                 )}
                                 <PayPalScriptProvider options={{ "client-id": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "test", currency: "USD" }}>
                                     <PayPalButtons 
+                                        fundingSource={paymentType === 'reserve_later' ? "paylater" : "paypal"}
                                         style={{ layout: "vertical", shape: "rect", color: "gold" }}
                                         disabled={loading || !bookingData}
                                         createOrder={async () => {
@@ -280,7 +292,8 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
                                                     body: JSON.stringify({
                                                         tourId: bookingData.tour._id,
                                                         travelers: bookingData.travelers,
-                                                        extraServices: bookingData.selectedExtras
+                                                        extraServices: bookingData.selectedExtras,
+                                                        paymentType: paymentType // Add paymentType so backend uses AUTHORIZE
                                                     })
                                                 });
                                                 const data = await response.json();
@@ -302,15 +315,16 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
                                                 const response = await fetch('/api/paypal/capture-order', {
                                                     method: 'POST',
                                                     headers: { 'Content-Type': 'application/json' },
-                                                    body: JSON.stringify({ orderID: data.orderID })
+                                                    body: JSON.stringify({ orderID: data.orderID, paymentType: paymentType })
                                                 });
                                                 const captureData = await response.json();
                                                 
                                                 if (captureData.success) {
                                                     onPaymentComplete({ 
                                                         method: 'paypal', 
+                                                        gateway: 'paypal',
                                                         id: captureData.captureId,
-                                                        status: 'paid', // Or depending on captureData.status
+                                                        status: paymentType === 'reserve_later' ? 'authorized' : 'paid',
                                                         type: paymentType 
                                                     });
                                                 } else {
@@ -333,25 +347,24 @@ export default function PaymentSection({ bookingData, onPaymentComplete }) {
                         </div>
                     )}
                 </div>
-            )}
 
             {/* PixelPay Option - Always Visible */}
-            <div className={`transition-colors ${paymentMethod === 'pixelpay' || (paymentType === 'reserve_later' && paymentMethod !== 'pixelpay') ? 'bg-gray-50' : 'bg-white'}`}>
+            <div className={`transition-colors ${paymentMethod === 'pixelpay' ? 'bg-gray-50' : 'bg-white'}`}>
                  <div 
                     className="p-4 flex items-center justify-between cursor-pointer"
                     onClick={() => setPaymentMethod('pixelpay')}
                 >
                     <div className="flex items-center gap-3">
-                         <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'pixelpay' || paymentType === 'reserve_later' ? 'border-[#00694B]' : 'border-gray-300 bg-white'}`}>
-                                 {(paymentMethod === 'pixelpay' || paymentType === 'reserve_later') && <div className="w-2 h-2 bg-[#00694B] rounded-full"></div>}
+                         <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentMethod === 'pixelpay' ? 'border-[#00694B]' : 'border-gray-300 bg-white'}`}>
+                                 {paymentMethod === 'pixelpay' && <div className="w-2 h-2 bg-[#00694B] rounded-full"></div>}
                         </div>
                         <div className="flex items-center gap-2">
-                            <span className="font-bold text-[#1a1a1a]">PixelPay {paymentType === 'reserve_later' && '(Hold Card on File)'}</span>
+                            <span className="font-bold text-[#1a1a1a]">PixelPay</span>
                             <PixelPayIcon />
                         </div>
                     </div>
                 </div>
-                 {(paymentMethod === 'pixelpay' || paymentType === 'reserve_later') && (
+                 {paymentMethod === 'pixelpay' && (
                     <div className="p-4 bg-white text-sm text-gray-500 animate-fadeIn border-t border-gray-100">
                         {paymentType === 'reserve_later' 
                             ? 'We will securely authorize your card via PixelPay to hold your reservation, but you will not be charged until the day of your tour.'

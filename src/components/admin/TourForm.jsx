@@ -52,11 +52,11 @@ export default function TourForm({ initialData = null, isEdit = false }) {
         policy_text: 'up to 24 hours before the experience starts (local time)'
     }, 
     additional_info: [
-      'â›‘ï¸ Port Round Trip Transport Included',
-      'âœ… Free Cancellation & Full Refund',
-      'ðŸšº Kids & Family Friendly',
-      'â™€ï¸ Women-Led, Family Owned',
-      'â™»ï¸ Sustainable (GSTC Registered)'
+      '⛴️ Port Round Trip Transport Included',
+      '✅ Free Cancellation & Full Refund',
+      '🧒 Kids & Family Friendly',
+      '♀️ Women-Led, Family Owned',
+      '♻️ Sustainable (GSTC Registered)'
     ],
     marketing_badges: {
         reviews_text: '106 Reviews',
@@ -943,5 +943,4 @@ export default function TourForm({ initialData = null, isEdit = false }) {
     </form>
   );
 }
-
 

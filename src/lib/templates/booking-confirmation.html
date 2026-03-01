@@ -56,8 +56,12 @@
                           </tr>
                           {{extrasHtml}}
                           <tr>
-                            <td style="padding: 10px 0 4px 0; font-size: 14px; color: #1a5c39; border-top: 1px dashed #a7d9be;"><strong>Total Amount Paid</strong></td>
+                            <td style="padding: 10px 0 4px 0; font-size: 14px; color: #1a5c39; border-top: 1px dashed #a7d9be;"><strong>Total Amount</strong></td>
                             <td align="right" style="padding: 10px 0 4px 0; font-size: 15px; color: #00694B; font-weight: bold; border-top: 1px dashed #a7d9be;">${{totalPrice}}</td>
+                          </tr>
+                          <tr>
+                            <td style="padding: 4px 0; font-size: 13px; color: #1a5c39;">Payment Option</td>
+                            <td align="right" style="padding: 4px 0; font-size: 13px; color: #1a5c39;"><strong>{{paymentOption}}</strong> via {{paymentGateway}}</td>
                           </tr>
                         </table>
                       </td>

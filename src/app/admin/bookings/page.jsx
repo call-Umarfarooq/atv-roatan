@@ -115,7 +115,7 @@ export default function AdminBookingsPage() {
                                         </td>
                                         <td className="p-4 align-top">
                                             <div className="font-bold text-[#1a1a1a]">${booking.totalPrice.toFixed(2)}</div>
-                                            <div className="text-xs text-gray-500 capitalize">{booking.paymentType.replace('_', ' ')}</div>
+                                            <div className="text-xs text-gray-500 capitalize">{booking.paymentType === 'pay_now' ? 'Pay Now' : 'Reserve Now'} via {(booking.paymentGateway || 'unknown').charAt(0).toUpperCase() + (booking.paymentGateway || 'unknown').slice(1)}</div>
                                         </td>
                                         <td className="p-4 align-top">
                                             <div className={`px-2 py-1 rounded-full text-xs font-bold inline-block whitespace-nowrap uppercase tracking-wider ${

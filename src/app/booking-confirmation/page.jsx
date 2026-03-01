@@ -107,7 +107,7 @@ function ConfirmationContent() {
         );
     }
 
-    const { tourTitle, customer, travelers, date, totalPrice, _id, paymentStatus, paymentType, pickupDetails, selectedExtras, tour } = booking;
+    const { tourTitle, customer, travelers, date, totalPrice, _id, paymentStatus, paymentType, paymentGateway, pickupDetails, selectedExtras, tour } = booking;
     const formattedDate = new Date(date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
     // Format arrival date nicely if present
@@ -142,7 +142,11 @@ function ConfirmationContent() {
                         </div>
                         <div className="text-left md:text-right">
                             <div className="text-sm text-gray-500 mb-1">Payment Status</div>
-                            <div className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-green-100 text-green-800">
+                            <div className={`inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
+                                  paymentStatus === 'paid' ? 'bg-green-100 text-green-800' :
+                                  paymentStatus === 'authorized' ? 'bg-blue-100 text-blue-800' :
+                                  'bg-yellow-100 text-yellow-800'
+                              }`}>
                                 {paymentStatus}
                             </div>
                         </div>
@@ -221,9 +225,10 @@ function ConfirmationContent() {
                         <div className="flex gap-3">
                             <MapPin className="text-[#00694B] shrink-0" />
                             <div>
-                                <div className="text-sm text-gray-500">Total Price</div>
+                                <div className="text-sm text-gray-500">Total Price / Payment Option</div>
                                 <div className="font-bold text-[#1a1a1a]">${totalPrice.toFixed(2)}</div>
-                                <div className="text-xs text-gray-500">({paymentType === 'pay_now' ? 'Paid in full' : 'To be paid flat/on arrival'})</div>
+                                <div className="text-xs text-gray-500">({paymentType === 'pay_now' ? 'Paid in full' : 'Reserved - To be paid flat/on arrival'})</div>
+                                <div className="text-xs text-gray-500 mt-1">Processed via <strong>{(paymentGateway || 'unknown').charAt(0).toUpperCase() + (paymentGateway || 'unknown').slice(1)}</strong></div>
                             </div>
                         </div>
 

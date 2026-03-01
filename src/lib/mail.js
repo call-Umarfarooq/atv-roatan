@@ -48,7 +48,7 @@ export async function sendBookingConfirmationEmail(booking, tour) {
               extrasHtml += `
                 <tr>
                   <td style="padding: 4px 0; font-size: 14px; color: #1a5c39;">
-                    âž• ${extra.name} (${count}x)
+                    ➕ ${extra.name} (${count}x)
                   </td>
                   <td align="right" style="padding: 4px 0; font-size: 14px; color: #1a5c39;">
                     $${cost.toFixed(2)}
@@ -81,7 +81,9 @@ export async function sendBookingConfirmationEmail(booking, tour) {
       '{{totalPrice}}': (booking.totalPrice || 0).toFixed(2),
       '{{arrivalInfo}}': arrivalInfo,
       '{{email}}': booking.customer.email,
-      '{{phone}}': booking.customer.phone
+      '{{phone}}': booking.customer.phone,
+      '{{paymentOption}}': booking.paymentType === 'pay_now' ? 'Pay Now' : 'Reserve Now',
+      '{{paymentGateway}}': (booking.paymentGateway || 'unknown').charAt(0).toUpperCase() + (booking.paymentGateway || 'unknown').slice(1)
     };
 
     Object.entries(replacements).forEach(([key, value]) => {
@@ -122,7 +124,7 @@ export async function sendBookingConfirmationEmail(booking, tour) {
             <p><strong>Date:</strong> ${bookingDate}</p>
             <p><strong>Travelers:</strong> ${booking.travelers.adults || 0} Adults, ${booking.travelers.children || 0} Children</p>
             <p><strong>Total Price:</strong> $${(booking.totalPrice || 0).toFixed(2)}</p>
-            <p><strong>Payment Status:</strong> ${booking.paymentStatus.toUpperCase()}</p>
+            <p><strong>Payment Status:</strong> ${booking.paymentStatus.toUpperCase()} (${booking.paymentType === 'pay_now' ? 'Pay Now' : 'Reserve Now'} via ${(booking.paymentGateway || 'unknown').charAt(0).toUpperCase() + (booking.paymentGateway || 'unknown').slice(1)})</p>
         </div>
       </div>
     `;

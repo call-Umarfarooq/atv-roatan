@@ -88,7 +88,8 @@ export default function CheckoutPage() {
         body: JSON.stringify({
             tourId: bookingData.tour._id,
             travelers: bookingData.travelers,
-            extraServices: bookingData.selectedExtras
+            extraServices: bookingData.selectedExtras,
+            paymentType: bookingData.paymentOption
         }),
     })
     .then((res) => res.json())
@@ -224,7 +225,7 @@ export default function CheckoutPage() {
                     {/* Extra Services - Always Visible */}
                     {tour.extraServices && tour.extraServices.length > 0 && (
                         <div className="mt-6 border border-dashed border-[#00694B]/40 rounded-xl p-4 bg-[#00694B]/5">
-                            <h4 className="font-bold text-sm text-[#00694B] mb-1">ðŸŽ¯ Enhance Your Experience</h4>
+                            <h4 className="font-bold text-sm text-[#00694B] mb-1">🎯 Enhance Your Experience</h4>
                             <p className="text-xs text-gray-500 mb-4">Add optional services to make your tour even more memorable!</p>
                             <div className="space-y-3">
                                 {tour.extraServices.map((service, index) => {
@@ -348,8 +349,9 @@ export default function CheckoutPage() {
                                                         selectedExtras: bookingData.selectedExtras,
                                                         customer: contactResult,
                                                         paymentIntentId: result.id,
-                                                        paymentStatus: result.status === 'paid' ? 'paid' : 'unpaid',
+                                                        paymentStatus: result.status,
                                                         paymentType: result.type,
+                                                        paymentGateway: result.gateway,
                                                         pickupDetails: activityResult,
                                                         totalPrice: finalAmountToPay // Send the calculated price
                                                     })

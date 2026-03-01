@@ -13,7 +13,7 @@ export async function POST(request) {
     }
 
     await dbConnect();
-    const { tourId, travelers, extraServices } = await request.json();
+    const { tourId, travelers, extraServices, paymentType } = await request.json();
 
     // 1. Fetch Tour from DB to get REAL prices
     const tour = await Tour.findById(tourId);
@@ -47,18 +47,28 @@ export async function POST(request) {
     totalAmount += taxAmount;
 
     // Apply 2% Discount for Pay Now
-    totalAmount = totalAmount * 0.98;
+    if (paymentType === 'pay_now') {
+        totalAmount = totalAmount * 0.98;
+    }
 
     // 3. Create PaymentIntent
-    const paymentIntent = await stripe.paymentIntents.create({
+    const intentOptions = {
       amount: Math.round(totalAmount * 100), // Convert to cents
       currency: 'usd',
       payment_method_types: ['card', 'link'],
       metadata: {
         tourId: tourId,
-        tourTitle: tour.title
+        tourTitle: tour.title,
+        paymentType: paymentType || 'pay_now'
       }
-    });
+    };
+
+    // If "Reserve Now", authorize the card but DO NOT capture funds
+    if (paymentType === 'reserve_later') {
+        intentOptions.capture_method = 'manual';
+    }
+
+    const paymentIntent = await stripe.paymentIntents.create(intentOptions);
 
     return NextResponse.json({ clientSecret: paymentIntent.client_secret, totalAmount });
 

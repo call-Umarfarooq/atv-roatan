@@ -90,21 +90,13 @@ const TourCard = ({
 
 
       </div>
-
-
     
       {/* Content Container */}
       <div className="p-3 flex flex-col grow">
-        
-       
-
         {/* Title */}
         <h3 className="text-[#1a1a1a] font-bold text-xl leading-tight mb-2 group-hover:underline line-clamp-2">
           {title}
         </h3>
-
-      
- 
         {/* Rating */}
         <div className="flex items-center gap-1 mb-3">
            <div className="flex gap-0.5">
@@ -113,13 +105,9 @@ const TourCard = ({
                ))}
            </div>
            <span className="text-gray-500 text-sm ml-2">( {reviews} Reviews )</span>
-        </div>
-
-      
-
-       
+        </div> 
          {/* Best Price Guarantee */}
-         <div className="bg-gradient-to-r from-[#115e3b] to-[#468262] flex justify-center items-center gap-2 sm:gap-2.5 text-white text-[10px] sm:text-xs font-bold px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-full w-fit max-w-full shadow-md hover:shadow-lg transition-shadow border border-[#468262]/30 leading-tight mb-1 relative overflow-hidden group">
+         <div className="bg-gradient-to-r from-[#115e3b] to-[#468262] flex justify-center items-center gap-2 sm:gap-2.5 text-white text-[10px] sm:text-xs font-bold px-2.5 sm:px-2 py-1.5 sm:py-1 rounded-lg sm:rounded-full w-fit max-w-full shadow-md hover:shadow-lg transition-shadow border border-[#468262]/30 leading-tight mb-1 relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/10 pointer-events-none rounded-lg sm:rounded-full" />
             
             <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-full w-7 h-7 flex items-center justify-center shrink-0 border-[1.5px] border-white/90 shadow-sm relative z-10">

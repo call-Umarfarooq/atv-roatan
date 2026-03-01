@@ -255,7 +255,7 @@ const Header = () => {
                           activities.map((activity) => (
                             <a
                               key={activity._id}
-                              href={`/#choose-your-adventure`}
+                              href={`/activities/${activity.slug}`}
                               className="flex flex-col gap-2 group/item"
                             >
                               <div className="relative w-full aspect-[4/3] rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">

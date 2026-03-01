@@ -56,13 +56,18 @@ const BookingSchema = new mongoose.Schema({
   },
   paymentType: {
       type: String,
-      enum: ['pay_now', 'reserve_now'],
+      enum: ['pay_now', 'reserve_now', 'reserve_later'],
       default: 'pay_now'
   },
   paymentStatus: {
       type: String,
       enum: ['unpaid', 'paid', 'deposit_paid', 'authorized'],
       default: 'unpaid'
+  },
+  paymentGateway: {
+      type: String,
+      enum: ['stripe', 'paypal', 'pixelpay', 'unknown'],
+      default: 'unknown'
   },
   externalPaymentId: String,
   selectedExtras: {
