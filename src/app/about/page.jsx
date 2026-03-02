@@ -29,8 +29,8 @@ const AboutPage = () => {
                 About Us
              </span>
           </div>
-          <h1 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4 md:mb-6 drop-shadow-lg leading-tight">
-            Who <span className="text-[#00694B] italic font-uber-move px-2 md:px-3 rounded-lg ">We</span> Are
+          <h1 className="text-white tracking-tight mb-4 md:mb-6 drop-shadow-lg leading-tight">
+            Who We Are
           </h1>
           <p className="text-gray-200 max-w-2xl mx-auto text-sm sm:text-base md:text-lg">
             Dedicated to providing unforgettable adventures and showing the true beauty of Roatan through our guided tours.

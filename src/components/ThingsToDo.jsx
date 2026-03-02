@@ -57,7 +57,7 @@ const ThingsToDo = ({ activities }) => {
   };
 
   return (
-    <section className="py-10 md:py-20 bg-white overflow-hidden">
+    <section className=" bg-white overflow-hidden">
 
       {/* Header */}
       <div className="max-w-7xl mx-auto px-4 mb-6 md:mb-12 text-center">

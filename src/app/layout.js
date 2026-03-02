@@ -82,7 +82,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${uberMove.variable} font-sans antialiased`}
+        className={`antialiased`}
       >
         <Header />
         {children}

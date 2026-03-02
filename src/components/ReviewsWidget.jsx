@@ -17,7 +17,7 @@ const ReviewsWidget = () => {
   }, []);
 
   return (
-    <section className="w-full py-10 md:py-16 px-4">
+    <section className="w-full p-10  px-4">
 
       {/* Heading */}
       <div className="max-w-4xl mx-auto text-center mb-6 md:mb-8">

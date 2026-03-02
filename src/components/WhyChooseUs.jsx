@@ -41,11 +41,11 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <section className="py-10 md:py-16 bg-white">
+    <section className="py-10  bg-white">
       <div className="max-w-7xl mx-auto px-4">
 
         {/* Heading */}
-        <div className="text-center mb-10 md:mb-16">
+        <div className="text-center pb-10 ">
           <StaggeredTextReveal
             el="h2"
             className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-3"
@@ -55,13 +55,13 @@ const WhyChooseUs = () => {
         </div>
 
         {/* Features — 2×2 on mobile, 4-col on lg */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8 mb-10 md:mb-20">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8 mb-10 ">
           {features.map((feature, index) => (
             <div key={index} className="flex flex-col items-center text-center group cursor-pointer">
               <div className={`w-14 h-14 sm:w-20 sm:h-20 rounded-full ${feature.bg} flex items-center justify-center mb-3 sm:mb-6 transition-transform group-hover:scale-110 duration-300 shadow-sm`}>
                 {feature.icon}
               </div>
-              <h3 className="text-sm sm:text-xl font-bold text-[#1a1a1a] mb-1 sm:mb-3 leading-snug">{feature.title}</h3>
+              <h3 className="text-sm sm:text-lg font-semibold text-[#1a1a1a] mb-1 sm:mb-3 leading-snug">{feature.title}</h3>
               <p className="text-gray-500 text-xs sm:text-sm leading-relaxed hidden sm:block">{feature.description}</p>
             </div>
           ))}
@@ -72,7 +72,7 @@ const WhyChooseUs = () => {
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
 
             {/* Table Header */}
-            <div className="bg-[#00694B] px-4 py-4 md:p-6 text-center">
+            <div className="bg-[#00694B] px-4 py-4 md:p-4 text-center">
               <h3 className="text-base sm:text-xl md:text-2xl font-bold text-white leading-snug">
                 Why Book Direct with the Fleet Owners?
               </h3>
@@ -83,16 +83,16 @@ const WhyChooseUs = () => {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="bg-gray-50 border-b border-gray-200">
-                    <th className="p-4 font-bold text-gray-700 w-1/3">Feature</th>
-                    <th className="p-4 font-bold text-[#00694B] w-1/3 bg-[#00694B]/5">ATV Roatan (Direct)</th>
-                    <th className="p-4 font-bold text-gray-500 w-1/3">OTAs (Viator / Expedia)</th>
+                    <th className="p-4 font-semibold text-gray-700 w-1/3">Feature</th>
+                    <th className="p-4 font-semibold text-[#00694B] w-1/3 bg-[#00694B]/5">ATV Roatan (Direct)</th>
+                    <th className="p-4 font-semibold text-gray-500 w-1/3">OTAs (Viator / Expedia)</th>
                   </tr>
                 </thead>
                 <tbody>
                   {comparisonData.map((row, index) => (
                     <tr key={index} className="border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors">
                       <td className="p-4 font-medium text-gray-700">{row.feature}</td>
-                      <td className="p-4 font-bold text-[#00694B] bg-[#00694B]/5">
+                      <td className="p-4 font-medium text-[#00694B] bg-[#00694B]/5">
                         <span className="flex items-center gap-2">
                           <Check size={15} strokeWidth={3} />
                           {row.direct}

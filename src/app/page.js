@@ -121,7 +121,7 @@ console.log(tours);
             {/* Main Title */}
             <StaggeredTextReveal
               el="h1"
-              className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-[60px] leading-[1.1] font-uber-move font-bold tracking-tight mb-6 md:mb-6 drop-shadow-lg"
+              className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-[60px] leading-[1.1] lg:leading-[72px] font-[500] tracking-[0.2px] mb-6 lg:mb-0 drop-shadow-lg"
               text="Roatan Shore Excursions"
             />
             

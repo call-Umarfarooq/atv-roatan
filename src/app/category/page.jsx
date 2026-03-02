@@ -36,15 +36,15 @@ export default function CategoryListPage() {
     <main className="bg-gray-50 min-h-screen pt-5  pb-12 md:pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8">
         {/* Breadcrumbs */}
-        <nav className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-500 mb-6 md:mb-8 overflow-x-auto whitespace-nowrap pb-2 sm:pb-0 scrollbar-hide">
+        <nav className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-500 mb-6 overflow-x-auto whitespace-nowrap pb-2 sm:pb-0 scrollbar-hide">
             <Link href="/" className="hover:text-[#00694B]">Home</Link>
             <ChevronRight size={14} className="flex-shrink-0" />
             <span className="text-[#1a1a1a] font-medium">Categories</span>
         </nav>
 
         {/* Header */}
-        <div className="mb-8 md:mb-12">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-3 md:mb-4">Explore Roatan by Category</h1>
+        <div className="mb-8 ">
+            <h1 className="font-bold text-[#1a1a1a] mb-3 md:mb-4" style={{ fontSize: '32px', lineHeight: '1.2', letterSpacing: '0.2px', fontWeight: 500 }}>Explore Roatan by Category</h1>
             <p className="text-gray-600 text-base sm:text-lg max-w-2xl">
                 Browse our curated collections of adventures. From thrilling ATV rides to relaxing beach excursions, find the perfect experience for your trip.
             </p>

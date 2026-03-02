@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React, { useState, useEffect } from 'react';
 import { 
   Star, 
@@ -38,6 +38,17 @@ export default function TourDetailsClient({ initialTour }) {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [selectedPickup, setSelectedPickup] = useState(null);
+
+  const [showMoreGallery, setShowMoreGallery] = useState(false);
+  const [showAllIncluded, setShowAllIncluded] = useState(false);
+  const [showAllAdditionalInfo, setShowAllAdditionalInfo] = useState(false);
+  const [expandedStops, setExpandedStops] = useState(new Set());
+
+  const toggleStop = (i) => setExpandedStops(prev => {
+    const next = new Set(prev);
+    next.has(i) ? next.delete(i) : next.add(i);
+    return next;
+  });
 
   const [expandedSections, setExpandedSections] = useState({
     whatsIncluded: true,
@@ -163,9 +174,9 @@ export default function TourDetailsClient({ initialTour }) {
             <span className="hover:underline cursor-pointer">Tours</span> <span>/</span>
             <span className="text-gray-900">{tour.title}</span>
             </nav>
-            <div className="text-sm font-bold flex items-center gap-1 cursor-pointer hover:underline">
+            {/* <div className="text-sm font-bold flex items-center gap-1 cursor-pointer hover:underline">
                  <MessageCircle size={16} /> Chat now
-            </div>
+            </div> */}
         </div>
 
         {/* Gallery & Sidebar Layout Container */}
@@ -174,7 +185,7 @@ export default function TourDetailsClient({ initialTour }) {
           {/* Left Column: Content */}
           <div className="lg:col-span-2">
             {/* Title Section */}
-            <h1 className="text-2xl md:text-[30px] font-semibold text-[#1a1a1a] mb-3 leading-[1.2] tracking-tight">
+            <h1 className="text-2xl md:text-[25px] font-[500] text-[#1a1a1a] mb-3 leading-[1.2] tracking-tight">
               {tour.title}
             </h1>
 
@@ -231,31 +242,63 @@ export default function TourDetailsClient({ initialTour }) {
             </div>
 
             {/* Booking Flags / Badges */}
-            <div className="flex gap-4 mb-6">
-              {tour.booking_options?.free_cancellation && (
-                <div className="flex items-center gap-2 px-3 py-1 bg-gray-100 rounded-md text-sm font-semibold text-[#1a1a1a]">
-                  <Calendar size={16} /> Free Cancellation
-                </div>
-              )}
-            </div>
+          
 
             <div className="flex gap-3 h-[300px] md:h-[400px] lg:h-[500px] mb-6">
                 
                 {/* Thumbnails Strip */}
-                <div className="hidden md:flex flex-col gap-3 w-36 shrink-0 overflow-y-auto no-scrollbar">
-                     {images.map((img, i) => (
-                        <div 
-                            key={i} 
-                            onClick={() => setCurrentImageIndex(i)}
-                            className={`relative w-full h-[90px] rounded-lg overflow-hidden cursor-pointer transition-all ${currentImageIndex === i ? 'ring-2 ring-black opacity-100' : 'opacity-70 hover:opacity-100'}`}
+                <div className="hidden md:flex flex-col gap-2 w-36 shrink-0 relative">
+                  {/* First 4 thumbnails */}
+                  {images.slice(0, 4).map((img, i) => (
+                    <div
+                      key={i}
+                      onClick={() => setCurrentImageIndex(i)}
+                      className={`relative w-full h-[90px] rounded-lg overflow-hidden cursor-pointer transition-all shrink-0 ${
+                        currentImageIndex === i ? 'ring-2 ring-black opacity-100' : 'opacity-70 hover:opacity-100'
+                      }`}
+                    >
+                      <img src={getImageUrl(img)} className="w-full h-full object-cover" alt={imageAlts[i] || tour.title} />
+                    </div>
+                  ))}
+
+                  {/* See More button â€” only if more than 4 images */}
+                  {images.length > 4 && (
+                    <button
+                      onClick={() => setShowMoreGallery(v => !v)}
+                      className="relative w-full h-[44px] rounded-lg overflow-hidden cursor-pointer bg-[#00694B] text-white flex items-center justify-center gap-1.5 font-bold text-xs hover:bg-[#1f4232] transition-colors shrink-0"
+                    >
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                      See More ({images.length - 4})
+                    </button>
+                  )}
+
+                  {/* Dropdown of remaining images */}
+                  {showMoreGallery && images.length > 4 && (
+                    <div className="absolute top-0 left-[calc(100%+12px)] z-50 bg-white border border-gray-200 rounded-xl shadow-2xl p-3 w-64">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs font-bold text-gray-700">All Photos ({images.length})</span>
+                        <button
+                          onClick={() => setShowMoreGallery(false)}
+                          className="text-gray-400 hover:text-gray-700 transition-colors text-lg leading-none font-light"
                         >
-                            <img src={getImageUrl(img)} className="w-full h-full object-cover" alt={imageAlts[i] || tour.title} />
-                        </div>
-                     ))}
-                     <div className="relative w-full h-[90px] rounded-lg overflow-hidden cursor-pointer bg-gray-100 flex flex-col items-center justify-center text-gray-700 font-bold text-xs hover:bg-gray-200">
-                         <div className="bg-black/80 text-white px-2 py-1 rounded text-[10px] mb-1">See More</div>
-                         + {images.length}
-                     </div>
+                          âœ•
+                        </button>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2 max-h-[420px] overflow-y-auto pr-0.5">
+                        {images.slice(4).map((img, i) => (
+                          <div
+                            key={i + 4}
+                            onClick={() => { setCurrentImageIndex(i + 4); setShowMoreGallery(false); }}
+                            className={`relative w-full h-[80px] rounded-lg overflow-hidden cursor-pointer transition-all ${
+                              currentImageIndex === i + 4 ? 'ring-2 ring-black opacity-100' : 'opacity-70 hover:opacity-100'
+                            }`}
+                          >
+                            <img src={getImageUrl(img)} className="w-full h-full object-cover" alt={imageAlts[i + 4] || tour.title} />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Main Hero Image */}
@@ -344,13 +387,26 @@ export default function TourDetailsClient({ initialTour }) {
                        <div>
                            <h3 className="font-bold mb-3">Included</h3>
                             <div className="space-y-4">
-                                {tour.what_to_include && tour.what_to_include.map((item, i) => (
-                                    <div key={i} className="flex items-start gap-3">
-                                        <Check size={16} className="text-[#1a1a1a] mt-1 shrink-0" strokeWidth={2} />
-                                        <span className="text-[#1a1a1a]">{item}</span>
-                                    </div>
-                                ))}
-                            </div>
+                                 {tour.what_to_include &&
+                                   (showAllIncluded ? tour.what_to_include : tour.what_to_include.slice(0, 3)).map((item, i) => (
+                                     <div key={i} className="flex items-start gap-3">
+                                         <Check size={16} className="text-[#1a1a1a] mt-1 shrink-0" strokeWidth={2} />
+                                         <span className="text-[#1a1a1a]">{item}</span>
+                                     </div>
+                                 ))}
+                             </div>
+                             {tour.what_to_include && tour.what_to_include.length > 3 && (
+                               <button
+                                 onClick={() => setShowAllIncluded(v => !v)}
+                                 className="mt-4 flex items-center gap-1.5 text-sm font-bold text-[#00694B] hover:underline focus:outline-none"
+                               >
+                                 {showAllIncluded ? (
+                                   <><ChevronDown size={16} className="rotate-180" /> Show Less</>
+                                 ) : (
+                                   <><ChevronDown size={16} /> See More ({tour.what_to_include.length - 3} more)</>
+                                 )}
+                               </button>
+                             )}
                        </div>
                        
                        {/* Exclusions */}
@@ -443,14 +499,20 @@ export default function TourDetailsClient({ initialTour }) {
                                         )}
                                         
                                         {stop.duration && <span>&#8226; {stop.duration}</span>}
-                                        {stop.admission_included && (
-                                            <span>&#8226; {stop.admission_included}</span>
-                                        )}
+                                       
                                     </div>
 
-                                    <p className="text-[#1a1a1a] mt-1 text-[15px] leading-relaxed">
+                                    <p className={`text-[#1a1a1a] mt-1 text-[15px] leading-relaxed ${expandedStops.has(i) ? '' : 'line-clamp-2'}`}>
                                         {stop.description}
                                     </p>
+                                    {stop.description && stop.description.length > 120 && (
+                                      <button
+                                        onClick={() => toggleStop(i)}
+                                        className="mt-1 text-sm font-bold text-[#00694B] hover:underline focus:outline-none"
+                                      >
+                                        {expandedStops.has(i) ? 'Show less' : 'Read more'}
+                                      </button>
+                                    )}
                                 </div>
                              ))}
                          </div>
@@ -475,13 +537,26 @@ export default function TourDetailsClient({ initialTour }) {
                          {/* Additional Info List */}
                          <div>
                              <h3 className="font-bold text-[#1a1a1a] mb-3">Additional Information</h3>
-                             <div className="space-y-3 text-[#1a1a1a]">
-                                 {tour.additional_info && tour.additional_info.map((info, i) => (
-                                     <div key={i} className="flex gap-2 items-start">
-                                         <span>{info}</span>
-                                     </div>
-                                 ))}
-                             </div>
+                              <div className="space-y-3 text-[#1a1a1a]">
+                                  {tour.additional_info &&
+                                    (showAllAdditionalInfo ? tour.additional_info : tour.additional_info.slice(0, 3)).map((info, i) => (
+                                      <div key={i} className="flex gap-2 items-start">
+                                          <span>{info}</span>
+                                      </div>
+                                    ))}
+                              </div>
+                              {tour.additional_info && tour.additional_info.length > 3 && (
+                                <button
+                                  onClick={() => setShowAllAdditionalInfo(v => !v)}
+                                  className="mt-3 flex items-center gap-1.5 text-sm font-bold text-[#00694B] hover:underline focus:outline-none"
+                                >
+                                  {showAllAdditionalInfo ? (
+                                    <><ChevronDown size={16} className="rotate-180" /> Show Less</>
+                                  ) : (
+                                    <><ChevronDown size={16} /> See More ({tour.additional_info.length - 3} more)</>
+                                  )}
+                                </button>
+                              )}
                          </div>
 
                          {/* Cancellation Policy */}

@@ -81,9 +81,8 @@ const ContactPage = () => {
                 Contact Us
              </span>
           </div>
-          <h1 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-bold tracking-tight mb-4 md:mb-6 drop-shadow-lg leading-tight">
-            Get In <span className="text-[#00694B] italic font-uber-move px-2 md:px-3 rounded-lg ">Touch</span><br />
-            With Us
+          <h1 className="text-white tracking-tight mb-4 md:mb-6 drop-shadow-lg leading-tight">
+            Get In Touch With Us
           </h1>
           <p className="text-gray-200 max-w-2xl mx-auto text-sm sm:text-base md:text-lg">
             Whether you have questions about our tours, need help with a booking, or just want to say hello, we are here to assist you and ensure you have an unforgettable adventure in Roatan.

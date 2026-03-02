@@ -39,8 +39,8 @@ const GalleryPage = () => {
                 Our Gallery
              </span>
           </div>
-          <h1 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4 md:mb-6 drop-shadow-lg leading-tight">
-            Moments To <span className="text-[#00694B] italic font-uber-move px-2 md:px-3 rounded-lg mx-1">Remember</span>
+          <h1 className="text-white  tracking-tight mb-4 md:mb-6 drop-shadow-lg leading-tight">
+            Moments To Remember
           </h1>
           <p className="text-gray-200 max-w-2xl mx-auto text-sm sm:text-base md:text-lg">
             Take a look at the thrilling adventures and beautiful scenery experienced by our guests on the trails of Roatan.
@@ -49,7 +49,7 @@ const GalleryPage = () => {
       </section>
 
       {/* 2. Gallery Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-24">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-10">
         <div className="text-center mb-8 md:mb-12">
           <span className="text-[#00694B] font-semibold text-xs sm:text-sm tracking-wider uppercase mb-2 sm:mb-3 block">
             Tour Highlights

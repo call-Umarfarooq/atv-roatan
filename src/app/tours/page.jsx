@@ -93,7 +93,7 @@ export default async function AllToursPage() {
         />
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pt-16 md:pt-20">
-          <h1 className="text-white text-3xl md:text-6xl font-bold mb-4 drop-shadow-lg font-uber-move">
+          <h1 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-[60px] leading-[1.1] lg:leading-[72px] font-[500] tracking-[0.2px] mb-6 lg:mb-0 drop-shadow-lg">
             All Tours
           </h1>
           <div className="w-24 h-1 bg-[#00694B] rounded-full"></div>

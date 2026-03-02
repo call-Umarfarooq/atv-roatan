@@ -45,7 +45,7 @@ const itemVariants = {
 
 const FeatureHighlights = () => {
   return (
-    <section className="relative w-full px-3 sm:px-4 -mt-10 sm:-mt-14 md:-mt-16 z-10 mb-8 md:mb-12">
+    <section className="relative w-full px-3 sm:px-4 -mt-10 sm:-mt-14 md:-mt-16 z-10 mb-8 md:mb-10">
       <div className="max-w-7xl mx-auto">
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
 

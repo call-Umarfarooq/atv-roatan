@@ -30,7 +30,7 @@ const HomeClient = ({ initialTours, categories }) => {
   return (
     <div>
       {/* ── Category Filter Section ── */}
-      <section className="bg-white pt-6 pb-4 md:pt-10 md:pb-6">
+      <section className="bg-white p-4">
         <div className="max-w-7xl mx-auto px-4">
 
           {/* Section Heading */}
@@ -124,7 +124,7 @@ const HomeClient = ({ initialTours, categories }) => {
                 <div
                   key={tour._id}
                   // 82vw on mobile so next card peeks through — 300px fixed on sm+
-                  className="min-w-[82vw] sm:min-w-[300px] max-w-[82vw] sm:max-w-none snap-start flex-shrink-0"
+                  className="w-[85vw] max-w-[320px] sm:w-[300px] sm:max-w-none snap-start flex-shrink-0"
                 >
                   <TourCard
                     slug={tour.slug}
