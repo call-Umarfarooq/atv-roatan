@@ -15,6 +15,14 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
   const [isAvailabilityChecked, setIsAvailabilityChecked] = useState(false);
   const travelersRef = useRef(null);
   const datePickerRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 480);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const ADULT_PRICE = tour?.adultPrice || tour?.base_price || 0;
   const CHILD_PRICE = tour?.childPrice || 0;
@@ -152,6 +160,45 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
           color: #666;
           text-align: center;
           clear: both;
+        /* Mobile Responsive Overrides */
+        @media (max-width: 480px) {
+          .bw-datepicker .react-datepicker {
+            padding: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+          }
+          .bw-datepicker .react-datepicker__month-container {
+            padding: 0;
+            width: 100%;
+          }
+          .bw-datepicker .react-datepicker__day-name,
+          .bw-datepicker .react-datepicker__day {
+            width: calc(100% / 7);
+            line-height: 2.2rem;
+            font-size: 13px;
+          }
+          /* Use fixed placement relative to screen on mobile */
+          .bw-datepicker-popper {
+            transform: none !important;
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            width: calc(100vw - 32px) !important;
+            max-width: 380px !important;
+          }
+          .bw-datepicker .react-datepicker {
+            width: 100% !important;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+          }
+        }
+      `}</style>
+      
+      {/* Mobile background overlay when calendar is open */}
+      <style>{`
+        .react-datepicker-popper[data-placement] {
+          z-index: 100 !important;
         }
       `}</style>
 
@@ -180,25 +227,57 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
           <div className="bw-datepicker relative">
             <div className={`border rounded-lg px-3 py-2 cursor-pointer group relative h-[58px] flex flex-col justify-center ${dateError ? 'border-red-400 bg-red-50/30' : 'border-gray-300 hover:border-gray-700'}`}>
               <label className={`text-[10px] font-bold uppercase tracking-wide block mb-0.5 ${dateError ? 'text-red-500' : 'text-gray-400'}`}>Date</label>
-              <DatePicker
-                selected={date}
-                onChange={(d) => { 
-                  setDate(d); 
-                  setDateError(false); 
-                  if (!isAvailabilityChecked) {
-                    setTimeout(() => setShowTravelers(true), 50);
-                  }
-                }}
-                ref={datePickerRef}
-                dateFormat="MMM d, yyyy"
-                className={`w-full font-semibold text-sm outline-none cursor-pointer caret-transparent bg-transparent leading-none ${dateError ? 'text-red-600' : 'text-[#1a1a1a]'}`}
-                wrapperClassName="w-full"
-                minDate={new Date(new Date().setHours(0, 0, 0, 0))}
-                onFocus={(e) => e.target.blur()}
-                placeholderText="Select date"
-                popperPlacement="bottom-start"
-                popperClassName="bw-datepicker-popper"
-              />
+
+              {isMobile ? (
+                /* Native date picker for mobile — OS renders the calendar perfectly */
+                <div className="relative">
+                  <span className={`text-sm font-semibold leading-none ${date ? (dateError ? 'text-red-600' : 'text-[#1a1a1a]') : 'text-gray-400'}`}>
+                    {date ? date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Select date'}
+                  </span>
+                  <input
+                    type="date"
+                    min={new Date().toISOString().split('T')[0]}
+                    value={date ? date.toISOString().split('T')[0] : ''}
+                    onChange={(e) => {
+                      if (e.target.value) {
+                        const d = new Date(e.target.value + 'T12:00:00');
+                        setDate(d);
+                        setDateError(false);
+                        if (!isAvailabilityChecked) setTimeout(() => setShowTravelers(true), 50);
+                      } else {
+                        setDate(null);
+                      }
+                    }}
+                    className="absolute inset-0 opacity-0 w-full h-full cursor-pointer"
+                  />
+                </div>
+              ) : (
+                /* React DatePicker for desktop */
+                <DatePicker
+                  selected={date}
+                  onChange={(d) => { 
+                    setDate(d); 
+                    setDateError(false); 
+                    if (!isAvailabilityChecked) {
+                      setTimeout(() => setShowTravelers(true), 50);
+                    }
+                  }}
+                  ref={datePickerRef}
+                  dateFormat="MMM d, yyyy"
+                  className={`w-full font-semibold text-sm outline-none cursor-pointer caret-transparent bg-transparent leading-none ${dateError ? 'text-red-600' : 'text-[#1a1a1a]'}`}
+                  wrapperClassName="w-full"
+                  minDate={new Date(new Date().setHours(0, 0, 0, 0))}
+                  onFocus={(e) => e.target.blur()}
+                  placeholderText="Select date"
+                  popperPlacement="bottom-start"
+                  popperModifiers={[
+                    { name: 'flip', enabled: false },
+                    { name: 'preventOverflow', enabled: false }
+                  ]}
+                  popperClassName="bw-datepicker-popper z-[100]"
+                />
+              )}
+
               <ChevronDown size={13} className={`absolute right-2.5 bottom-2.5 pointer-events-none ${dateError ? 'text-red-400' : 'text-gray-400'}`} />
             </div>
             {dateError && <p className="text-red-500 text-[10px] font-semibold mt-0.5">Please select a date</p>}
