@@ -94,7 +94,7 @@ const TourCard = ({
       {/* Content Container */}
       <div className="p-3 flex flex-col grow">
         {/* Title */}
-        <h3 className="text-[#1a1a1a] font-bold text-xl leading-tight mb-2 group-hover:underline line-clamp-2">
+        <h3 className="text-[#1a1a1a] font-semibold text-lg leading-tight mb-2 group-hover:underline line-clamp-2">
           {title}
         </h3>
         {/* Rating */}
@@ -107,26 +107,16 @@ const TourCard = ({
            <span className="text-gray-500 text-sm ml-2">( {reviews} Reviews )</span>
         </div> 
          {/* Best Price Guarantee */}
-         <div className="bg-gradient-to-r from-[#115e3b] to-[#468262] flex justify-center items-center gap-2 sm:gap-2.5 text-white text-[10px] sm:text-xs font-bold px-2.5 sm:px-2 py-1.5 sm:py-1 rounded-lg sm:rounded-full w-fit max-w-full shadow-md hover:shadow-lg transition-shadow border border-[#468262]/30 leading-tight mb-1 relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/10 pointer-events-none rounded-lg sm:rounded-full" />
-            
+         <div className="bg-gradient-to-r from-[#115e3b] to-[#468262] flex items-center gap-2 text-white text-[10px] sm:text-xs font-bold px-2.5 py-1.5 rounded-full w-full shadow-md border border-[#468262]/30 leading-tight mb-0.5 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/10 pointer-events-none" />
             <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-full w-7 h-7 flex items-center justify-center shrink-0 border-[1.5px] border-white/90 shadow-sm relative z-10">
-                <div className="text-white text-[6px] font-black text-center leading-[1.1] tracking-wider">
-                    BEST<br/>PRICE
-                </div>
-            </div> 
-            
-            <div className="flex flex-wrap items-baseline gap-1 relative z-10 drop-shadow-sm pb-[1px]">
-                  <span className="text-emerald-50 tracking-wide">Best Price Guarantee:</span> 
-                  <span className="whitespace-normal text-[#A3E635]">110% refund</span>
+                <div className="text-white text-[6px] font-black text-center leading-[1.1] tracking-wider">BEST<br/>PRICE</div>
             </div>
+            <span className="text-emerald-50 tracking-wide relative z-10">Best Price Guarantee:</span>
+            <span className="text-[#A3E635] relative z-10">110% refund</span>
          </div>
-
-        {/* Trust line */}
-        <p className="flex items-start gap-1 text-emerald-700 mt-1.5">
-          <Check size={12} className="shrink-0 text-emerald-600 mt-[5px]" />
-          Book with confidence &middot; 100% free cancellation
-        </p>
+         {/* "of the difference" right-aligned below banner */}
+         <p className="text-amber-500 text-[10px] font-semibold italic text-right leading-none mb-1">of the difference</p>
 
         <div className="grow"></div>
 
@@ -151,6 +141,10 @@ const TourCard = ({
                     BOOK NOW 
                 </Link>
             </div>
+            {/* Bottom amber trust text */}
+            <p className="text-amber-500 text-[10px] font-semibold mt-1">
+              book with confidence &nbsp;·&nbsp; 100% free cancellation
+            </p>
         </div>
       </div>
     </div>
