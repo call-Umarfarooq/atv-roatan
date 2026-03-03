@@ -18,6 +18,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  
   password: {
     type: String,
     required: true, // Will default to hashed email for auto-registration

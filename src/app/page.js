@@ -141,6 +141,8 @@ console.log(tours);
           </div>
         </div>
       </section>
+
+      
       <FeatureHighlights />
       {/* Client Component for Filtering */}
       <HomeClient initialTours={serializedTours} categories={serializedCategories} />

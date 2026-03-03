@@ -18,6 +18,8 @@ const LocationSchema = new mongoose.Schema({
   google_maps_url: {
     type: String,
   }
+
+  
 }, {
   timestamps: true,
 });
