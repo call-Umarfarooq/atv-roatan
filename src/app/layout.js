@@ -2,6 +2,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/Header";
 import Script from "next/script";
+import { Suspense } from "react";
+import AdminGateModal from "@/components/AdminGateModal";
 
 const uberMove = localFont({
   src: "../../public/font/UberMoveMedium.otf",
@@ -86,7 +88,9 @@ export default function RootLayout({ children }) {
       >
         <Header />
         {children}
-        
+        <Suspense fallback={null}>
+          <AdminGateModal />
+        </Suspense>
         <Footer />
         {/* <WhatsAppButton /> */}
         <script src="//code.tidio.co/bxpgyt5mdoulzj9kjkgbdghxc8vhntwm.js" async></script>

@@ -590,22 +590,24 @@ export default function TourDetailsClient({ initialTour }) {
 
              <hr className="border-gray-200 my-6" />
 
-             {/* Tags */}
-             <section>
-                  <div className="relative mb-6 group/tags">
-                     <div className="flex overflow-x-auto gap-3 pb-2 no-scrollbar items-center">
-                         <button className="px-5 py-2 rounded-full border border-[#1a1a1a] bg-white text-[#1a1a1a] font-bold whitespace-nowrap hover:bg-gray-50">
-                             All
-                         </button>
-                         {tour.tags && tour.tags.map((tag, i) => (
-                             <button key={i} className="px-4 py-2 rounded-full bg-[#dff7eb] text-[#1a1a1a] font-medium whitespace-nowrap flex items-center gap-2 hover:bg-[#cbf2e0] transition-colors">
-                                 <Check size={14} className="text-[#1a1a1a]" strokeWidth={2} />
-                                 {tag}
-                             </button>
-                         ))}
-                     </div>
-                  </div>
-             </section>
+             {/* Tags — only render section if tags exist */}
+             {tour.tags && tour.tags.length > 0 && (
+               <section>
+                 <div className="relative mb-6 group/tags">
+                   <div className="flex overflow-x-auto gap-3 pb-2 no-scrollbar items-center">
+                     <button className="px-5 py-2 rounded-full border border-[#1a1a1a] bg-white text-[#1a1a1a] font-bold whitespace-nowrap hover:bg-gray-50">
+                       All
+                     </button>
+                     {tour.tags.map((tag, i) => (
+                       <button key={i} className="px-4 py-2 rounded-full bg-[#dff7eb] text-[#1a1a1a] font-medium whitespace-nowrap flex items-center gap-2 hover:bg-[#cbf2e0] transition-colors">
+                         <Check size={14} className="text-[#1a1a1a]" strokeWidth={2} />
+                         {tag}
+                       </button>
+                     ))}
+                   </div>
+                 </div>
+               </section>
+             )}
 
              <ReviewsWidget />
 

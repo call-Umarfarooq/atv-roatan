@@ -1,11 +1,12 @@
 
 "use client";
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { LayoutDashboard, Compass, Settings, LogOut, Package, ClipboardList, MapPin } from 'lucide-react';
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
 
   const menuItems = [
     { name: 'Dashboard', icon: LayoutDashboard, href: '/admin/dashboard' },
@@ -16,6 +17,12 @@ export default function Sidebar() {
     { name: 'Locations', icon: MapPin, href: '/admin/locations' },
     // { name: 'Settings', icon: Settings, href: '/admin/settings' },
   ];
+
+  const handleLogout = async () => {
+    await fetch('/api/admin/auth', { method: 'DELETE' });
+    router.push('/admin/login');
+    router.refresh();
+  };
 
   return (
     <div className="w-64 bg-white h-screen border-r border-gray-200 flex flex-col fixed left-0 top-40">
@@ -47,7 +54,10 @@ export default function Sidebar() {
       </nav>
 
       <div className="p-4 border-t border-gray-100">
-        <button className="flex items-center gap-3 px-4 py-3 w-full text-red-500 hover:bg-red-50 rounded-xl transition-colors">
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-3 px-4 py-3 w-full text-red-500 hover:bg-red-50 rounded-xl transition-colors"
+        >
           <LogOut size={20} />
           Logout
         </button>

@@ -227,34 +227,47 @@ export default function TourForm({ initialData = null, isEdit = false }) {
 
   // --- File Upload ---
   const handleFileUpload = async (e, type = 'image') => {
-    const file = e.target.files[0];
-    if (!file) return;
+    const files = Array.from(e.target.files);
+    if (!files.length) return;
 
     setUploading(true);
-    const data = new FormData();
-    data.append('file', file);
 
     try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: data
-      });
-      const result = await res.json();
-
-      if (result.success) {
-        if (type === 'main') {
-            setFormData(prev => ({ ...prev, image_url: result.url }));
-        } else if (type === 'gallery') {
-            setFormData(prev => ({ ...prev, gallery: [...prev.gallery, result.url] }));
+      // For gallery, upload all selected files in parallel
+      if (type === 'gallery') {
+        const uploads = files.map(file => {
+          const data = new FormData();
+          data.append('file', file);
+          return fetch('/api/upload', { method: 'POST', body: data })
+            .then(res => res.json());
+        });
+        const results = await Promise.all(uploads);
+        const urls = results.filter(r => r.success).map(r => r.url);
+        if (urls.length) {
+          setFormData(prev => ({ ...prev, gallery: [...prev.gallery, ...urls] }));
         }
+        const failed = results.filter(r => !r.success).length;
+        if (failed > 0) alert(`${failed} image(s) failed to upload.`);
       } else {
+        // Single file for main image
+        const file = files[0];
+        const data = new FormData();
+        data.append('file', file);
+        const res = await fetch('/api/upload', { method: 'POST', body: data });
+        const result = await res.json();
+        if (result.success) {
+          setFormData(prev => ({ ...prev, image_url: result.url }));
+        } else {
           alert('Upload failed');
+        }
       }
     } catch (err) {
       console.error(err);
       alert('Upload error');
     } finally {
       setUploading(false);
+      // Reset input so same files can be re-selected if needed
+      e.target.value = '';
     }
   };
 
@@ -747,8 +760,16 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                                </div>
                            ))}
                            <div className="h-12 rounded-lg bg-gray-50 border-2 border-dashed border-gray-300 flex items-center justify-center relative hover:border-[#00694B] transition-colors cursor-pointer">
-                               <div className="flex items-center gap-2 text-gray-400 text-sm pointer-events-none"><Plus size={16} /> Add Image</div>
-                               <input type="file" onChange={(e) => handleFileUpload(e, 'gallery')} className="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" />
+                               <div className="flex items-center gap-2 text-gray-400 text-sm pointer-events-none">
+                                 <Plus size={16} /> {uploading ? 'Uploading...' : 'Add Images (select multiple)'}
+                               </div>
+                               <input
+                                 type="file"
+                                 multiple
+                                 onChange={(e) => handleFileUpload(e, 'gallery')}
+                                 className="absolute inset-0 opacity-0 cursor-pointer"
+                                 accept="image/*"
+                               />
                            </div>
                        </div>
                   </div>

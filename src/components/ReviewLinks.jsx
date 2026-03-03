@@ -18,7 +18,7 @@ const ReviewLinks = () => {
           
           {/* Google */}
           <Link 
-            href="https://maps.app.goo.gl/MqDtFbCuHWqeD5qJA" 
+            href="https://www.google.com/search?sca_esv=73000156de4ea350&rlz=1C1CHBD_enPK1126PK1126&sxsrf=ANbL-n5MmUnpMDjXyJfPyJUYVcTcg-3kyg:1772554722832&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOcTqWYuu_4iSFQ6DuVj-k0LjpBSwoGjRevmBLZdx0ItZMldeWV5oGGpNGJdgJdpajG_Xw4oxi51-nTVOLdA7ZC8t0PDRtpACHG08OUrbIeA7ClNNXAd5HBI5kMwYodSOSreXa34%3D&q=Roatan+ATV,+Buggy+%26+GolfCart+Adventure+Tours+Reviews&sa=X&ved=2ahUKEwjwu-X0kISTAxWuTqQEHWbFMtAQ0bkNegQIJBAH#lrd=0x8f69e5bf4a59efa3:0xa0efd3ab20c41c7e,3" 
             target="_blank"
             className="group flex items-center justify-center gap-2.5 px-6 py-2.5 md:px-8 rounded-full border-2 border-[#EA4335] bg-white hover:bg-gray-50 transition-all duration-300 hover:scale-105"
           >

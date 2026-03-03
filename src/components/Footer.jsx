@@ -72,6 +72,7 @@ const Footer = () => {
             <h3 className="text-base md:text-lg font-bold mb-4 md:mb-8">Support Links</h3>
             <ul className="space-y-3 md:space-y-4">
               <li><Link href="/help" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Help Center</Link></li>
+              <li><Link href="/faqs" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">FAQs</Link></li>
               <li><Link href="/booking" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Booking</Link></li>
               <li><Link href="/privacy" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Privacy Policy</Link></li>
               <li><Link href="/support" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Online Support</Link></li>
