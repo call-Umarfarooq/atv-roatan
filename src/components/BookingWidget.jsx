@@ -16,12 +16,32 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
   const travelersRef = useRef(null);
   const datePickerRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
+  const widgetRef = useRef(null);
+  const [isWidgetAboveScreen, setIsWidgetAboveScreen] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 480);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Detect when the widget is scrolled above the viewport (mobile sticky bar)
+  useEffect(() => {
+    const el = widgetRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          setIsWidgetAboveScreen(entry.boundingClientRect.bottom < 0);
+        } else {
+          setIsWidgetAboveScreen(false);
+        }
+      },
+      { threshold: 0 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   const ADULT_PRICE = tour?.adultPrice || tour?.base_price || 0;
@@ -91,7 +111,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
   };
 
   return (
-    <div className={className}>
+    <div className={className} ref={widgetRef}>
       <style>{`
         .bw-datepicker .react-datepicker {
           border: none;
@@ -300,7 +320,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
             {/* Travelers Dropdown &mdash; full width, below the field */}
             {showTravelers && (
               <div className="absolute top-full -right-[2px] bg-white border border-gray-200 shadow-xl rounded-xl p-5 z-30 mt-1.5 min-w-[340px]">
-                <p className="text-sm text-gray-600 mb-4 pb-3 border-b border-gray-100">Select up to 15 travelers in total.</p>
+                <p className="text-sm text-gray-600 mb-4 pb-3 border-b border-gray-100">Select travelers in total.</p>
                 <div className="space-y-4">
                   {[
                     { key: 'adults', label: 'Adult', sub: `Age ${tour?.adultAgeRange || '11-90'}`, min: 2, max: 15 },
@@ -315,7 +335,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
                           </p>
                           {tag && <span className="bg-[#e6f2ed] text-[#00694B] text-[11px] font-bold px-1.5 py-0.5 rounded">{tag}</span>}
                         </div>
-                        <p className="text-[11px] text-gray-500">Minimum: {min}, Maximum: {max}</p>
+                        {/* <p className="text-[11px] text-gray-500">Minimum: {min}, Maximum: {max}</p> */}
                       </div>
                       <div className="flex items-center gap-4">
                         <button
@@ -450,6 +470,20 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
       <div className="text-right text-gray-400 text-[10px] mt-1.5 flex items-center justify-end gap-1 pr-0.5">
         <Ticket size={10} /> Lowest Price Guarantee
       </div>
+
+      {/* Sticky mobile bar — only when widget is scrolled above viewport */}
+      {isWidgetAboveScreen && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-[0_-4px_16px_rgba(0,0,0,0.08)] px-4 py-3 lg:hidden">
+          <button
+            onClick={() => {
+              widgetRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }}
+            className="w-full bg-[#00694B] hover:bg-[#1a6b24] text-white font-bold py-3.5 rounded-lg text-[15px] transition-colors shadow-sm"
+          >
+            Check Availability
+          </button>
+        </div>
+      )}
     </div>
   );
 };

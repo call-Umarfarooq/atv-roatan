@@ -240,12 +240,12 @@ const ContactPage = () => {
             <p className="text-gray-600 text-xs sm:text-sm mb-6 sm:mb-8 h-auto sm:h-10">
               Prefer to visit our office? Our travel experts are ready to assist you.
             </p>
-            <div className="flex items-center gap-3 sm:gap-4">
+            <a href="https://maps.app.goo.gl/1insAGLeqNPS1uwu6" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 sm:gap-4 hover:opacity-80 transition-opacity">
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#00694B]/10 flex items-center justify-center shrink-0">
                 <MapPin size={20} className="text-[#00694B] sm:w-6 sm:h-6" />
               </div>
-              <span className="text-[#1a1a1a] font-semibold text-sm sm:text-base break-words">Roatan, Honduras</span>
-            </div>
+              <span className="text-[#1a1a1a] font-semibold text-sm sm:text-base break-words underline-offset-2 hover:underline">Roatan, Honduras</span>
+            </a>
           </div>
 
           {/* Card 2: Message Us */}
@@ -254,12 +254,12 @@ const ContactPage = () => {
             <p className="text-gray-600 text-xs sm:text-sm mb-6 sm:mb-8 h-auto sm:h-10">
               Send us your travel queries, and our team will reply as soon as possible!
             </p>
-            <div className="flex items-center gap-3 sm:gap-4">
+            <a href="mailto:info@atvroatan.com" className="flex items-center gap-3 sm:gap-4 hover:opacity-80 transition-opacity">
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#00694B]/10 flex items-center justify-center shrink-0">
                 <Mail size={20} className="text-[#00694B] sm:w-6 sm:h-6" />
               </div>
-              <span className="text-[#1a1a1a] font-semibold text-sm sm:text-base break-all">info@atvroatan.com</span>
-            </div>
+              <span className="text-[#1a1a1a] font-semibold text-sm sm:text-base break-all underline-offset-2 hover:underline">info@atvroatan.com</span>
+            </a>
           </div>
 
           {/* Card 3: Call Us */}
@@ -268,12 +268,12 @@ const ContactPage = () => {
             <p className="text-gray-600 text-xs sm:text-sm mb-6 sm:mb-8 h-auto sm:h-10">
               Need assistance? Call us, and we'll make your travel planning hassle-free!
             </p>
-            <div className="flex items-center gap-3 sm:gap-4">
+            <a href="tel:+50412345678" className="flex items-center gap-3 sm:gap-4 hover:opacity-80 transition-opacity">
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#00694B]/10 flex items-center justify-center shrink-0">
                 <Phone size={20} className="text-[#00694B] sm:w-6 sm:h-6" />
               </div>
-              <span className="text-[#1a1a1a] font-semibold text-sm sm:text-base">+504 1234-5678</span>
-            </div>
+              <span className="text-[#1a1a1a] font-semibold text-sm sm:text-base underline-offset-2 hover:underline">+504 1234-5678</span>
+            </a>
           </div>
 
         </div>

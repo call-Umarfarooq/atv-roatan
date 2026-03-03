@@ -185,7 +185,7 @@ export default function TourDetailsClient({ initialTour }) {
           {/* Left Column: Content */}
           <div className="lg:col-span-2">
             {/* Title Section */}
-            <h1 className="text-2xl md:text-[25px] font-[500] text-[#1a1a1a] mb-3 leading-[1.2] tracking-tight">
+            <h1 className="font-[500] text-[#1a1a1a] mb-3 not-italic" style={{ fontSize: '28px', lineHeight: '32px', letterSpacing: '0.2px' }}>
               {tour.title}
             </h1>
 
@@ -279,9 +279,9 @@ export default function TourDetailsClient({ initialTour }) {
                         <span className="text-xs font-bold text-gray-700">All Photos ({images.length})</span>
                         <button
                           onClick={() => setShowMoreGallery(false)}
-                          className="text-gray-400 hover:text-gray-700 transition-colors text-lg leading-none font-light"
+                          className="text-gray-400 hover:text-gray-700 transition-colors"
                         >
-                          âœ•
+                          <ChevronDown size={16} className="rotate-180" />
                         </button>
                       </div>
                       <div className="grid grid-cols-2 gap-2 max-h-[420px] overflow-y-auto pr-0.5">

@@ -18,7 +18,7 @@ const ReviewLinks = () => {
           
           {/* Google */}
           <Link 
-            href="https://www.google.com/maps/place/ATV+Dune+Buggy+ROATAN+Eco-Jungle+Adventure+Tours/@16.3456999,-86.4813591,17z/data=!4m6!3m5!1s0x8f69e5bf4a59efa3:0xa0efd3ab20c41c7e!8m2!3d16.3456999!4d-86.4787842!16s%2Fg%2F11g8wgzth0?entry=tts&g_ep=EgoyMDI1MDgxNy" 
+            href="https://maps.app.goo.gl/MqDtFbCuHWqeD5qJA" 
             target="_blank"
             className="group flex items-center justify-center gap-2.5 px-6 py-2.5 md:px-8 rounded-full border-2 border-[#EA4335] bg-white hover:bg-gray-50 transition-all duration-300 hover:scale-105"
           >

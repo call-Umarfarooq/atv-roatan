@@ -2,7 +2,7 @@
 "use client";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Compass, Settings, LogOut, Package, ClipboardList } from 'lucide-react';
+import { LayoutDashboard, Compass, Settings, LogOut, Package, ClipboardList, MapPin } from 'lucide-react';
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -13,6 +13,7 @@ export default function Sidebar() {
     { name: 'Activities', icon: Package, href: '/admin/activities' },
     { name: 'Categories', icon: Package, href: '/admin/categories' },
     { name: 'Bookings', icon: ClipboardList, href: '/admin/bookings' },
+    { name: 'Locations', icon: MapPin, href: '/admin/locations' },
     // { name: 'Settings', icon: Settings, href: '/admin/settings' },
   ];
 

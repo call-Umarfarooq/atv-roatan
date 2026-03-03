@@ -65,7 +65,7 @@ const FeatureHighlights = () => {
                   className="flex-none snap-start flex flex-col items-center text-center gap-2 w-[110px] group"
                 >
                   {/* Icon circle */}
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#e8f5f0] to-white shadow-md flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shrink-0">
+                  <div className="w-16 h-16 rounded-full bg-white shadow-md flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shrink-0">
                     <div className="relative w-10 h-10">
                       <Image
                         src={feature.image}
@@ -106,7 +106,7 @@ const FeatureHighlights = () => {
                 className="flex flex-col items-center text-center group w-full"
               >
                 {/* Icon circle */}
-                <div className="mb-4 w-24 h-24 rounded-full bg-gradient-to-br from-[#e8f5f0] to-white shadow-md flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
+                <div className="mb-4 w-24 h-24 rounded-full bg-white shadow-md flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
                   <div className="relative w-14 h-14">
                     <Image
                       src={feature.image}
