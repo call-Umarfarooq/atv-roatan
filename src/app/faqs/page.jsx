@@ -4,6 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ChevronDown, Phone, MessageCircle } from 'lucide-react';
 
+export const metadata = {
+  title: "ATV Roatan FAQ – Tour Questions Answered",
+  description: "Find answers to the most common ATV Roatan questions – tour details, safety, pricing & booking info. Get ready for your adventure!",
+};
+
 export default function FaqsPage() {
   const categories = [
     {

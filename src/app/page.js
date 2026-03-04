@@ -18,8 +18,8 @@ export const dynamic = 'force-dynamic';
 
 export const metadata = {
   // General & SEO
-  title: "ATV Roatan – Jungle Buggy & Island Tours in Honduras",
-  description: "Roatan shore excursions, ATV buggy tours, family friendly Roatan tours",
+  title: "Roatan Shore Excursions & Honduras Tours | ATV Roatan",
+  description: "ATV Roatan offers the best Roatan shore excursions and Honduras tours. Book a local tour guide for buggy, adventures & cruise excursions luxury experience.",
   applicationName: "ATV Roatan",
   keywords: [
 "adventure tours",
@@ -38,7 +38,7 @@ export const metadata = {
   ],
   generator: "Next.js",
   creator: "Roatan ATV Buggy and Golf Cart Adventure Tours",
-  authors: [{ name: "Roatan ATV Buggy and Golf Cart Adventure Tours", url: "https://roatanatvbuggytours.com" }],
+  authors: [{ name: "Roatan ATV Buggy and Golf Cart Adventure Tours", url: "https://atvroatan.com" }],
 
   // Indexing & Canonical URL
   robots: {
@@ -46,11 +46,9 @@ export const metadata = {
     follow: true,
   },
 
-  alternates: {
-    canonical: "https://roatanatvbuggytours.com/tours",
-  },
+  
 
-  metadataBase: new URL('https://roatanatvbuggytours.com'),
+  metadataBase: new URL('https://atvroatan.com'),
 
   // Favicon
   icons: {
@@ -62,8 +60,8 @@ export const metadata = {
   openGraph: {
     type: 'website',
     url: '/',
-    title: "ATV Roatan – Jungle Buggy & Island Tours in Honduras",
-    description: 'Roatan shore excursions, ATV buggy tours, family friendly Roatan tours',
+    title: "Roatan Shore Excursions & Honduras Tours | ATV Roatan",
+    description: 'ATV Roatan offers the best Roatan shore excursions and Honduras tours. Book a local tour guide for buggy, adventures & cruise excursions luxury experience.',
     siteName: 'ATV Roatan',
     images: [
       {
@@ -76,8 +74,8 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     site: '@ATVRoatan',
-    title: "ATV Roatan – Jungle Buggy & Island Tours in Honduras",
-    description: 'Roatan shore excursions, ATV buggy tours, family friendly Roatan tours',
+    title: "Roatan Shore Excursions & Honduras Tours | ATV Roatan",
+    description: 'ATV Roatan offers the best Roatan shore excursions and Honduras tours. Book a local tour guide for buggy, adventures & cruise excursions luxury experience.',
     images: ['/assets/Banner.png'],
   },
 };

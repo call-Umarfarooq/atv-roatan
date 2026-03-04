@@ -34,6 +34,8 @@ export default function TourForm({ initialData = null, isEdit = false }) {
     is_featured: false,
     image_url: '',
     image_alt: '',
+    meta_title: '',
+    meta_description: '',
     gallery_alts: [],
     gallery: [],
     itinerary: [],
@@ -100,6 +102,8 @@ export default function TourForm({ initialData = null, isEdit = false }) {
           ...prev,
           ...initialData,
           cutoff_price: initialData.cutoff_price || '',
+          meta_title: initialData.meta_title || '',
+          meta_description: initialData.meta_description || '',
           gallery: initialData.gallery || [],
           image_alt: initialData.image_alt || '',
           gallery_alts: initialData.gallery_alts || [],
@@ -495,6 +499,21 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                       </div>
                   </div>
               </div>
+
+               {/* SEO Settings */}
+               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                   <h2 className="text-lg font-bold text-[#1a1a1a] mb-4">SEO Settings</h2>
+                   <div className="space-y-4">
+                       <div>
+                           <label className="block text-sm font-medium text-gray-700 mb-1">Meta Title</label>
+                           <input name="meta_title" value={formData.meta_title || ''} onChange={handleChange} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#00694B] focus:border-transparent outline-none text-[#1a1a1a]" placeholder="Optimal length is 50-60 characters" />
+                       </div>
+                       <div>
+                           <label className="block text-sm font-medium text-gray-700 mb-1">Meta Description</label>
+                           <textarea name="meta_description" value={formData.meta_description || ''} onChange={handleChange} rows={3} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#00694B] focus:border-transparent outline-none text-[#1a1a1a]" placeholder="Optimal length is 150-160 characters" />
+                       </div>
+                   </div>
+               </div>
 
                {/* Itinerary */}
                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">

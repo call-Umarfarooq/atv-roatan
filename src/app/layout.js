@@ -16,8 +16,8 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 
 export const metadata = {
   // General & SEO
-  title: "ATV Roatan – Jungle Buggy & Island Tours in Honduras",
-  description: "Roatan shore excursions, ATV buggy tours, family friendly Roatan tours",
+  title: "Roatan Shore Excursions & Honduras Tours | ATV Roatan",
+  description: "ATV Roatan offers the best Roatan shore excursions and Honduras tours. Book a local tour guide for buggy, adventures & cruise excursions luxury experience.",
   applicationName: "ATV Roatan",
   keywords: [
 "adventure tours",
@@ -44,24 +44,21 @@ export const metadata = {
     follow: true,
   },
 
-  alternates: {
-    canonical: "/",
-  },
 
-  metadataBase: new URL('https://roatanatvbuggytours.com'),
+  metadataBase: new URL('https://atvroatan.com'),
 
   // Favicon
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico',
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
   },
 
   // Open Graph (for Facebook, Discord, etc.)
   openGraph: {
     type: 'website',
     url: '/',
-    title: "ATV Roatan – Jungle Buggy & Island Tours in Honduras",
-    description: 'Roatan shore excursions, ATV buggy tours, family friendly Roatan tours',
+    title: "Roatan Shore Excursions & Honduras Tours | ATV Roatan",
+    description: 'ATV Roatan offers the best Roatan shore excursions and Honduras tours. Book a local tour guide for buggy, adventures & cruise excursions luxury experience.',
     siteName: 'ATV Roatan',
     images: [
       {
@@ -74,8 +71,8 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     site: '@ATVRoatan',
-    title: "ATV Roatan – Jungle Buggy & Island Tours in Honduras",
-    description: 'Roatan shore excursions, ATV buggy tours, family friendly Roatan tours',
+    title: "Roatan Shore Excursions & Honduras Tours | ATV Roatan",
+    description: 'ATV Roatan offers the best Roatan shore excursions and Honduras tours. Book a local tour guide for buggy, adventures & cruise excursions luxury experience.',
     images: ['/assets/Banner.png'],
   },
 };
