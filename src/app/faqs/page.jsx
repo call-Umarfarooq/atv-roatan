@@ -112,7 +112,7 @@ export default function FaqsPage() {
           <span className="inline-block px-4 py-1.5 mb-4 rounded-full border border-white/30 text-white/90 text-xs tracking-widest uppercase bg-black/20 backdrop-blur-sm">
             Asked Questions
           </span>
-          <h1 className="text-white text-4xl md:text-5xl font-bold tracking-tight mb-3 drop-shadow-lg leading-tight">
+          <h1 className="text-white text-4xl h11 md:text-5xl font-bold tracking-tight mb-3 drop-shadow-lg leading-tight">
             Frequently Asked <span className="text-[#00694B]">Questions</span>
           </h1>
           <p className="text-gray-200 max-w-xl mx-auto text-sm sm:text-base">

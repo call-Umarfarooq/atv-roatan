@@ -439,7 +439,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
                   setShowTravelers(true);
                 }
               }}
-              className="w-full bg-[#00694B] hover:bg-[#1a6b24] text-white font-bold py-3.5 rounded-lg transition-colors text-[15px] shadow-sm"
+              className="w-full bg-[#00694B] hover:bg-[#1a6b24] text-white font-bold py-2.5 sm:py-2.5 rounded-lg transition-colors text-[15px] shadow-sm"
             >
               Check Availability
             </button>

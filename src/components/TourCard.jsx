@@ -94,7 +94,7 @@ const TourCard = ({
       {/* Content Container */}
       <div className="p-3 flex flex-col grow">
         {/* Title */}
-        <h3 className="text-[#1a1a1a] font-semibold text-lg leading-tight mb-2 group-hover:underline line-clamp-2">
+        <h3 className="text-[#1a1a1a] capitalize font-[500] text-[16px] leading-tight mb-2 group-hover:underline line-clamp-2">
           {title}
         </h3>
         {/* Rating */}
@@ -112,11 +112,11 @@ const TourCard = ({
             <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-full w-7 h-7 flex items-center justify-center shrink-0 border-[1.5px] border-white/90 shadow-sm relative z-10">
                 <div className="text-white text-[6px] font-black text-center leading-[1.1] tracking-wider">BEST<br/>PRICE</div>
             </div>
-            <span className="text-emerald-50 tracking-wide relative z-10">Best Price Guarantee:</span>
-            <span className="text-[#A3E635] relative z-10">110% refund</span>
+            <span className="text-emerald-50 capitalize tracking-wide relative z-10">Best Price Guarantee:</span>
+            <span className="text-[#A3E635] capitalize relative z-10">110% refund</span>
          </div>
          {/* "of the difference" right-aligned below banner */}
-         <p className="text-amber-500 text-[10px] font-semibold italic text-right leading-none mb-1">of the difference</p>
+         <div className=" capitalize text-gray-400 text-[10px] text-right  mb-1">of the difference</div>
 
         <div className="grow"></div>
 
@@ -142,9 +142,9 @@ const TourCard = ({
                 </Link>
             </div>
             {/* Bottom amber trust text */}
-            <p className="text-amber-500 text-[10px] font-semibold mt-1">
-              book with confidence &nbsp;·&nbsp; 100% free cancellation
-            </p>
+            <div className="text-gray-400 text-[10px] flex justify-center capitalize  mt-1">
+              Book with Confidence&nbsp;·&nbsp;100% Free Cancellation
+            </div>
         </div>
       </div>
     </div>

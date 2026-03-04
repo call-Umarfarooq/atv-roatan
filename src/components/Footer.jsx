@@ -13,7 +13,7 @@ const Footer = () => {
         }}
       >
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-white mb-3 md:mb-4 leading-tight">
+          <h2 className="sm:text-2xl sm:font-bold text-[20px] font-medium  text-white mb-3 md:mb-4 leading-tight">
            Book the <span className="text-[#00694B] italic">Best</span> Adventure Tours in Roatan Today
           </h2>
           <p className="text-gray-300 md:text-gray-400 text-sm md:text-base max-w-2xl mx-auto mb-6 md:mb-8 leading-relaxed">

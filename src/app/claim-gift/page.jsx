@@ -13,7 +13,7 @@ export default function ClaimGiftPage() {
         
         {/* Header */}
         <header className="text-center mb-16 space-y-4">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-black">
+          <h1 className="text-4xl md:text-5xl h11 font-extrabold text-black">
             Gift a Friend <span className="text-[#00694B]">10% OFF</span>
           </h1>
           <p className="text-black text-lg max-w-2xl mx-auto">

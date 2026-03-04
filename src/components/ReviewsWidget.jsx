@@ -22,7 +22,7 @@ const ReviewsWidget = () => {
       <div className="max-w-4xl mx-auto text-center mb-6 md:mb-8">
         <StaggeredTextReveal
           el="h2"
-          className="text-2xl sm:text-3xl md:text-[32px] font-bold text-[#1a1a1a] mb-2"
+          className="sm:text-2xl sm:font-bold text-[20px] font-medium text-[#1a1a1a] mb-2"
           text="What Our Guests Say"
         />
         <div className="w-14 md:w-20 h-1 bg-[#00694B] mx-auto rounded-full mb-3" />

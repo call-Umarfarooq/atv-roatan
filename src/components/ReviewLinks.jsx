@@ -14,7 +14,7 @@ const ReviewLinks = () => {
         />
         
         {/* Buttons: grid on mobile (1 col or 2 col), flex row on md+ */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 md:flex md:flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 max-w-sm sm:max-w-none mx-auto">
+        <div className="grid grid-cols-3 md:flex md:flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 max-w-sm sm:max-w-none mx-auto">
           
           {/* Google */}
           <Link 
@@ -28,7 +28,7 @@ const ReviewLinks = () => {
                 <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.21z" fill="#FBBC05"/>
                 <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
             </svg>
-            <span className="font-semibold text-[#1a1a1a] text-base md:text-lg">Google</span>
+            <span className="font-semibold hidden sm:block text-[#1a1a1a] text-base md:text-lg">Google</span>
           </Link>
 
           {/* TripAdvisor */}
@@ -41,7 +41,7 @@ const ReviewLinks = () => {
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-8c0 1.66 1.34 3 3 3s3-1.34 3-3-1.34-3-3-3-3 1.34-3 3zm10 0c0 1.66 1.34 3 3 3s3-1.34 3-3-1.34-3-3-3-3 1.34-3 3z"/>
                 <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-2 6c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm6 0c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2z"/> 
              </svg>
-             <span className="font-semibold text-[#1a1a1a] text-base md:text-lg">TripAdvisor</span>
+             <span className="font-semibold hidden sm:block text-[#1a1a1a] text-base md:text-lg">TripAdvisor</span>
           </Link>
 
           {/* Facebook */}
@@ -51,7 +51,7 @@ const ReviewLinks = () => {
             className="group flex items-center justify-center gap-2.5 px-6 py-2 md:px-8  rounded-full border-2 border-[#1877F2] bg-white hover:bg-gray-50 transition-all duration-300 hover:scale-105"
           >
             <Facebook className="w-5 h-5 md:w-6 md:h-6 text-[#1877F2] fill-[#1877F2] shrink-0" />
-            <span className="font-semibold text-[#1a1a1a] text-base md:text-lg">Facebook</span>
+            <span className="font-semibold hidden sm:block text-[#1a1a1a] text-base md:text-lg">Facebook</span>
           </Link>
 
         </div>

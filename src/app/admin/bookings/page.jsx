@@ -36,7 +36,7 @@ export default function AdminBookingsPage() {
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
-                <h1 className="text-2xl font-bold text-[#1a1a1a]">Booking Management</h1>
+                <h1 className="text-2xl h11 font-bold text-[#1a1a1a]">Booking Management</h1>
             </div>
 
             {/* Filters/Search */}

@@ -128,7 +128,7 @@ function ConfirmationContent() {
                     <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
                         <CheckCircle2 size={48} className="text-white" />
                     </div>
-                    <h1 className="text-3xl font-bold mb-2">Booking Confirmed!</h1>
+                    <h1 className="text-3xl h11 font-bold mb-2">Booking Confirmed!</h1>
                     <p className="text-white/80">Thank you, {customer.firstName}. Your reservation is complete.</p>
                     <p className="text-white/80 text-sm mt-1">A confirmation email has been sent to {customer.email}.</p>
                 </div>

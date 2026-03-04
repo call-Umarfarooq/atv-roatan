@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
@@ -44,6 +44,30 @@ const itemVariants = {
 };
 
 const FeatureHighlights = () => {
+  const scrollRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const CARD_WIDTH = 110 + 12; // w-[110px] + gap-3 (12px)
+
+  const scrollToIndex = (index) => {
+    if (!scrollRef.current) return;
+    scrollRef.current.scrollTo({ left: index * CARD_WIDTH, behavior: 'smooth' });
+    setActiveIndex(index);
+  };
+
+  const handleScroll = useCallback(() => {
+    if (!scrollRef.current) return;
+    const index = Math.round(scrollRef.current.scrollLeft / CARD_WIDTH);
+    setActiveIndex(index);
+  }, [CARD_WIDTH]);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.addEventListener('scroll', handleScroll, { passive: true });
+    return () => el.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
   return (
     <section className="relative w-full px-3 sm:px-4 -mt-10 sm:-mt-14 md:-mt-16 z-10 mb-8 md:mb-10">
       <div className="max-w-7xl mx-auto">
@@ -54,7 +78,7 @@ const FeatureHighlights = () => {
 
           {/* ── Mobile: horizontal scroll strip ── */}
           <div className="md:hidden px-2 py-5">
-            <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide snap-x snap-mandatory">
+            <div ref={scrollRef} className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide snap-x snap-mandatory">
               {features.map((feature, index) => (
                 <motion.div
                   key={index}
@@ -83,10 +107,17 @@ const FeatureHighlights = () => {
               ))}
             </div>
 
-            {/* Scroll hint dots */}
+            {/* Clickable dots */}
             <div className="flex justify-center gap-1.5 mt-3">
               {features.map((_, i) => (
-                <span key={i} className={`block rounded-full bg-[#00694B] transition-all ${i === 0 ? 'w-4 h-1.5' : 'w-1.5 h-1.5 opacity-30'}`} />
+                <button
+                  key={i}
+                  aria-label={`Go to item ${i + 1}`}
+                  onClick={() => scrollToIndex(i)}
+                  className={`block rounded-full bg-[#00694B] transition-all duration-300 ${
+                    i === activeIndex ? 'w-4 h-1.5 opacity-100' : 'w-1.5 h-1.5 opacity-30'
+                  }`}
+                />
               ))}
             </div>
           </div>

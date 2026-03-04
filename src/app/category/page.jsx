@@ -44,7 +44,7 @@ export default function CategoryListPage() {
 
         {/* Header */}
         <div className="mb-8 ">
-            <h1 className="font-bold text-[#1a1a1a] mb-3 md:mb-4" style={{ fontSize: '32px', lineHeight: '1.2', letterSpacing: '0.2px', fontWeight: 500 }}>Explore Roatan by Category</h1>
+            <h1 className="font-bold h11 text-[#1a1a1a] mb-3 md:mb-4" style={{ fontSize: '32px', lineHeight: '1.2', letterSpacing: '0.2px', fontWeight: 500 }}>Explore Roatan by Category</h1>
             <p className="text-gray-600 text-base sm:text-lg max-w-2xl">
                 Browse our curated collections of adventures. From thrilling ATV rides to relaxing beach excursions, find the perfect experience for your trip.
             </p>

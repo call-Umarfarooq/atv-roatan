@@ -85,7 +85,7 @@ const IslaTropicalePort = () => {
             <Anchor size={14} />
             <span>Formerly Mahogany Bay Cruise Center</span>
           </div>
-          <h1 className="text-white text-4xl md:text-6xl font-bold tracking-wide mb-4 drop-shadow-lg">
+          <h1 className="text-white text-4xl h11 md:text-6xl font-bold tracking-wide mb-4 drop-shadow-lg">
             Isla Tropicale Port
           </h1>
           <p className="text-white/90 text-lg md:text-xl max-w-2xl leading-relaxed mb-8 font-light">

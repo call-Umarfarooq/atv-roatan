@@ -49,7 +49,7 @@ export default function AdminLoginPage() {
             <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
               <ShieldCheck size={32} className="text-white" />
             </div>
-            <h1 className="text-white text-2xl font-bold tracking-tight">Admin Portal</h1>
+            <h1 className="text-white text-2xl h11 font-bold tracking-tight">Admin Portal</h1>
             <p className="text-white/70 text-sm mt-1">ATV Roatan — Restricted Access</p>
           </div>
 

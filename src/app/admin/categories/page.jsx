@@ -46,7 +46,7 @@ export default function CategoriesPage() {
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div>
-            <h1 className="text-2xl font-bold text-[#1a1a1a]">Categories</h1>
+            <h1 className="text-2xl h11 font-bold text-[#1a1a1a]">Categories</h1>
             <p className="text-gray-500">Manage your categories</p>
         </div>
         <Link 

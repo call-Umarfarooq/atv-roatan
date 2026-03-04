@@ -15,6 +15,30 @@ async function getTour(slug) {
   return null;
 }
 
+async function getRelatedTours(tour) {
+  if (!tour) return [];
+
+  // Collect category IDs from either `categories` or legacy `category`
+  const categoryIds = [
+    ...(tour.categories || []).map(c => (typeof c === 'string' ? c : c._id?.toString())),
+    tour.category ? (typeof tour.category === 'string' ? tour.category : tour.category._id?.toString()) : null,
+  ].filter(Boolean);
+
+  if (categoryIds.length === 0) return [];
+
+  const related = await Tour.find({
+    _id: { $ne: tour._id },
+    $or: [
+      { categories: { $in: categoryIds } },
+      { category: { $in: categoryIds } },
+    ],
+  })
+    .limit(3)
+    .lean();
+
+  return JSON.parse(JSON.stringify(related));
+}
+
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const tour = await getTour(slug);
@@ -43,6 +67,7 @@ export async function generateMetadata({ params }) {
 export default async function TourDetailsPage({ params }) {
   const { slug } = await params;
   const tour = await getTour(slug);
+  const relatedTours = await getRelatedTours(tour);
 
-  return <TourDetailsClient initialTour={tour} />;
+  return <TourDetailsClient initialTour={tour} relatedTours={relatedTours} />;
 }

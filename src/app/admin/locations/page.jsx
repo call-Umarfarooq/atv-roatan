@@ -43,7 +43,7 @@ export default function LocationsPage() {
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-[#1a1a1a]">Locations</h1>
+          <h1 className="text-2xl font-bold h11 text-[#1a1a1a]">Locations</h1>
           <p className="text-gray-500">Manage pickup & drop-off locations</p>
         </div>
       </div>

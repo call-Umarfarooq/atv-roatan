@@ -135,7 +135,7 @@ body {
 
 /* ── Global H1 Desktop Typography ── */
 @media (min-width: 1024px) {
-  h1 {
+  .h11 {
     font-size: 60px;
     font-style: normal;
     font-weight: 500;

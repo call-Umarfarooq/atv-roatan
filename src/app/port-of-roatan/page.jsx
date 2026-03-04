@@ -137,7 +137,7 @@ const PortOfRoatan = () => {
             <Anchor size={16} className="text-white" />
             <span className="text-white text-sm font-medium tracking-wide">Cruise Port Guide</span>
           </div>
-          <h1 className="text-white text-4xl md:text-6xl font-bold tracking-wide mb-4 drop-shadow-lg">
+          <h1 className="text-white h11 text-4xl md:text-6xl font-bold tracking-wide mb-4 drop-shadow-lg">
             Port of Roatan
           </h1>
           <p className="text-white/90 text-lg md:text-xl max-w-2xl leading-relaxed mb-8">

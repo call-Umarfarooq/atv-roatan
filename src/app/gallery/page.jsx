@@ -60,7 +60,7 @@ export default async function GalleryPage() {
               Our Gallery
             </span>
           </div>
-          <h1 className="text-white tracking-tight mb-4 md:mb-6 drop-shadow-lg leading-tight">
+          <h1 className="text-white h11 tracking-tight mb-4 md:mb-6 drop-shadow-lg leading-tight">
             Moments To Remember
           </h1>
           <p className="text-gray-200 max-w-2xl mx-auto text-sm sm:text-base md:text-lg">
@@ -78,9 +78,7 @@ export default async function GalleryPage() {
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1a1a1a] leading-tight">
             See The <span className="text-[#00694B] italic font-uber-move">Adventure</span>
           </h2>
-          <p className="text-gray-500 mt-3 text-sm sm:text-base">
-            {allImages.length} photos from {tours.length} tours
-          </p>
+          
         </div>
 
         <GalleryGrid images={allImages} />

@@ -19,7 +19,7 @@ export default function PickupSelector({ configuration, selectedLocation, onSele
        <div className="border border-gray-200 rounded-lg p-6">
           <div className="flex items-center gap-2 mb-2">
             <MapPin className="text-[#1a1a1a]" size={20} />
-            <h3 className="font-bold text-[#1a1a1a]">Meeting Point</h3>
+            <h3 className="font-medium text-[#1a1a1a]">Meeting Point</h3>
           </div>
           <p className="text-[#1a1a1a] ml-7">{configuration?.meeting_point_name || "Contact operator for details."}</p>
           <p className="text-gray-500 text-sm ml-7">{configuration?.meeting_point_address}</p>
@@ -63,12 +63,12 @@ export default function PickupSelector({ configuration, selectedLocation, onSele
       {/* Header */}
       <div className="flex items-center gap-2 mb-4">
         <div className="w-6 flex justify-center"><MapPin size={20} className="text-[#00694B]" /></div>
-        <h3 className="font-bold text-[#1a1a1a]">Pickup points</h3>
+        <h3 className="font-medium text-[#1a1a1a]">Pickup points</h3>
       </div>
 
       {/* Selector UI */}
       <div className="ml-8 mb-6">
-        <p className="font-bold text-[#1a1a1a] text-sm mb-2">Select a pickup point</p>
+        <p className="font-medium text-[#1a1a1a] text-sm mb-2">Select a pickup point</p>
 
         {!selectedLocation ? (
           <div className="relative">

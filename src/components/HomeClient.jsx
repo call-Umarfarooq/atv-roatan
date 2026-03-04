@@ -1,11 +1,12 @@
 "use client";
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useRef, useMemo, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import TourCard from '@/components/TourCard';
 import StaggeredTextReveal from '@/components/StaggeredTextReveal';
 
 const HomeClient = ({ initialTours, categories }) => {
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [activeIndex, setActiveIndex] = useState(0);
   const carouselRef = useRef();
 
   const filteredTours = useMemo(() => {
@@ -20,18 +21,49 @@ const HomeClient = ({ initialTours, categories }) => {
         });
   }, [selectedCategory, initialTours]);
 
+  const getCardWidth = () =>
+    window.innerWidth < 640 ? window.innerWidth * 0.85 + 16 : 340;
+
   const scroll = (dir) => {
     if (!carouselRef.current) return;
-    // Use card width (~85vw on mobile, 320px on desktop)
-    const amount = window.innerWidth < 640 ? window.innerWidth * 0.82 : 340;
+    const amount = getCardWidth();
     carouselRef.current.scrollBy({ left: dir === 'next' ? amount : -amount, behavior: 'smooth' });
   };
+
+  const scrollToIndex = (index) => {
+    if (!carouselRef.current) return;
+    const cardWidth = getCardWidth();
+    carouselRef.current.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
+    setActiveIndex(index);
+  };
+
+  const handleCarouselScroll = useCallback(() => {
+    if (!carouselRef.current) return;
+    const cardWidth = getCardWidth();
+    const index = Math.round(carouselRef.current.scrollLeft / cardWidth);
+    setActiveIndex(index);
+  }, []);
+
+  useEffect(() => {
+    const el = carouselRef.current;
+    if (!el) return;
+    el.addEventListener('scroll', handleCarouselScroll, { passive: true });
+    return () => el.removeEventListener('scroll', handleCarouselScroll);
+  }, [handleCarouselScroll]);
+
+  // Reset active index when filtered tours change
+  useEffect(() => {
+    setActiveIndex(0);
+    if (carouselRef.current) {
+      carouselRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+    }
+  }, [filteredTours]);
 
   return (
     <div>
       {/* ── Category Filter Section ── */}
-      <section className="bg-white p-4">
-        <div className="max-w-7xl mx-auto px-4">
+      <section className="bg-white py-4">
+        <div className="max-w-7xl mx-auto">
 
           {/* Section Heading */}
           <div className="text-center mb-5 md:mb-8">
@@ -61,9 +93,8 @@ const HomeClient = ({ initialTours, categories }) => {
             </div>
           </div>
 
-          {/* Filter Pills — horizontal scroll on mobile */}
-          <div className="flex justify-start sm:justify-center overflow-x-auto no-scrollbar pb-1">
-            <div className="flex gap-2 min-w-max px-1">
+          {/* Filter Pills — wrap on mobile */}
+          <div className="flex justify-center flex-wrap gap-2 px-1 pb-1">
               <button
                 onClick={() => setSelectedCategory('All')}
                 className={`px-4 sm:px-6 py-1.5 sm:py-2.5 text-sm sm:text-base rounded-full font-bold transition-all whitespace-nowrap ${
@@ -87,7 +118,6 @@ const HomeClient = ({ initialTours, categories }) => {
                   {category.name}
                 </button>
               ))}
-            </div>
           </div>
         </div>
       </section>
@@ -100,7 +130,7 @@ const HomeClient = ({ initialTours, categories }) => {
             {/* Arrows — hidden on mobile, visible md+ */}
             <button
               onClick={() => scroll('prev')}
-              className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-11 h-11 bg-white text-gray-800 rounded-full shadow-lg items-center justify-center hover:bg-gray-50 hover:scale-110 transition-all focus:outline-none"
+              className="hidden md:flex absolute left-[-20px] top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-11 h-11 bg-white text-gray-800 rounded-full shadow-lg items-center justify-center hover:bg-gray-50 hover:scale-110 transition-all focus:outline-none"
               aria-label="Scroll Left"
             >
               <ChevronLeft size={22} />
@@ -108,7 +138,7 @@ const HomeClient = ({ initialTours, categories }) => {
 
             <button
               onClick={() => scroll('next')}
-              className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-11 h-11 bg-white text-gray-800 rounded-full shadow-lg items-center justify-center hover:bg-gray-50 hover:scale-110 transition-all focus:outline-none"
+              className="hidden md:flex absolute right-[-20px] top-1/2 -translate-y-1/2 translate-x-4 z-10 w-11 h-11 bg-white text-gray-800 rounded-full shadow-lg items-center justify-center hover:bg-gray-50 hover:scale-110 transition-all focus:outline-none"
               aria-label="Scroll Right"
             >
               <ChevronRight size={22} />
@@ -144,10 +174,17 @@ const HomeClient = ({ initialTours, categories }) => {
               ))}
             </div>
 
-            {/* Mobile swipe hint — show on small screens only */}
+            {/* Mobile dots — clickable, show on small screens only */}
             <div className="flex sm:hidden justify-center gap-1.5 mt-4 px-4">
               {filteredTours.slice(0, Math.min(filteredTours.length, 6)).map((_, i) => (
-                <span key={i} className={`block rounded-full bg-[#00694B] ${i === 0 ? 'w-5 h-1.5' : 'w-1.5 h-1.5 opacity-25'}`} />
+                <button
+                  key={i}
+                  aria-label={`Go to slide ${i + 1}`}
+                  onClick={() => scrollToIndex(i)}
+                  className={`block rounded-full bg-[#00694B] transition-all duration-300 ${
+                    i === activeIndex ? 'w-5 h-1.5 opacity-100' : 'w-1.5 h-1.5 opacity-25'
+                  }`}
+                />
               ))}
             </div>
           </div>

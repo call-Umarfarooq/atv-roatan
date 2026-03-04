@@ -94,7 +94,7 @@ const IslaTropicaleCruiseShipPortSchedule = () => {
             <Calendar size={14} />
             <span>2025 - 2026 Schedule</span>
           </div>
-          <h1 className="text-white text-3xl md:text-5xl font-bold tracking-wide mb-4 drop-shadow-lg">
+          <h1 className="text-white text-3xl h11 md:text-5xl font-bold tracking-wide mb-4 drop-shadow-lg">
             Isla Tropicale Port Schedule
           </h1>
           <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">

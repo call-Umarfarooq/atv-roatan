@@ -29,7 +29,7 @@ const AboutPage = () => {
                 About Us
              </span>
           </div>
-          <h1 className="text-white tracking-tight mb-4 md:mb-6 drop-shadow-lg leading-tight">
+          <h1 className="text-white h11 tracking-tight mb-4 md:mb-6 drop-shadow-lg leading-tight">
             Who We Are
           </h1>
           <p className="text-gray-200 max-w-2xl mx-auto text-sm sm:text-base md:text-lg">
