@@ -11,7 +11,7 @@ export default function ToursIntro() {
             
             <div className="prose max-w-none text-gray-700">
                 <div
-                  className={`mb-4 md:mb-6 md:!line-clamp-none ${isExpanded ? '' : 'line-clamp-3'}`}
+                  className={`sm:mb-4 md:mb-4 md:!line-clamp-none ${isExpanded ? '' : 'line-clamp-3'}`}
                   style={{ fontSize: '16px', fontStyle: 'normal', fontWeight: 400, letterSpacing: '0.05px', lineHeight: '24px' }}
                 >
                   Discover the beauty of Roatan with our premier ATV buggy and golf cart tours. Explore pristine beaches, lush jungles, and vibrant local culture with our expert guides. Whether you're seeking adrenaline-pumping off-road trails, a relaxing scenic drive, or a combination of island activities, we have the perfect adventure for you.
@@ -20,18 +20,16 @@ export default function ToursIntro() {
                 {/* Mobile only show more button */}
                 <button 
                   onClick={() => setIsExpanded(!isExpanded)}
-                  className="md:hidden text-[#00694B] font-bold text-sm mb-4 inline-block hover:underline"
+                  className="md:hidden text-[#00694B] font-bold text-sm  inline-block hover:underline"
                 >
                   {isExpanded ? 'Show less' : 'Show more'}
                 </button>
 
-                <p className=" text-gray-500">
-                  Browse our full list of excursions below and use the "Sort" feature to find exactly what you're looking for.
-                </p>
+               
             </div>
 
             {/* Action Buttons */}
-            <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center border-t border-gray-100 pt-6">
+            <div className=" flex flex-col sm:flex-row gap-3 justify-center   pt-4">
                 <Link 
                     href="/contact"
                     className="px-8 py-3 bg-[#00694B] text-white rounded-full font-bold text-center hover:bg-[#005a3c] transition-colors shadow-lg"

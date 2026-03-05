@@ -319,7 +319,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
 
             {/* Travelers Dropdown &mdash; full width, below the field */}
             {showTravelers && (
-              <div className="absolute top-full -right-[2px] bg-white border border-gray-200 shadow-xl rounded-xl p-5 z-30 mt-1.5 min-w-[340px]">
+              <div className="absolute top-full -right-[15px] sm:-right-[2px] bg-white border border-gray-200 shadow-xl rounded-xl p-5 z-30 mt-1.5 min-w-[340px]">
                 <p className="text-sm text-gray-600 mb-4 pb-3 border-b border-gray-100">Select travelers in total.</p>
                 <div className="space-y-4">
                   {[
@@ -439,7 +439,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
                   setShowTravelers(true);
                 }
               }}
-              className="w-full bg-[#00694B] hover:bg-[#1a6b24] text-white font-bold py-2.5 sm:py-2.5 rounded-lg transition-colors text-[15px] shadow-sm"
+              className="w-full bg-[#00694B] hover:bg-[#1a6b24] text-white font-bold py-2.5 sm:py-2.5 rounded-full transition-colors text-[15px] shadow-sm"
             >
               Check Availability
             </button>
@@ -478,7 +478,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
             onClick={() => {
               widgetRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }}
-            className="w-full bg-[#00694B] hover:bg-[#1a6b24] text-white font-bold py-3.5 rounded-lg text-[15px] transition-colors shadow-sm"
+            className="w-full bg-[#00694B] hover:bg-[#1a6b24] text-white font-bold py-3.5 rounded-full text-[15px] transition-colors shadow-sm"
           >
             Check Availability
           </button>

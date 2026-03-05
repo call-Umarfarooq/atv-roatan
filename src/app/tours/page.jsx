@@ -43,7 +43,7 @@ export const metadata = {
     canonical: "/tours",
   },
 
-  metadataBase: new URL('https://roatanatvbuggytours.com'),
+  metadataBase: new URL('https://atvroatan.com'),
 
   // Favicon
   icons: {
@@ -118,9 +118,9 @@ export default async function AllToursPage() {
                 <div className="inline-block px-4 py-1.5 rounded-full border border-[#00694B]/30 text-[#00694B] font-semibold text-sm bg-[#00694B]/5">
                    Featured Passes
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a]">Roatan <span className="text-[#00694B] italic font-uber-move whitespace-nowrap">All-Inclusive</span></h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-[#1a1a1a]">ATV Roatan <span className="text-[#00694B] italic font-uber-move whitespace-nowrap">All-Inclusive</span></h2>
                 <p className="text-gray-600 leading-relaxed text-base md:text-lg">
-                    Roatan offers several All-Inclusive day passes. The majority of these packages are located at resort properties on West Bay Beach, a 20-30 minutes scenic drive from the Port of Roatan and the Mahogany Bay Cruise Center.
+                   ATV Roatan offers several All-Inclusive day passes. The majority of these packages are located at resort properties on West Bay Beach, a 20-30 minutes scenic drive from the Port of Roatan and the Mahogany Bay Cruise Center.
                 </p>
             </div>
             

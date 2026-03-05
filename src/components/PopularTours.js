@@ -2,7 +2,7 @@
 import React, { useState, useMemo } from 'react';
 import TourCard from './TourCard';
 
-export default function PopularTours({ initialTours }) {
+export default function PopularTours({ initialTours,titlename }) {
   const [sortBy, setSortBy] = useState('default');
 
   const sortedTours = useMemo(() => {
@@ -18,7 +18,7 @@ export default function PopularTours({ initialTours }) {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
-        <h2 className="text-3xl font-bold text-[#1a1a1a]">Popular Tours</h2>
+        <h2 className="text-3xl capitalize font-bold text-[#1a1a1a]">Best {titlename} Tours</h2>
         
         <div className="relative">
           <select
@@ -47,6 +47,7 @@ export default function PopularTours({ initialTours }) {
                 price={tour.adultPrice || tour.base_price}
                 duration={tour.duration}
                 slug={tour.slug}
+                 gallery={tour.gallery}
                 location={tour.marketing_badges?.location_text}
                 rating={tour.marketing_badges?.stars}
                 reviews={tour.marketing_badges?.reviews_text?.replace(/\D/g, '') || 0}

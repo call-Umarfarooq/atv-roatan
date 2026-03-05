@@ -17,6 +17,7 @@ const TourCard = ({
   gallery,
   additionalInfo,
   cutoff_price,
+  pp,
   slug
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -107,13 +108,13 @@ const TourCard = ({
            <span className="text-gray-500 text-sm ml-2">( {reviews} Reviews )</span>
         </div> 
          {/* Best Price Guarantee */}
-         <div className="bg-gradient-to-r from-[#115e3b] to-[#468262] flex items-center gap-2 text-white text-[10px] sm:text-xs font-bold px-2.5 py-1.5 rounded-full w-full shadow-md border border-[#468262]/30 leading-tight mb-0.5 relative overflow-hidden">
+          <div className={`bg-gradient-to-r from-[#115e3b] to-[#468262] flex items-center  text-white text-[10px] sm:text-xs font-bold ${pp? "px-1 py-1 gap-1" : "px-2.5 py-1.5 gap-2 "} rounded-full w-full shadow-md border border-[#468262]/30 leading-tight mb-0.5 relative overflow-hidden`}>
             <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-white/10 pointer-events-none" />
-            <div className="bg-gradient-to-br from-red-500 to-red-600 rounded-full w-7 h-7 flex items-center justify-center shrink-0 border-[1.5px] border-white/90 shadow-sm relative z-10">
-                <div className="text-white text-[6px] font-black text-center leading-[1.1] tracking-wider">BEST<br/>PRICE</div>
+            <div className={`bg-gradient-to-br from-red-500 to-red-600 rounded-full ${pp? " w-6 h-6" : "w-7 h-7"}  flex items-center justify-center shrink-0 border-[1.5px] border-white/90 shadow-sm relative z-10`}>
+                <div className={`text-white ${pp? "text-[5px]":"text-[6px]"}  font-black text-center leading-[1.1] tracking-wider`}>BEST<br/>PRICE</div>
             </div>
-            <span className="text-emerald-50 capitalize tracking-wide relative z-10">Best Price Guarantee:</span>
-            <span className="text-[#A3E635] capitalize relative z-10">110% refund</span>
+            <span className={`text-emerald-50  ${pp ? "text-[10px]" : ""} min-w-max capitalize tracking-wide relative z-10`}>Best Price Guarantee:</span>
+            <span className={`text-[#A3E635] ${pp ? "text-[10px]" : ""} min-w-max   capitalize relative z-10`}>110% refund</span>
          </div>
          {/* "of the difference" right-aligned below banner */}
          <div className=" capitalize text-gray-400 text-[10px] text-right  mb-1">of the difference</div>

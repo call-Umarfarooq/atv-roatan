@@ -96,7 +96,7 @@ export default async function ActivityDetailsPage({ params }) {
 
       {/* Related Tours Section */}
       {tours.length > 0 && (
-        <PopularTours initialTours={tours} />
+        <PopularTours initialTours={tours} titlename={activity.title}/>
       )}
     </main>
   );

@@ -89,6 +89,16 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
     fetchTour();
   }, [slug, initialTour]);
 
+  useEffect(() => {
+    if (showMoreGallery) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showMoreGallery]);
 
   const toggleSection = (section) => {
     setExpandedSections(prev => ({
@@ -305,61 +315,7 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
                 </div>
               </div>
 
-              {/* Mobile fullscreen gallery modal */}
-              {showMoreGallery && (
-                <div className="fixed inset-0 z-50 bg-black flex flex-col">
-                  {/* Header */}
-                  <div className="flex items-center justify-between px-4 py-3 shrink-0">
-                    <button
-                      onClick={() => setShowMoreGallery(false)}
-                      className="w-9 h-9 bg-white/20 hover:bg-white/30 text-white rounded-full flex items-center justify-center transition-colors"
-                    >
-                      <X size={18} />
-                    </button>
-                    <span className="text-white text-sm font-medium">
-                      {currentImageIndex + 1} / {images.length}
-                    </span>
-                  </div>
-
-                  {/* Current large image */}
-                  <div className="relative flex-1 flex items-center justify-center overflow-hidden">
-                    <img
-                      src={getImageUrl(images[currentImageIndex])}
-                      className="max-h-full max-w-full object-contain"
-                      alt={imageAlts[currentImageIndex] || tour.title}
-                    />
-                    {/* Prev arrow */}
-                    <button
-                      onClick={() => setCurrentImageIndex(p => (p - 1 + images.length) % images.length)}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/20 hover:bg-white/40 rounded-full flex items-center justify-center"
-                    >
-                      <ChevronLeft size={20} className="text-white" />
-                    </button>
-                    {/* Next arrow */}
-                    <button
-                      onClick={() => setCurrentImageIndex(p => (p + 1) % images.length)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/20 hover:bg-white/40 rounded-full flex items-center justify-center"
-                    >
-                      <ChevronRight size={20} className="text-white" />
-                    </button>
-                  </div>
-
-                  {/* Thumbnail strip */}
-                  <div className="flex gap-2 px-3 py-3 overflow-x-auto shrink-0">
-                    {images.map((img, i) => (
-                      <button
-                        key={i}
-                        onClick={() => setCurrentImageIndex(i)}
-                        className={`shrink-0 w-14 h-14 rounded-lg overflow-hidden border-2 transition-all ${
-                          i === currentImageIndex ? 'border-white opacity-100' : 'border-transparent opacity-50'
-                        }`}
-                      >
-                        <img src={getImageUrl(img)} className="w-full h-full object-cover" alt="" />
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
+              {/* Fullscreen gallery modal moved to root */}
             </div>
 
             {/* ── DESKTOP Gallery (hidden on mobile) ── */}
@@ -380,35 +336,13 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
                   {images.length > 4 && (
                     <button
                       onClick={() => setShowMoreGallery(v => !v)}
-                      className="relative w-full h-[44px] rounded-lg overflow-hidden cursor-pointer bg-[#00694B] text-white flex items-center justify-center gap-1.5 font-bold text-xs hover:bg-[#1f4232] transition-colors shrink-0"
+                      className="relative w-full h-[44px] rounded-full overflow-hidden cursor-pointer bg-[#00694B] text-white flex items-center justify-center gap-1.5 font-bold text-xs hover:bg-[#1f4232] transition-colors shrink-0"
                     >
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
                       See More 
                     </button>
                   )}
-                  {showMoreGallery && images.length > 4 && (
-                    <div className="absolute top-0 left-[calc(100%+12px)] z-50 bg-white border border-gray-200 rounded-xl shadow-2xl p-3 w-64">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs font-bold text-gray-700">All Photos ({images.length})</span>
-                        <button onClick={() => setShowMoreGallery(false)} className="text-gray-400 hover:text-gray-700 transition-colors">
-                          <ChevronDown size={16} className="rotate-180" />
-                        </button>
-                      </div>
-                      <div className="grid grid-cols-2 gap-2 max-h-[420px] overflow-y-auto pr-0.5">
-                        {images.slice(4).map((img, i) => (
-                          <div
-                            key={i + 4}
-                            onClick={() => { setCurrentImageIndex(i + 4); setShowMoreGallery(false); }}
-                            className={`relative w-full h-[80px] rounded-lg overflow-hidden cursor-pointer transition-all ${
-                              currentImageIndex === i + 4 ? 'ring-2 ring-black opacity-100' : 'opacity-70 hover:opacity-100'
-                            }`}
-                          >
-                            <img src={getImageUrl(img)} className="w-full h-full object-cover" alt={imageAlts[i + 4] || tour.title} />
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+
                 </div>
 
                 {/* Main Hero Image */}
@@ -535,7 +469,7 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
                 <div>
                     <h3 className="sm:text-2xl sm:font-normal text-[20px] font-medium  text-[#1a1a1a] mb-1">The Best Price Guarantee</h3>
                     <p className="text-gray-600 text-sm leading-relaxed">
-                        Find a better price for any excursion we offer and we will refund you 110% of the price difference!*
+                        Find a better price for any excursion we offer and we will refund you 110% of the price difference!
                     </p>
                 </div>
              </div>
@@ -719,6 +653,7 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
                      <TourCard
                        key={related._id}
                        slug={related.slug}
+                       pp={"pp"}
                        image={related.image_url}
                        gallery={related.gallery}
                        location={related.location_text || 'Roatan, Honduras'}
@@ -747,6 +682,79 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
 
         </div>
       </main>
+
+      {/* Unified Fullscreen Gallery Modal */}
+      {showMoreGallery && (
+        <div className="fixed inset-0 z-[100] bg-[#1a1a1a] flex flex-col">
+          {/* Header */}
+          <div className="flex items-center justify-between px-4 sm:px-6 py-4 shrink-0">
+            <div className="flex-1"></div>
+            <div className="flex gap-6 text-white text-sm font-bold">
+              <span className="border-b-2 border-white pb-1">Provider photos ({images.length})</span>
+            </div>
+            <div className="flex-1 flex justify-end">
+              <button
+                onClick={() => setShowMoreGallery(false)}
+                className="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
+                aria-label="Close gallery"
+              >
+                <X size={20} className="text-[#1a1a1a]" />
+              </button>
+            </div>
+          </div>
+
+          {/* Main Image Area */}
+          <div className="relative flex-1 flex items-center justify-center overflow-hidden px-4 sm:px-16 pb-4">
+            <img
+              src={getImageUrl(images[currentImageIndex])}
+              className="max-h-full max-w-full object-contain"
+              alt={imageAlts[currentImageIndex] || 'Tour Image'}
+            />
+            
+            {/* Navigation Arrows */}
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={() => setCurrentImageIndex(p => (p - 1 + images.length) % images.length)}
+                  className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full flex items-center justify-center opacity-70 hover:opacity-100 transition-opacity"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft size={24} className="text-[#1a1a1a]" />
+                </button>
+                <button
+                  onClick={() => setCurrentImageIndex(p => (p + 1) % images.length)}
+                  className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full flex items-center justify-center opacity-70 hover:opacity-100 transition-opacity"
+                  aria-label="Next image"
+                >
+                  <ChevronRight size={24} className="text-[#1a1a1a]" />
+                </button>
+              </>
+            )}
+
+            {/* Counter */}
+            <div className="absolute right-4 sm:right-6 bottom-4 sm:bottom-6 bg-black/70 text-white text-sm font-bold px-3 py-1.5 rounded">
+              {currentImageIndex + 1} / {images.length}
+            </div>
+          </div>
+
+          {/* Thumbnail Strip */}
+          <div className="h-[100px] sm:h-[120px] shrink-0 bg-[#0a0a0a] flex items-center justify-center">
+            <div className="flex gap-2.5 overflow-x-auto h-full items-center no-scrollbar px-4 sm:px-8 max-w-full snap-x">
+              {images.map((img, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentImageIndex(i)}
+                  className={`shrink-0 w-24 h-16 sm:w-32 sm:h-20 rounded-md overflow-hidden border-2 transition-all snap-center ${
+                    i === currentImageIndex ? 'border-white opacity-100' : 'border-transparent opacity-50 hover:opacity-80'
+                  }`}
+                >
+                  <img src={getImageUrl(img)} className="w-full h-full object-cover" alt="" />
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
