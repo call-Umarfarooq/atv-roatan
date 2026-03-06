@@ -43,7 +43,8 @@ export async function GET() {
     booking_options: {
         reserve_now_pay_later: true,
         free_cancellation: true,
-        policy_text: "up to 24 hours before the experience starts (local time)"
+        policy_text: `Cancel for any reason up to 24 hours before your start time for a 100% full refund. Your peace of mind is our priority!
+(As per policy law)`
     },
     cancellation_policy: "For a full refund, you must cancel at least 24 hours before the experience's start time. If you cancel less than 24 hours before the experience's start time, the amount you paid will not be refunded. As a weather-dependent experience, if it's canceled due to poor weather, you'll be offered a different date or a full refund.",
     meeting_point: "For cruise ship passengers: Walk past the main port gate and look for the 'ATV Roatan' sign. Our guides will be wearing green shirts.",

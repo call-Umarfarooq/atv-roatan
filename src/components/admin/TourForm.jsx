@@ -51,7 +51,8 @@ export default function TourForm({ initialData = null, isEdit = false }) {
     booking_options: {
         reserve_now_pay_later: false,
         free_cancellation: true,
-        policy_text: 'up to 24 hours before the experience starts (local time)'
+        policy_text: `Cancel for any reason up to 24 hours before your start time for a 100% full refund. Your peace of mind is our priority!
+(As per policy law)`
     }, 
     additional_info: [
       '⛴️ Port Round Trip Transport Included',

@@ -97,7 +97,8 @@ const TourSchema = new mongoose.Schema({
   booking_options: {
     reserve_now_pay_later: { type: Boolean, default: false },
     free_cancellation: { type: Boolean, default: true },
-    policy_text: { type: String, default: 'up to 24 hours before the experience starts (local time)' },
+    policy_text: { type: String, default: `Cancel for any reason up to 24 hours before your start time for a 100% full refund. Your peace of mind is our priority!
+(As per policy law)` },
   },
   // Enhanced Itinerary items
   itinerary: [{
