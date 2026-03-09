@@ -295,32 +295,32 @@ const Header = () => {
                       <div className="grid grid-cols-4 gap-6 p-6">
                         <a href="/port-of-roatan" className="flex flex-col gap-2 group/item">
                           <div className="relative w-full aspect-video rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
-                            <Image src="/images/hero.png" alt="Port of Roatan" fill className="object-cover group-hover/item:scale-105 transition-transform duration-300" />
+                            <Image src="/images/Port of Roatan Western Caribbean.jpg.jpeg" alt="Port of Roatan" fill className="object-cover group-hover/item:scale-105 transition-transform duration-300" />
                           </div>
                           <span className="text-sm font-bold text-gray-700 text-center group-hover/item:text-[#00694B]">Port of Roatan (Coxen Hole)</span>
                         </a>
 
                         <a href="/port-of-roatan-cruise-ship-schedule" className="flex flex-col gap-2 group/item">
                           <div className="relative w-full aspect-video rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
-                            <div className="absolute inset-0 bg-blue-50 flex items-center justify-center">
-                              <span className="text-4xl">📅</span>
-                            </div>
+                           <div className="relative w-full aspect-video rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
+                            <Image src="/images/Port of Roatan Cruise Ship Schedule.webp" alt="Isla Tropicale" fill className="object-cover group-hover/item:scale-105 transition-transform duration-300" />
+                          </div>
                           </div>
                           <span className="text-sm font-bold text-gray-700 text-center group-hover/item:text-[#00694B]">Port of Roatan Schedule</span>
                         </a>
 
                         <a href="/isla-tropicale-cruise-ship-port" className="flex flex-col gap-2 group/item">
                           <div className="relative w-full aspect-video rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
-                            <Image src="/images/hero.png" alt="Isla Tropicale" fill className="object-cover group-hover/item:scale-105 transition-transform duration-300" />
+                            <Image src="/images/Isla Tropicale Cruise Ship Port Western Caribbean.jpg.jpeg" alt="Isla Tropicale" fill className="object-cover group-hover/item:scale-105 transition-transform duration-300" />
                           </div>
                           <span className="text-sm font-bold text-gray-700 text-center group-hover/item:text-[#00694B]">Isla Tropicale (Mahogany Bay)</span>
                         </a>
 
                         <a href="/isla-tropicale-cruise-ship-port-schedule" className="flex flex-col gap-2 group/item">
                           <div className="relative w-full aspect-video rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
-                            <div className="absolute inset-0 bg-green-50 flex items-center justify-center">
-                              <span className="text-4xl">📅</span>
-                            </div>
+                            <div className="relative w-full aspect-video rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
+                            <Image src="/images/Isla Tropicale Cruise Ship Port Schedule.jpg.jpeg" alt="Isla Tropicale" fill className="object-cover group-hover/item:scale-105 transition-transform duration-300" />
+                          </div>
                           </div>
                           <span className="text-sm font-bold text-gray-700 text-center group-hover/item:text-[#00694B]">Isla Tropicale Schedule</span>
                         </a>
