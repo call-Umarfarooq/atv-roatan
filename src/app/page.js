@@ -95,16 +95,16 @@ console.log(tours);
   const serializedActivities = JSON.parse(JSON.stringify(activities));
 
   return (
-    <main className="bg-white">
+    <main className="bg-white ">
       {/* Hero Section */}
-      <section className="relative w-full h-[45vh] sm:h-[60vh] md:h-[70vh] min-h-[300px] sm:min-h-[420px]">
+      <section className="relative  w-full h-[45vh] sm:h-[60vh] md:h-[70vh] min-h-[300px] sm:min-h-[420px]">
         <video
           src="/images/atv-video.mp4"
           autoPlay
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover object-top"
+          className="absolute inset-0 w-full h-full object-fill object-top"
         />
         {/* Dark overlay with gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60" />

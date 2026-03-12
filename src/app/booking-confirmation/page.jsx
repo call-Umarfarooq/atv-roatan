@@ -7,8 +7,8 @@ function ConfirmationContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
     
-    // We can receive either an internal ID, or a redirect from a payment gateway
     const id = searchParams.get('id');
+    const isPlan = searchParams.get('plan') === '1';
     const paymentIntentId = searchParams.get('payment_intent');
     const redirectStatus = searchParams.get('redirect_status');
 
@@ -20,6 +20,18 @@ function ConfirmationContent() {
         async function loadBooking() {
             setLoading(true);
             try {
+                // ── Plan Booking (plan=1&id=...) ──
+                if (isPlan && id) {
+                    const res = await fetch(`/api/plan-bookings/${id}`);
+                    const data = await res.json();
+                    if (data.success) {
+                        setBooking({ ...data.data, _isPlan: true });
+                    } else {
+                        setError('Plan booking not found.');
+                    }
+                    return;
+                }
+
                 // Case 1: Standard Redirect with ID (From our own checkout success)
                 if (id) {
                     const res = await fetch(`/api/bookings/${id}`);
@@ -51,7 +63,6 @@ function ConfirmationContent() {
                             date: checkoutData.date,
                             travelers: checkoutData.travelers,
                             selectedExtras: checkoutData.selectedExtras,
-                            // Fallback to empty if state was lost during strict redirect
                             customer: checkoutData.contactResult || { firstName: "Guest", lastName: "Checkout", email: "Unknown", phone: "" },
                             paymentIntentId: paymentIntentId,
                             paymentStatus: 'paid',
@@ -80,7 +91,7 @@ function ConfirmationContent() {
         }
 
         loadBooking();
-    }, [id, paymentIntentId, redirectStatus]);
+    }, [id, isPlan, paymentIntentId, redirectStatus]);
 
     if (loading) {
         return (
@@ -107,6 +118,104 @@ function ConfirmationContent() {
         );
     }
 
+    // ── Plan Booking Confirmation ──────────────────────────────────────────────
+    if (booking._isPlan) {
+        const pb = booking;
+        const orderId = (pb._id || '').toString().substring(0, 8).toUpperCase();
+        const arrival = new Date(pb.arrivalDate).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+        const departure = new Date(pb.departureDate).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+        return (
+            <div className="max-w-3xl mx-auto px-4 py-12">
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                    {/* Header */}
+                    <div className="bg-[#00694B] p-8 text-center text-white">
+                        <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
+                            <CheckCircle2 size={48} className="text-white" />
+                        </div>
+                        <h1 className="text-3xl font-bold mb-2">Adventure Plan Confirmed! 🌴</h1>
+                        <p className="text-white/80">Thank you, {pb.customer.firstName}. Your {pb.totalDays}-day Roatan adventure is booked.</p>
+                        <p className="text-white/80 text-sm mt-1">Confirmation sent to {pb.customer.email}</p>
+                    </div>
+
+                    <div className="p-8">
+                        {/* Ref + Dates */}
+                        <div className="flex flex-col sm:flex-row justify-between items-start border-b border-gray-100 pb-6 mb-6 gap-4">
+                            <div>
+                                <div className="text-sm text-gray-500 mb-1">Booking Reference</div>
+                                <div className="font-bold text-lg text-[#1a1a1a]">{orderId}</div>
+                            </div>
+                            <div className="text-left sm:text-right">
+                                <div className="text-sm text-gray-500 mb-1">Stay Dates</div>
+                                <div className="font-bold text-[#1a1a1a]">{arrival} → {departure}</div>
+                                <div className="text-xs text-gray-500">{pb.totalDays} days · {pb.travelers.adults} Adults{pb.travelers.children > 0 ? `, ${pb.travelers.children} Children` : ''}</div>
+                            </div>
+                        </div>
+
+                        {/* Day-by-day itinerary */}
+                        <h3 className="text-lg font-bold text-[#1a1a1a] mb-4 border-b-2 border-[#00694B] pb-2 inline-block">Your Day-by-Day Itinerary</h3>
+                        <div className="space-y-3 mb-8">
+                            {(pb.days || []).map(day => (
+                                <div key={day.dayNumber} className="border border-gray-100 rounded-xl overflow-hidden">
+                                    <div className={`flex items-center justify-between px-4 py-2.5 text-sm font-bold ${day.region === 'east' ? 'bg-amber-50 text-amber-800' : day.region === 'west' ? 'bg-blue-50 text-blue-800' : 'bg-gray-50 text-gray-700'}`}>
+                                        <span>Day {day.dayNumber} {day.region === 'east' ? '🌅 East Roatan' : day.region === 'west' ? '🌊 West Roatan' : ''}</span>
+                                        <span className="text-[#00694B]">${(day.dayTotal || 0).toFixed(0)}</span>
+                                    </div>
+                                    {(day.activities || []).length === 0 ? (
+                                        <p className="px-4 py-2 text-xs text-gray-400 italic">Free day</p>
+                                    ) : (
+                                        <div className="px-4 py-2 space-y-1">
+                                            {(day.activities || []).map((a, i) => (
+                                                <div key={i} className="flex items-center justify-between text-sm py-1">
+                                                    <span className="text-gray-700">{a.emoji} {a.name}</span>
+                                                    <span className="text-xs text-gray-500">{a.durationHours}h · ${a.price}/pp</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Price Summary */}
+                        <div className="bg-gray-50 rounded-xl p-5 mb-6 border border-gray-100">
+                            <h4 className="font-bold text-[#1a1a1a] mb-3">Price Summary</h4>
+                            <div className="space-y-2 text-sm">
+                                <div className="flex justify-between"><span className="text-gray-600">Subtotal</span><span>${(pb.subtotal || 0).toFixed(2)}</span></div>
+                                {pb.discountAmount > 0 && (
+                                    <div className="flex justify-between text-[#00694B] font-bold">
+                                        <span>Long-Stay Discount ({pb.discountPercent}%)</span>
+                                        <span>−${pb.discountAmount.toFixed(2)}</span>
+                                    </div>
+                                )}
+                                <div className="border-t pt-2 flex justify-between font-black text-[#1a1a1a] text-base">
+                                    <span>Total Paid</span><span>${(pb.totalPrice || 0).toFixed(2)}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* What's Next */}
+                        <div className="bg-[#f0fdf6] rounded-xl p-5 border border-[#00694B]/20 mb-6">
+                            <h4 className="font-bold text-[#00694B] mb-2">What's Next?</h4>
+                            <ul className="text-sm text-gray-600 space-y-2 list-disc pl-4">
+                                <li>Check your email for your full itinerary confirmation.</li>
+                                <li>Our team will contact you before your arrival with daily pickup details.</li>
+                                <li>Have questions? Reply to your confirmation email or WhatsApp us.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className="bg-gray-50 p-4 text-center border-t border-gray-100">
+                        <button onClick={() => router.push('/')} className="text-[#00694B] font-bold hover:underline">
+                            Return to Site
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+
+    // ── Regular Tour Booking ───────────────────────────────────────────────────
     const { tourTitle, customer, travelers, date, totalPrice, _id, paymentStatus, paymentType, paymentGateway, pickupDetails, selectedExtras, tour } = booking;
     const formattedDate = new Date(date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 

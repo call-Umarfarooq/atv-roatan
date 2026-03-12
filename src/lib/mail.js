@@ -287,3 +287,92 @@ export async function sendContactEmail({ name, email, subject, message }) {
 
 
 
+export async function sendPlanBookingEmail(planBooking) {
+  try {
+    const { EMAIL_USER, EMAIL_PASS } = process.env;
+    if (!EMAIL_USER || !EMAIL_PASS) {
+      console.warn("Email credentials missing. Plan booking email not sent.");
+      return false;
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: { user: EMAIL_USER, pass: EMAIL_PASS }
+    });
+
+    const arrival = new Date(planBooking.arrivalDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    const departure = new Date(planBooking.departureDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    const orderId = (planBooking._id || '').toString().substring(0, 8).toUpperCase();
+
+    // Build day-by-day HTML
+    const daysHtml = (planBooking.days || []).map(day => {
+      const actRows = (day.activities || []).map(a =>
+        `<tr><td style="padding:4px 8px;font-size:13px;">${a.emoji || '🌴'} ${a.name}</td><td style="padding:4px 8px;font-size:13px;color:#888;">${a.durationHours}h</td><td style="padding:4px 8px;font-size:13px;color:#00694B;font-weight:bold;">$${a.price}/pp</td></tr>`
+      ).join('');
+      const regionLabel = day.region === 'east' ? '🌅 East Roatan' : day.region === 'west' ? '🌊 West Roatan' : '';
+      return `
+        <div style="margin-bottom:16px;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;">
+          <div style="background:#f0fdf6;padding:8px 14px;font-weight:bold;font-size:14px;color:#1a1a1a;">
+            Day ${day.dayNumber} ${regionLabel ? `<span style="color:#888;font-weight:normal;font-size:12px;margin-left:8px;">${regionLabel}</span>` : ''}
+          </div>
+          <table style="width:100%;border-collapse:collapse;">${actRows || '<tr><td style="padding:8px;font-size:12px;color:#aaa;font-style:italic;">Free day</td></tr>'}</table>
+        </div>`;
+    }).join('');
+
+    const clientHtml = `
+      <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;color:#333;">
+        <div style="background:#00694B;padding:24px;text-align:center;">
+          <div style="color:#fff;font-size:22px;font-weight:bold;">ATV Roatan</div>
+          <div style="color:#a7f3d0;font-size:13px;margin-top:4px;">Adventure Plan Confirmed 🌴</div>
+        </div>
+        <div style="padding:24px;background:#f9f9f9;">
+          <h2 style="color:#00694B;margin-top:0;">Your Adventure Plan is Booked!</h2>
+          <p>Hi <strong>${planBooking.customer.firstName}</strong>,</p>
+          <p>We're excited to confirm your custom Roatan adventure. Here's your full itinerary:</p>
+          <div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:16px;margin:16px 0;">
+            <p style="margin:0 0 4px;"><strong>Order ID:</strong> #${orderId}</p>
+            <p style="margin:0 0 4px;"><strong>Arrival:</strong> ${arrival}</p>
+            <p style="margin:0 0 4px;"><strong>Departure:</strong> ${departure}</p>
+            <p style="margin:0;"><strong>Travelers:</strong> ${planBooking.travelers.adults} Adults${planBooking.travelers.children > 0 ? `, ${planBooking.travelers.children} Children` : ''}${planBooking.travelers.infants > 0 ? `, ${planBooking.travelers.infants} Infants` : ''}</p>
+          </div>
+          <h3 style="color:#1a1a1a;">Your Day-by-Day Itinerary</h3>
+          ${daysHtml}
+          <div style="background:#00694B;color:#fff;border-radius:10px;padding:16px;margin-top:16px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Subtotal</span><span>$${(planBooking.subtotal || 0).toFixed(2)}</span></div>
+            ${planBooking.discountAmount > 0 ? `<div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Long-Stay Discount (${planBooking.discountPercent}%)</span><span>-$${(planBooking.discountAmount || 0).toFixed(2)}</span></div>` : ''}
+            <div style="display:flex;justify-content:space-between;font-size:18px;font-weight:bold;margin-top:8px;border-top:1px solid rgba(255,255,255,0.3);padding-top:8px;"><span>Total Paid</span><span>$${(planBooking.totalPrice || 0).toFixed(2)}</span></div>
+          </div>
+          <p style="margin-top:20px;">Our team will be in touch with pickup instructions for each day. If you have any questions, reply to this email or WhatsApp us.</p>
+          <p>Best regards,<br/><strong>ATV Roatan Team</strong></p>
+        </div>
+      </div>`;
+
+    await transporter.sendMail({
+      from: `"ATV Roatan" <${EMAIL_USER}>`,
+      to: planBooking.customer.email,
+      subject: `Adventure Plan Confirmed! #${orderId} — ${planBooking.totalDays} Days in Roatan`,
+      html: clientHtml,
+    });
+
+    // Admin notification
+    await transporter.sendMail({
+      from: `"ATV Roatan System" <${EMAIL_USER}>`,
+      to: EMAIL_USER,
+      subject: `New Plan Booking: ${planBooking.customer.firstName} ${planBooking.customer.lastName} — ${planBooking.totalDays} Days`,
+      html: `<div style="font-family:Arial,sans-serif;"><h2 style="color:#00694B;">New Adventure Plan Booking</h2>
+        <p><strong>Customer:</strong> ${planBooking.customer.firstName} ${planBooking.customer.lastName}</p>
+        <p><strong>Email:</strong> ${planBooking.customer.email}</p>
+        <p><strong>Phone:</strong> ${planBooking.customer.phone}</p>
+        <p><strong>Dates:</strong> ${arrival} → ${departure} (${planBooking.totalDays} days)</p>
+        <p><strong>Travelers:</strong> ${planBooking.travelers.adults} Adults, ${planBooking.travelers.children} Children, ${planBooking.travelers.infants} Infants</p>
+        <p><strong>Total Activities:</strong> ${(planBooking.days || []).reduce((s, d) => s + (d.activities || []).length, 0)}</p>
+        <p><strong>Total Paid:</strong> $${(planBooking.totalPrice || 0).toFixed(2)}</p>
+        <p><strong>Order ID:</strong> #${orderId}</p></div>`,
+    });
+
+    return true;
+  } catch (error) {
+    console.error("Error sending plan booking email:", error);
+    return false;
+  }
+}

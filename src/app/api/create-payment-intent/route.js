@@ -13,7 +13,19 @@ export async function POST(request) {
     }
 
     await dbConnect();
-    const { tourId, travelers, extraServices, paymentType } = await request.json();
+    const { tourId, travelers, extraServices, paymentType, totalAmount: precomputedTotal } = await request.json();
+
+    // ── Plan Booking: totalAmount passed directly (no tourId) ──
+    if (!tourId && precomputedTotal) {
+      const amount = Math.round(precomputedTotal * 100);
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount,
+        currency: 'usd',
+        payment_method_types: ['card', 'link'],
+        metadata: { type: 'plan_booking', paymentType: paymentType || 'pay_now' },
+      });
+      return NextResponse.json({ clientSecret: paymentIntent.client_secret, totalAmount: precomputedTotal });
+    }
 
     // 1. Fetch Tour from DB to get REAL prices
     const tour = await Tour.findById(tourId);

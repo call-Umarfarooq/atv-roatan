@@ -145,6 +145,11 @@ const TourSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  status: {
+    type: String,
+    enum: ['pending', 'approved', 'rejected'],
+    default: 'pending',
+  },
 }, {
   timestamps: true,
 });

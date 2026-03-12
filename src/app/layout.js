@@ -11,7 +11,7 @@ const uberMove = localFont({
   display: "swap"
 });
 
-import Footer from "@/components/Footer";
+import ConditionalFooter from "@/components/ConditionalFooter";
 import WhatsAppButton from "@/components/WhatsAppButton";
 
 export const metadata = {
@@ -88,7 +88,7 @@ export default function RootLayout({ children }) {
         <Suspense fallback={null}>
           <AdminGateModal />
         </Suspense>
-        <Footer />
+        <ConditionalFooter />
         {/* <WhatsAppButton /> */}
         <script src="//code.tidio.co/bxpgyt5mdoulzj9kjkgbdghxc8vhntwm.js" async></script>
       </body>

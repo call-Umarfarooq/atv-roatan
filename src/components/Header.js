@@ -14,6 +14,7 @@ const navLinks = [
   { label: 'All Tours', href: '/tours' },
   { label: 'Categories', href: '/category' },
   { label: 'Gallery', href: '/gallery' },
+  { label: 'Build Your Adventure', href: '/plan', highlight: true },
   { label: 'About Us', href: '/about' },
   { label: 'Contact Us', href: '/contact' },
   { label: 'Reviews', href: 'https://maps.app.goo.gl/aZUsRT1JTetqxSrg7' },
@@ -127,6 +128,17 @@ const Header = () => {
                   ? pathname === '/'
                   : pathname === link.href || pathname.startsWith(link.href + '/')
               );
+              if (link.highlight) {
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="text-sm font-bold bg-[#00694B] text-white px-3 py-1.5 rounded-full hover:bg-[#005a3c] transition-colors flex items-center gap-1 whitespace-nowrap"
+                  >
+                    🗺️ {link.label}
+                  </a>
+                );
+              }
               return (
                 <a
                   key={link.label}
@@ -388,6 +400,19 @@ const Header = () => {
                         ? pathname === '/'
                         : pathname === link.href || pathname.startsWith(link.href + '/')
                     );
+                    if (link.highlight) {
+                      return (
+                        <a
+                          key={link.label}
+                          href={link.href}
+                          onClick={closeMobileMenu}
+                          className="flex items-center gap-2 py-3 px-2 text-base font-bold border-b border-gray-100 text-[#00694B]"
+                        >
+                          🗺️ {link.label}
+                          <span className="ml-auto text-xs bg-[#00694B] text-white px-2 py-0.5 rounded-full">New</span>
+                        </a>
+                      );
+                    }
                     return (
                       <a
                         key={link.label}

@@ -1,12 +1,21 @@
 
 "use client";
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, Compass, Settings, LogOut, Package, ClipboardList, MapPin } from 'lucide-react';
+import { LayoutDashboard, Compass, Settings, LogOut, Package, ClipboardList, MapPin, Map, ShieldCheck } from 'lucide-react';
 
 export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
+  const [pendingCount, setPendingCount] = useState(0);
+
+  useEffect(() => {
+    fetch('/api/admin/tours?status=pending')
+      .then(r => r.json())
+      .then(d => { if (d.success) setPendingCount(d.data.length); })
+      .catch(() => {});
+  }, [pathname]);
 
   const menuItems = [
     { name: 'Dashboard', icon: LayoutDashboard, href: '/admin/dashboard' },
@@ -15,6 +24,8 @@ export default function Sidebar() {
     { name: 'Categories', icon: Package, href: '/admin/categories' },
     { name: 'Bookings', icon: ClipboardList, href: '/admin/bookings' },
     { name: 'Locations', icon: MapPin, href: '/admin/locations' },
+    { name: 'Plan Activities', icon: Map, href: '/admin/plan-activities' },
+    { name: 'Tour Approvals', icon: ShieldCheck, href: '/admin/tour-approvals', badge: pendingCount },
     // { name: 'Settings', icon: Settings, href: '/admin/settings' },
   ];
 
@@ -47,7 +58,12 @@ export default function Sidebar() {
               }`}
             >
               <item.icon size={20} />
-              {item.name}
+              <span className="flex-1">{item.name}</span>
+              {item.badge > 0 && (
+                <span className="bg-amber-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full min-w-[18px] text-center">
+                  {item.badge}
+                </span>
+              )}
             </Link>
           );
         })}
