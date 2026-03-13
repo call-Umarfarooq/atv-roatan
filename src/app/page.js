@@ -11,6 +11,7 @@ import "@/models/Activity"; // Ensure model is registered
 import ReviewLinks from "@/components/ReviewLinks";
 import ReviewsWidget from "@/components/ReviewsWidget";
 import StaggeredTextReveal from "@/components/StaggeredTextReveal";
+import FloatingElements from "@/components/FloatingElements";
 
 // Force dynamic rendering to ensure fresh data
 export const dynamic = 'force-dynamic';
@@ -108,6 +109,7 @@ console.log(tours);
         />
         {/* Dark overlay with gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60" />
+
         {/* Text content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-8">
           <div className="w-full max-w-4xl flex flex-col items-center">
@@ -140,18 +142,18 @@ console.log(tours);
           </div>
         </div>
       </section>
-
-
-    
-
       <FeatureHighlights />
       {/* Client Component for Filtering */}
-      <HomeClient initialTours={serializedTours} categories={serializedCategories} />
+      <div className="relative w-full overflow-hidden">
+        <FloatingElements />
+        <div className="relative z-10">
+          <HomeClient initialTours={serializedTours} categories={serializedCategories} />
+        </div>
+      </div>
       
       <WhyChooseUs />
-
       <ThingsToDo activities={serializedActivities} />
-      
+
       <ReviewsWidget />
       <ReviewLinks />
     </main>

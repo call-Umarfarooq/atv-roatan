@@ -664,14 +664,18 @@ function ActivityPickerPanel({ day, activities, allActivities, panelRegion, onRe
 
         {/* Region Tabs inside panel */}
         <div className="flex gap-2 px-4 py-3 border-b border-gray-100 shrink-0">
-          <button
-            onClick={() => onRegionChange('east')}
-            className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${panelRegion === 'east' ? 'bg-amber-100 text-amber-800' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
-          >🌅 East Roatan</button>
-          <button
-            onClick={() => onRegionChange('west')}
-            className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${panelRegion === 'west' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
-          >🌊 West Roatan</button>
+          {(!day?.region || day.region === 'east') && (
+            <button
+              onClick={() => onRegionChange('east')}
+              className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${panelRegion === 'east' ? 'bg-amber-100 text-amber-800' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'} ${day?.region === 'east' ? 'cursor-default pointer-events-none' : ''}`}
+            >🌅 East Roatan</button>
+          )}
+          {(!day?.region || day.region === 'west') && (
+            <button
+              onClick={() => onRegionChange('west')}
+              className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${panelRegion === 'west' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'} ${day?.region === 'west' ? 'cursor-default pointer-events-none' : ''}`}
+            >🌊 West Roatan</button>
+          )}
         </div>
 
         {/* Hours remaining */}

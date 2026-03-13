@@ -1,0 +1,116 @@
+# LLMS.txt - ATV Roatan Website Guide
+
+Website Name: ATV Roatan
+Website URL: https://atvroatan.com/
+Website Purpose: Adventure, wildlife, and combo tours in Roatan, Honduras. Target cruise passengers, families, and adventure travelers. Highlight ATV & Buggy, zipline, wildlife encounters, snorkeling, beaches, and cultural experiences.
+
+# Brand Guidelines
+Brand Name: ATV Roatan
+Tone: Friendly, adventurous, approachable, clear, conversion-focused
+Language: English (easy to understand, no AI-sounding phrases)
+SEO Focus: Cruise excursions, adventure tours, wildlife experiences, Roatan shore excursions
+Target Audience: Cruise passengers, tourists, adventure seekers, families, couples
+
+# Main Website Categories
+1. Combo Adventure Tours
+   - Monkey & Sloth Hangout + ATV/Jungle Buggy Adventure
+   - Zipline & Jungle ATV + Beach Combo
+   - Snorkeling + ATV Buggy + Wildlife Tours
+2. Wildlife & Nature Tours
+   - Monkey & Sloth Sanctuary Roatan
+   - Wildlife Encounters
+   - Eco Nature Parks
+3. ATV & Buggy Adventures
+   - Off-Road Jungle ATV Tours
+   - Muddy Jungle Buggy Adventure
+   - Private ATV Excursions
+4. Zipline & Canopy Tours
+   - Jungle Canopy Zipline Tour
+   - Combo Zipline & Beach Tours
+5. Beach & Water Activities
+   - West Bay Beach Day Pass
+   - Snorkeling Tours
+   - Parasailing & Water Sports
+6. Customizable Tours
+   - 5-Day Roatan Custom Packages
+   - Private VIP Island Experiences
+
+# Main Keywords
+- Roatan shore excursions
+- Roatan adventure tours
+- ATV Roatan tours
+- Monkey & Sloth Sanctuary Roatan
+- Roatan ATV jungle tour
+- Roatan zipline adventure
+- Roatan snorkeling tours
+- Roatan combo tours
+- Roatan private tours
+- Roatan beaches & wildlife
+
+# Long-Tail Keywords
+- Roatan ATV buggy jungle adventure with sloths
+- Private Roatan wildlife & beach tour
+- Roatan zipline and monkey encounter for cruise passengers
+- Ultimate Roatan adventure: zipline, ATV, sloth sanctuary
+- Best combo tours in Roatan for families and couples
+
+# On-Page SEO Guidelines
+- Keep titles ≤ 60 characters
+- Keep meta descriptions ≤ 160 characters
+- Include brand name "ATV Roatan" in titles & descriptions
+- Focus on high-intent keywords (Monkey & Sloth, ATV, Zipline, Beach)
+- Write in human-friendly easy English
+- Avoid repetitive words and AI-sounding phrases
+- Use H1, H2, H3 to structure content with main and secondary keywords
+- Include call-to-actions (Book Now, Reserve Today)
+
+# Content Guidelines
+- Highlight adventure, wildlife, and island culture
+- Emphasize safety, professional guides, and cruise-friendly scheduling
+- Mention included amenities (port pickup, equipment, restrooms, snacks, beach access)
+- Describe experiences with vivid but simple language
+- Include combo tours and multi-activity packages
+- Keep paragraphs short and scannable
+
+# Example Tours and URLs
+- Roatan Wildlife + ATV Adventure: /roatan-wildlife-atv-adventure/
+- Roatan Zipline Adventure, Sloths & Chocolate Factory: /roatan-zipline-sloths-chocolate-tour/
+- Monkey & Sloth Hangout + ATV & Buggy Jungle Adventure: /monkey-sloth-atv-buggy-jungle-adventure/
+- Roatan Sky & Sea Adventure: Parasailing & West Bay Beach: /roatan-sky-sea-parasailing-west-bay/
+- Off-Road Buggy ATV Muddy Jungle Adventure & Private Beach: /off-road-buggy-atv-jungle-beach/
+- Private Taste of Roatan: Sloth Encounter, Brewery & Beach: /private-roatan-sloth-brewery-beach-tour/
+- Roatan VIP Dolphin Action + Monkey & Sloth Hangout: /roatan-vip-dolphin-monkey-sloth-tour/
+- Jungle Canopy Zipline Tour: /jungle-canopy-zipline-tour/
+- Mahogany Bay Off-Road Safari: Extreme Jungle: /mahogany-bay-off-road-safari/
+- Customizable 5-Day Roatan Tour: /customizable-5-day-roatan-tour/
+- Private Roatan Mangrove Snorkeling & Garifuna Culture + ATV: /roatan-mangrove-snorkeling-garifuna-atv/
+- Buggy ATV Jungle Adventure & Beach Break: /buggy-atv-jungle-beach/
+- Horseback Riding, ATV Buggy Jungle Trail & Private Beach Club Pool: /horseback-atv-jungle-beach-tour/
+- Roatan Adventure Trio: Canopy Zipline, Sloth Encounter & West Bay Beach: /roatan-adventure-trio-zipline-sloth-beach/
+- Roatan Semi-Submarine Reef Explorer & West Bay Beach: /roatan-semi-submarine-reef-beach/
+- Private ATV Jungle Expedition: Sloth Park & West Bay Beach Club: /private-atv-jungle-sloth-beach/
+- Canopy Zipline, Sloth Encounter & Coral Reef Snorkeling: /zipline-sloth-snorkeling-tour/
+- Roatan Sky & Sea Adventure: Parasailing & West Bay Beach Resort: /roatan-parasailing-west-bay/
+- Boat Snorkel, Canopy Zipline & West Bay Beach Club: /boat-snorkel-zipline-beach/
+- Sloths, Zipline, Horseback & West Bay Beach: /sloths-zipline-horseback-beach/
+- Roatan Adrenaline Rush: Private ATV, Zipline & Sloth Sanctuary: /roatan-adrenaline-atv-zipline-sloth/
+- Roatan Quad-Adventure: Private ATV, Zipline, Horseback & Beach Club: /roatan-quad-adventure-atv-zipline-beach/
+- Ultimate Roatan ATV & Buggy Jungle Tour: Monkeys, Sloths & Private Beach: /ultimate-roatan-atv-buggy-jungle-tour/
+- Roatan Sightseeing & ATV Adventure: Sloths, Chocolate Factory & Beach Club: /roatan-sightseeing-atv-sloths-chocolate/
+- Mega Combo: Roatan Zipline, ATV/Buggy Adventure, Sloths & Chocolate Factory: /roatan-mega-combo-zipline-atv-sloths-chocolate/
+- Ultimate Roatan Zipline, Off-Road ATV, Sloth Sanctuary & Beach Pool Access: /ultimate-roatan-zipline-atv-sloth-beach/
+- Private Taste of Roatan: Sloth Encounter, Brewery Tasting & Beach Luxury: /private-roatan-sloth-brewery-beach-tour/
+
+# Tone & Style
+- Friendly, approachable, informative
+- Encourage booking with action-driven language
+- Adventure, fun, excitement at the core
+- Avoid overly technical or flowery language
+- Short sentences, active voice
+
+# Miscellaneous
+- Emphasize cruise passenger convenience (port pickup, timed tours)
+- Highlight family & group-friendly activities
+- Include local culture and eco-tourism aspects
+- Use location mentions (Roatan, Honduras, West Bay Beach, Mahogany Bay)
+- Include amenities: restrooms, changing rooms, snacks, beach chairs, safety equipment
