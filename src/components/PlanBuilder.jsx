@@ -583,15 +583,19 @@ function DayCard({ day, onSetRegion, onAddActivity, onRemoveActivity, paidTravel
           <div className="grid grid-cols-2 gap-2">
             <button
               onClick={() => onSetRegion('east')}
+              disabled={day.activities.length > 0 && day.region === 'west'}
               className={`px-3 py-2.5 rounded-xl border-2 text-sm font-bold transition-all flex items-center justify-center gap-1.5
-                ${day.region === 'east' ? 'border-amber-400 bg-amber-50 text-amber-800' : 'border-gray-200 text-gray-600 hover:border-amber-300'}`}
+                ${day.region === 'east' ? 'border-amber-400 bg-amber-50 text-amber-800' : 'border-gray-200 text-gray-600 hover:border-amber-300'}
+                ${day.activities.length > 0 && day.region === 'west' ? 'opacity-50 cursor-not-allowed hover:border-gray-200' : ''}`}
             >
               🌅 East Roatan
             </button>
             <button
               onClick={() => onSetRegion('west')}
+              disabled={day.activities.length > 0 && day.region === 'east'}
               className={`px-3 py-2.5 rounded-xl border-2 text-sm font-bold transition-all flex items-center justify-center gap-1.5
-                ${day.region === 'west' ? 'border-blue-400 bg-blue-50 text-blue-800' : 'border-gray-200 text-gray-600 hover:border-blue-300'}`}
+                ${day.region === 'west' ? 'border-blue-400 bg-blue-50 text-blue-800' : 'border-gray-200 text-gray-600 hover:border-blue-300'}
+                ${day.activities.length > 0 && day.region === 'east' ? 'opacity-50 cursor-not-allowed hover:border-gray-200' : ''}`}
             >
               🌊 West Roatan
             </button>
