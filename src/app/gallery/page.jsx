@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
 import dbConnect from '@/lib/db';
-import Tour from '@/models/Tour';
 import { getImageUrl } from '@/utils/imageUrl';
 import GalleryGrid from '@/components/GalleryGrid';
 
@@ -13,9 +12,14 @@ export const metadata = {
 };
 
 export default async function GalleryPage() {
-  await dbConnect();
-
-  const tours = await Tour.find({}, 'title image_url image_alt gallery gallery_alts slug').lean();
+  const apiUrl = process.env.API_BASE_URL || 'http://127.0.0.1:3000';
+  
+  const res = await fetch(`${apiUrl}/api/admin/tours?status=all`, { cache: 'no-store' });
+  let tours = [];
+  if (res.ok) {
+    const data = await res.json();
+    tours = data.data || [];
+  }
 
   // Build flat list of all images from all tours
   const allImages = [];

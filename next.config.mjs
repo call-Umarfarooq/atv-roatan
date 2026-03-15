@@ -1,5 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: '/api/:path*',
+          destination: 'http://hk0gswgg8cgs0wg04scwsgok.72.62.242.32.sslip.io/api/:path*',
+        },
+      ],
+    };
+  },
   async redirects() {
     return [
       {

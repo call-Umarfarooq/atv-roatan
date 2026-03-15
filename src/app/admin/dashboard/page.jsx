@@ -12,7 +12,7 @@ export default function DashboardPage() {
   useEffect(() => {
     async function fetchTours() {
       try {
-        const res = await fetch('/api/admin/tours');
+        const res = await fetch(`/api/admin/tours?status=all`);
         const data = await res.json();
         if (data.success) {
           setTours(data.data);

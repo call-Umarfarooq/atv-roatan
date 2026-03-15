@@ -82,18 +82,22 @@ export const metadata = {
 };
 
 export default async function Home() {
-  await dbConnect();
+  const apiUrl = process.env.API_BASE_URL || 'http://127.0.0.1:3000';
+  
+  // Fetch from the deployed backend APIs instead of local DB queries
+  const [toursRes, categoriesRes, activitiesRes] = await Promise.all([
+    fetch(`${apiUrl}/api/admin/tours?status=all`, { cache: 'no-store' }),
+    fetch(`${apiUrl}/api/categories`, { cache: 'no-store' }),
+    fetch(`${apiUrl}/api/activities`, { cache: 'no-store' })
+  ]);
+  
+  const toursData = toursRes.ok ? await toursRes.json() : { data: [] };
+  const categoriesData = categoriesRes.ok ? await categoriesRes.json() : { data: [] };
+  const activitiesData = activitiesRes.ok ? await activitiesRes.json() : { data: [] };
 
-  const tours = await Tour.find({}).populate('categories').populate('activities').sort({ createdAt: -1 }).lean();
-  const categories = await Category.find({}).sort({ name: 1 }).lean();
-
-  // Serialization to simple objects
-  const serializedTours = JSON.parse(JSON.stringify(tours));
-  const serializedCategories = JSON.parse(JSON.stringify(categories));
-console.log(tours);
-  /* Fetch Activities */
-  const activities = await mongoose.models.Activity.find({}).sort({ title: 1 }).lean();
-  const serializedActivities = JSON.parse(JSON.stringify(activities));
+  const serializedTours = toursData.data || [];
+  const serializedCategories = (categoriesData.data || []).filter(c => c.show_on_home !== false);
+  const serializedActivities = activitiesData.data || [];
 
   return (
     <main className="bg-white ">

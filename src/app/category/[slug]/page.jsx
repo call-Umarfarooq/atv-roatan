@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import { ChevronRight, ArrowLeft } from 'lucide-react';
 import dbConnect from "@/lib/db";
-import Category from "@/models/Category";
-import Tour from "@/models/Tour";
 import TourCard from '@/components/TourCard';
 import { notFound } from 'next/navigation';
 import { getImageUrl } from '@/utils/imageUrl';
@@ -12,9 +10,11 @@ import { getImageUrl } from '@/utils/imageUrl';
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }) {
-  await dbConnect();
-  const { slug } = await params;
-  const category = await Category.findOne({ slug }).lean();
+  const apiUrl = process.env.API_BASE_URL || 'http://127.0.0.1:3000';
+  const res = await fetch(`${apiUrl}/api/categories/${slug}`, { cache: 'no-store' });
+  const categoryData = res.ok ? await res.json() : null;
+  const category = categoryData?.data;
+
   if (!category) return { title: 'Category Not Found' };
   return {
     title: category.meta_title || `${category.name} Tours | ATV Roatan`,
@@ -28,21 +28,35 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function CategoryDetailPage({ params }) {
-  await dbConnect();
-  const { slug } = await params;
+  const apiUrl = process.env.API_BASE_URL || 'http://127.0.0.1:3000';
 
   // 1. Fetch Category
-  const category = await Category.findOne({ slug }).lean();
+  const catRes = await fetch(`${apiUrl}/api/categories/${slug}`, { cache: 'no-store' });
+  const categoryData = catRes.ok ? await catRes.json() : null;
+  const category = categoryData?.data;
+
   if (!category) {
     notFound();
   }
 
-  // 2. Fetch associated tours
-  const tours = await Tour.find({ categories: category._id }).sort({ createdAt: -1 }).lean();
+  // 2. Fetch all tours and filter associated
+  const toursRes = await fetch(`${apiUrl}/api/admin/tours?status=all`, { cache: 'no-store' });
+  let tours = [];
+  if (toursRes.ok) {
+    const allToursData = await toursRes.json();
+    const allTours = allToursData.data || [];
+    tours = allTours.filter(t => {
+      const catIds = [
+        ...(t.categories || []).map(c => (typeof c === 'string' ? c : c._id?.toString())),
+        t.category ? (typeof t.category === 'string' ? t.category : t.category._id?.toString()) : null,
+      ].filter(Boolean);
+      return catIds.includes(category._id?.toString());
+    });
+  }
 
   // Serialization
-  const serializedCategory = JSON.parse(JSON.stringify(category));
-  const serializedTours = JSON.parse(JSON.stringify(tours));
+  const serializedCategory = category;
+  const serializedTours = tours;
 
   return (
     <main className="bg-gray-50 min-h-screen pb-12 md:pb-20">

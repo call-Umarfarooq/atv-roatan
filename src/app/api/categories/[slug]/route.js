@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import dbConnect from '@/lib/db';
 import Category from '@/models/Category';
 import Tour from '@/models/Tour';
@@ -43,6 +44,9 @@ export async function PUT(request, { params }) {
     if (!category) {
       return NextResponse.json({ success: false, error: 'Category not found' }, { status: 404 });
     }
+
+    revalidatePath('/');
+    revalidatePath('/admin/featured-categories');
 
     return NextResponse.json({ success: true, data: category });
   } catch (error) {

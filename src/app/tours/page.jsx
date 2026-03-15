@@ -1,8 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
-import dbConnect from '@/lib/db';
-import Tour from '@/models/Tour';
 import PopularTours from '@/components/PopularTours';
 import ToursIntro from '@/components/ToursIntro';
 
@@ -77,10 +75,12 @@ export const metadata = {
 
 
 export default async function AllToursPage() {
-  await dbConnect();
-
-  // Fetch all tours and lean them for the client
-  const tours = await Tour.find({}).lean();
+  const apiUrl = process.env.API_BASE_URL || 'http://127.0.0.1:3000';
+  
+  // Fetch all tours
+  const toursRes = await fetch(`${apiUrl}/api/admin/tours?status=all`, { cache: 'no-store' });
+  const toursData = toursRes.ok ? await toursRes.json() : { data: [] };
+  const tours = toursData.data || [];
 
   return (
     <main className="bg-white min-h-screen pb-32 sm:pb-20">

@@ -31,6 +31,10 @@ const CategorySchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  show_on_home: {
+    type: Boolean,
+    default: true,
+  },
 }, {
   timestamps: true,
 });
