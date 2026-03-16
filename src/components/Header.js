@@ -130,13 +130,67 @@ const Header = () => {
               );
               if (link.highlight) {
                 return (
-                  <a
+                  <div
                     key={link.label}
-                    href={link.href}
-                    className="text-sm font-bold bg-[#00694B] text-white px-3 py-1.5 rounded-full hover:bg-[#005a3c] transition-colors flex items-center gap-1 whitespace-nowrap"
+                    className="relative"
+                    onMouseEnter={() => setActiveDropdown('adventure')}
+                    onMouseLeave={() => setActiveDropdown(null)}
                   >
-                    🗺️ {link.label}
-                  </a>
+                    {/* Animated Button */}
+                    <motion.span
+                      animate={{
+                        borderColor: [
+                          'rgba(0, 105, 75, 1)',
+                          'rgba(0, 105, 75, 0.2)',
+                          'rgba(0, 105, 75, 1)',
+                        ],
+                        boxShadow: [
+                          '0 0 8px 2px rgba(0, 105, 75, 0.7)',
+                          '0 0 2px 1px rgba(0, 105, 75, 0.1)',
+                          '0 0 8px 2px rgba(0, 105, 75, 0.7)',
+                        ],
+                      }}
+                      transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                      className="text-sm font-bold border-2 text-[#00694B] px-3 py-1.5 rounded-full flex items-center gap-1 whitespace-nowrap cursor-pointer select-none"
+                    >
+                      🗺️ {link.label}
+                    </motion.span>
+
+                    {/* Hover Dropdown */}
+                    <AnimatePresence>
+                      {activeDropdown === 'adventure' && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -6 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -6 }}
+                          transition={{ duration: 0.18 }}
+                          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50"
+                        >
+                          <a
+                            href="/plan"
+                            className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-[#00694B] hover:text-white transition-colors group"
+                          >
+                            <span className="text-lg">🗺️</span>
+                            <div>
+                              <p className="font-bold">Plan Your Adventure</p>
+                              <p className="text-xs font-normal opacity-70">Build a custom day plan</p>
+                            </div>
+                          </a>
+                          <div className="border-t border-gray-100" />
+                          <a
+                            href="/category/build-your-own-roatan-private-tour"
+                            className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-[#00694B] hover:text-white transition-colors group"
+                          >
+                            <span className="text-lg">🏝️</span>
+                            <div>
+                              <p className="font-bold">Build Your Own Private Tour</p>
+                              <p className="text-xs font-normal opacity-70">Create your Roatan experience</p>
+                            </div>
+                          </a>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
                 );
               }
               return (
