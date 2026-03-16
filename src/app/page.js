@@ -82,22 +82,25 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const apiUrl = process.env.API_BASE_URL || 'http://127.0.0.1:3000';
-  
-  // Fetch from the deployed backend APIs instead of local DB queries
-  const [toursRes, categoriesRes, activitiesRes] = await Promise.all([
-    fetch(`${apiUrl}/api/admin/tours?status=all`, { cache: 'no-store' }),
-    fetch(`${apiUrl}/api/categories`, { cache: 'no-store' }),
-    fetch(`${apiUrl}/api/activities`, { cache: 'no-store' })
-  ]);
-  
-  const toursData = toursRes.ok ? await toursRes.json() : { data: [] };
-  const categoriesData = categoriesRes.ok ? await categoriesRes.json() : { data: [] };
-  const activitiesData = activitiesRes.ok ? await activitiesRes.json() : { data: [] };
+  let serializedTours = [];
+  let serializedCategories = [];
+  let serializedActivities = [];
 
-  const serializedTours = toursData.data || [];
-  const serializedCategories = (categoriesData.data || []).filter(c => c.show_on_home !== false);
-  const serializedActivities = activitiesData.data || [];
+  try {
+    await dbConnect();
+
+    const [toursRaw, categoriesRaw, activitiesRaw] = await Promise.all([
+      Tour.find({ status: { $in: ['approved', 'active', null, undefined] } }).lean(),
+      Category.find({}).lean(),
+      mongoose.models.Activity ? mongoose.models.Activity.find({}).lean() : Promise.resolve([]),
+    ]);
+
+    serializedTours = JSON.parse(JSON.stringify(toursRaw));
+    serializedCategories = JSON.parse(JSON.stringify(categoriesRaw)).filter(c => c.show_on_home !== false);
+    serializedActivities = JSON.parse(JSON.stringify(activitiesRaw));
+  } catch (err) {
+    console.error('Home page DB error:', err.message);
+  }
 
   return (
     <main className="bg-white ">

@@ -12,13 +12,15 @@ export const metadata = {
 };
 
 export default async function GalleryPage() {
-  const apiUrl = process.env.API_BASE_URL || 'http://127.0.0.1:3000';
-  
-  const res = await fetch(`${apiUrl}/api/admin/tours?status=all`, { cache: 'no-store' });
   let tours = [];
-  if (res.ok) {
-    const data = await res.json();
-    tours = data.data || [];
+  try {
+    const dbConnect = (await import('@/lib/db')).default;
+    const Tour = (await import('@/models/Tour')).default;
+    await dbConnect();
+    const toursRaw = await Tour.find({}).lean();
+    tours = JSON.parse(JSON.stringify(toursRaw));
+  } catch (err) {
+    console.error('Gallery page DB error:', err.message);
   }
 
   // Build flat list of all images from all tours

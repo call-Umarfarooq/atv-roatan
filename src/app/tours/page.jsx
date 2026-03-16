@@ -75,12 +75,16 @@ export const metadata = {
 
 
 export default async function AllToursPage() {
-  const apiUrl = process.env.API_BASE_URL || 'http://127.0.0.1:3000';
-  
-  // Fetch all tours
-  const toursRes = await fetch(`${apiUrl}/api/admin/tours?status=all`, { cache: 'no-store' });
-  const toursData = toursRes.ok ? await toursRes.json() : { data: [] };
-  const tours = toursData.data || [];
+  let tours = [];
+  try {
+    const dbConnect = (await import('@/lib/db')).default;
+    const Tour = (await import('@/models/Tour')).default;
+    await dbConnect();
+    const toursRaw = await Tour.find({}).lean();
+    tours = JSON.parse(JSON.stringify(toursRaw));
+  } catch (err) {
+    console.error('Tours page DB error:', err.message);
+  }
 
   return (
     <main className="bg-white min-h-screen pb-32 sm:pb-20">

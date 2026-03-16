@@ -1,45 +1,39 @@
+import dbConnect from '@/lib/db';
+import Tour from '@/models/Tour';
 import TourDetailsClient from '@/components/TourDetailsClient';
 
 async function getTour(slug) {
-  const apiUrl = process.env.API_BASE_URL || 'http://127.0.0.1:3000';
-  const res = await fetch(`${apiUrl}/api/tours/${slug}`, { cache: 'no-store' });
-  
-  if (res.ok) {
-    const data = await res.json();
-    return data.data;
+  try {
+    await dbConnect();
+    const tour = await Tour.findOne({ slug }).lean();
+    return tour ? JSON.parse(JSON.stringify(tour)) : null;
+  } catch {
+    return null;
   }
-  return null;
 }
 
 async function getRelatedTours(tour) {
   if (!tour) return [];
-  const apiUrl = process.env.API_BASE_URL || 'http://127.0.0.1:3000';
-  
-  // Collect category IDs
-  const categoryIds = [
-    ...(tour.categories || []).map(c => (typeof c === 'string' ? c : c._id?.toString())),
-    tour.category ? (typeof tour.category === 'string' ? tour.category : tour.category._id?.toString()) : null,
-  ].filter(Boolean);
+  try {
+    await dbConnect();
+    const categoryIds = [
+      ...(tour.categories || []).map(c => (typeof c === 'string' ? c : c._id?.toString())),
+      tour.category ? (typeof tour.category === 'string' ? tour.category : tour.category._id?.toString()) : null,
+    ].filter(Boolean);
 
-  if (categoryIds.length === 0) return [];
+    if (categoryIds.length === 0) return [];
 
-  // We fetch all tours since we don't have a related tours API, then filter them manually.
-  // This is safe since the number of tours is relatively small.
-  const res = await fetch(`${apiUrl}/api/admin/tours?status=all`, { cache: 'no-store' });
-  if (res.ok) {
-    const data = await res.json();
-    const allTours = data.data || [];
-    
-    return allTours.filter(t => 
-      t._id !== tour._id &&
-      (
-        (t.categories && t.categories.some(c => categoryIds.includes(typeof c === 'string' ? c : c._id?.toString()))) ||
-        (t.category && categoryIds.includes(typeof t.category === 'string' ? t.category : t.category._id?.toString()))
-      )
-    ).slice(0, 3);
+    const related = await Tour.find({
+      _id: { $ne: tour._id },
+      $or: [
+        { categories: { $in: categoryIds } },
+        { category: { $in: categoryIds } },
+      ],
+    }).limit(3).lean();
+    return JSON.parse(JSON.stringify(related));
+  } catch {
+    return [];
   }
-  
-  return [];
 }
 
 export async function generateMetadata({ params }) {
