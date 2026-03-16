@@ -24,10 +24,12 @@ export async function POST(request) {
     });
 
     return response;
-  } catch {
+  } catch (error) {
+    console.error('Admin Auth Error:', error);
     return NextResponse.json({ success: false, error: 'Server error' }, { status: 500 });
   }
 }
+
 
 export async function DELETE() {
   const response = NextResponse.json({ success: true });

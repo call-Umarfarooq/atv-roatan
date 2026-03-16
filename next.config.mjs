@@ -4,7 +4,7 @@ const nextConfig = {
     return {
       beforeFiles: [
         {
-          source: '/api/:path*',
+          source: '/api/:path((?!auth|admin/auth).*)',
           destination: 'http://hk0gswgg8cgs0wg04scwsgok.72.62.242.32.sslip.io/api/:path*',
         },
       ],
@@ -16,11 +16,7 @@ const nextConfig = {
         source: '/unique-adults-only-buggy-tour-roatan-east-end-paya-nude-beach',
         destination: '/tours',
         permanent: true, // 301 redirect
-      },
-
-
-
-      
+      },      
       {
         source: '/news/tpost/f0jokyfp41-what-to-expect-in-a-roatan-sloth-encount',
         destination: '/tours',
