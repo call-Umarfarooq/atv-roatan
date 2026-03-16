@@ -70,7 +70,7 @@ export default async function CategoryDetailPage({ params }) {
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black/50" />
-          <div className="absolute h11 inset-0 flex items-center justify-center mt-12 md:mt-0">
+          <div className="absolute inset-0 flex items-center justify-center px-6 text-center">
             <h1 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-[60px] leading-[1.1] lg:leading-[72px] font-[500] tracking-[0.2px] mb-6 lg:mb-0 drop-shadow-lg">
               {serializedCategory.name}
             </h1>
