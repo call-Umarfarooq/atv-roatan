@@ -172,7 +172,7 @@ const Header = () => {
                           >
                             <span className="text-lg">🗺️</span>
                             <div>
-                              <p className="font-bold">Plan Your Adventure</p>
+                              <p className="font-bold">Long stay in roatan</p>
                               <p className="text-xs font-normal opacity-70">Build a custom day plan</p>
                             </div>
                           </a>
@@ -181,9 +181,9 @@ const Header = () => {
                             href="/category/build-your-own-roatan-private-tour"
                             className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-[#00694B] hover:text-white transition-colors group"
                           >
-                            <span className="text-lg">🏝️</span>
+                            <span className="text-lg">🛳️</span>
                             <div>
-                              <p className="font-bold">Build Your Own Private Tour</p>
+                              <p className="font-bold">Cruiseship passenger</p>
                               <p className="text-xs font-normal opacity-70">Create your Roatan experience</p>
                             </div>
                           </a>
