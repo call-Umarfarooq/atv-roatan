@@ -481,11 +481,6 @@ export default function CheckoutPage() {
                                         }
                                         return null;
                                     })}
-
-                                    <div className="flex justify-between items-center py-2.5 border-b border-gray-100">
-                                        <span className="text-sm font-medium text-gray-700">Standard Tax (10%)</span>
-                                        <span className="font-semibold text-sm text-[#1a1a1a]">+${tax.toFixed(2)}</span>
-                                    </div>
                                 </div>
 
                                 {/* TOTAL REGULAR PRICE */}
