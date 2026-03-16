@@ -17,6 +17,10 @@ const nextConfig = {
         destination: '/tours',
         permanent: true, // 301 redirect
       },
+
+
+
+      
       {
         source: '/news/tpost/f0jokyfp41-what-to-expect-in-a-roatan-sloth-encount',
         destination: '/tours',
