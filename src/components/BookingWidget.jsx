@@ -439,7 +439,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
                   setShowTravelers(true);
                 }
               }}
-              className="w-full bg-[#00694B] hover:bg-[#1a6b24] text-white font-bold py-2.5 sm:py-2.5 rounded-full transition-colors text-[15px] shadow-sm"
+              className="w-full bg-[#00694B] hover:bg-[#1a6b24] text-white font-bold py-2 sm:py-2 rounded-full transition-colors text-[15px] shadow-sm"
             >
               Check Availability
             </button>
@@ -478,7 +478,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
             onClick={() => {
               widgetRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }}
-            className="w-full bg-[#00694B] hover:bg-[#1a6b24] text-white font-bold py-3.5 rounded-full text-[15px] transition-colors shadow-sm"
+            className="w-full bg-[#00694B] hover:bg-[#1a6b24] text-white font-bold py-2 rounded-full text-[15px] transition-colors shadow-sm"
           >
             Check Availability
           </button>

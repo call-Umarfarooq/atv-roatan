@@ -64,20 +64,20 @@ export default async function CategoryDetailPage({ params }) {
           <img
             src={getImageUrl(serializedCategory.image)}
             alt={serializedCategory.image_alt || serializedCategory.name}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
           />
           <div className="absolute inset-0 bg-black/50" />
-          <div className="absolute inset-0 flex items-center justify-center px-6 text-center">
-            <h1 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-[60px] leading-[1.1] lg:leading-[72px] font-[500] tracking-[0.2px] drop-shadow-lg">
-              {serializedCategory.name}
-            </h1>
-          </div>
         </div>
       ) : (
         <div className="pt-24 md:pt-32 pb-6 md:pb-8" />
       )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8">
+        {/* Header / Description */}
+        <div className="mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-2">{serializedCategory.name}</h1>
+        </div>
+
         {/* Breadcrumbs & Back Button */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 md:mb-8">
             <nav className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-500 overflow-x-auto whitespace-nowrap pb-2 sm:pb-0 scrollbar-hide">
@@ -91,13 +91,6 @@ export default async function CategoryDetailPage({ params }) {
                 <ArrowLeft size={16} /> Back to All Categories
             </Link>
         </div>
-
-        {/* Header / Description */}
-        {!serializedCategory.image && (
-          <div className="mb-6 md:mb-12">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-4 md:mb-6">{serializedCategory.name}</h1>
-          </div>
-        )}
         {serializedCategory.description && (
           <div className="max-w-3xl mb-8 md:mb-10">
               <p className="text-gray-600 text-base sm:text-lg leading-relaxed">{serializedCategory.description}</p>
