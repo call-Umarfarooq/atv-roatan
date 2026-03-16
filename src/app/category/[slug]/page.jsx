@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import { ChevronRight, ArrowLeft } from 'lucide-react';
 import dbConnect from "@/lib/db";
+import Category from '@/models/Category';
+import Tour from '@/models/Tour';
 import TourCard from '@/components/TourCard';
 import { notFound } from 'next/navigation';
 import { getImageUrl } from '@/utils/imageUrl';
@@ -11,54 +13,47 @@ export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const apiUrl = process.env.API_BASE_URL || 'http://127.0.0.1:3000';
-  const res = await fetch(`${apiUrl}/api/categories/${slug}`, { cache: 'no-store' });
-  const categoryData = res.ok ? await res.json() : null;
-  const category = categoryData?.data;
-
-  if (!category) return { title: 'Category Not Found' };
-  return {
-    title: category.meta_title || `${category.name} Tours | ATV Roatan`,
-    description: category.meta_description || category.description || `Explore our ${category.name} tours in Roatan, Honduras.`,
-    openGraph: {
-      title: category.meta_title || category.name,
-      description: category.meta_description || category.description,
-      images: category.image ? [{ url: category.image, alt: category.image_alt || category.name }] : [],
-    },
-  };
+  try {
+    await dbConnect();
+    const category = await Category.findOne({ slug }).lean();
+    if (!category) return { title: 'Category Not Found' };
+    return {
+      title: category.meta_title || `${category.name} Tours | ATV Roatan`,
+      description: category.meta_description || category.description || `Explore our ${category.name} tours in Roatan, Honduras.`,
+      openGraph: {
+        title: category.meta_title || category.name,
+        description: category.meta_description || category.description,
+        images: category.image ? [{ url: category.image, alt: category.image_alt || category.name }] : [],
+      },
+    };
+  } catch {
+    return { title: 'Category | ATV Roatan' };
+  }
 }
 
 export default async function CategoryDetailPage({ params }) {
   const { slug } = await params;
-  const apiUrl = process.env.API_BASE_URL || 'http://127.0.0.1:3000';
 
-  // 1. Fetch Category
-  const catRes = await fetch(`${apiUrl}/api/categories/${slug}`, { cache: 'no-store' });
-  const categoryData = catRes.ok ? await catRes.json() : null;
-  const category = categoryData?.data;
+  await dbConnect();
 
-  if (!category) {
+  // 1. Fetch Category directly from DB
+  const categoryDoc = await Category.findOne({ slug }).lean();
+  if (!categoryDoc) {
     notFound();
   }
 
-  // 2. Fetch all tours and filter associated
-  const toursRes = await fetch(`${apiUrl}/api/admin/tours?status=all`, { cache: 'no-store' });
-  let tours = [];
-  if (toursRes.ok) {
-    const allToursData = await toursRes.json();
-    const allTours = allToursData.data || [];
-    tours = allTours.filter(t => {
-      const catIds = [
-        ...(t.categories || []).map(c => (typeof c === 'string' ? c : c._id?.toString())),
-        t.category ? (typeof t.category === 'string' ? t.category : t.category._id?.toString()) : null,
-      ].filter(Boolean);
-      return catIds.includes(category._id?.toString());
-    });
-  }
+  // 2. Fetch tours associated with this category
+  const catId = categoryDoc._id.toString();
+  const toursRaw = await Tour.find({
+    $or: [
+      { categories: categoryDoc._id },
+      { category: categoryDoc._id },
+    ],
+  }).lean();
 
-  // Serialization
-  const serializedCategory = category;
-  const serializedTours = tours;
+  // Serialize (convert ObjectIds to strings for client safety)
+  const serializedCategory = JSON.parse(JSON.stringify(categoryDoc));
+  const serializedTours = JSON.parse(JSON.stringify(toursRaw));
 
   return (
     <main className="bg-gray-50 min-h-screen pb-12 md:pb-20">
@@ -73,7 +68,7 @@ export default async function CategoryDetailPage({ params }) {
           />
           <div className="absolute inset-0 bg-black/50" />
           <div className="absolute inset-0 flex items-center justify-center px-6 text-center">
-            <h1 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-[60px] leading-[1.1] lg:leading-[72px] font-[500] tracking-[0.2px] mb-6 lg:mb-0 drop-shadow-lg">
+            <h1 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-[60px] leading-[1.1] lg:leading-[72px] font-[500] tracking-[0.2px] drop-shadow-lg">
               {serializedCategory.name}
             </h1>
           </div>
@@ -100,7 +95,7 @@ export default async function CategoryDetailPage({ params }) {
         {/* Header / Description */}
         {!serializedCategory.image && (
           <div className="mb-6 md:mb-12">
-              <h1 className="text-3xl sm:text-4xl h11 md:text-5xl font-bold text-[#1a1a1a] mb-4 md:mb-6">{serializedCategory.name}</h1>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-4 md:mb-6">{serializedCategory.name}</h1>
           </div>
         )}
         {serializedCategory.description && (
@@ -139,7 +134,7 @@ export default async function CategoryDetailPage({ params }) {
                     </svg>
                 </div>
                 <h3 className="text-lg font-bold text-gray-900">No tours found</h3>
-                <p className="text-gray-500 mt-2">We haven't added any tours to this category yet. Check back soon!</p>
+                <p className="text-gray-500 mt-2">We haven&apos;t added any tours to this category yet. Check back soon!</p>
                 <Link href="/" className="mt-8 inline-block bg-[#00694B] text-white px-8 py-3 rounded-full font-bold hover:bg-[#005a3c] transition-colors">
                     Browse All Adventures
                 </Link>
