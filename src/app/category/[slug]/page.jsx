@@ -10,6 +10,7 @@ import { getImageUrl } from '@/utils/imageUrl';
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }) {
+  const { slug } = await params;
   const apiUrl = process.env.API_BASE_URL || 'http://127.0.0.1:3000';
   const res = await fetch(`${apiUrl}/api/categories/${slug}`, { cache: 'no-store' });
   const categoryData = res.ok ? await res.json() : null;
@@ -28,6 +29,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function CategoryDetailPage({ params }) {
+  const { slug } = await params;
   const apiUrl = process.env.API_BASE_URL || 'http://127.0.0.1:3000';
 
   // 1. Fetch Category
