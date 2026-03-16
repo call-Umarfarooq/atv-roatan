@@ -135,13 +135,12 @@ export default function CheckoutPage() {
     }
 
     const fullTourPrice = basePrice + extrasTotal;
-    const taxRate = 0.10;
     
     // Pay Now Discount (2%) - Apply as specified in sidebar
     const hasPayNowDiscount = !!bookingData.discountApplied;
     
-    // Final Amount = (Base + Extras) * 1.10 (Tax) * 0.98 (Discount)
-    let finalAmount = fullTourPrice * (1 + taxRate);
+    // Final Amount = (Base + Extras) * 0.98 (Discount)
+    let finalAmount = fullTourPrice;
     if (hasPayNowDiscount) {
         finalAmount = finalAmount * 0.98;
     }
@@ -424,10 +423,8 @@ export default function CheckoutPage() {
                             });
                         }
 
-                        const taxRate = 0.10;
                         const fullTourPrice = basePrice + extrasTotal;
-                        const tax = fullTourPrice * taxRate;
-                        const totalRegularPrice = fullTourPrice + tax;
+                        const totalRegularPrice = fullTourPrice;
 
                         const cutoffPrice = tour.cutoff_price ? parseFloat(tour.cutoff_price) : 0;
                         const hasSavings = cutoffPrice > adultPrice;
