@@ -364,7 +364,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
                         if (datePickerRef.current) datePickerRef.current.setOpen(true);
                       }
                     }}
-                    className="w-full bg-[#00694B] text-white py-3 rounded-lg text-[15px] font-bold hover:bg-[#1a6b24] transition-colors shadow-sm"
+                    className="w-full bg-[#00694B] text-white py-1.5 rounded-full text-[13px] font-bold hover:bg-[#1a6b24] transition-colors shadow-sm"
                   >
                     Apply
                   </button>
@@ -415,7 +415,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
                 <button
                   onClick={() => handleBooking('pay_now')}
                   disabled={loading}
-                  className="w-full bg-[#00694B] hover:bg-[#1a6b24] text-white font-bold py-2.5 rounded-lg transition-colors text-[15px] disabled:opacity-60 flex flex-col items-center leading-tight shadow-sm"
+                  className="w-full bg-[#00694B] hover:bg-[#1a6b24] text-white font-bold py-1.5 rounded-full transition-colors text-[13px] disabled:opacity-60 flex flex-col items-center leading-tight shadow-sm"
                 >
                   <span>Book Now</span>
                 </button>
@@ -423,7 +423,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
               <button
                 onClick={() => handleBooking('reserve_later')}
                 disabled={loading}
-                className="w-full bg-white hover:bg-gray-50 text-[#1a1a1a] border border-[#1a1a1a] font-bold py-2 rounded-lg transition-colors text-[15px] disabled:opacity-60 flex items-center justify-center shadow-sm"
+                className="w-full bg-white hover:bg-gray-50 text-[#1a1a1a] border border-[#1a1a1a] font-bold py-1.5 rounded-full transition-colors text-[13px] disabled:opacity-60 flex items-center justify-center shadow-sm"
               >
                 {loading ? <Loader2 size={16} className="animate-spin" /> : 'Reserve Now & Pay Later'}
               </button>
@@ -439,7 +439,7 @@ const BookingWidget = ({ tour, selectedPickup, className = "" }) => {
                   setShowTravelers(true);
                 }
               }}
-              className="w-full bg-[#00694B] hover:bg-[#1a6b24] text-white font-bold py-2 sm:py-2 rounded-full transition-colors text-[15px] shadow-sm"
+              className="w-full bg-[#00694B] hover:bg-[#1a6b24] text-white font-bold py-1.5 sm:py-1.5 rounded-full transition-colors text-[13px] shadow-sm"
             >
               Check Availability
             </button>

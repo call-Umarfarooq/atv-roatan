@@ -250,7 +250,7 @@ export default function CheckoutPage() {
                                                     disabled={count === 0}
                                                     className={`w-7 h-7 rounded-full border flex items-center justify-center text-sm font-bold transition-colors ${count === 0 ? 'border-gray-200 text-gray-300 cursor-not-allowed' : 'border-[#00694B] text-[#00694B] hover:bg-[#00694B] hover:text-white'}`}
                                                 >
-                                                    âˆ’
+                                                    -
                                                 </button>
                                                 <span className="w-5 text-center font-bold text-xs">{count}</span>
                                                 <button
