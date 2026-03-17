@@ -4,7 +4,8 @@ import path from 'path';
 
 export async function sendBookingConfirmationEmail(booking, tour) {
   try {
-    const { EMAIL_USER, EMAIL_PASS } = process.env;
+    const { EMAIL_USER, EMAIL_PASS, NEXT_PUBLIC_BASE_URL } = process.env;
+    const baseUrl = NEXT_PUBLIC_BASE_URL || 'https://atvroatan.com';
     
     if (!EMAIL_USER || !EMAIL_PASS) {
       console.warn("Email credentials missing. Emails will not be sent.");
@@ -67,6 +68,75 @@ export async function sendBookingConfirmationEmail(booking, tour) {
     const templatePath = path.join(process.cwd(), 'src', 'lib', 'templates', 'booking-confirmation.html');
     let clientHtml = fs.readFileSync(templatePath, 'utf8');
 
+    const taxAmount = booking.taxAmount || (booking.totalPrice / 1.1 * 0.1);
+    const subtotal = booking.subtotal || (booking.totalPrice - taxAmount - extrasTotal);
+    const discountAmount = booking.discountAmount || (booking.paymentType === 'pay_now' ? (booking.totalPrice / 0.98 * 0.02) : 0);
+
+    const taxHtml = `
+      <tr>
+        <td style="padding: 4px 0; font-size: 14px; color: #1a5c39;">Tax (10%)</td>
+        <td align="right" style="padding: 4px 0; font-size: 14px; color: #1a5c39;">$${taxAmount.toFixed(2)}</td>
+      </tr>
+    `;
+
+    const discountHtml = discountAmount > 0 ? `
+      <tr>
+        <td style="padding: 4px 0; font-size: 13px; color: #00694B; font-style: italic;">Applied: 2% Advance Booking Discount</td>
+        <td align="right" style="padding: 4px 0; font-size: 13px; color: #00694B; font-weight: bold;">-$${discountAmount.toFixed(2)}</td>
+      </tr>
+    ` : '';
+    const portSpecificMeetingHtml = `
+      <div id="where-we-meet-you-section" style="margin-top: 40px; margin-bottom: 25px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; border-top: 2px solid #eee; padding-top: 30px;">
+        <h3 style="text-align: center; color: #1a1a1a; font-size: 22px; margin-bottom: 25px; font-weight: 900; letter-spacing: 1px;">**WHERE WE MEET YOU**</h3>
+        
+        <!-- Summary Cards -->
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom: 30px;">
+          <tr>
+            <td width="48%" valign="top" style="background-color: #ffffff; border: 2px solid #00694B; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
+              <div style="background-color: #00694B; color: #ffffff; padding: 12px; text-align: center; font-weight: bold; font-size: 14px; text-transform: uppercase;">
+                Port of Roatán
+              </div>
+              <div style="padding: 20px;">
+                <ul style="margin: 0; padding: 0 0 0 15px; color: #333333; font-size: 13px; line-height: 1.8;">
+                  <li>Meet <strong>60 mins</strong> after docking.</li>
+                  <li>Walk to <strong>Independent Operator</strong> area.</li>
+                  <li>Look for <strong>"ATV Buggy"</strong> sign.</li>
+                </ul>
+                <div style="text-align: center; margin-top: 20px;">
+                  <a href="${baseUrl}/meeting-points#port-roatan" style="background-color: #00694B; color: #ffffff; padding: 10px 18px; border-radius: 30px; text-decoration: none; font-size: 12px; font-weight: bold; display: inline-block;">View More</a>
+                </div>
+              </div>
+            </td>
+            <td width="4%">&nbsp;</td>
+            <td width="48%" valign="top" style="background-color: #ffffff; border: 2px solid #00694B; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.08);">
+              <div style="background-color: #00694B; color: #ffffff; padding: 12px; text-align: center; font-weight: bold; font-size: 14px; text-transform: uppercase;">
+                Mahogany Bay
+              </div>
+              <div style="padding: 20px;">
+                <ul style="margin: 0; padding: 0 0 0 15px; color: #333333; font-size: 13px; line-height: 1.8;">
+                  <li>Meet <strong>60 mins</strong> after docking.</li>
+                  <li>Walk <strong>outside security gate</strong>.</li>
+                  <li>Look for <strong>"ATV Buggy"</strong> sign.</li>
+                </ul>
+                <div style="text-align: center; margin-top: 20px;">
+                  <a href="${baseUrl}/meeting-points#mahogany-bay" style="background-color: #00694B; color: #ffffff; padding: 10px 18px; border-radius: 30px; text-decoration: none; font-size: 12px; font-weight: bold; display: inline-block;">View More</a>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Contact Support Footer -->
+        <div style="text-align: center; background-color: #f4f4f4; border: 1px solid #ddd; padding: 25px; border-radius: 15px;">
+          <p style="font-size: 15px; color: #333; margin-bottom: 10px;">If you need assistance on the day of your tour:</p>
+          <p style="font-size: 17px; font-weight: bold; color: #d9534f; margin: 0;">Ph: +504 9648 9745, +504 9939 2442</p>
+          <div style="text-align: center; margin-top: 20px;">
+            <a href="${baseUrl}/meeting-points" style="display: inline-block; background-color: #1a1a1a; color: #ffffff; padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 13px;">View Detailed Map & Photos Online</a>
+          </div>
+        </div>
+      </div>
+    `;
+
     // Replace Placeholders
     const replacements = {
       '{{orderId}}': (booking._id || '').toString().substring(0,8).toUpperCase(),
@@ -76,10 +146,13 @@ export async function sendBookingConfirmationEmail(booking, tour) {
       '{{bookingDate}}': bookingDate,
       '{{guests}}': (booking.travelers.adults || 0) + (booking.travelers.children || 0),
       '{{time}}': formattedTime,
-      '{{basePrice}}': ((booking.totalPrice || 0) - extrasTotal).toFixed(2),
+      '{{basePrice}}': subtotal.toFixed(2),
       '{{extrasHtml}}': extrasHtml,
+      '{{taxHtml}}': taxHtml,
+      '{{discountHtml}}': discountHtml,
       '{{totalPrice}}': (booking.totalPrice || 0).toFixed(2),
       '{{arrivalInfo}}': arrivalInfo,
+      '{{portSpecificMeetingHtml}}': portSpecificMeetingHtml,
       '{{email}}': booking.customer.email,
       '{{phone}}': booking.customer.phone,
       '{{paymentOption}}': booking.paymentType === 'pay_now' ? 'Pay Now' : 'Reserve Now',

@@ -42,7 +42,6 @@
                   </td>
                 </tr>
               </table>
-
               <!-- Price Breakdown Card -->
               <div style="margin-top: 20px;">
                   <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #e8f5ef; border-radius: 12px;">
@@ -55,6 +54,8 @@
                             <td align="right" style="padding: 4px 0; font-size: 14px; color: #1a5c39;">${{basePrice}}</td>
                           </tr>
                           {{extrasHtml}}
+                          {{taxHtml}}
+                          {{discountHtml}}
                           <tr>
                             <td style="padding: 10px 0 4px 0; font-size: 14px; color: #1a5c39; border-top: 1px dashed #a7d9be;"><strong>Total Amount</strong></td>
                             <td align="right" style="padding: 10px 0 4px 0; font-size: 15px; color: #00694B; font-weight: bold; border-top: 1px dashed #a7d9be;">${{totalPrice}}</td>
@@ -121,6 +122,8 @@
                   </table>
               </div>
 
+              {{portSpecificMeetingHtml}}
+              
               <!-- Footer Information -->
               <table width="100%" border="0" cellspacing="0" cellpadding="0" style="border-top: 1px solid #e2e8f0; margin-top: 25px; padding-top: 15px;">
                 <tr>

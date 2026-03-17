@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { CheckCircle2, Ticket, MapPin, Calendar, Users, Loader2, Clock, Anchor, Building2, Info } from 'lucide-react';
+import { CheckCircle2, Ticket, MapPin, Calendar, Users, Loader2, Clock, Anchor, Building2, Info, Phone } from 'lucide-react';
 
 function ConfirmationContent() {
     const searchParams = useSearchParams();
@@ -334,9 +334,28 @@ function ConfirmationContent() {
                         <div className="flex gap-3">
                             <MapPin className="text-[#00694B] shrink-0" />
                             <div>
-                                <div className="text-sm text-gray-500">Total Price / Payment Option</div>
-                                <div className="font-bold text-[#1a1a1a]">${totalPrice.toFixed(2)}</div>
-                                <div className="text-xs text-gray-500">({paymentType === 'pay_now' ? 'Paid in full' : 'Reserved - To be paid flat/on arrival'})</div>
+                                <div className="text-sm text-gray-500">Price Breakdown</div>
+                                <div className="space-y-1 mt-1">
+                                    <div className="flex justify-between text-xs w-48">
+                                        <span className="text-gray-500">Subtotal:</span>
+                                        <span className="font-bold text-[#1a1a1a]">${(booking.subtotal || (totalPrice / 1.1) / (paymentType === 'pay_now' ? 0.98 : 1)).toFixed(2)}</span>
+                                    </div>
+                                    <div className="flex justify-between text-xs w-48">
+                                        <span className="text-gray-500">Tax (10%):</span>
+                                        <span className="font-bold text-[#1a1a1a]">${(booking.taxAmount || (booking.subtotal || (totalPrice / 1.1) / (paymentType === 'pay_now' ? 0.98 : 1)) * 0.1).toFixed(2)}</span>
+                                    </div>
+                                    { (booking.discountApplied || booking.discountAmount > 0 || paymentType === 'pay_now') && (
+                                        <div className="flex justify-between text-xs w-48 text-[#00694B]">
+                                            <span className="italic">Applied: 2% Advance Booking Discount:</span>
+                                            <span className="font-bold">-${(booking.discountAmount || (totalPrice / 0.98 * 0.02)).toFixed(2)}</span>
+                                        </div>
+                                    )}
+                                    <div className="border-t border-gray-100 pt-1 flex justify-between text-sm w-48">
+                                        <span className="font-bold text-gray-700">Total Paid:</span>
+                                        <span className="font-black text-[#00694B]">${totalPrice.toFixed(2)}</span>
+                                    </div>
+                                </div>
+                                <div className="text-xs text-gray-500 mt-2">({paymentType === 'pay_now' ? 'Paid in full' : 'Reserved - To be paid flat/on arrival'})</div>
                                 <div className="text-xs text-gray-500 mt-1">Processed via <strong>{(paymentGateway || 'unknown').charAt(0).toUpperCase() + (paymentGateway || 'unknown').slice(1)}</strong></div>
                             </div>
                         </div>
@@ -370,11 +389,52 @@ function ConfirmationContent() {
                     </div>
 
                     <div className="bg-gray-50 p-6 rounded-xl border border-gray-200">
-                        <h4 className="font-bold text-[#1a1a1a] mb-2">What's Next?</h4>
+                        <h4 className="font-bold text-[#1a1a1a] mb-4 flex items-center gap-2">
+                             <MapPin size={18} className="text-[#00694B]" />
+                             Meeting Instructions
+                        </h4>
+                        
+                        <div className="space-y-6 mt-4">
+                            {/* Port of Roatán */}
+                            <div className="bg-white p-5 rounded-xl border border-[#00694B]/20 shadow-sm relative overflow-hidden">
+                                <div className="absolute top-0 left-0 w-1 h-full bg-[#00694B]"></div>
+                                <h5 className="font-black text-xs uppercase tracking-widest text-[#00694B] mb-3 flex items-center gap-2">
+                                    <Anchor size={14} /> For Port of Roatán (Town Center):
+                                </h5>
+                                <p className="text-[15px] text-gray-800 leading-relaxed mb-4">
+                                    “We will meet you <strong className="text-[#00694B] text-lg">60 minutes</strong> after your ship docks at <strong>Port of Roatán</strong>, outside the port in the area for independent tour operators. Look for our guide holding a <strong className="text-[#00694B]">colored ATV Buggy sign with your name on it</strong>. Your email confirmation includes a photo and a map to help you find us easily.”
+                                </p>
+                                <div className="bg-[#00694B]/5 p-3 rounded-lg border border-[#00694B]/10 flex items-center gap-3">
+                                    <Phone size={16} className="text-[#00694B]" />
+                                    <span className="text-sm font-bold text-gray-700">Support: </span>
+                                    <span className="text-sm font-black text-[#00694B] select-all">+504 9648 9745 / +504 9939 2442</span>
+                                </div>
+                            </div>
+
+                            {/* Mahogany Bay */}
+                            <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm relative overflow-hidden">
+                                <div className="absolute top-0 left-0 w-1 h-full bg-gray-400"></div>
+                                <h5 className="font-bold text-xs uppercase tracking-widest text-gray-500 mb-3 flex items-center gap-2">
+                                    <Anchor size={14} /> For Mahogany Bay / Isla’s Tropical:
+                                </h5>
+                                <p className="text-[15px] text-gray-800 leading-relaxed mb-4">
+                                    “We will meet you <strong className="text-gray-900 text-lg">60 minutes</strong> after your ship docks at <strong>Mahogany Bay (Isla’s Tropical)</strong>, outside the security gate in the area for independent tour operators. Look for our guide holding a <strong>colored ATV Buggy sign with your name on it</strong>. Your email confirmation includes a photo and a map to guide you to the meeting point.”
+                                </p>
+                                <div className="bg-gray-100 p-3 rounded-lg border border-gray-200 flex items-center gap-3">
+                                    <Phone size={16} className="text-gray-600" />
+                                    <span className="text-sm font-bold text-gray-700">Support: </span>
+                                    <span className="text-sm font-black text-gray-900 select-all">+504 9648 9745 / +504 9939 2442</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr className="my-6 border-gray-100" />
+
+                        <h4 className="font-bold text-[#1a1a1a] mb-2 text-sm uppercase tracking-wider opacity-60">Important Information</h4>
                         <ul className="text-sm text-gray-600 space-y-2 list-disc pl-4">
                             <li>Check your email inbox for your detailed itinerary and receipt.</li>
                             <li>Please arrive 15 minutes prior to your scheduled time.</li>
-                            <li>If you selected pick-up, our driver will meet you at the designated location.</li>
+                            <li>If you selected pick-up from a hotel, our driver will meet you at the designated location.</li>
                         </ul>
                     </div>
                 </div>

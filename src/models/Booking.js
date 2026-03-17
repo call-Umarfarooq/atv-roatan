@@ -28,6 +28,10 @@ const BookingSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  subtotal: Number,
+  taxAmount: Number,
+  discountAmount: Number,
+  discountApplied: { type: Boolean, default: false },
   customer: {
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },

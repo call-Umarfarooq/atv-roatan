@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/Header";
+import ConditionalHeader from "@/components/ConditionalHeader";
 import Script from "next/script";
 import { Suspense } from "react";
 import AdminGateModal from "@/components/AdminGateModal";
@@ -83,7 +84,7 @@ export default function RootLayout({ children }) {
       <body
         className={`antialiased`}
       >
-        <Header />
+        <ConditionalHeader />
         {children}
         <Suspense fallback={null}>
           <AdminGateModal />
