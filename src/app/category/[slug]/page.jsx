@@ -64,9 +64,9 @@ export default async function CategoryDetailPage({ params }) {
           <img
             src={getImageUrl(serializedCategory.image)}
             alt={serializedCategory.image_alt || serializedCategory.name}
-            className="w-full h-full object-contain"
+            className="w-full h-full object-fill"
           />
-          <div className="absolute inset-0 bg-black/50" />
+          {/* <div className="absolute inset-0 bg-black/50" /> */}
         </div>
       ) : (
         <div className="pt-24 md:pt-32 pb-6 md:pb-8" />
