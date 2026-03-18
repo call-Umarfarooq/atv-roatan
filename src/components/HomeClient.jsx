@@ -10,15 +10,20 @@ const HomeClient = ({ initialTours, categories }) => {
   const carouselRef = useRef();
 
   const filteredTours = useMemo(() => {
-    return selectedCategory === 'All'
-      ? initialTours
-      : initialTours.filter(tour => {
-          const tourCategories = tour.categories || [];
-          const oldCategory = tour.category;
-          const hasCategory = tourCategories.some(c => (typeof c === 'string' ? c : c._id) === selectedCategory);
-          const matchesOld = oldCategory && (typeof oldCategory === 'string' ? oldCategory : oldCategory._id) === selectedCategory;
-          return hasCategory || matchesOld;
-        });
+    if (selectedCategory === 'All') {
+      return [...initialTours].sort((a, b) => {
+        if (a.is_featured && !b.is_featured) return -1;
+        if (!a.is_featured && b.is_featured) return 1;
+        return 0;
+      });
+    }
+    return initialTours.filter(tour => {
+      const tourCategories = tour.categories || [];
+      const oldCategory = tour.category;
+      const hasCategory = tourCategories.some(c => (typeof c === 'string' ? c : c._id) === selectedCategory);
+      const matchesOld = oldCategory && (typeof oldCategory === 'string' ? oldCategory : oldCategory._id) === selectedCategory;
+      return hasCategory || matchesOld;
+    });
   }, [selectedCategory, initialTours]);
 
   const getCardWidth = () =>
@@ -64,7 +69,6 @@ const HomeClient = ({ initialTours, categories }) => {
       {/* ── Category Filter Section ── */}
       <section className="bg-white py-4">
         <div className="max-w-7xl mx-auto">
-
           {/* Section Heading */}
           <div className="text-center mb-5 md:mb-8">
             <StaggeredTextReveal

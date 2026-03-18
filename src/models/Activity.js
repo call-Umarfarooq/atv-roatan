@@ -23,6 +23,15 @@ const ActivitySchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  shortTitle: {
+    type: String,
+    default: '',
+    maxlength: [40, 'Short title cannot be more than 40 characters'],
+  },
+  iconImage: {
+    type: String,
+    default: '',
+  },
   meta_title: {
     type: String,
     default: '',

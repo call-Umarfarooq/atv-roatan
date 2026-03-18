@@ -1,5 +1,5 @@
-﻿"use client";
-import React, { useState, useEffect } from 'react';
+"use client";
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Star, 
   Clock, 
@@ -266,12 +266,7 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
                     alt={imageAlts[0] || tour.title}
                   />
                   {/* Share button overlay */}
-                  <button
-                    onClick={(e) => { e.stopPropagation(); handleShare(); }}
-                    className="absolute top-3 left-3 bg-white/90 hover:bg-white text-[#1a1a1a] p-2 rounded-full shadow-sm transition-colors"
-                  >
-                    <Share size={15} />
-                  </button>
+                  <CircularShareMenu onShare={handleShare} />
                 </div>
 
                 {/* Right column - 2 stacked thumbnails */}
@@ -346,19 +341,21 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
                 </div>
 
                 {/* Main Hero Image */}
-                <div className="flex-1 relative rounded-xl overflow-hidden group">
-                  <img src={getImageUrl(images[currentImageIndex])} className="w-full h-full object-cover transition-opacity duration-300" alt={imageAlts[currentImageIndex] || tour.title} />
-                  <div className="absolute top-4 right-4 flex gap-3">
-                    <button onClick={handleShare} className="bg-white hover:bg-gray-100 text-[#1a1a1a] px-4 py-2 rounded-full font-bold flex items-center gap-2 shadow-sm transition-colors text-sm">
-                      <Share size={16} /> Share
+                <div className="flex-1 relative group">
+                  {/* overflow-hidden is on the inner div so orbiting share icons aren't clipped */}
+                  <div className="w-full h-full rounded-xl overflow-hidden">
+                    <img src={getImageUrl(images[currentImageIndex])} className="w-full h-full object-cover transition-opacity duration-300" alt={imageAlts[currentImageIndex] || tour.title} />
+                    <button onClick={(e) => { e.stopPropagation(); prevImage(); }} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-100 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                      <ChevronLeft size={20} className="text-[#1a1a1a]" />
+                    </button>
+                    <button onClick={(e) => { e.stopPropagation(); nextImage(); }} className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-100 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                      <ChevronRight size={20} className="text-[#1a1a1a]" />
                     </button>
                   </div>
-                  <button onClick={(e) => { e.stopPropagation(); prevImage(); }} className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-100 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                    <ChevronLeft size={20} className="text-[#1a1a1a]" />
-                  </button>
-                  <button onClick={(e) => { e.stopPropagation(); nextImage(); }} className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-100 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                    <ChevronRight size={20} className="text-[#1a1a1a]" />
-                  </button>
+                  {/* Share menu sits outside overflow-hidden so orbiting icons are visible */}
+                  <div className="absolute top-4 right-4 z-20 flex items-center justify-center w-10 h-10">
+                    <CircularShareMenu onShare={handleShare} className="relative" />
+                  </div>
                 </div>
             </div>
 
@@ -759,3 +756,74 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
   );
 }
 
+const CircularShareMenu = ({ onShare, className = 'absolute top-3 left-3 z-50' }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const leaveTimer = useRef(null);
+
+  const handleMouseEnter = () => {
+    clearTimeout(leaveTimer.current);
+    setIsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    leaveTimer.current = setTimeout(() => setIsOpen(false), 200);
+  };
+
+  const socialLinks = [
+    { name: 'X', color: '#000000', icon: <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg> },
+    { name: 'Reddit', color: '#FF4500', icon: <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .883.175 1.188.467 1.21-.864 2.894-1.432 4.75-1.493l.995-4.639c.036-.169.194-.285.368-.261l2.904.611a1.26 1.26 0 0 1 1.023-.187z"/></svg> },
+    { name: 'LinkedIn', color: '#0A66C2', icon: <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> },
+    { name: 'Instagram', color: '#E4405F', icon: <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg> },
+    { name: 'GitHub', color: '#181717', icon: <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg> },
+    { name: 'YouTube', color: '#FF0000', icon: <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg> },
+    { name: 'Facebook', color: '#1877F2', icon: <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg> },
+    { name: 'WhatsApp', color: '#25D366', icon: <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a5.286 5.286 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg> },
+  ];
+
+  const radius = 60;
+
+  return (
+    <div
+      className={`${className} flex items-center justify-center w-10 h-10`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={(e) => { e.stopPropagation(); setIsOpen(o => !o); }}
+    >
+      {/* Central Share Button */}
+      <button
+        onClick={(e) => { e.stopPropagation(); onShare(); }}
+        className={`relative z-10 w-9 h-9 bg-white/90 hover:bg-white text-[#1a1a1a] rounded-full shadow-md flex items-center justify-center transition-all duration-300 ${isOpen ? 'scale-110 shadow-lg bg-white' : ''}`}
+      >
+        <Share size={15} />
+      </button>
+
+      {/* Orbiting Icons */}
+      {socialLinks.map((item, index) => {
+        const angle = (index * (360 / socialLinks.length)) - 90;
+        return (
+          <div
+            key={item.name}
+            className="absolute top-0 left-0 w-9 h-9"
+            style={{
+              transition: 'transform 500ms cubic-bezier(0.34,1.56,0.64,1), opacity 300ms ease',
+              transform: isOpen
+                ? `rotate(${angle}deg) translate(${radius}px) rotate(-${angle}deg)`
+                : 'rotate(0deg) translate(0px) rotate(0deg)',
+              opacity: isOpen ? 1 : 0,
+              pointerEvents: isOpen ? 'auto' : 'none',
+            }}
+          >
+            <button
+              className="w-9 h-9 bg-white rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform hover:ring-2 ring-gray-100"
+              style={{ color: item.color }}
+              onClick={(e) => { e.stopPropagation(); onShare(); }}
+              title={`Share on ${item.name}`}
+            >
+              {item.icon}
+            </button>
+          </div>
+        );
+      })}
+    </div>
+  );
+};

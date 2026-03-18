@@ -315,30 +315,30 @@ const Header = () => {
                   </div>
 
                   {activeDropdown === 'excursions' && (
-                    <div className="absolute top-10 left-0 w-[900px] bg-white text-gray-800 shadow-xl rounded-b-md border-t-2 border-[#004d36] animate-in fade-in slide-in-from-top-2 duration-200 z-50">
-                      <div className="grid grid-cols-5 gap-4 p-6">
+                    <div className="absolute top-10 left-0 w-fit min-w-[120px] bg-white text-gray-800 shadow-xl rounded-b-md border-t-2 border-[#004d36] animate-in fade-in slide-in-from-top-2 duration-200 z-50">
+                      <div className="grid grid-cols-6 gap-3 p-4 w-[540px]">
                         {activities.length > 0 ? (
                           activities.map((activity) => (
                             <a
                               key={activity._id}
                               href={`/activities/${activity.slug}`}
-                              className="flex flex-col gap-2 group/item"
+                              className="flex flex-col items-center gap-1.5 group/item w-[80px]"
                             >
-                              <div className="relative w-full aspect-[4/3] rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
+                              <div className="relative w-[72px] h-[72px] rounded-2xl overflow-hidden  shadow-sm group-hover/item:shadow-md transition-all border border-gray-200">
                                 <Image
-                                  src={activity.image || '/images/placeholder.jpg'}
-                                  alt={activity.title}
+                                  src={activity.iconImage || activity.image || '/images/placeholder.jpg'}
+                                  alt={activity.shortTitle || activity.title}
                                   fill
-                                  className="object-cover group-hover/item:scale-105 transition-transform duration-300"
+                                  className="object-cover group-hover/item:scale-110 transition-transform duration-300 p-1"
                                 />
                               </div>
-                              <span className="text-xs font-bold text-gray-700 text-center uppercase tracking-tight group-hover/item:text-[#00694B] leading-tight">
-                                {activity.title}
+                              <span className="text-[10px] font-bold text-gray-700 text-center uppercase tracking-tight group-hover/item:text-[#00694B] leading-tight w-full">
+                                {activity.shortTitle || activity.title}
                               </span>
                             </a>
                           ))
                         ) : (
-                          <div className="col-span-5 p-4 text-center text-gray-500">Loading activities...</div>
+                          <div className="p-4 text-center text-gray-500 text-sm">Loading activities...</div>
                         )}
                       </div>
                     </div>
@@ -513,20 +513,20 @@ const Header = () => {
                               activities.map((activity) => (
                                 <a
                                   key={activity._id}
-                                  href="/#choose-your-adventure"
+                                  href={`/activities/${activity.slug}`}
                                   onClick={closeMobileMenu}
-                                  className="flex flex-col gap-1.5 group"
+                                  className="flex flex-col items-center gap-1.5 group"
                                 >
-                                  <div className="relative w-full aspect-[4/3] rounded-md overflow-hidden bg-gray-100">
+                                  <div className="relative w-full aspect-square rounded-lg overflow-hidden bg-gray-100">
                                     <Image
-                                      src={activity.image || '/images/placeholder.jpg'}
-                                      alt={activity.title}
+                                      src={activity.iconImage || activity.image || '/images/placeholder.jpg'}
+                                      alt={activity.shortTitle || activity.title}
                                       fill
                                       className="object-cover"
                                     />
                                   </div>
                                   <span className="text-xs font-bold text-gray-700 text-center uppercase leading-tight group-hover:text-[#00694B]">
-                                    {activity.title}
+                                    {activity.shortTitle || activity.title}
                                   </span>
                                 </a>
                               ))

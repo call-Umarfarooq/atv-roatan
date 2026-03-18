@@ -8,6 +8,7 @@ export default function ActivityForm({ initialData = null, isEdit = false }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [uploadingIcon, setUploadingIcon] = useState(false);
   
   const [formData, setFormData] = useState({
     title: '',
@@ -15,6 +16,8 @@ export default function ActivityForm({ initialData = null, isEdit = false }) {
     description: '',
     image: '',
     image_alt: '',
+    shortTitle: '',
+    iconImage: '',
     meta_title: '',
     meta_description: '',
   });
@@ -85,6 +88,28 @@ export default function ActivityForm({ initialData = null, isEdit = false }) {
     }
   };
 
+  const handleIconUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploadingIcon(true);
+    const data = new FormData();
+    data.append('file', file);
+    try {
+      const res = await fetch('/api/upload', { method: 'POST', body: data });
+      const result = await res.json();
+      if (result.success) {
+        setFormData(prev => ({ ...prev, iconImage: result.url }));
+      } else {
+        alert('Icon upload failed');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Icon upload error');
+    } finally {
+      setUploadingIcon(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -147,6 +172,20 @@ export default function ActivityForm({ initialData = null, isEdit = false }) {
                       <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
                           <input required name="title" value={formData.title} onChange={handleChange} className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#00694B] focus:border-transparent outline-none text-[#1a1a1a]" />
+                      </div>
+                      <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Short Title <span className="text-gray-400 font-normal text-xs">(shown in header dropdown, max 40 chars)</span>
+                          </label>
+                          <input
+                            name="shortTitle"
+                            value={formData.shortTitle}
+                            onChange={handleChange}
+                            maxLength={40}
+                            placeholder="e.g. ATV Jungle"
+                            className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#00694B] focus:border-transparent outline-none text-[#1a1a1a]"
+                          />
+                          <p className="text-xs text-gray-400 mt-1 text-right">{(formData.shortTitle || '').length}/40</p>
                       </div>
                       <div>
                           <label className="block text-sm font-medium text-gray-700 mb-1">Slug</label>
@@ -223,6 +262,33 @@ export default function ActivityForm({ initialData = null, isEdit = false }) {
                               className="w-full p-2 border rounded-lg text-sm text-[#1a1a1a] focus:ring-2 focus:ring-[#00694B] focus:border-transparent outline-none"
                           />
                       </div>
+                  </div>
+
+                  {/* Icon Image */}
+                  <div className="mt-6">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Icon Image <span className="text-gray-400 font-normal text-xs">(shown in header dropdown)</span>
+                      </label>
+                      <div className="relative w-24 h-24 rounded-xl bg-gray-100 overflow-hidden border-2 border-dashed border-gray-300 flex items-center justify-center group hover:border-[#00694B] transition-colors">
+                          {formData.iconImage ? (
+                              <img src={getImageUrl(formData.iconImage)} alt="Icon" className="w-full h-full object-cover" />
+                          ) : (
+                              <div className="text-center text-gray-400">
+                                  <ImageIcon size={20} className="mx-auto mb-1" />
+                                  <span className="text-xs">{uploadingIcon ? 'Uploading...' : 'Icon'}</span>
+                              </div>
+                          )}
+                          <input type="file" onChange={handleIconUpload} className="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" disabled={uploadingIcon} />
+                      </div>
+                      {formData.iconImage && (
+                          <button
+                              type="button"
+                              onClick={() => setFormData(prev => ({ ...prev, iconImage: '' }))}
+                              className="mt-2 text-xs text-red-500 hover:text-red-700 flex items-center gap-1"
+                          >
+                              <X size={12} /> Remove icon
+                          </button>
+                      )}
                   </div>
               </div>
           </div>

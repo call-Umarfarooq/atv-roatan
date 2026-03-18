@@ -146,6 +146,22 @@ export default async function Home() {
               <span>Ziplines</span>
             </div>
 
+            {/* CTA Buttons */}
+            <div className="flex mb-8 sm:mb-0 flex-wrap items-center justify-center gap-1 sm:gap-3 mt-4 sm:mt-5">
+              <a
+                href="/category/build-your-own-roatan-private-tour"
+                className="flex items-center gap-2 px-5 py-1 sm:py-2.5 rounded-full  text-[10px] sm:text-sm sm:font-bold text-white bg-[#00694B] hover:bg-[#005a3c] shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
+              >
+                Cruiseship Passenger
+              </a>
+              <a
+                href="/plan"
+                className="flex items-center gap-2 px-5 py-1 sm:py-2.5 rounded-full text-[10px] sm:text-sm sm:font-bold text-white bg-white/15 hover:bg-white/25 backdrop-blur-sm border border-white/30 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
+              >
+              Long Stay in Roatan
+              </a>
+            </div>
+
           </div>
         </div>
       </section>

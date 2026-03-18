@@ -13,7 +13,7 @@ const AboutPage = () => {
       {/* 1. Hero Section */}
       <section className="relative w-full h-[40vh] md:h-[50vh] min-h-[350px] md:min-h-[400px]">
         <Image
-          src="/images/hero.png"
+          src="/images/about-us.webp"
           alt="About Roatan ATV Tours"
           fill
           priority
@@ -30,7 +30,7 @@ const AboutPage = () => {
              </span>
           </div>
           <h1 className="text-white h11 tracking-tight mb-4 md:mb-6 drop-shadow-lg leading-tight">
-            Who We Are
+           About Roatan Buggy Tours
           </h1>
           <p className="text-gray-200 max-w-2xl mx-auto text-sm sm:text-base md:text-lg">
             Dedicated to providing unforgettable adventures and showing the true beauty of Roatan through our guided tours.
@@ -46,7 +46,7 @@ const AboutPage = () => {
           <div className="relative w-full px-4 md:px-0 mt-4 md:mt-0">
             <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl bg-gray-200">
               <Image 
-                src="/images/icon5.jpeg" 
+                src="/images/about-us.webp" 
                 alt="Roatan Adventure" 
                 fill 
                 className="object-cover"
@@ -56,7 +56,7 @@ const AboutPage = () => {
             {/* Overlay badge or image */}
             <div className="absolute -bottom-6 -right-2 sm:-bottom-8 sm:-right-4 md:-right-8 w-32 h-32 sm:w-40 sm:h-40 md:w-56 md:h-56 rounded-full sm:rounded-2xl overflow-hidden border-4 sm:border-8 border-white shadow-2xl bg-gray-200">
               <Image 
-                src="/images/icon2.jpeg" 
+                src="/images/icon5.jpeg" 
                 alt="Smiling Tourists" 
                 fill 
                 className="object-cover"
@@ -76,54 +76,55 @@ const AboutPage = () => {
             </h2>
             <div className="space-y-3 sm:space-y-4">
               <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-                We started with a simple belief: the best way to experience the magic of Roatan is feeling the breeze, hearing the sounds of the jungle, and venturing off the beaten path. Over the years, we've grown into the leading provider for ATV, Dune Buggy, and Golf Cart excursions.
+                We are Roatan ATV, Buggy & Golf Cart Adventure Tours. We are not a booking agency — we are the <strong>Owners</strong> in Las Fuertes. At ATV Roatan, we answer the 'Why' of travel: because life is an adventure meant to be lived, not watched through a bus window.
               </p>
               <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-                Whether you are an adventurous soul seeking adrenaline or a family looking for a scenic island tour, our expert local guides ensure safety, fun, and memories that will last a lifetime.
+                Based in Las Fuertes, we own our fleet, maintain our own engines, and protect our own guests. When you book here, you aren't just a ticket number on a corporate spreadsheet — you are a <strong>guest in our home</strong>.
+              </p>
+            </div>
+
+            {/* Our Team */}
+            <div className="pt-2 sm:pt-4 border-t border-gray-100">
+              <h3 className="text-lg sm:text-xl font-bold text-[#1a1a1a] mb-2">Our Team</h3>
+              <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
+                A group of direct descendants of the original Roatan inhabitants is the foundation of our staff. Each one of them has the most friendly attitude you'll ever meet while being on the island and is fully committed to making you enjoy your time with us.
+              </p>
+              <p className="text-gray-600 text-sm sm:text-base leading-relaxed mt-2">
+                All our team members are bilingual English and Spanish speakers, fully trained in <strong>CPR & Mountain Rescue</strong>.
               </p>
             </div>
 
             {/* Core Values / Features */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 pt-4 sm:pt-6">
-              <div className="flex items-start gap-3 sm:gap-4 p-3 sm:p-0 rounded-xl sm:rounded-none bg-gray-50 sm:bg-transparent border sm:border-none border-gray-100">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-[#00694B]/10 flex items-center justify-center shrink-0 sm:mt-1">
-                  <Shield className="text-[#00694B] w-5 h-5 sm:w-6 sm:h-6" />
+
+              <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-gray-50 border border-gray-100">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-[#00694B]/10 flex items-center justify-center shrink-0 text-xl">
+                  ⛑️
                 </div>
-                <div>
-                  <h4 className="text-[#1a1a1a] font-bold text-base sm:text-lg mb-0.5 sm:mb-1">Safety First</h4>
-                  <p className="text-gray-500 text-xs sm:text-sm">Top maintained vehicles and safety gear provided.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-3 sm:gap-4 p-3 sm:p-0 rounded-xl sm:rounded-none bg-gray-50 sm:bg-transparent border sm:border-none border-gray-100">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-[#00694B]/10 flex items-center justify-center shrink-0 sm:mt-1">
-                  <Users className="text-[#00694B] w-5 h-5 sm:w-6 sm:h-6" />
-                </div>
-                <div>
-                  <h4 className="text-[#1a1a1a] font-bold text-base sm:text-lg mb-0.5 sm:mb-1">Expert Guides</h4>
-                  <p className="text-gray-500 text-xs sm:text-sm">Friendly locals who know the island's best spots.</p>
-                </div>
+                <h4 className="text-[#1a1a1a] font-bold text-sm sm:text-base leading-snug">Port Round Trip Transport Included</h4>
               </div>
 
-              <div className="flex items-start gap-3 sm:gap-4 p-3 sm:p-0 rounded-xl sm:rounded-none bg-gray-50 sm:bg-transparent border sm:border-none border-gray-100">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-[#00694B]/10 flex items-center justify-center shrink-0 sm:mt-1">
-                  <Map className="text-[#00694B] w-5 h-5 sm:w-6 sm:h-6" />
+              <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-gray-50 border border-gray-100">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-[#00694B]/10 flex items-center justify-center shrink-0 text-xl">
+                  ✅
                 </div>
-                <div>
-                  <h4 className="text-[#1a1a1a] font-bold text-base sm:text-lg mb-0.5 sm:mb-1">Scenic Routes</h4>
-                  <p className="text-gray-500 text-xs sm:text-sm">Traverse jungles, villages, and stunning coastlines.</p>
-                </div>
+                <h4 className="text-[#1a1a1a] font-bold text-sm sm:text-base leading-snug">Free Cancellation & Full Refund</h4>
               </div>
 
-              <div className="flex items-start gap-3 sm:gap-4 p-3 sm:p-0 rounded-xl sm:rounded-none bg-gray-50 sm:bg-transparent border sm:border-none border-gray-100">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-[#00694B]/10 flex items-center justify-center shrink-0 sm:mt-1">
-                  <CheckCircle2 className="text-[#00694B] w-5 h-5 sm:w-6 sm:h-6" />
+              <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-gray-50 border border-gray-100">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-[#00694B]/10 flex items-center justify-center shrink-0 text-xl">
+                  👨‍👩‍👧‍👦
                 </div>
-                <div>
-                  <h4 className="text-[#1a1a1a] font-bold text-base sm:text-lg mb-0.5 sm:mb-1">Satisfaction</h4>
-                  <p className="text-gray-500 text-xs sm:text-sm">Guaranteed back-to-ship policy for cruisers.</p>
-                </div>
+                <h4 className="text-[#1a1a1a] font-bold text-sm sm:text-base leading-snug">Kids & Family Friendly</h4>
               </div>
+
+              <div className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-gray-50 border border-gray-100">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-[#00694B]/10 flex items-center justify-center shrink-0 text-xl">
+                  ♀️
+                </div>
+                <h4 className="text-[#1a1a1a] font-bold text-sm sm:text-base leading-snug">Women-Led, Family Owned</h4>
+              </div>
+
             </div>
 
           </div>
