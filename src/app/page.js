@@ -129,7 +129,7 @@ export default async function Home() {
             {/* Main Title */}
             <StaggeredTextReveal
               el="h1"
-            className="text-white h11 text-4xl sm:text-5xl md:text-6xl lg:text-[60px] leading-[1.1] lg:leading-[42px] font-[500] tracking-[0.2px] mb-6 lg:mb-0 drop-shadow-lg"
+            className="text-white h11 text-4xl sm:text-5xl md:text-6xl lg:text-[50px] leading-[1.1] lg:leading-[72px] font-[500] tracking-[0.2px] mb-6 lg:mb-0 drop-shadow-lg"
 
               text="Roatan Shore Excursions and Private Tours"
             />
@@ -148,8 +148,7 @@ export default async function Home() {
             </div>
 
             {/* CTA Buttons */}
-          <div className="flex mb-12 sm:mb-10 flex-wrap items-center justify-center gap-1 sm:gap-3 mt-4 sm:mt-5 pb-8">
-              <a
+<div className="flex mb-6 sm:mb-6 flex-wrap items-center justify-center gap-1 sm:gap-3 mt-4 sm:mt-5">              <a
                 href="/category/build-your-own-roatan-private-tour"
                 className="flex items-center gap-2 px-5 py-1 sm:py-2.5 rounded-full  text-[10px] sm:text-sm sm:font-bold text-white bg-[#00694B] hover:bg-[#005a3c] shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
               >
