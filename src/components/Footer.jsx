@@ -7,10 +7,9 @@ const Footer = () => {
     <footer className="w-full">
       {/* Top CTA Section */}
       <section 
-        className="relative text-center py-16 md:py-24 px-5 sm:px-6 bg-cover bg-center"
+        className="relative text-center py-16 md:py-24 px-5 sm:px-6 bg-contain bg-center"
         style={{ 
-          backgroundImage: "url('http://hk0gswgg8cgs0wg04scwsgok.72.62.242.32.sslip.io/api/images/1774040808828-95651352-Gemini_Generated_Image_vebci7vebci7vebc.png')" 
-        }}
+   backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(18, 18, 18, 1)), url('http://hk0gswgg8cgs0wg04scwsgok.72.62.242.32.sslip.io/api/images/1774042036815-110584123-Gemini_Generated_Image_wa4mwa4mwa4mwa4m.png')"         }}
       >
         <div className="max-w-4xl mx-auto">
           <h2 className="sm:text-2xl sm:font-bold text-[20px] font-medium  text-white mb-3 md:mb-4 leading-tight">
