@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import StaggeredTextReveal from '@/components/StaggeredTextReveal';
 
-const ELFSIGHT_APP_ID = "elfsight-app-ff87f495-c30c-416d-960a-5d8d01fc8490";
+const ELFSIGHT_APP_ID = "elfsight-app-0e009bcc-2c12-47f5-a0e1-cd3d12288ec7";
 
 const ReviewsWidget = () => {
   useEffect(() => {
