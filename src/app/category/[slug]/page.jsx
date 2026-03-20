@@ -60,11 +60,11 @@ export default async function CategoryDetailPage({ params }) {
 
       {/* Hero — show category image if available, else plain header */}
       {serializedCategory.image ? (
-        <div className="relative w-full h-[30vh] sm:h-[35vh] md:h-[40vh] min-h-[250px] md:min-h-[280px] mb-8 md:mb-10">
+        <div className="relative w-full mb-4 bg-white  flex justify-center">
           <img
             src={getImageUrl(serializedCategory.image)}
             alt={serializedCategory.image_alt || serializedCategory.name}
-            className="w-full h-full object-fill"
+            className="max-w-full h-auto max-h-[40vh] sm:max-h-[50vh] object-contain block"
           />
           {/* <div className="absolute inset-0 bg-black/50" /> */}
         </div>

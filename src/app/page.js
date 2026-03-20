@@ -123,14 +123,14 @@ export default async function Home() {
             
             {/* Top Label */}
             <span className="block text-white/90 text-[10px] sm:text-xs md:text-sm font-bold uppercase tracking-[0.2em] mb-3 md:mb-5 drop-shadow-md">
-              Operated By Roatan ATV Buggy Tours
+            Operated By Roatan ATV Buggy and Golf Cart Adventure Tours
             </span>
             
             {/* Main Title */}
             <StaggeredTextReveal
               el="h1"
               className="text-white h11 text-4xl sm:text-5xl md:text-6xl lg:text-[60px] leading-[1.1] lg:leading-[72px] font-[500] tracking-[0.2px] mb-6 lg:mb-0 drop-shadow-lg"
-              text="Roatan Shore Excursions"
+              text="Roatan Shore Excursions and Private Tours"
             />
             
             {/* Activities Pill Row */}

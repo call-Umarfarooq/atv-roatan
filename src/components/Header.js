@@ -46,7 +46,7 @@ const Header = () => {
         const activitiesRes = await fetch('/api/activities');
         const activitiesData = await activitiesRes.json();
         if (activitiesData.success) {
-          setActivities(activitiesData.data.slice(0, 5));
+          setActivities(activitiesData.data);
         }
       } catch (error) {
         console.error('Failed to fetch tours for header:', error);

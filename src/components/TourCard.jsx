@@ -56,8 +56,8 @@ const TourCard = ({
         />
         
         {/* Top Left Badge */}
-        <div className="absolute top-2 left-2 z-6 w-10 w-16">
-          <img src="/images/Backto.png" alt="Back to Ship Guarantee" className="w-full h-auto drop-shadow-md" />
+        <div className="absolute top-0.5 left-0.5 z-6 w-10 w-16">
+          <img src="/images/Adobe Express - file.png" alt="Back to Ship Guarantee" className="w-full h-auto drop-shadow-md" />
         </div>
 
         {/* Navigation Arrows */}
@@ -93,7 +93,7 @@ const TourCard = ({
       </div>
     
       {/* Content Container */}
-      <div className="p-3 flex flex-col grow">
+      <div className="px-3 pb-3  flex flex-col grow">
         {/* Title */}
         <h3 className="font-bold text-[12px] leading-[16px] text-gray-900 my-[10px]">
           {title}
@@ -118,7 +118,7 @@ const TourCard = ({
         <div className="grow"></div>
 
         {/* Footer: Pricing & Button */}
-        <div className="mt-1 flex flex-col gap-2 relative">
+        <div className=" flex flex-col gap-2 relative">
             
             <div className="flex items-end justify-between gap-2 w-full">
                 <div className="flex flex-col min-w-0">

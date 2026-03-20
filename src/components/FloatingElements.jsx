@@ -18,7 +18,7 @@ export default function FloatingElements() {
         }}
       >
         <Image
-          src="/images/plane.png"
+          src="/images/tota.png"
           alt="Floating Airplane"
           width={200}
           height={100}
@@ -39,7 +39,7 @@ export default function FloatingElements() {
         }}
       >
         <Image
-          src="/images/cloude-1-2.png"
+          src="/images/bander.png"
           alt="Floating Cloud"
           width={180}
           height={100}
