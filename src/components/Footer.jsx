@@ -9,8 +9,7 @@ const Footer = () => {
       <section 
         className="relative text-center py-16 md:py-24 px-5 sm:px-6 bg-cover bg-center"
         style={{ 
-          backgroundImage: "
-            url('http://hk0gswgg8cgs0wg04scwsgok.72.62.242.32.sslip.io/api/images/1774040808828-95651352-Gemini_Generated_Image_vebci7vebci7vebc.png')" 
+          backgroundImage: "url('http://hk0gswgg8cgs0wg04scwsgok.72.62.242.32.sslip.io/api/images/1774040808828-95651352-Gemini_Generated_Image_vebci7vebci7vebc.png')" 
         }}
       >
         <div className="max-w-4xl mx-auto">
