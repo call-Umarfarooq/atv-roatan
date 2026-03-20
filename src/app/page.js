@@ -129,8 +129,9 @@ export default async function Home() {
             {/* Main Title */}
             <StaggeredTextReveal
               el="h1"
-            className="text-white h11 text-2xl sm:text-3xl md:text-4xl lg:text-[45px] leading-[1.1] lg:leading-[54px] font-[500] tracking-[0.2px] mb-6 lg:mb-0 drop-shadow-lg"
-text="Roatan Shore Excursions and Private Tours"
+            className="text-white h11 text-4xl sm:text-5xl md:text-6xl lg:text-[60px] leading-[1.1] lg:leading-[42px] font-[500] tracking-[0.2px] mb-6 lg:mb-0 drop-shadow-lg"
+
+              text="Roatan Shore Excursions and Private Tours"
             />
             
             {/* Activities Pill Row */}
