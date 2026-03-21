@@ -105,7 +105,7 @@ export default async function Home() {
   return (
     <main className="bg-white ">
       {/* Hero Section */}
-      <section className="relative  w-full h-[45vh] sm:h-[60vh] md:h-[70vh] min-h-[300px] sm:min-h-[420px]">
+      <section className="relative  w-full h-[50vh] sm:h-[60vh] md:h-[70vh] min-h-[300px] sm:min-h-[420px]">
         <video
           src="/images/atv-video.mp4"
           autoPlay
@@ -129,7 +129,7 @@ export default async function Home() {
             {/* Main Title */}
             <StaggeredTextReveal
               el="h1"
-              className="text-white h11 text-4xl sm:text-5xl md:text-6xl lg:text-[60px] leading-[1.1] lg:leading-[72px] font-[500] tracking-[0.2px] mb-6 lg:mb-0 drop-shadow-lg"
+              className="text-white  text-3xl sm:text-4xl md:text-5xl lg:text-[45px] leading-[1.1] lg:leading-[72px] font-[500] tracking-[0.2px] mb-6 lg:mb-0 drop-shadow-lg"
               text="Roatan Shore Excursions and Private Tours"
             />
             

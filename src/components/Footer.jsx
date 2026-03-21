@@ -9,7 +9,7 @@ const Footer = () => {
       <section 
         className="relative text-center py-16 md:py-24 px-5 sm:px-6 bg-cover bg-center"
         style={{ 
-          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(18, 18, 18, 1)), url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&q=80&w=1200')" 
+          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(18, 18, 18, 1)), url('/images/footer-backgroud.jpeg')" 
         }}
       >
         <div className="max-w-4xl mx-auto">
