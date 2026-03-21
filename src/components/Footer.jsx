@@ -7,7 +7,7 @@ const Footer = () => {
     <footer className="w-full">
       {/* Top CTA Section */}
       <section 
-        className="relative text-center py-16 md:py-24 px-5 sm:px-6 bg-cover bg-center"
+        className="relative text-center py-16 md:py-24 px-5 sm:px-6 bg-contain bg-center"
         style={{ 
           backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(18, 18, 18, 1)), url('/images/footer-backgroud.jpeg')" 
         }}
