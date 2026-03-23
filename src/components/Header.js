@@ -157,7 +157,7 @@ const Header = () => {
                         ],
                       }}
                       transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                      className="text-sm font-bold border-2 text-[#00694B] px-3 py-1.5 rounded-full flex items-center gap-1 whitespace-nowrap cursor-pointer select-none"
+                      className="text-sm font-bold border-2 text-[#80E142] px-3 py-1.5 rounded-full flex items-center gap-1 whitespace-nowrap cursor-pointer select-none"
                     >
                       🗺️ {link.label}
                     </motion.span>
@@ -174,7 +174,7 @@ const Header = () => {
                         >
                            <a
                             href="/category/build-your-own-roatan-private-tour"
-                            className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-[#00694B] hover:text-white transition-colors group"
+                            className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-[#80E142] hover:text-white transition-colors group"
                           >
                             <span className="text-lg">🛳️</span>
                             <div>
@@ -186,7 +186,7 @@ const Header = () => {
                          
                           <a
                             href="/plan"
-                            className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-[#00694B] hover:text-white transition-colors group"
+                            className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-[#80E142] hover:text-white transition-colors group"
                           >
                             <span className="text-lg">🗺️</span>
                             <div>
