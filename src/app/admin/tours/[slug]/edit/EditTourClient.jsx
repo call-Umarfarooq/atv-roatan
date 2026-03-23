@@ -32,7 +32,7 @@ export default function EditTourClient({ slug }) {
   if (!tour) return <div>Tour not found (Slug: {slug})</div>;
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-6xl mx-auto">
       <TourForm initialData={tour} isEdit={true} />
     </div>
   );

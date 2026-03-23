@@ -64,7 +64,7 @@ const ContactPage = () => {
         {/* Background Image Container */}
         <div className="absolute inset-0 z-0">
             <Image
-            src="/images/hero.png"
+            src="/images/footer-backgroud.jpeg"
             alt="Contact Us - Roatan ATV Tours"
             fill
             priority

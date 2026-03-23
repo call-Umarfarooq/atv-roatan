@@ -1,8 +1,9 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { CheckCircle, XCircle, Clock, Eye, RefreshCw, Search, ExternalLink } from 'lucide-react';
+import { CheckCircle, XCircle, Clock, Eye, RefreshCw, Search, ExternalLink, List } from 'lucide-react';
 
 const STATUS_CONFIG = {
+  all:      { label: 'All Tours',color: 'bg-gray-100 text-gray-700',   icon: List },
   pending:  { label: 'Pending',  color: 'bg-amber-100 text-amber-700',  icon: Clock },
   approved: { label: 'Approved', color: 'bg-green-100 text-green-700',  icon: CheckCircle },
   rejected: { label: 'Rejected', color: 'bg-red-100 text-red-700',      icon: XCircle },
@@ -11,7 +12,7 @@ const STATUS_CONFIG = {
 export default function AdminTourApprovalsPage() {
   const [tours, setTours]         = useState([]);
   const [loading, setLoading]     = useState(true);
-  const [filter, setFilter]       = useState('pending');
+  const [filter, setFilter]       = useState('all');
   const [search, setSearch]       = useState('');
   const [actioning, setActioning] = useState(null); // slug being actioned
 

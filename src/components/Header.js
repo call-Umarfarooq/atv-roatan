@@ -59,9 +59,15 @@ const Header = () => {
     if (searchQuery.trim() === '') {
       setSearchResults([]);
     } else {
-      const filtered = allTours.filter(tour =>
-        tour.title.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+      const lowerQuery = searchQuery.toLowerCase();
+      const filtered = allTours.filter(tour => {
+        const titleMatch = tour.title?.toLowerCase().includes(lowerQuery);
+        const descMatch = tour.description?.toLowerCase().includes(lowerQuery);
+        const locMatch = tour.marketing_badges?.location_text?.toLowerCase().includes(lowerQuery);
+        const tagsMatch = tour.tags?.some(tag => tag.toLowerCase().includes(lowerQuery));
+        
+        return titleMatch || descMatch || locMatch || tagsMatch;
+      });
       setSearchResults(filtered);
     }
   }, [searchQuery, allTours]);
@@ -218,11 +224,11 @@ const Header = () => {
             <div ref={searchRef} className="relative flex items-center">
               <div className={`relative flex items-center transition-all duration-300 ${searchOpen ? 'w-48 sm:w-64' : 'w-8'}`}>
                 <button
-                  onClick={() => setSearchOpen(!searchOpen)}
+                  onClick={() => setSearchOpen(true)}
                   className="text-gray-600 hover:text-[#00694B] transition-colors relative z-10"
                   aria-label="Toggle search"
                 >
-                  {searchOpen ? <X size={20} /> : <Search size={20} />}
+                  <Search size={20} />
                 </button>
 
                 <input
@@ -231,20 +237,36 @@ const Header = () => {
                   placeholder="Search tours..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Escape' && setSearchOpen(false)}
-                  className={`absolute right-0 top-1/2 -translate-y-1/2 h-10 pl-10 pr-4 rounded-full border border-gray-300 bg-white placeholder:text-gray-500 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#00694B] focus:border-transparent shadow-sm text-sm transition-all duration-300 ease-in-out ${
+                  onKeyDown={(e) => {
+                    if (e.key === 'Escape') setSearchOpen(false);
+                  }}
+                  className={`absolute right-0 top-1/2 -translate-y-1/2 h-10 pl-10 pr-9 rounded-full border border-gray-300 bg-white placeholder:text-gray-500 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#00694B] focus:border-transparent shadow-sm text-sm transition-all duration-300 ease-in-out ${
                     searchOpen
                       ? 'w-48 sm:w-64 opacity-100 pointer-events-auto'
                       : 'w-0 opacity-0 pointer-events-none border-transparent'
                   }`}
                 />
+                
+                {searchOpen && (
+                  <button 
+                    onClick={() => {
+                      setSearchQuery('');
+                      setSearchOpen(false);
+                      setSearchResults([]);
+                    }}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 z-20"
+                    aria-label="Close search"
+                  >
+                    <X size={16} />
+                  </button>
+                )}
 
                 {/* Search Results */}
-                {searchOpen && searchQuery && (
+                {searchOpen && (
                   <div className="absolute top-12 right-0 w-72 sm:w-80 bg-white rounded-md shadow-xl border border-gray-200 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                     <div className="max-h-96 overflow-y-auto">
-                      {searchResults.length > 0 ? (
-                        searchResults.map((tour) => (
+                      {(searchQuery ? searchResults : tours).length > 0 ? (
+                        (searchQuery ? searchResults : tours).map((tour) => (
                           <a
                             key={tour._id}
                             href={`/product/${tour.slug}`}
@@ -267,7 +289,7 @@ const Header = () => {
                         ))
                       ) : (
                         <div className="p-4 text-center text-gray-500 text-sm">
-                          No tours found matching "{searchQuery}"
+                          {searchQuery ? `No tours found matching "${searchQuery}"` : "Loading tours..."}
                         </div>
                       )}
                     </div>
@@ -316,7 +338,7 @@ const Header = () => {
 
                   {activeDropdown === 'excursions' && (
                     <div className="absolute top-10 left-0 w-fit min-w-[120px] bg-white text-gray-800 shadow-xl rounded-b-md border-t-2 border-[#004d36] animate-in fade-in slide-in-from-top-2 duration-200 z-50">
-                      <div className="grid grid-cols-6 gap-3 p-4 w-[540px]">
+                      <div className="grid grid-cols-7 gap-3 p-4 w-[580px]">
                         {activities.length > 0 ? (
                           activities.map((activity) => (
                             <a

@@ -93,13 +93,13 @@ const TourCard = ({
       </div>
     
       {/* Content Container */}
-      <div className="px-3 pb-3  flex flex-col grow">
+      <div className="px-3 pb-1  flex flex-col grow">
         {/* Title */}
-        <h3 className="font-bold text-[12px] leading-[16px] text-gray-900 my-[10px]">
+        <h3 className="font-bold  text-[12px] leading-[16px] text-gray-900 my-[5px]">
           {title}
         </h3>
         {/* Rating */}
-        <div className="flex items-center gap-1 mb-3">
+        <div className="flex items-center gap-1 mb-1">
            <div className="flex gap-0.5">
                {[...Array(5)].map((_, i) => (
                    <Star key={i} size={16} className={`${i < Math.round(Number(rating)) ? "fill-yellow-400 text-yellow-400" : "fill-gray-200 text-gray-200"}`} />
@@ -115,12 +115,12 @@ const TourCard = ({
          {/* "of the difference" right-aligned below banner */}
          <div className=" capitalize text-[12px] text-gray-600 text-right  mb-1">of the difference</div>
 
-        <div className="grow"></div>
+        {/* <div className="grow"></div> */}
 
         {/* Footer: Pricing & Button */}
-        <div className=" flex flex-col gap-2 relative">
+        <div className=" flex flex-col gap-1 relative">
             
-            <div className="flex items-end justify-between gap-2 w-full">
+            <div className="flex items-end justify-between  w-full">
                 <div className="flex flex-col min-w-0">
                     
                     <div className="flex items-baseline gap-1 sm:gap-2">
@@ -140,7 +140,7 @@ const TourCard = ({
                 </Link>
             </div>
             {/* Bottom amber trust text */}
-            <div className="text-gray-400 text-[10px] flex justify-center capitalize  mt-1">
+            <div className="text-gray-400 text-[10px] flex justify-center capitalize  ">
               Book with Confidence&nbsp;·&nbsp;100% Free Cancellation
             </div>
         </div>

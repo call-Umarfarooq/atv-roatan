@@ -74,13 +74,33 @@ export const metadata = {
 };
 
 
-export default async function AllToursPage() {
+export default async function AllToursPage({ searchParams }) {
   let tours = [];
+  let query = '';
   try {
     const dbConnect = (await import('@/lib/db')).default;
     const Tour = (await import('@/models/Tour')).default;
     await dbConnect();
-    const toursRaw = await Tour.find({}).lean();
+
+    // Await searchParams in Next.js 15+ if needed, but in 13/14 it's fine. Wait, Next.js 15 requires awaiting searchParams!
+    // Let's await it just to be safe if it's a promise, or check if it's an object. 
+    // In Next 13/14 it's an object. Let's just use it gently.
+    const resolvedSearchParams = await searchParams;
+    query = resolvedSearchParams?.search || '';
+    
+    let filter = {};
+    if (query) {
+      filter = {
+        $or: [
+          { title: { $regex: query, $options: 'i' } },
+          { description: { $regex: query, $options: 'i' } },
+          { 'marketing_badges.location_text': { $regex: query, $options: 'i' } },
+          { tags: { $regex: query, $options: 'i' } }
+        ]
+      };
+    }
+
+    const toursRaw = await Tour.find(filter).lean();
     tours = JSON.parse(JSON.stringify(toursRaw));
   } catch (err) {
     console.error('Tours page DB error:', err.message);
@@ -97,8 +117,8 @@ export default async function AllToursPage() {
         />
         <div className="absolute inset-0 bg-black/40" />
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 pt-16 md:pt-20">
-          <h1 className="text-white h11 text-4xl sm:text-5xl md:text-6xl lg:text-[60px] leading-[1.1] lg:leading-[72px] font-[500] tracking-[0.2px] mb-6 lg:mb-0 drop-shadow-lg">
-            All Tours
+          <h1 className="text-white h11 text-4xl sm:text-5xl md:text-6xl lg:text-[60px] leading-[1.1] lg:leading-[72px] font-[500] tracking-[0.2px] mb-6 lg:mb-0 drop-shadow-lg capitalize">
+            {query ? `Search Results for "${query}"` : 'All Tours'}
           </h1>
           <div className="w-24 h-1 bg-[#00694B] rounded-full"></div>
         </div>

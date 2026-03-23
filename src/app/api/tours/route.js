@@ -3,11 +3,11 @@ import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/db';
 import Tour from '@/models/Tour';
 
-// Public: only return approved tours
+// Public: currently returning all tours so the frontend search matches the page display
 export async function GET() {
   await dbConnect();
   try {
-    const tours = await Tour.find({ status: 'approved' });
+    const tours = await Tour.find({});
     return NextResponse.json({ success: true, data: tours });
   } catch (error) {
     return NextResponse.json({ success: false, error: error.message }, { status: 400 });

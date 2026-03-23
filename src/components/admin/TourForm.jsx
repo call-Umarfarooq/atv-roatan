@@ -69,7 +69,9 @@ export default function TourForm({ initialData = null, isEdit = false }) {
         location_text: 'Roatan, Honduras'
     },
     tags: [],
-    extraServices: [],
+    extraServices: [
+        { name: 'Ride Along (Observer)', price: '65' }
+    ],
     activities: [],
     categories: []
   });
@@ -849,7 +851,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
               </div>
 
                 {/* Extra Services */}
-                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                 <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
                       <div className="flex justify-between items-center mb-4">
                         <h2 className="text-lg font-bold text-[#1a1a1a]">Extra Services (Add-ons)</h2>
                         <button type="button" onClick={() => addComplexItem('extraServices', { name: '', price: '' })} className="text-[#00694B] text-sm font-bold flex items-center gap-1"><Plus size={16}/> Add Service</button>
@@ -866,7 +868,7 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                                   placeholder="e.g. Photo Package"
                                 />
                              </div>
-                             <div className="w-32">
+                             <div className="w-24">
                                 <label className="block text-xs text-gray-500 mb-1">Price ($)</label>
                                 <input 
                                   type="number"

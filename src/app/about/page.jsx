@@ -46,7 +46,7 @@ const AboutPage = () => {
           <div className="relative w-full px-4 md:px-0 mt-4 md:mt-0">
             <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl bg-gray-200">
               <Image 
-                src="/images/about-us.webp" 
+                src="/images/image1.jpeg" 
                 alt="Roatan Adventure" 
                 fill 
                 className="object-cover"
@@ -56,7 +56,7 @@ const AboutPage = () => {
             {/* Overlay badge or image */}
             <div className="absolute -bottom-6 -right-2 sm:-bottom-8 sm:-right-4 md:-right-8 w-32 h-32 sm:w-40 sm:h-40 md:w-56 md:h-56 rounded-full sm:rounded-2xl overflow-hidden border-4 sm:border-8 border-white shadow-2xl bg-gray-200">
               <Image 
-                src="/images/icon5.jpeg" 
+                src="/images/image2.PNG" 
                 alt="Smiling Tourists" 
                 fill 
                 className="object-cover"
