@@ -449,3 +449,99 @@ export async function sendPlanBookingEmail(planBooking) {
     return false;
   }
 }
+
+export async function sendGiftCardPurchaseEmail(purchase, giftCardTitle) {
+  try {
+    const { EMAIL_USER, EMAIL_PASS, NEXT_PUBLIC_BASE_URL } = process.env;
+    const baseUrl = NEXT_PUBLIC_BASE_URL || 'https://atvroatan.com';
+    
+    if (!EMAIL_USER || !EMAIL_PASS) {
+      console.warn("Email credentials missing. Emails will not be sent.");
+      return false;
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: { user: EMAIL_USER, pass: EMAIL_PASS }
+    });
+
+    const isGift = Boolean(purchase.recipient_email);
+    const targetEmail = isGift ? purchase.recipient_email : purchase.buyer_email;
+    const recipientName = isGift ? purchase.recipient_name : purchase.buyer_name;
+    const gcfTitle = `${giftCardTitle} ($${purchase.initial_value})`;
+
+    const messageHtml = purchase.message ? 
+      `<div style="background-color: #f0fdf4; border-left: 4px solid #00694B; padding: 15px; margin: 20px 0; border-radius: 4px;">
+        <p style="margin: 0; font-style: italic; color: #1a1a1a;">"${purchase.message}"</p>
+        <p style="margin: 10px 0 0 0; font-weight: bold; color: #00694B;">- ${purchase.buyer_name}</p>
+      </div>` : '';
+
+    const clientHtml = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden;">
+        <div style="background-color: #00694B; padding: 30px; text-align: center;">
+            <div style="color: #ffffff; font-size: 28px; font-weight: 900; letter-spacing: 1px; margin-bottom: 10px;">ATV ROATAN</div>
+            <div style="color: #a7f3d0; font-size: 16px;">Here is your Gift Card!</div>
+        </div>
+        <div style="padding: 30px; background-color: #ffffff;">
+            <p style="font-size: 18px; color: #1a1a1a;">Hi <strong>${recipientName}</strong>,</p>
+            <p style="font-size: 16px; line-height: 1.6; color: #4b5563;">
+               ${isGift ? `<strong>${purchase.buyer_name}</strong> sent you an ATV Roatan Gift Card!` : `Thank you for purchasing an ATV Roatan Gift Card.`}
+            </p>
+            
+            ${messageHtml}
+
+            <div style="background-color: #f9fafb; border: 2px dashed #00694B; border-radius: 12px; padding: 25px; text-align: center; margin: 30px 0;">
+                <p style="font-size: 14px; font-weight: bold; color: #6b7280; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px;">Gift Card Code</p>
+                <div style="font-size: 36px; font-family: monospace; font-weight: 900; color: #00694B; letter-spacing: 3px; background: white; padding: 15px; border-radius: 8px; border: 1px solid #e5e7eb; display: inline-block;">
+                    ${purchase.code}
+                </div>
+                <p style="font-size: 18px; font-weight: bold; color: #1a1a1a; margin-top: 20px;">Value: $${purchase.initial_value}</p>
+                <p style="font-size: 16px; color: #6b7280; margin-top: 5px;">${giftCardTitle}</p>
+            </div>
+
+            <p style="font-size: 16px; line-height: 1.6; color: #4b5563; text-align: center;">
+                You can use this code during checkout to apply the balance to any tour or adventure booking.
+            </p>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="${baseUrl}" style="display: inline-block; background-color: #00694B; color: #ffffff; padding: 14px 30px; font-size: 16px; font-weight: bold; text-decoration: none; border-radius: 30px;">Book an Adventure Now</a>
+            </div>
+            
+            <p style="font-size: 14px; color: #9ca3af; text-align: center; margin-top: 40px;">
+                Keep this code safe. If you have any questions, contact us at info@atvroatan.com.
+            </p>
+        </div>
+      </div>
+    `;
+
+    await transporter.sendMail({
+      from: '"ATV Roatan" <' + EMAIL_USER + '>',
+      to: targetEmail,
+      subject: isGift ? `You received an ATV Roatan Gift Card!` : `Your ATV Roatan Gift Card Code`,
+      html: clientHtml
+    });
+
+    // Notify Admin
+    const adminHtml = `
+      <div style="font-family: Arial, sans-serif;">
+        <h2 style="color: #00694B;">New Gift Card Purchased</h2>
+        <p><strong>Code:</strong> ${purchase.code}</p>
+        <p><strong>Value:</strong> $${purchase.initial_value} (${giftCardTitle})</p>
+        <p><strong>Buyer:</strong> ${purchase.buyer_name} (${purchase.buyer_email})</p>
+        ${isGift ? `<p><strong>Recipient:</strong> ${purchase.recipient_name} (${purchase.recipient_email})</p>` : ''}
+      </div>
+    `;
+
+    await transporter.sendMail({
+      from: '"ATV Roatan System" <' + EMAIL_USER + '>',
+      to: EMAIL_USER,
+      subject: `New Gift Card Purchase: ${purchase.code}`,
+      html: adminHtml
+    });
+
+    return true;
+  } catch (error) {
+    console.error("Error sending gift card email:", error);
+    return false;
+  }
+}

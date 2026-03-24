@@ -13,7 +13,7 @@ export async function POST(request) {
     }
 
     await dbConnect();
-    const { tourId, travelers, extraServices, paymentType, totalAmount: precomputedTotal } = await request.json();
+    const { tourId, travelers, extraServices, paymentType, totalAmount: precomputedTotal, giftCardCode } = await request.json();
 
     // ── Plan Booking: totalAmount passed directly (no tourId) ──
     if (!tourId && precomputedTotal) {
@@ -61,6 +61,18 @@ export async function POST(request) {
     // Apply 2% Discount for Pay Now
     if (paymentType === 'pay_now') {
         totalAmount = totalAmount * 0.98;
+    }
+
+    if (giftCardCode) {
+        const PurchasedGiftCard = (await import('@/models/PurchasedGiftCard')).default;
+        const giftCard = await PurchasedGiftCard.findOne({ code: giftCardCode, status: 'active' });
+        if (giftCard && giftCard.remaining_balance > 0) {
+            totalAmount = Math.max(0, totalAmount - giftCard.remaining_balance);
+        }
+    }
+
+    if (totalAmount <= 0) {
+        return NextResponse.json({ clientSecret: 'free_booking', totalAmount: 0 });
     }
 
     // 3. Create PaymentIntent

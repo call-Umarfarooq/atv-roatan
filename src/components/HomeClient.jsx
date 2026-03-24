@@ -4,9 +4,10 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import TourCard from '@/components/TourCard';
 import StaggeredTextReveal from '@/components/StaggeredTextReveal';
 
-const HomeClient = ({ initialTours, categories }) => {
+const HomeClient = ({ initialTours, categories, moreCategories = [] }) => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [activeIndex, setActiveIndex] = useState(0);
+  const [showMore, setShowMore] = useState(false);
   const carouselRef = useRef();
 
   const filteredTours = useMemo(() => {
@@ -84,7 +85,7 @@ const HomeClient = ({ initialTours, categories }) => {
               }`}>
                 Explore the hidden gems of Roatan with our expertly guided tours. From adrenaline-pumping rides to relaxing wildlife encounters.
               </p>
-              {categories.map((category) => (
+              {[...categories, ...moreCategories].map((category) => (
                 <p
                   key={`desc-${category._id}`}
                   className={`text-gray-500 text-sm md:text-lg leading-relaxed transition-all duration-300 ${
@@ -101,7 +102,7 @@ const HomeClient = ({ initialTours, categories }) => {
           <div className="flex justify-center flex-wrap gap-2 px-1 pb-1">
               <button
                 onClick={() => setSelectedCategory('All')}
-                className={`px-4 sm:px-6 py-1.5 sm:py-2.5 text-sm sm:text-base rounded-full font-bold transition-all whitespace-nowrap ${
+                className={`px-4 sm:px-6 py-1 sm:py-1.5 text-[13px] sm:text-sm rounded-full font-semibold tracking-tight transition-all whitespace-nowrap ${
                   selectedCategory === 'All'
                     ? 'bg-[#00694B] text-white shadow-md'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -113,7 +114,7 @@ const HomeClient = ({ initialTours, categories }) => {
                 <button
                   key={category._id}
                   onClick={() => setSelectedCategory(category._id)}
-                  className={`px-4 sm:px-6 py-1.5 sm:py-2.5 text-sm sm:text-base rounded-full font-bold transition-all whitespace-nowrap ${
+                  className={`px-4 sm:px-6 py-1 sm:py-1.5 text-[13px] sm:text-sm rounded-full font-semibold tracking-tight transition-all whitespace-nowrap ${
                     selectedCategory === category._id
                       ? 'bg-[#00694B] text-white shadow-md'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -122,6 +123,51 @@ const HomeClient = ({ initialTours, categories }) => {
                   {category.name}
                 </button>
               ))}
+              {moreCategories.length > 0 && (
+                <div className="relative inline-block">
+                  <button
+                    onClick={() => setShowMore(!showMore)}
+                    className={`px-4 sm:px-6 py-1 sm:py-1.5 text-[13px] sm:text-sm rounded-full font-semibold tracking-tight transition-all whitespace-nowrap border flex items-center gap-1 ${
+                      showMore || moreCategories.some(c => c._id === selectedCategory)
+                        ? 'bg-gray-100 border-gray-300 text-gray-800'
+                        : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    {moreCategories.some(c => c._id === selectedCategory) ? 'More (Active)' : 'More'}
+                    <svg
+                      className={`w-4 h-4 transition-transform duration-200 ${showMore ? 'rotate-180' : ''}`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {showMore && (
+                    <>
+                      <div className="fixed inset-0 z-40" onClick={() => setShowMore(false)}></div>
+                      <div className="absolute right-0 sm:left-1/2 sm:-translate-x-1/2 top-full mt-2 w-max min-w-[200px] bg-white rounded-xl shadow-2xl border border-gray-100 py-2 z-50 flex flex-col items-stretch overflow-hidden">
+                        {moreCategories.map((category) => (
+                          <button
+                            key={category._id}
+                            onClick={() => {
+                              setSelectedCategory(category._id);
+                              setShowMore(false);
+                            }}
+                            className={`px-5 py-3 text-sm sm:text-base text-left tracking-tighter transition-colors whitespace-nowrap ${
+                              selectedCategory === category._id
+                                ? 'bg-[#00694B]/10 text-[#00694B] font-semibold border-l-4 border-[#00694B]'
+                                : 'font-medium text-gray-600 hover:bg-gray-50 border-l-4 border-transparent'
+                            }`}
+                          >
+                            {category.name}
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
           </div>
         </div>
       </section>

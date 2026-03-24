@@ -12,6 +12,7 @@ import ReviewLinks from "@/components/ReviewLinks";
 import ReviewsWidget from "@/components/ReviewsWidget";
 import StaggeredTextReveal from "@/components/StaggeredTextReveal";
 import FloatingElements from "@/components/FloatingElements";
+import Link from "next/link";
 
 // Force dynamic rendering to ensure fresh data
 export const dynamic = 'force-dynamic';
@@ -84,6 +85,7 @@ export const metadata = {
 export default async function Home() {
   let serializedTours = [];
   let serializedCategories = [];
+  let serializedMoreCategories = [];
   let serializedActivities = [];
 
   try {
@@ -96,7 +98,9 @@ export default async function Home() {
     ]);
 
     serializedTours = JSON.parse(JSON.stringify(toursRaw));
-    serializedCategories = JSON.parse(JSON.stringify(categoriesRaw)).filter(c => c.show_on_home !== false);
+    const allParsedCategories = JSON.parse(JSON.stringify(categoriesRaw));
+    serializedCategories = allParsedCategories.filter(c => c.show_on_home !== false);
+    serializedMoreCategories = allParsedCategories.filter(c => c.show_on_home === false);
     serializedActivities = JSON.parse(JSON.stringify(activitiesRaw));
   } catch (err) {
     console.error('Home page DB error:', err.message);
@@ -135,15 +139,17 @@ export default async function Home() {
             
             {/* Activities Pill Row */}
             <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:gap-4 text-white/90 text-xs sm:text-sm md:text-base font-medium tracking-wide bg-gradient-to-r from-transparent via-black/30 to-transparent px-6 sm:px-10 py-2 sm:py-3 rounded-full backdrop-blur-[2px] border border-white/10 shadow-xl w-fit">
-              <span>ATV</span>
+              <Link href="/activities/roatan-atv-adventures">ATV/Buggy</Link>
               <span className="text-[#4ade80] opacity-80">•</span>
-              <span>Buggy</span>
+              <Link href="/activities/roatan-private-dolphin-encounter-swim">dolphin </Link>
               <span className="text-[#4ade80] opacity-80">•</span>
               <span>Wildlife</span>
               <span className="text-[#4ade80] opacity-80">•</span>
-              <span>Beach</span>
+              <Link href="/activities/roatan-private-horseback-riding-beach">Beach</Link>
               <span className="text-[#4ade80] opacity-80">•</span>
-              <span>Ziplines</span>
+              <Link href="/activities/roatan-zipline-adventure">Ziplines</Link>
+              <span className="text-[#4ade80] opacity-80">•</span>
+              <Link href="/activities/roatan-private-horseback-riding-beach">horseback </Link>
             </div>
 
             {/* CTA Buttons */}
@@ -169,7 +175,7 @@ export default async function Home() {
       <div className="relative w-full overflow-hidden">
         <FloatingElements />
         <div className="relative z-10">
-          <HomeClient initialTours={serializedTours} categories={serializedCategories} />
+          <HomeClient initialTours={serializedTours} categories={serializedCategories} moreCategories={serializedMoreCategories} />
         </div>
       </div>
       

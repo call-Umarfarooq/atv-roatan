@@ -61,6 +61,43 @@ export default function CheckoutPage() {
   const [paymentError, setPaymentError] = useState(null);
   const [isFetchingSecret, setIsFetchingSecret] = useState(false);
 
+  // Gift Card State
+  const [giftCardCodeInput, setGiftCardCodeInput] = useState('');
+  const [appliedGiftCard, setAppliedGiftCard] = useState(null);
+  const [giftCardLoading, setGiftCardLoading] = useState(false);
+  const [giftCardError, setGiftCardError] = useState(null);
+
+  const applyGiftCard = async () => {
+      if (!giftCardCodeInput.trim()) return;
+      setGiftCardLoading(true);
+      setGiftCardError(null);
+      try {
+          const res = await fetch('/api/gift-cards/apply', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ code: giftCardCodeInput, cartTotal: calculateFinalPrice(true) })
+          });
+          const data = await res.json();
+          if (data.success) {
+              setAppliedGiftCard(data.data);
+              setGiftCardCodeInput('');
+              // If we are already on step 2, we should refetch payment intent
+              if (step === 2) fetchPaymentIntent();
+          } else {
+              setGiftCardError(data.error);
+          }
+      } catch (err) {
+          setGiftCardError('Error applying code');
+      } finally {
+          setGiftCardLoading(false);
+      }
+  };
+
+  const removeGiftCard = () => {
+      setAppliedGiftCard(null);
+      if (step === 2) fetchPaymentIntent(); // Refetch intent without discount
+  };
+
   useEffect(() => {
     try {
         const data = localStorage.getItem('checkoutData');
@@ -89,7 +126,8 @@ export default function CheckoutPage() {
             tourId: bookingData.tour._id,
             travelers: bookingData.travelers,
             extraServices: bookingData.selectedExtras,
-            paymentType: bookingData.paymentOption
+            paymentType: bookingData.paymentOption,
+            giftCardCode: appliedGiftCard?.code
         }),
     })
     .then((res) => res.json())
@@ -116,7 +154,7 @@ export default function CheckoutPage() {
   }, [step, bookingData, clientSecret, isFetchingSecret, paymentError, fetchPaymentIntent]);
 
   // Price Calculation Logic (Sync with sidebar)
-  const calculateFinalPrice = () => {
+  const calculateFinalPrice = (ignoreGiftCard = false) => {
     if (!bookingData) return 0;
     const { travelers, adultPrice, childPrice, tour, selectedExtras } = bookingData;
     
@@ -143,6 +181,10 @@ export default function CheckoutPage() {
     let finalAmount = fullTourPrice;
     if (hasPayNowDiscount) {
         finalAmount = finalAmount * 0.98;
+    }
+    
+    if (!ignoreGiftCard && appliedGiftCard) {
+        finalAmount = Math.max(0, finalAmount - appliedGiftCard.discount_amount);
     }
     
     return finalAmount;
@@ -352,6 +394,7 @@ export default function CheckoutPage() {
                                                         paymentType: result.type,
                                                         paymentGateway: result.gateway,
                                                         pickupDetails: activityResult,
+                                                        giftCardCode: appliedGiftCard?.code,
                                                         totalPrice: finalAmountToPay // Send the calculated price
                                                     })
                                                 });
@@ -435,6 +478,42 @@ export default function CheckoutPage() {
                         
                         return (
                             <div className="space-y-0">
+                                
+                                {/* Gift Card Section */}
+                                <div className="mb-4 bg-gray-50 p-3 rounded-lg border border-gray-100">
+                                   {appliedGiftCard ? (
+                                       <div className="flex justify-between items-center text-sm">
+                                           <div>
+                                               <span className="font-bold text-[#00694B] block">Gift Card Applied</span>
+                                               <span className="text-gray-500">{appliedGiftCard.code}</span>
+                                           </div>
+                                           <button onClick={removeGiftCard} className="text-red-500 text-xs font-bold hover:underline">Remove</button>
+                                       </div>
+                                   ) : (
+                                       <div>
+                                           <label className="block text-xs font-bold text-gray-500 mb-2 uppercase">Gift Card Code</label>
+                                           <div className="flex gap-2">
+                                               <input 
+                                                  disabled={giftCardLoading}
+                                                  value={giftCardCodeInput} 
+                                                  onChange={(e) => setGiftCardCodeInput(e.target.value)} 
+                                                  className="w-full text-sm p-2 border rounded outline-none px-3 border-gray-200" 
+                                                  placeholder="Enter code..." 
+                                               />
+                                               <button 
+                                                  type="button"
+                                                  onClick={applyGiftCard}
+                                                  disabled={giftCardLoading || !giftCardCodeInput.trim()}
+                                                  className="bg-[#1a1a1a] text-white px-4 py-2 rounded text-sm font-bold disabled:opacity-50"
+                                               >
+                                                  Apply
+                                               </button>
+                                           </div>
+                                           {giftCardError && <p className="text-red-500 text-xs mt-1">{giftCardError}</p>}
+                                       </div>
+                                   )}
+                                </div>
+
                                 <h4 className="font-bold text-sm text-[#1a1a1a] mb-3">Order Summary</h4>
 
                                 {/* Full Tour Price */}
@@ -503,6 +582,13 @@ export default function CheckoutPage() {
                                                 <div className="flex justify-between items-center py-1">
                                                     <span className="text-sm italic text-[#00694B] font-medium">Advance Booking (Pay-Now)</span>
                                                     <span className="font-semibold text-sm text-[#00694B]">-${payNowDiscount.toFixed(2)}</span>
+                                                </div>
+                                            )}
+                                            
+                                            {appliedGiftCard && (
+                                                <div className="flex justify-between items-center py-1">
+                                                    <span className="text-sm italic text-[#00694B] font-medium">Gift Card ({appliedGiftCard.code})</span>
+                                                    <span className="font-semibold text-sm text-[#00694B]">-${appliedGiftCard.discount_amount.toFixed(2)}</span>
                                                 </div>
                                             )}
                                             <div className="border-t border-gray-200 my-2"></div>

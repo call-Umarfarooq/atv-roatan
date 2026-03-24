@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   Search, Phone, X, Mail, MapPin, Facebook, Twitter, Instagram,
-  Linkedin, Youtube, ChevronDown, ShieldCheck, Menu,
+  Linkedin, Youtube, ChevronDown, ShieldCheck, Menu, Ship, Map
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -14,6 +14,7 @@ const navLinks = [
   { label: 'All Tours', href: '/tours' },
   { label: 'Categories', href: '/category' },
   { label: 'Gallery', href: '/gallery' },
+  { label: 'Gift Cards', href: '/gift-cards' },
   { label: 'Build Your Adventure', href: '/plan', highlight: true },
   { label: 'About Us', href: '/about' },
   { label: 'Contact Us', href: '/contact' },
@@ -159,7 +160,7 @@ const Header = () => {
                       transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                       className="text-sm font-bold border-2 text-[#00694B] px-3 py-1.5 rounded-full flex items-center gap-1 whitespace-nowrap cursor-pointer select-none"
                     >
-                      🗺️ {link.label}
+                      <Map size={16} /> {link.label}
                     </motion.span>
 
                     {/* Hover Dropdown */}
@@ -176,9 +177,9 @@ const Header = () => {
                             href="/category/build-your-own-roatan-private-tour"
                             className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-[#00694B] hover:text-white transition-colors group"
                           >
-                            <span className="text-lg">🛳️</span>
+                            <Ship size={20} className="text-gray-500 group-hover:text-white" />
                             <div>
-                              <p className="font-bold">Cruiseship passenger</p>
+                              <p className="font-bold">Cruiseship day visits</p>
                             </div>
                           </a>
                           
@@ -188,7 +189,7 @@ const Header = () => {
                             href="/plan"
                             className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-[#00694B] hover:text-white transition-colors group"
                           >
-                            <span className="text-lg">🗺️</span>
+                            <Map size={20} className="text-gray-500 group-hover:text-white" />
                             <div>
                               <p className="font-bold">Long stay in roatan</p>
                             </div>
@@ -354,7 +355,7 @@ const Header = () => {
                                   className="object-cover group-hover/item:scale-110 transition-transform duration-300 p-1"
                                 />
                               </div>
-                              <span className="text-[10px] font-bold text-gray-700 text-center uppercase tracking-tight group-hover/item:text-[#00694B] leading-tight w-full">
+                              <span className="text-[10px] font-semibold text-gray-700 text-center uppercase tracking-tight group-hover/item:text-[#00694B] leading-tight w-full">
                                 {activity.shortTitle || activity.title}
                               </span>
                             </a>
@@ -484,7 +485,7 @@ const Header = () => {
                           onClick={closeMobileMenu}
                           className="flex items-center gap-2 py-3 px-2 text-base font-bold border-b border-gray-100 text-[#00694B]"
                         >
-                          🗺️ {link.label}
+                          <Map size={18} /> {link.label}
                           <span className="ml-auto text-xs bg-[#00694B] text-white px-2 py-0.5 rounded-full">New</span>
                         </a>
                       );
@@ -547,7 +548,7 @@ const Header = () => {
                                       className="object-cover"
                                     />
                                   </div>
-                                  <span className="text-xs font-bold text-gray-700 text-center uppercase leading-tight group-hover:text-[#00694B]">
+                                  <span className="text-[10px] font-semibold text-gray-700 text-center uppercase leading-tight group-hover:text-[#00694B]">
                                     {activity.shortTitle || activity.title}
                                   </span>
                                 </a>

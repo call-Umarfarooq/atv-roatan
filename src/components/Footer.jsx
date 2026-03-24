@@ -7,16 +7,16 @@ const Footer = () => {
     <footer className="w-full">
       {/* Top CTA Section */}
       <section 
-        className="relative text-center py-16 md:py-24 px-5 sm:px-6 bg-contain bg-center"
+        className="relative text-center py-16 md:py-24 px-5 sm:px-6 bg-cover bg-center"
         style={{ 
-          backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(18, 18, 18, 1)), url('/images/footer-backgroud.jpeg')" 
+          backgroundImage: "url('/images/footer-backgroud.jpeg')" 
         }}
       >
-        <div className="max-w-4xl mx-auto">
-          <h2 className="sm:text-2xl sm:font-bold text-[20px] font-medium  text-white mb-3 md:mb-4 leading-tight">
-           Book the <span className="text-[#00694B] italic">Best</span> Adventure Tours in Roatan Today
+        <div className="max-w-4xl mx-auto bg-black/30 backdrop-blur-[6px] rounded-2xl p-6 sm:p-10 border border-white/20 shadow-2xl">
+          <h2 className="sm:text-3xl sm:font-bold text-[24px] font-bold text-white mb-3 md:mb-4 leading-tight drop-shadow-md">
+           Book the <span className="text-[#4ade80] italic">Best</span> Adventure Tours in Roatan Today
           </h2>
-          <p className="text-gray-300 md:text-gray-400 text-sm md:text-base max-w-2xl mx-auto mb-6 md:mb-8 leading-relaxed">
+          <p className="text-gray-100 text-sm md:text-base max-w-2xl mx-auto mb-6 md:mb-8 leading-relaxed font-medium drop-shadow">
             Reserve your spot now and experience the thrill, culture, and beauty of Honduras with professional local guides you can trust. Small groups. Limited availability.
           </p>
           <Link 
@@ -62,6 +62,7 @@ const Footer = () => {
             <ul className="space-y-3 md:space-y-4">
               <li><Link href="/" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Home</Link></li>
               <li><Link href="/tours" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">All Tours</Link></li>
+              <li><Link href="/gift-cards" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Gift Cards</Link></li>
               <li><Link href="https://maps.app.goo.gl/aZUsRT1JTetqxSrg7" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Reviews</Link></li>
               <li><Link href="/contact" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Contact Us</Link></li>
             </ul>

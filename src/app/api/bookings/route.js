@@ -10,7 +10,7 @@ export async function POST(request) {
 
   try {
     const body = await request.json();
-    const { tourId, tourSlug, date, travelers, selectedExtras, customer, paymentIntentId, paymentStatus, paymentType, paymentGateway, pickupDetails } = body;
+    const { tourId, tourSlug, date, travelers, selectedExtras, customer, paymentIntentId, paymentStatus, paymentType, paymentGateway, pickupDetails, giftCardCode } = body;
 
     // Basic Validation
     if (!tourId || !date || !travelers) {
@@ -51,6 +51,27 @@ export async function POST(request) {
     if (paymentType === 'pay_now') {
         discountAmount = calculatedTotal * 0.02;
         calculatedTotal = calculatedTotal - discountAmount;
+    }
+
+    // Apply Gift Card
+    let appliedGiftCard = null;
+    let giftCardDeduction = 0;
+    if (giftCardCode) {
+        const PurchasedGiftCard = (await import('@/models/PurchasedGiftCard')).default;
+        appliedGiftCard = await PurchasedGiftCard.findOne({ code: giftCardCode, status: 'active' });
+        
+        if (appliedGiftCard && appliedGiftCard.remaining_balance > 0) {
+            giftCardDeduction = Math.min(calculatedTotal, appliedGiftCard.remaining_balance);
+            calculatedTotal -= giftCardDeduction;
+            discountAmount += giftCardDeduction;
+            
+            // Deduct the balance from the gift card
+            appliedGiftCard.remaining_balance -= giftCardDeduction;
+            if (appliedGiftCard.remaining_balance <= 0) {
+                appliedGiftCard.status = 'used';
+            }
+            await appliedGiftCard.save();
+        }
     }
 
     const newBooking = await Booking.create({

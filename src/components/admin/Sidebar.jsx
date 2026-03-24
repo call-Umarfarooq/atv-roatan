@@ -23,6 +23,7 @@ export default function Sidebar() {
     { name: 'Activities', icon: Package, href: '/admin/activities' },
     { name: 'Categories', icon: Package, href: '/admin/categories' },
     { name: 'Featured Categories', icon: Package, href: '/admin/featured-categories' },
+    { name: 'Gift Cards', icon: Package, href: '/admin/gift-cards' },
     { name: 'Bookings', icon: ClipboardList, href: '/admin/bookings' },
     { name: 'Locations', icon: MapPin, href: '/admin/locations' },
     { name: 'Plan Activities', icon: Map, href: '/admin/plan-activities' },
