@@ -104,7 +104,7 @@ const HomeClient = ({ initialTours, categories, moreCategories = [] }) => {
                 onClick={() => setSelectedCategory('All')}
                 className={`px-4 sm:px-6 py-1 sm:py-1.5 text-[13px] sm:text-sm rounded-full font-semibold tracking-tight transition-all whitespace-nowrap ${
                   selectedCategory === 'All'
-                    ? 'bg-[#00694B] text-white shadow-md'
+                    ? 'bg-[#80E142] text-white shadow-md'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
@@ -116,7 +116,7 @@ const HomeClient = ({ initialTours, categories, moreCategories = [] }) => {
                   onClick={() => setSelectedCategory(category._id)}
                   className={`px-4 sm:px-6 py-1 sm:py-1.5 text-[13px] sm:text-sm rounded-full font-semibold tracking-tight transition-all whitespace-nowrap ${
                     selectedCategory === category._id
-                      ? 'bg-[#00694B] text-white shadow-md'
+                      ? 'bg-[#80E142] text-white shadow-md'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
                 >
