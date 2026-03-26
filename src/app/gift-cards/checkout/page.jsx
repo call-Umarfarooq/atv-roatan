@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
@@ -79,7 +79,7 @@ function CheckoutForm({ clientSecret, giftCard, formData, onSuccess }) {
   )
 }
 
-export default function GiftCardCheckoutPage() {
+function CheckoutContent() {
   const searchParams = useSearchParams();
   const id = searchParams.get('id');
   const [giftCard, setGiftCard] = useState(null);
@@ -209,3 +209,12 @@ export default function GiftCardCheckoutPage() {
     </div>
   );
 }
+
+export default function GiftCardCheckoutPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center text-gray-700">Loading...</div>}>
+      <CheckoutContent />
+    </Suspense>
+  )
+}
+
