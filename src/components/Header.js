@@ -343,14 +343,14 @@ const Header = () => {
             </div>
 
             {/* Download CSV */}
-            <button
+            {/* <button
               onClick={handleDownloadCSV}
               className="hidden sm:flex items-center gap-1.5 text-sm font-semibold text-[#00694B] hover:text-[#004d36] transition-colors bg-[#00694B]/10 px-3 py-1.5 rounded-full"
               title="Download Tours CSV"
             >
               <Download size={16} />
               <span className="hidden lg:inline text-xs">Export Tours</span>
-            </button>
+            </button> */}
 
             {/* Phone (hidden on small mobile) */}
             <a
