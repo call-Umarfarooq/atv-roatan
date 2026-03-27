@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   Search, Phone, X, Mail, MapPin, Facebook, Twitter, Instagram,
-  Linkedin, Youtube, ChevronDown, ShieldCheck, Menu, Ship, Map
+  Linkedin, Youtube, ChevronDown, ShieldCheck, Menu, Ship, Map, Download
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -34,6 +34,49 @@ const Header = () => {
   const [searchResults, setSearchResults] = useState([]);
   const searchRef = useRef(null);
   const inputRef = useRef(null);
+
+  const handleDownloadCSV = () => {
+    if (!allTours || allTours.length === 0) {
+      alert("No tours available to download.");
+      return;
+    }
+
+    const csvRows = [];
+    // Header row
+    csvRows.push(['Name', 'Slug', 'Price', 'Extra service name', 'Extra service price'].join(','));
+
+    allTours.forEach(tour => {
+      const name = `"${(tour.title || '').replace(/"/g, '""')}"`;
+      const slug = `"${(tour.slug || '').replace(/"/g, '""')}"`;
+      const price = tour.base_price || '';
+
+      if (tour.extraServices && tour.extraServices.length > 0) {
+        tour.extraServices.forEach((service, index) => {
+          const serviceName = `"${(service.name || '').replace(/"/g, '""')}"`;
+          const servicePrice = service.price || '';
+
+          if (index === 0) {
+            csvRows.push([name, slug, price, serviceName, servicePrice].join(','));
+          } else {
+            csvRows.push(['', '', '', serviceName, servicePrice].join(','));
+          }
+        });
+      } else {
+        csvRows.push([name, slug, price, '', ''].join(','));
+      }
+    });
+
+    const csvContent = csvRows.join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'tours_export.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
 
   useEffect(() => {
     const fetchTours = async () => {
@@ -158,7 +201,7 @@ const Header = () => {
                         ],
                       }}
                       transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                      className="text-sm font-bold border-2 text-[#80E142] px-3 py-1.5 rounded-full flex items-center gap-1 whitespace-nowrap cursor-pointer select-none"
+                      className="text-sm font-bold border-2 text-[#00694B] px-3 py-1.5 rounded-full flex items-center gap-1 whitespace-nowrap cursor-pointer select-none"
                     >
                       <Map size={16} /> {link.label}
                     </motion.span>
@@ -175,7 +218,7 @@ const Header = () => {
                         >
                            <a
                             href="/category/build-your-own-roatan-private-tour"
-                            className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-[#80E142] hover:text-white transition-colors group"
+                            className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-[#00694B] hover:text-white transition-colors group"
                           >
                             <Ship size={20} className="text-gray-500 group-hover:text-white" />
                             <div>
@@ -187,7 +230,7 @@ const Header = () => {
                          
                           <a
                             href="/plan"
-                            className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-[#80E142] hover:text-white transition-colors group"
+                            className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-[#00694B] hover:text-white transition-colors group"
                           >
                             <Map size={20} className="text-gray-500 group-hover:text-white" />
                             <div>
@@ -208,8 +251,8 @@ const Header = () => {
                   rel={isExternal ? 'noopener noreferrer' : undefined}
                   className={`text-sm font-medium transition-colors ${
                     isActive
-                      ? 'text-[#80E142] border-b-2 border-[#80E142] pb-0.5'
-                      : 'text-gray-600 hover:text-[#80E142]'
+                      ? 'text-[#00694B] border-b-2 border-[#00694B] pb-0.5'
+                      : 'text-gray-600 hover:text-[#00694B]'
                   }`}
                 >
                   {link.label}
@@ -226,7 +269,7 @@ const Header = () => {
               <div className={`relative flex items-center transition-all duration-300 ${searchOpen ? 'w-48 sm:w-64' : 'w-8'}`}>
                 <button
                   onClick={() => setSearchOpen(true)}
-                  className="text-gray-600 hover:text-[#80E142] transition-colors relative z-10"
+                  className="text-gray-600 hover:text-[#00694B] transition-colors relative z-10"
                   aria-label="Toggle search"
                 >
                   <Search size={20} />
@@ -241,7 +284,7 @@ const Header = () => {
                   onKeyDown={(e) => {
                     if (e.key === 'Escape') setSearchOpen(false);
                   }}
-                  className={`absolute right-0 top-1/2 -translate-y-1/2 h-10 pl-10 pr-9 rounded-full border border-gray-300 bg-white placeholder:text-gray-500 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#80E142] focus:border-transparent shadow-sm text-sm transition-all duration-300 ease-in-out ${
+                  className={`absolute right-0 top-1/2 -translate-y-1/2 h-10 pl-10 pr-9 rounded-full border border-gray-300 bg-white placeholder:text-gray-500 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#00694B] focus:border-transparent shadow-sm text-sm transition-all duration-300 ease-in-out ${
                     searchOpen
                       ? 'w-48 sm:w-64 opacity-100 pointer-events-auto'
                       : 'w-0 opacity-0 pointer-events-none border-transparent'
@@ -298,6 +341,16 @@ const Header = () => {
                 )}
               </div>
             </div>
+
+            {/* Download CSV */}
+            <button
+              onClick={handleDownloadCSV}
+              className="hidden sm:flex items-center gap-1.5 text-sm font-semibold text-[#00694B] hover:text-[#004d36] transition-colors bg-[#00694B]/10 px-3 py-1.5 rounded-full"
+              title="Download Tours CSV"
+            >
+              <Download size={16} />
+              <span className="hidden lg:inline text-xs">Export Tours</span>
+            </button>
 
             {/* Phone (hidden on small mobile) */}
             <a
