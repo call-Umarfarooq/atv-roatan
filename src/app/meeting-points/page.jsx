@@ -27,8 +27,8 @@ const MeetingPointsPage = () => {
             ],
             closing: 'To make everything easy and stress‑free, your confirmation will include:\n- A **photo of our staff** holding the ATV Buggy sign, and\n- A **map of Port of Roatán** showing the exact meeting point.',
             outroText: null,
-            image: '/images/atv-roatan-show-banner1.jpeg',
-            signImage: '/images/atv-roatan-show-banner1.jpeg',
+            image: '/images/atv-roatan-show-banner2.jpeg',
+            signImage: '/images/atv-roatan-show-banner2.jpeg',
         },
         'mahogany-bay': {
             title: 'Mahogany Bay',
@@ -63,7 +63,7 @@ const MeetingPointsPage = () => {
                         <button
                             key={key}
                             onClick={() => setActiveTab(key)}
-                            className={`flex-1 py-3 px-3 rounded-xl font-black text-xs sm:text-sm uppercase tracking-wide transition-all duration-300 ${
+                            className={`flex-1 py-3 px-3 rounded-xl  text-xs sm:text-sm uppercase tracking-wide transition-all duration-300 ${
                                 activeTab === key
                                     ? 'bg-[#00694B] text-white shadow-md'
                                     : 'text-gray-400 hover:text-gray-700 hover:bg-gray-50'
@@ -112,7 +112,7 @@ const MeetingPointsPage = () => {
                         <p className="text-white/60 text-[9px] sm:text-[10px] font-black uppercase tracking-widest mb-1.5 sm:mb-2">
                             Official Cruise Port Instructions
                         </p>
-                        <h1 className="text-white text-base sm:text-xl md:text-2xl font-black leading-snug">
+                        <h1 className="text-white text-base sm:text-xl md:text-2xl  leading-snug">
                             {current.subject}
                         </h1>
                     </div>
@@ -202,14 +202,14 @@ const MeetingPointsPage = () => {
                     <div className="relative z-10 flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                         <a
                             href="tel:+50496489745"
-                            className="flex items-center justify-center gap-2 bg-[#00694B] hover:bg-[#004d36] transition-colors text-white font-black px-5 py-3.5 rounded-xl sm:rounded-2xl shadow-lg text-sm"
+                            className="flex items-center min-w-max justify-center gap-2 bg-[#00694B] hover:bg-[#004d36] transition-colors text-white  px-5 py-3 rounded-xl sm:rounded-2xl shadow-lg text-sm"
                         >
                             <Phone size={16} />
                             +504 9648 9745
                         </a>
                         <a
                             href="tel:+50499392442"
-                            className="flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 transition-colors text-white font-black px-5 py-3.5 rounded-xl sm:rounded-2xl text-sm"
+                            className="flex items-center min-w-max justify-center gap-2 bg-white/10 hover:bg-white/20 transition-colors text-white  px-5 py-3 rounded-xl sm:rounded-2xl text-sm"
                         >
                             <Phone size={16} />
                             +504 9939 2442

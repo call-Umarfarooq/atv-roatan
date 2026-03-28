@@ -69,8 +69,8 @@ export default function FloatingElements() {
         }}
       >
         <Image
-          src="/images/bander.png"
-          alt="Floating Bander"
+          src="/images/sloth-imag.png"
+          alt="Floating sloth"
           width={180}
           height={100}
           className="w-full h-auto bg-white object-contain opacity-80"

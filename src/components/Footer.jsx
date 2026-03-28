@@ -12,7 +12,7 @@ const Footer = () => {
           backgroundImage: "url('/images/footer-backgroud.jpeg')" 
         }}
       >
-        <div className="max-w-4xl mx-auto bg-black/30 backdrop-blur-[6px] rounded-2xl p-6 sm:p-10 border border-white/20 shadow-2xl">
+        <div className="max-w-4xl mx-auto bg-black/5 backdrop-blur-[6px] rounded-2xl p-6 sm:p-10 border border-white/20 shadow-2xl">
           <h2 className="sm:text-3xl sm:font-bold text-[24px] font-bold text-white mb-3 md:mb-4 leading-tight drop-shadow-md">
            Book the <span className="text-[#4ade80] italic">Best</span> Adventure Tours in Roatan Today
           </h2>

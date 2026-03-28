@@ -13,6 +13,7 @@ import ReviewsWidget from "@/components/ReviewsWidget";
 import StaggeredTextReveal from "@/components/StaggeredTextReveal";
 import FloatingElements from "@/components/FloatingElements";
 import Link from "next/link";
+import LiveBookingNotification from "@/components/LiveBookingNotification";
 
 // Force dynamic rendering to ensure fresh data
 export const dynamic = 'force-dynamic';
@@ -184,6 +185,7 @@ export default async function Home() {
 
       <ReviewsWidget />
       <ReviewLinks />
+      <LiveBookingNotification />
     </main>
   );
 }

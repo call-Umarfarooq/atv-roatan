@@ -2,6 +2,7 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { CheckCircle2, Ticket, MapPin, Calendar, Users, Loader2, Clock, Anchor, Building2, Info, Phone } from 'lucide-react';
+import Link from 'next/link';
 
 function ConfirmationContent() {
     const searchParams = useSearchParams();
@@ -394,7 +395,7 @@ function ConfirmationContent() {
                              Meeting Instructions
                         </h4>
                         
-                        <div className="space-y-6 mt-4">
+                        <Link href={"/meeting-points"} className="space-y-6 mt-4">
                             {/* Port of Roatán */}
                             <div className="bg-white p-5 rounded-xl border border-[#00694B]/20 shadow-sm relative overflow-hidden">
                                 <div className="absolute top-0 left-0 w-1 h-full bg-[#00694B]"></div>
@@ -426,7 +427,7 @@ function ConfirmationContent() {
                                     <span className="text-sm font-black text-gray-900 select-all">+504 9648 9745 / +504 9939 2442</span>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
 
                         <hr className="my-6 border-gray-100" />
 

@@ -14,6 +14,8 @@ const uberMove = localFont({
 
 import ConditionalFooter from "@/components/ConditionalFooter";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import PrivacyProtector from "@/components/PrivacyProtector";
+import FirstVisitModal from "@/components/FirstVisitModal";
 
 export const metadata = {
   // General & SEO
@@ -84,6 +86,8 @@ export default function RootLayout({ children }) {
       <body
         className={`antialiased`}
       >
+        <FirstVisitModal />
+        <PrivacyProtector />
         <ConditionalHeader />
         {children}
         <Suspense fallback={null}>

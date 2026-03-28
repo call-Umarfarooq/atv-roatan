@@ -2,7 +2,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Save, Plus, X, Upload, Image as ImageIcon, Video } from 'lucide-react';
+import { Save, Plus, X, Upload, Image as ImageIcon, Video, ArrowUp, ArrowDown } from 'lucide-react';
 import { getImageUrl } from '@/utils/imageUrl';
 
 
@@ -278,7 +278,34 @@ export default function TourForm({ initialData = null, isEdit = false }) {
     }
   };
 
+  const moveGalleryItem = (index, direction) => {
+    setFormData(prev => {
+      const newGallery = [...prev.gallery];
+      const newAlts = [...(prev.gallery_alts || [])];
+      
+      let newIndex = index + direction;
+      // Wrap around logic
+      if (newIndex < 0) {
+          newIndex = newGallery.length - 1;
+      } else if (newIndex >= newGallery.length) {
+          newIndex = 0;
+      }
 
+      // Remove from current pos
+      const [imgItem] = newGallery.splice(index, 1);
+      const altItem = newAlts[index] !== undefined ? newAlts.splice(index, 1)[0] : '';
+
+      // Insert at new pos
+      newGallery.splice(newIndex, 0, imgItem);
+      newAlts.splice(newIndex, 0, altItem);
+
+      return {
+        ...prev,
+        gallery: newGallery,
+        gallery_alts: newAlts
+      };
+    });
+  };
 
 
 
@@ -756,6 +783,24 @@ export default function TourForm({ initialData = null, isEdit = false }) {
                        <div className="space-y-3">
                            {formData.gallery?.map((img, i) => (
                                <div key={i} className="flex gap-3 items-center bg-gray-50 p-2 rounded-lg border border-gray-200">
+                                   <div className="flex flex-col gap-1 items-center justify-center shrink-0 w-6">
+                                       <button 
+                                           type="button" 
+                                           onClick={() => moveGalleryItem(i, -1)} 
+                                           className="text-gray-400 hover:text-[#00694B] transition-colors"
+                                           title="Move Up"
+                                       >
+                                           <ArrowUp size={16} />
+                                       </button>
+                                       <button 
+                                           type="button" 
+                                           onClick={() => moveGalleryItem(i, 1)} 
+                                           className="text-gray-400 hover:text-[#00694B] transition-colors"
+                                           title="Move Down"
+                                       >
+                                           <ArrowDown size={16} />
+                                       </button>
+                                   </div>
                                    <div className="relative w-20 h-16 rounded-md overflow-hidden shrink-0 group">
                                        <img src={getImageUrl(img)} alt={formData.gallery_alts?.[i] || ''} className="w-full h-full object-cover" />
                                        <button type="button" onClick={() => {
