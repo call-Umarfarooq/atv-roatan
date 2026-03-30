@@ -102,7 +102,7 @@ const HomeClient = ({ initialTours, categories, moreCategories = [] }) => {
           <div className="flex justify-center flex-wrap gap-2 px-1 pb-1">
               <button
                 onClick={() => setSelectedCategory('All')}
-                className={`px-4 sm:px-6 py-1 sm:py-1.5 text-[13px] sm:text-sm rounded-full font-semibold tracking-tight transition-all whitespace-nowrap ${
+                className={`px-4 sm:px-6 py-1 sm:py-1.5 text-[14px] sm:text-[19px] rounded-full font-[410] tracking-tight transition-all whitespace-nowrap ${
                   selectedCategory === 'All'
                     ? 'bg-[#00694B] text-white shadow-md'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'

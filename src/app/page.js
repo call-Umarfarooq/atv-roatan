@@ -142,7 +142,7 @@ export default async function Home() {
             <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 md:gap-4 text-white/90 text-xs sm:text-sm md:text-base font-medium tracking-wide bg-gradient-to-r from-transparent via-black/30 to-transparent px-6 sm:px-10 py-2 sm:py-3 rounded-full backdrop-blur-[2px] border border-white/10 shadow-xl w-fit">
               <Link href="/activities/roatan-atv-adventures">ATV/Buggy</Link>
               <span className="text-[#4ade80] opacity-80">•</span>
-              <Link href="/activities/roatan-private-dolphin-encounter-swim">dolphin </Link>
+              <Link href="/activities/roatan-private-dolphin-encounter-swim">Dolphin </Link>
               <span className="text-[#4ade80] opacity-80">•</span>
               <span>Wildlife</span>
               <span className="text-[#4ade80] opacity-80">•</span>
@@ -150,7 +150,7 @@ export default async function Home() {
               <span className="text-[#4ade80] opacity-80">•</span>
               <Link href="/activities/roatan-zipline-adventure">Ziplines</Link>
               <span className="text-[#4ade80] opacity-80">•</span>
-              <Link href="/activities/roatan-private-horseback-riding-beach">horseback </Link>
+              <Link href="/activities/roatan-private-horseback-riding-beach">Horseback </Link>
             </div>
 
             {/* CTA Buttons */}

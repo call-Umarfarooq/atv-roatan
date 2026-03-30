@@ -70,12 +70,12 @@ export default function FirstVisitModal({ onClose }) {
                         </button>
                         
                         <div className='flex flex-col items-center text-center mt-2'> 
-                            {/* Green Check Icon */}
-                            <div className="w-16 h-16 sm:w-24 sm:h-24 bg-[#e6fcf0] rounded-full flex items-center justify-center mb-5 sm:mb-8 shadow-sm shrink-0">
-                                <svg className="w-8 h-8 sm:w-12 sm:h-12 text-[#1eb463]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                </svg>
-                            </div>
+                            {/* Logo */}
+                            <img 
+                                src="/images/atv-logo.png" 
+                                alt="ATV Roatan Logo" 
+                                className="w-20 h-20 sm:w-28 sm:h-28 mb-5 sm:mb-8 object-contain shrink-0" 
+                            />
 
                             {/* Content */}
                             <h2 className='text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1a202c] mb-4 sm:mb-6 tracking-tight leading-tight'>
