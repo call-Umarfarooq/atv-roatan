@@ -1,34 +1,30 @@
 'use client';
 
 import React from 'react';
-import { Headset, ShieldCheck, Leaf, Map, Check, X } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 import StaggeredTextReveal from '@/components/StaggeredTextReveal';
 
 const WhyChooseUs = () => {
   const features = [
     {
-      icon: <Headset size={28} className="text-[#00694B]" />,
+      image: "/images/choose-1.png",
       title: "Always Here for You",
       description: "24/7 support for your travel needs.",
-      bg: "bg-red-50",
     },
     {
-      icon: <ShieldCheck size={28} className="text-[#00694B]" />,
+      image: "/images/choose-2.png",
       title: "Your Safety Guaranteed",
       description: "Fully insured tours with Ship-Back Guarantee.",
-      bg: "bg-green-50",
     },
     {
-      icon: <Leaf size={28} className="text-[#00694B]" />,
+      image: "/images/choose-3.png",
       title: "Sustainability",
       description: "Eco-conscious tours that respect nature and communities.",
-      bg: "bg-yellow-50",
     },
     {
-      icon: <Map size={28} className="text-[#00694B]" />,
+      image: "/images/choose-4.png",
       title: "Local Expertise",
       description: "Discover through the eyes of passionate local experts.",
-      bg: "bg-blue-50",
     },
   ];
 
@@ -41,32 +37,54 @@ const WhyChooseUs = () => {
   ];
 
   return (
-    <section className="py-10  bg-white">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="py-10 bg-white">
+      {/* Why Choose Us Banner - Full Width */}
+      <div 
+        className="relative border-y-[4px] sm:border-y-[5px] border-[#2A4B31] overflow-hidden mb-16 bg-cover bg-center bg-no-repeat shadow-md w-full"
+        style={{ backgroundImage: "url('/images/why-choose-bg.png')" }}
+      >
+        {/* Inner outline to mimic the double border in the image */}
+        <div className="absolute inset-y-[3px] border-y-[1px] border-[#2A4B31]/60 pointer-events-none w-full"></div>
 
-        {/* Heading */}
-        <div className="text-center pb-10 ">
-          <StaggeredTextReveal
-            el="h2"
-            className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-3"
-            text="Why to choose ATV Roatan?"
-          />
-          <div className="w-16 h-1 bg-[#00694B] mx-auto rounded-full" />
-        </div>
-
-        {/* Features — 2×2 on mobile, 4-col on lg */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8 mb-10 ">
-          {features.map((feature, index) => (
-            <div key={index} className="flex flex-col items-center text-center group cursor-pointer">
-              <div className={`w-14 h-14 sm:w-20 sm:h-20 rounded-full ${feature.bg} flex items-center justify-center mb-3 sm:mb-6 transition-transform group-hover:scale-110 duration-300 shadow-sm`}>
-                {feature.icon}
-              </div>
-              <h3 className="text-sm sm:text-lg font-semibold text-[#1a1a1a] mb-1 sm:mb-3 leading-snug">{feature.title}</h3>
-              <p className="text-gray-500 text-xs sm:text-sm leading-relaxed hidden sm:block">{feature.description}</p>
+        <div className="max-w-7xl mx-auto px-4 relative z-10 py-10 sm:py-16">
+          {/* Heading */}
+          <div className="text-center pb-10 sm:pb-14">
+            <StaggeredTextReveal
+              el="h2"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-5 font-serif"
+              text="Why to choose ATV Roatan?"
+            />
+            <div className="flex items-center justify-center gap-2">
+              <div className="h-[2px] w-16 sm:w-24 bg-[#2A4B31]"></div>
+              <div className="w-2.5 h-2.5 rotate-45 bg-[#2A4B31]"></div>
+              <div className="h-[2px] w-16 sm:w-24 bg-[#2A4B31]"></div>
             </div>
-          ))}
-        </div>
+          </div>
 
+          {/* Features */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-6 items-start">
+            {features.map((feature, index) => (
+              <div key={index} className="flex flex-col items-center text-center group">
+                <div className="w-[75%] sm:w-[85%] max-w-[200px] aspect-square relative mb-5 transition-transform duration-300 group-hover:-translate-y-2 flex items-center justify-center rounded-full overflow-hidden shadow-md bg-white border-2 border-green-50/50">
+                  <img 
+                    src={feature.image} 
+                    alt={feature.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <h3 className="text-lg sm:text-lg lg:text-xl font-bold text-[#1a1a1a] leading-tight mb-2">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-800 font-medium text-sm sm:text-[15px] leading-relaxed max-w-[240px]">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4">
         {/* Comparison */}
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
