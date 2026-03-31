@@ -82,12 +82,14 @@ export default function FirstVisitModal({ onClose }) {
                                 We are Roatan ATV, Buggy & Golf<br className="hidden sm:block" /> cart Adventure Tour.
                             </h2>
                             <p className='text-[1.05rem] sm:text-[1.1rem] md:text-xl font-bold text-[#1a8844] mb-5 sm:mb-8 tracking-wide'>
-                                We are the Owners in Las Fuertes, not a middleman agency.
-                            </p>
+								STOP PAYING MIDDLEMAN FEES – BOOK DIRECT! 🏝️
+							 We are the ACTUAL Fleet Owners of Roatan. Why pay 25% extra on middleman agency.?  </p>
                             <p className='text-[#64748b] text-[0.95rem] sm:text-[1.125rem] md:text-[1.2rem] leading-relaxed sm:leading-[1.8] font-medium'>
-                                At ATV Roatan, we answer the 'Why' of travel: because life is an adventure meant to be lived. Based in Las Fuertes, we own our fleet and protect our guests. You aren't just a ticket number—you are a guest in our home.
-                            </p>
-                        </div>
+                               100% Back-to-Ship Guarantee:  <br> Don't risk missing your cruise. We prioritize cruise ship schedules
+								   and guarantee you'll be back at the terminal on time, every time. </p>
+								<p className='text-[#64748b] text-[0.95rem] sm:text-[1.125rem] md:text-[1.2rem] leading-relaxed sm:leading-[1.8] font-medium'>
+                              Lowest Price Guaranteed: <br> By cutting out the middleman, we pass the savings directly to you.  </p>
+                       </div>
                     </motion.div>
                 </div>
             )}
