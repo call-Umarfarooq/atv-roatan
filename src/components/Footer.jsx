@@ -30,13 +30,13 @@ const Footer = () => {
       </section>
 
       {/* Main Footer Section */}
-      <div className="relative bg-[#00694B] text-white pb-12  md:pb-20 px-5 sm:px-6">
+      <div className="relative bg-[#00694B] text-white pb-12   px-5 sm:px-6">
         
         {/* Left Side Decoration - Tree & Sloth (Now using transparent PNG) */}
         <img 
           src="/images/bg-trans.png" 
           alt="Jungle decoration left" 
-          className="absolute left-[-2rem] md:left-0 bottom-0 w-[200px] sm:w-[250px] md:w-[300px] lg:w-[350px] object-contain z-20 pointer-events-none drop-shadow-2xl mix-blend-normal"
+          className="absolute left-[-2rem] md:left-0 bottom-0 w-[200px] sm:w-[100px] md:w-[250px] lg:w-[280px] object-contain z-20 pointer-events-none drop-shadow-2xl mix-blend-normal"
         />
 
         {/* Right Side Decoration - ATVs */}
@@ -53,10 +53,10 @@ const Footer = () => {
         </div>
 
         {/* Content Wrapper */}
-        <div className="relative z-10 w-full px-6 sm:px-10 md:px-16">
+        <div className="relative z-10 w-full md:w-[65%] lg:w-[60%] xl:w-[70%] px-2 sm:px-2 md:px-1">
           
-          {/* Texts Flex Container - spread across footer, tree image overlaps naturally */}
-          <div className="w-full flex flex-col sm:flex-row justify-between gap-10 sm:gap-8 relative z-10 pt-4 pr-4 sm:pr-8 md:pr-12 pl-[80px] sm:pl-[160px] md:pl-[200px] lg:pl-[240px] xl:pl-[280px]">
+          {/* Texts Flex Container - properly spaced to slide behind the absolute decoration image */}
+          <div className="w-full flex flex-col md:flex-row justify-between gap-10 sm:gap-8 relative z-10 pt-4 pr-4 sm:pr-8 md:pr-12 pl-[40px] sm:pl-[80px] md:pl-[120px] lg:pl-[140px] xl:pl-[160px]">
             
             {/* Column 1: Brand & Contact */}
             <div className="footer-col shrink-0 min-w-[200px] max-w-[280px]">
@@ -96,14 +96,14 @@ const Footer = () => {
 
             {/* Column 3: Support Links */}
             <div className="footer-col shrink-0 min-w-[150px]">
-              {/* <h3 className="text-base md:text-lg font-bold mb-4 md:mb-8">Support Links</h3>
+              <h3 className="text-base md:text-lg font-bold mb-4 md:mb-8">Support Links</h3>
                 <ul className="space-y-3 md:space-y-4">
               <li><Link href="/help" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Help Center</Link></li>
               <li><Link href="/faqs" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">FAQs</Link></li>
               <li><Link href="/booking" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Booking</Link></li>
               <li><Link href="/privacy" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Privacy Policy</Link></li>
               <li><Link href="/support" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Online Support</Link></li>
-            </ul> */}
+            </ul>
             </div>
 
           </div>

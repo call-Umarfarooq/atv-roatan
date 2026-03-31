@@ -40,18 +40,18 @@ const WhyChooseUs = () => {
     <section className="py-10 bg-white">
       {/* Why Choose Us Banner - Full Width */}
       <div 
-        className="relative border-y-[4px] sm:border-y-[5px] border-[#2A4B31] overflow-hidden mb-16 bg-cover bg-center bg-no-repeat shadow-md w-full"
+        className="relative border-y-[4px] sm:border-y-[5px] border-[#2A4B31] overflow-hidden mb-10 bg-[length:100%_100%] bg-center bg-no-repeat shadow-md w-full"
         style={{ backgroundImage: "url('/images/why-choose-bg.png')" }}
       >
         {/* Inner outline to mimic the double border in the image */}
         <div className="absolute inset-y-[3px] border-y-[1px] border-[#2A4B31]/60 pointer-events-none w-full"></div>
 
-        <div className="max-w-7xl mx-auto px-4 relative z-10 py-10 sm:py-16">
+        <div className="max-w-7xl mx-auto px-4 relative z-10 pt-4 pb-6 sm:pt-6 sm:pb-8">
           {/* Heading */}
-          <div className="text-center pb-10 sm:pb-14">
+          <div className="text-center pb-2 ">
             <StaggeredTextReveal
               el="h2"
-              className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-5 font-serif"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#1a1a1a] mb-3 font-serif"
               text="Why to choose ATV Roatan?"
             />
             <div className="flex items-center justify-center gap-2">
@@ -62,17 +62,17 @@ const WhyChooseUs = () => {
           </div>
 
           {/* Features */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-6 items-start">
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4  mb-5 items-start">
             {features.map((feature, index) => (
               <div key={index} className="flex flex-col items-center text-center group">
-                <div className="w-[75%] sm:w-[85%] max-w-[200px] aspect-square relative mb-5 transition-transform duration-300 group-hover:-translate-y-2 flex items-center justify-center rounded-full overflow-hidden shadow-md bg-white border-2 border-green-50/50">
+                <div className="w-40 sm:w-48 md:w-40 lg:w-40 xl:w-40 aspect-[4/3] relative  transition-transform duration-300 group-hover:-translate-y-1 flex items-center justify-center overflow-hidden bg-transparent">
                   <img 
                     src={feature.image} 
                     alt={feature.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain mix-blend-multiply"
                   />
                 </div>
-                <h3 className="text-lg sm:text-lg lg:text-xl font-bold text-[#1a1a1a] leading-tight mb-2">
+                <h3 className="text-lg lg:text-xl font-bold text-[#1a1a1a] leading-tight mb-1">
                   {feature.title}
                 </h3>
                 <p className="text-gray-800 font-medium text-sm sm:text-[15px] leading-relaxed max-w-[240px]">
