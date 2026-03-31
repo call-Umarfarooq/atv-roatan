@@ -107,7 +107,7 @@ const ThingsToDo = ({ activities }) => {
                 className="w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-4 sm:p-8">
-                <h3 className="text-white font-bold text-lg sm:text-2xl leading-tight mb-0 group-hover/card:mb-2 transition-all duration-300">
+                <h3 className="text-white font-[500] text-lg sm:text-xl leading-tight mb-0 group-hover/card:mb-2 transition-all duration-300">
                   {activity.title}
                 </h3>
                 {/* Description — on mobile always slightly visible, on desktop reveals on hover */}
