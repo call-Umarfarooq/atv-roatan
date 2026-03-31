@@ -85,10 +85,10 @@ export default function FirstVisitModal({ onClose }) {
 								STOP PAYING MIDDLEMAN FEES – BOOK DIRECT! 🏝️
 							 We are the ACTUAL Fleet Owners of Roatan. Why pay 25% extra on middleman agency.?  </p>
                             <p className='text-[#64748b] text-[0.95rem] sm:text-[1.125rem] md:text-[1.2rem] leading-relaxed sm:leading-[1.8] font-medium'>
-                               100% Back-to-Ship Guarantee:  <br> Don't risk missing your cruise. We prioritize cruise ship schedules
+                               100% Back-to-Ship Guarantee:  <br /> Don't risk missing your cruise. We prioritize cruise ship schedules
 								   and guarantee you'll be back at the terminal on time, every time. </p>
 								<p className='text-[#64748b] text-[0.95rem] sm:text-[1.125rem] md:text-[1.2rem] leading-relaxed sm:leading-[1.8] font-medium'>
-                              Lowest Price Guaranteed: <br> By cutting out the middleman, we pass the savings directly to you.  </p>
+                              Lowest Price Guaranteed: <br /> By cutting out the middleman, we pass the savings directly to you.  </p>
                        </div>
                     </motion.div>
                 </div>
