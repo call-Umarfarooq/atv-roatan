@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutDashboard, Compass, Settings, LogOut, Package, ClipboardList, MapPin, Map, ShieldCheck } from 'lucide-react';
+import { LayoutDashboard, Compass, Settings, LogOut, Package, ClipboardList, MapPin, Map, ShieldCheck, BookOpen } from 'lucide-react';
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -27,6 +27,7 @@ export default function Sidebar() {
     { name: 'Bookings', icon: ClipboardList, href: '/admin/bookings' },
     { name: 'Locations', icon: MapPin, href: '/admin/locations' },
     { name: 'Plan Activities', icon: Map, href: '/admin/plan-activities' },
+    { name: 'Blogs', icon: BookOpen, href: '/admin/blogs' },
     { name: 'Tour Approvals', icon: ShieldCheck, href: '/admin/tour-approvals', badge: pendingCount },
     // { name: 'Settings', icon: Settings, href: '/admin/settings' },
   ];

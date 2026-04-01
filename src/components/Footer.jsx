@@ -7,13 +7,9 @@ const Footer = () => {
     <footer className="w-full  overflow-x-hidden">
       {/* Top CTA Section */}
       <section 
-        className="relative text-center py-16 md:py-24 px-5 sm:px-6 bg-no-repeat bg-center"
-        style={{ 
-          backgroundImage: "url('/images/footer-backgroud.jpeg')",
-          backgroundSize: "100% 100%"
-        }}
+        className="relative text-center py-16 md:py-24 px-5 sm:px-6 bg-no-repeat bg-center bg-[url('/images/footer-top-mobile.png')] sm:bg-[url('/images/footer-backgroud.jpeg')] xl:bg-[url('/images/footer-top-larg-sc.png')] bg-[length:100%_100%] xl:border-[30px] xl:border-[#fbd1af]"
       >
-        <div className="max-w-4xl mx-auto  rounded-2xl p-6 sm:p-10   shadow-2xl">
+        <div className="max-w-4xl mx-auto rounded-2xl p-6 sm:p-10 ">
           <h2 className="sm:text-3xl sm:font-bold text-[24px] font-bold text-white mb-3 md:mb-4 leading-tight drop-shadow-[0_4px_4px_rgba(0,0,0,0.9)]">
            Book the <span className="text-[#4ade80] italic">Best</span> Adventure Tours in Roatan Today
           </h2>
@@ -30,13 +26,13 @@ const Footer = () => {
       </section>
 
       {/* Main Footer Section */}
-      <div className="relative bg-[#00694B] text-white pb-12   px-5 sm:px-6">
+      <div className="relative bg-[#00694B] text-white pb-2   px-5 sm:px-6">
         
         {/* Left Side Decoration - Tree & Sloth (Now using transparent PNG) */}
         <img 
           src="/images/bg-trans.png" 
           alt="Jungle decoration left" 
-          className="absolute left-[-2rem] md:left-0 bottom-0 w-[200px] sm:w-[100px] md:w-[250px] lg:w-[280px] object-contain z-20 pointer-events-none drop-shadow-2xl mix-blend-normal"
+          className="hidden md:block absolute left-[-2rem] md:left-0 bottom-0 w-[200px] sm:w-[100px] md:w-[200px] lg:w-[200px] object-contain z-20 pointer-events-none drop-shadow-2xl mix-blend-normal"
         />
 
         {/* Right Side Decoration - ATVs */}
@@ -44,7 +40,7 @@ const Footer = () => {
           <img 
             src="/images/footer-rightside.png" 
             alt="ATV riders" 
-            className="w-full h-full object-cover object-left md:opacity-100"
+            className="w-full h-full object-cover object-left md:opacity-100 opacity-30 md:opacity-100"
             style={{ 
               maskImage: 'linear-gradient(to right, transparent 0%, black 20%, black 100%)',
               WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 20%, black 100%)'
@@ -53,14 +49,14 @@ const Footer = () => {
         </div>
 
         {/* Content Wrapper */}
-        <div className="relative z-10 w-full md:w-[65%] lg:w-[60%] xl:w-[70%] px-2 sm:px-2 md:px-1">
+        <div className="relative z-10 w-full md:w-[65%] lg:w-[60%] xl:w-[70%] px-4 sm:px-6 md:px-1">
           
           {/* Texts Flex Container - properly spaced to slide behind the absolute decoration image */}
-          <div className="w-full flex flex-col md:flex-row justify-between gap-10 sm:gap-8 relative z-10 pt-4 pr-4 sm:pr-8 md:pr-12 pl-[40px] sm:pl-[80px] md:pl-[120px] lg:pl-[140px] xl:pl-[160px]">
+          <div className="w-full flex flex-col md:flex-row justify-between gap-10 sm:gap-8 relative z-10 pt-10 sm:pt-12 md:pt-4 pr-4 sm:pr-8 md:pr-12 pl-0 md:pl-[120px] lg:pl-[140px] xl:pl-[160px]">
             
             {/* Column 1: Brand & Contact */}
             <div className="footer-col shrink-0 min-w-[200px] max-w-[280px]">
-              <div className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 tracking-tight italic">
+              <div className="text-2xl md:text-3xl font-bold mb-3 md:mb-3 tracking-tight italic">
                  ATV Roatan
               </div>
               <div className="flex flex-col gap-4 text-white/90 text-sm leading-relaxed">
@@ -69,7 +65,7 @@ const Footer = () => {
                       <p>Roatan Adventure Park, 34101 Coxen Hole, Roatan, Honduras</p>
                   </Link>
               </div>
-              <div className="flex gap-4 mt-6 md:mt-8">
+              <div className="flex gap-4 mt-3 md:mt-3">
                 <a href="https://www.facebook.com/atvjungletoursroatan" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
                   <Facebook size={18} />
                 </a>
@@ -84,7 +80,7 @@ const Footer = () => {
 
             {/* Column 2: Easy Links */}
             <div className="footer-col shrink-0 min-w-[150px]">
-              <h3 className="text-base md:text-lg font-bold mb-4 md:mb-8">Easy Links</h3>
+              <h3 className="text-base md:text-lg font-bold mb-3 md:mb-3">Easy Links</h3>
               <ul className="space-y-3 md:space-y-4">
                 <li><Link href="/" className="text-white/80 font-medium hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem] uppercase">Home</Link></li>
                 <li><Link href="/tours" className="text-white/80 font-medium hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem] uppercase">All Tours</Link></li>
@@ -96,7 +92,10 @@ const Footer = () => {
 
             {/* Column 3: Support Links */}
             <div className="footer-col shrink-0 min-w-[150px]">
-              <h3 className="text-base md:text-lg font-bold mb-4 md:mb-8">Support Links</h3>
+              <h3 className="text-base md:text-lg font-bold mb-3
+              
+              
+              md:mb-3">Support Links</h3>
                 <ul className="space-y-3 md:space-y-4">
               <li><Link href="/help" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Help Center</Link></li>
               <li><Link href="/faqs" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">FAQs</Link></li>
@@ -111,7 +110,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom Copyright Bar */}
-      <div className="bg-[#00694B] border-t border-white/10 px-5 sm:px-6 py-6 md:py-8 relative z-20">
+      <div className="bg-[#00694B] border-t border-white/10 px-5 sm:px-6 py-2 md:py-2 relative z-20">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center text-center sm:text-left text-xs text-white/50 gap-2 sm:gap-4 lg:pl-[350px]">
           <p>&copy; 2026 Roatan ATV Buggy Tours</p>
           <p className="hidden sm:block">Copyright &copy; 2026. All rights reserved</p>

@@ -40,11 +40,11 @@ const WhyChooseUs = () => {
     <section className="py-10 bg-white">
       {/* Why Choose Us Banner - Full Width */}
       <div 
-        className="relative border-y-[4px] sm:border-y-[5px] border-[#2A4B31] overflow-hidden mb-10 bg-[length:100%_100%] bg-center bg-no-repeat shadow-md w-full"
-        style={{ backgroundImage: "url('/images/why-choose-bg.png')" }}
+        className="relative overflow-hidden mb-10 bg-[length:100%_100%] bg-center bg-no-repeat shadow-md w-full"
+        style={{ backgroundImage: "url('/images/why-choose-bg.jpeg')" }}
       >
         {/* Inner outline to mimic the double border in the image */}
-        <div className="absolute inset-y-[3px] border-y-[1px] border-[#2A4B31]/60 pointer-events-none w-full"></div>
+        <div className="absolute inset-y-[3px]  pointer-events-none w-full"></div>
 
         <div className="max-w-7xl mx-auto px-4 relative z-10 pt-4 pb-6 sm:pt-6 sm:pb-8">
           {/* Heading */}
