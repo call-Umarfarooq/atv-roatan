@@ -7,9 +7,9 @@ const Footer = () => {
     <footer className="w-full  overflow-x-hidden">
       {/* Top CTA Section */}
       <section 
-        className="relative text-center py-16 md:py-24 px-5 sm:px-6 bg-no-repeat bg-center bg-[url('/images/footer-top-mobile.png')] sm:bg-[url('/images/footer-backgroud.jpeg')] xl:bg-[url('/images/foter-top-lrg.png')] bg-[length:100%_100%] xl:border-[30px] xl:border-[#fbd1af]"
+        className="relative text-center py-10 px-5 sm:px-6 bg-no-repeat bg-center bg-[url('/images/footer-top-mobile.png')] sm:bg-[url('/images/footer-backgroud.jpeg')] xl:bg-[url('/images/foter-top-lrg.png')] bg-[length:100%_100%] xl:border-[30px] xl:border-[#fbd1af]"
       >
-        <div className="xl:max-w-3xl mx-auto rounded-2xl p-6 sm:p-10 xl:bg-black/10 xl:backdrop-blur-md shadow-2xl">
+        <div className="xl:max-w-3xl mx-auto rounded-2xl p-6 sm:p-10  shadow-2xl">
           <h2 className="sm:text-3xl sm:font-bold text-[24px] font-bold text-white mb-3 md:mb-4 leading-tight drop-shadow-[0_4px_4px_rgba(0,0,0,0.9)]">
            Book the <span className="text-[#4ade80] italic">Best</span> Adventure Tours in Roatan Today
           </h2>
@@ -81,7 +81,7 @@ const Footer = () => {
             {/* Column 2: Easy Links */}
             <div className="footer-col shrink-0 min-w-[150px]">
               <h3 className="text-base md:text-lg font-bold mb-3 md:mb-3">Easy Links</h3>
-              <ul className="space-y-3 md:space-y-4">
+              <ul className="space-y-2 md:space-y-2">
                 <li><Link href="/" className="text-white/80 font-medium hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem] uppercase">Home</Link></li>
                 <li><Link href="/tours" className="text-white/80 font-medium hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem] uppercase">All Tours</Link></li>
                 <li><Link href="/gift-cards" className="text-white/80 font-medium hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem] uppercase">Gift Cards</Link></li>
@@ -96,7 +96,7 @@ const Footer = () => {
               
               
               md:mb-3">Support Links</h3>
-                <ul className="space-y-3 md:space-y-4">
+                <ul className="space-y-2 md:space-y-2">
               <li><Link href="/help" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Help Center</Link></li>
               <li><Link href="/faqs" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">FAQs</Link></li>
               <li><Link href="/booking" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Booking</Link></li>
