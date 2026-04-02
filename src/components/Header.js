@@ -9,17 +9,21 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const navLinks = [
+const navLinksLeft = [
   { label: 'Home', href: '/' },
   { label: 'All Tours', href: '/tours' },
   { label: 'Categories', href: '/category' },
   { label: 'Gallery', href: '/gallery' },
   { label: 'Gift Cards', href: '/gift-cards' },
-  { label: 'Build Your Adventure', href: '/plan', highlight: true },
+];
+
+const navLinksRight = [
   { label: 'About Us', href: '/about' },
   { label: 'Contact Us', href: '/contact' },
   { label: 'Reviews', href: 'https://maps.app.goo.gl/aZUsRT1JTetqxSrg7' },
 ];
+
+const navLinks = [...navLinksLeft, ...navLinksRight];
 
 const Header = () => {
   const pathname = usePathname();
@@ -109,7 +113,7 @@ const Header = () => {
         const descMatch = tour.description?.toLowerCase().includes(lowerQuery);
         const locMatch = tour.marketing_badges?.location_text?.toLowerCase().includes(lowerQuery);
         const tagsMatch = tour.tags?.some(tag => tag.toLowerCase().includes(lowerQuery));
-        
+
         return titleMatch || descMatch || locMatch || tagsMatch;
       });
       setSearchResults(filtered);
@@ -151,219 +155,60 @@ const Header = () => {
 
   return (
     <>
-      <header className="w-full border-b border-gray-200 bg-white sticky top-0 z-50">
-
-        {/* ── Top Bar ── */}
-        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
-
-          {/* Logo */}
-          <div className="shrink-0">
-            <a href="/">
+      <header className="w-full border-b border-gray-200 bg-white sticky top-0 z-[60]">
+        {/* ── Top Bar (Utility) ── */}
+        <div className="max-w-7xl mx-auto px-4 h-20 sm:h-[72px] flex items-center justify-between gap-2 sm:gap-4">
+          
+          {/* Logo + Text Stack */}
+          <div className="shrink-0 flex items-center">
+            <a href="/" className="flex items-center gap-2 sm:gap-3">
               <Image
-                src="/images/atv-logo.png"
-                alt="ATV Roatan"
-                width={40}
-                height={40}
-                className="object-contain"
+                src="/images/roatan-Eco-Adventures-logo .webp"
+                alt="Roatan Eco-Adventures"
+                width={50}
+                height={50}
+                className="object-contain w-10 h-10 sm:w-[50px] sm:h-[50px]"
               />
+              <div className="flex flex-col">
+                <span className="text-[#00694B] font-bold text-sm sm:text-[18px] leading-tight">Roatan Eco-Adventures</span>
+                <span className="text-gray-500 text-[9px] sm:text-xs leading-tight">Roatan ATV, Buggy &amp; Golf Car Adventure</span>
+              </div>
             </a>
           </div>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => {
-              const isExternal = link.href.startsWith('http');
-              const isActive = !isExternal && (
-                link.href === '/'
-                  ? pathname === '/'
-                  : pathname === link.href || pathname.startsWith(link.href + '/')
-              );
-              if (link.highlight) {
-                return (
-                  <div
-                    key={link.label}
-                    className="relative"
-                    onMouseEnter={() => setActiveDropdown('adventure')}
-                    onMouseLeave={() => setActiveDropdown(null)}
-                  >
-                    {/* Animated Button */}
-                    <motion.span
-                      animate={{
-                        borderColor: [
-                          'rgba(0, 105, 75, 1)',
-                          'rgba(0, 105, 75, 0.2)',
-                          'rgba(0, 105, 75, 1)',
-                        ],
-                        boxShadow: [
-                          '0 0 8px 2px rgba(0, 105, 75, 0.7)',
-                          '0 0 2px 1px rgba(0, 105, 75, 0.1)',
-                          '0 0 8px 2px rgba(0, 105, 75, 0.7)',
-                        ],
-                      }}
-                      transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                      className="text-sm font-bold border-2 text-[#00694B] px-3 py-1.5 rounded-full flex items-center gap-1 whitespace-nowrap cursor-pointer select-none"
-                    >
-                      <Map size={16} /> {link.label}
-                    </motion.span>
-
-                    {/* Hover Dropdown */}
-                    <AnimatePresence>
-                      {activeDropdown === 'adventure' && (
-                        <motion.div
-                          initial={{ opacity: 0, y: -6 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -6 }}
-                          transition={{ duration: 0.18 }}
-                          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50"
-                        >
-                           <a
-                            href="/category/build-your-own-roatan-private-tour"
-                            className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-[#00694B] hover:text-white transition-colors group"
-                          >
-                            <Ship size={20} className="text-gray-500 group-hover:text-white" />
-                            <div>
-                              <p className="font-bold">Cruiseship day visits</p>
-                            </div>
-                          </a>
-                          
-                          <div className="border-t border-gray-100" />
-                         
-                          <a
-                            href="/plan"
-                            className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-gray-700 hover:bg-[#00694B] hover:text-white transition-colors group"
-                          >
-                            <Map size={20} className="text-gray-500 group-hover:text-white" />
-                            <div>
-                              <p className="font-bold">Long stay in roatan</p>
-                            </div>
-                          </a>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                );
-              }
-              return (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target={isExternal ? '_blank' : undefined}
-                  rel={isExternal ? 'noopener noreferrer' : undefined}
-                  className={`text-sm font-medium transition-colors ${
-                    isActive
-                      ? 'text-[#00694B] border-b-2 border-[#00694B] pb-0.5'
-                      : 'text-gray-600 hover:text-[#00694B]'
-                  }`}
-                >
-                  {link.label}
-                </a>
-              );
-            })}
-          </nav>
-
-          {/* Right: Search + Phone + Hamburger */}
-          <div className="flex items-center gap-3 shrink-0">
-
-            {/* Search */}
-            <div ref={searchRef} className="relative flex items-center">
-              <div className={`relative flex items-center transition-all duration-300 ${searchOpen ? 'w-48 sm:w-64' : 'w-8'}`}>
-                <button
-                  onClick={() => setSearchOpen(true)}
-                  className="text-gray-600 hover:text-[#00694B] transition-colors relative z-10"
-                  aria-label="Toggle search"
-                >
-                  <Search size={20} />
-                </button>
-
-                <input
-                  ref={inputRef}
-                  type="text"
-                  placeholder="Search tours..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Escape') setSearchOpen(false);
-                  }}
-                  className={`absolute right-0 top-1/2 -translate-y-1/2 h-10 pl-10 pr-9 rounded-full border border-gray-300 bg-white placeholder:text-gray-500 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#00694B] focus:border-transparent shadow-sm text-sm transition-all duration-300 ease-in-out ${
-                    searchOpen
-                      ? 'w-48 sm:w-64 opacity-100 pointer-events-auto'
-                      : 'w-0 opacity-0 pointer-events-none border-transparent'
-                  }`}
-                />
-                
-                {searchOpen && (
-                  <button 
-                    onClick={() => {
-                      setSearchQuery('');
-                      setSearchOpen(false);
-                      setSearchResults([]);
-                    }}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 z-20"
-                    aria-label="Close search"
-                  >
-                    <X size={16} />
-                  </button>
-                )}
-
-                {/* Search Results */}
-                {searchOpen && (
-                  <div className="absolute top-12 right-0 w-72 sm:w-80 bg-white rounded-md shadow-xl border border-gray-200 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
-                    <div className="max-h-96 overflow-y-auto">
-                      {(searchQuery ? searchResults : tours).length > 0 ? (
-                        (searchQuery ? searchResults : tours).map((tour) => (
-                          <a
-                            key={tour._id}
-                            href={`/product/${tour.slug}`}
-                            className="flex items-center gap-3 p-3 hover:bg-gray-50 border-b border-gray-100 last:border-0 transition-colors"
-                            onClick={() => setSearchOpen(false)}
-                          >
-                            <div className="relative w-12 h-12 shrink-0 rounded-md overflow-hidden bg-gray-100">
-                              <Image
-                                src={tour.image_url || '/images/placeholder.jpg'}
-                                alt={tour.title}
-                                fill
-                                className="object-cover"
-                              />
-                            </div>
-                            <div>
-                              <h4 className="text-sm font-semibold text-gray-800 line-clamp-1">{tour.title}</h4>
-                              <p className="text-xs text-[#00694B] font-medium">View Tour</p>
-                            </div>
-                          </a>
-                        ))
-                      ) : (
-                        <div className="p-4 text-center text-gray-500 text-sm">
-                          {searchQuery ? `No tours found matching "${searchQuery}"` : "Loading tours..."}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
+          {/* Right: Phone + Hours + CTA (Desktop) / CTA + Phone (Mobile) */}
+          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
+            {/* Phone + Hours (Desktop Only) */}
+            <div className="hidden md:flex flex-col items-end mr-2">
+              <a href="tel:+50412345678" className="text-[#00694B] font-bold text-lg hover:text-[#004d36] transition-colors flex items-center gap-1.5">
+                <Phone size={18} fill="currentColor" /> +504 1234-5678
+              </a>
+              <span className="text-gray-500 text-xs font-medium">Open Daily · 7 AM – 6 PM</span>
             </div>
 
-            {/* Download CSV */}
-            {/* <button
-              onClick={handleDownloadCSV}
-              className="hidden sm:flex items-center gap-1.5 text-sm font-semibold text-[#00694B] hover:text-[#004d36] transition-colors bg-[#00694B]/10 px-3 py-1.5 rounded-full"
-              title="Download Tours CSV"
-            >
-              <Download size={16} />
-              <span className="hidden lg:inline text-xs">Export Tours</span>
-            </button> */}
-
-            {/* Phone (hidden on small mobile) */}
-            <a
-              href="tel:+50412345678"
-              className="hidden sm:flex items-center gap-1.5 text-sm font-semibold text-[#00694B] hover:text-[#004d36] transition-colors"
-            >
-              <Phone size={16} />
-              <span className="hidden lg:inline">+504 1234-5678</span>
+            {/* Mobile Phone Tap to Call */}
+            <a href="tel:+50412345678" className="md:hidden text-[#00694B] hover:text-[#004d36] transition-colors p-1" aria-label="Call us">
+              <Phone size={20} fill="currentColor" />
             </a>
+
+            {/* Build Your Adventure CTA */}
+            <motion.a
+                href="/plan"
+                animate={{
+                  borderColor: ['rgba(0, 105, 75, 1)', 'rgba(0, 105, 75, 0.2)', 'rgba(0, 105, 75, 1)'],
+                  boxShadow: ['0 0 8px 2px rgba(0, 105, 75, 0.6)', '0 0 2px 1px rgba(0, 105, 75, 0.1)', '0 0 8px 2px rgba(0, 105, 75, 0.6)'],
+                }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                className="text-xs sm:text-sm font-bold border-2 text-[#00694B] px-3 py-1.5 sm:px-4 sm:py-2 rounded-full flex items-center gap-1 sm:gap-2 whitespace-nowrap cursor-pointer hover:bg-gray-50 transition-colors"
+                style={{ backgroundColor: 'white' }}
+              >
+                �� <span className="hidden sm:inline">Build Your Adventure</span>
+                <span className="sm:hidden">Build</span>
+            </motion.a>
 
             {/* Hamburger – mobile only */}
             <button
-              className="md:hidden text-gray-700 hover:text-[#00694B] transition-colors"
+              className="md:hidden text-gray-700 hover:text-[#00694B] transition-colors p-1 ml-1"
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Open menu"
             >
@@ -372,111 +217,115 @@ const Header = () => {
           </div>
         </div>
 
-        {/* ── Secondary Green Bar (Desktop only) ── */}
-        <div className="hidden md:block border-t border-gray-100 bg-[#00694B] text-white">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="flex items-center justify-between h-10 text-sm font-semibold tracking-wide">
+        {/* ── Bottom Bar (Nav Strip) - Desktop Only ── */}
+        <div className="hidden md:block bg-[#00694B] text-white overflow-visible">
+          <div className="max-w-7xl mx-auto px-4 h-12 flex items-center justify-between">
+            {/* Left Links */}
+            <nav className="flex items-center gap-6">
+              {navLinksLeft.map((link) => {
+                const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href + '/'));
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className={`text-sm font-semibold tracking-wide transition-colors ${isActive ? 'text-white border-b-2 border-white pb-0.5' : 'text-white/80 hover:text-white'}`}
+                  >
+                    {link.label}
+                  </a>
+                );
+              })}
+            </nav>
 
-              <div className="flex items-center gap-8">
+            {/* Right Links + Search */}
+            <div className="flex items-center gap-6">
+               {/* Right Nav Links */}
+               <nav className="flex items-center gap-6">
+                {navLinksRight.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target={link.href.startsWith('http') ? '_blank' : undefined}
+                      rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="text-sm font-semibold tracking-wide transition-colors text-white/80 hover:text-white"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+               </nav>
+               
+               {/* Search - Using the existing search logic */}
+               <div ref={searchRef} className="relative flex items-center pl-2 border-l border-white/20">
+                  <div className={`relative flex items-center transition-all duration-300 ${searchOpen ? 'w-64' : 'w-5'}`}>
+                    <button
+                      onClick={() => setSearchOpen(true)}
+                      className="text-white hover:text-white/80 transition-colors relative z-10"
+                      aria-label="Toggle search"
+                    >
+                      <Search size={18} />
+                    </button>
 
-                {/* Shore Excursions */}
-                <div
-                  className="relative h-10 flex items-center cursor-pointer group"
-                  onMouseEnter={() => setActiveDropdown('excursions')}
-                  onMouseLeave={() => setActiveDropdown(null)}
-                >
-                  <div className="flex items-center gap-1 hover:text-gray-200 transition-colors">
-                    <span>ROATAN SHORE EXCURSIONS</span>
-                    <ChevronDown size={16} />
-                  </div>
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      placeholder="Search tours..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onKeyDown={(e) => { if (e.key === 'Escape') setSearchOpen(false); }}
+                      className={`absolute right-0 top-1/2 -translate-y-1/2 h-8 pl-8 pr-8 rounded-full border-none bg-white placeholder:text-gray-500 text-gray-800 focus:outline-none shadow-xl text-sm transition-all duration-300 ease-in-out ${
+                        searchOpen ? 'w-64 opacity-100 pointer-events-auto' : 'w-0 opacity-0 pointer-events-none'
+                      }`}
+                    />
 
-                  {activeDropdown === 'excursions' && (
-                    <div className="absolute top-10 left-0 w-fit min-w-[120px] bg-white text-gray-800 shadow-xl rounded-b-md border-t-2 border-[#004d36] animate-in fade-in slide-in-from-top-2 duration-200 z-50">
-                      <div className="grid grid-cols-7 gap-3 p-4 w-[580px]">
-                        {activities.length > 0 ? (
-                          activities.map((activity) => (
-                            <a
-                              key={activity._id}
-                              href={`/activities/${activity.slug}`}
-                              className="flex flex-col items-center gap-1.5 group/item w-[80px]"
-                            >
-                              <div className="relative w-[72px] h-[72px] rounded-2xl overflow-hidden  shadow-sm group-hover/item:shadow-md transition-all border border-gray-200">
-                                <Image
-                                  src={activity.iconImage || activity.image || '/images/placeholder.jpg'}
-                                  alt={activity.shortTitle || activity.title}
-                                  fill
-                                  className="object-cover group-hover/item:scale-110 transition-transform duration-300 p-1"
-                                />
-                              </div>
-                              <span className="text-[10px] font-semibold text-gray-700 text-center uppercase tracking-tight group-hover/item:text-[#00694B] leading-tight w-full">
-                                {activity.shortTitle || activity.title}
-                              </span>
-                            </a>
-                          ))
-                        ) : (
-                          <div className="p-4 text-center text-gray-500 text-sm">Loading activities...</div>
-                        )}
+                    {searchOpen && (
+                      <button
+                        onClick={() => {
+                          setSearchQuery('');
+                          setSearchOpen(false);
+                          setSearchResults([]);
+                        }}
+                        className={`absolute right-2 top-1/2 -translate-y-1/2 z-20 ${searchQuery ? 'text-gray-500 hover:text-gray-800' : 'text-gray-400 hover:text-gray-600'}`}
+                        aria-label="Close search"
+                      >
+                        <X size={14} />
+                      </button>
+                    )}
+
+                    {/* Search Results */}
+                    {searchOpen && (
+                      <div className="absolute top-10 right-0 w-80 bg-white rounded-md shadow-2xl border border-gray-200 overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200 text-left">
+                        <div className="max-h-96 overflow-y-auto">
+                          {(searchQuery ? searchResults : tours).length > 0 ? (
+                            (searchQuery ? searchResults : tours).map((tour) => (
+                              <a
+                                key={tour._id}
+                                href={`/product/${tour.slug}`}
+                                className="flex items-center gap-3 p-3 hover:bg-gray-50 border-b border-gray-100 last:border-0 transition-colors"
+                                onClick={() => setSearchOpen(false)}
+                              >
+                                <div className="relative w-12 h-12 shrink-0 rounded-md overflow-hidden bg-gray-100">
+                                  <Image
+                                    src={tour.image_url || '/images/placeholder.jpg'}
+                                    alt={tour.title}
+                                    fill
+                                    className="object-cover"
+                                  />
+                                </div>
+                                <div className="flex-1">
+                                  <h4 className="text-sm font-semibold text-gray-800 line-clamp-1">{tour.title}</h4>
+                                  <p className="text-xs text-[#00694B] font-medium">View Tour</p>
+                                </div>
+                              </a>
+                            ))
+                          ) : (
+                            <div className="p-4 text-center text-gray-500 text-sm">
+                              {searchQuery ? `No tours found matching "${searchQuery}"` : "Loading tours..."}
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Cruise Ports */}
-                <div
-                  className="relative h-10 flex items-center cursor-pointer group"
-                  onMouseEnter={() => setActiveDropdown('ports')}
-                  onMouseLeave={() => setActiveDropdown(null)}
-                >
-                  <div className="flex items-center gap-1 hover:text-gray-200 transition-colors">
-                    <span>ROATAN CRUISE PORTS</span>
-                    <ChevronDown size={16} />
+                    )}
                   </div>
-
-                  {activeDropdown === 'ports' && (
-                    <div className="absolute top-10 left-0 w-[900px] bg-white text-gray-800 shadow-xl rounded-b-md border-t-2 border-[#004d36] animate-in fade-in slide-in-from-top-2 duration-200 z-50">
-                      <div className="grid grid-cols-4 gap-6 p-6">
-                        <a href="/port-of-roatan" className="flex flex-col gap-2 group/item">
-                          <div className="relative w-full aspect-video rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
-                            <Image src="/images/Port of Roatan Western Caribbean.jpg.jpeg" alt="Port of Roatan" fill className="object-cover group-hover/item:scale-105 transition-transform duration-300" />
-                          </div>
-                          <span className="text-sm font-bold text-gray-700 text-center group-hover/item:text-[#00694B]">Port of Roatan (Coxen Hole)</span>
-                        </a>
-
-                        <a href="/port-of-roatan-cruise-ship-schedule" className="flex flex-col gap-2 group/item">
-                          <div className="relative w-full aspect-video rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
-                           <div className="relative w-full aspect-video rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
-                            <Image src="/images/Port of Roatan Cruise Ship Schedule.webp" alt="Isla Tropicale" fill className="object-cover group-hover/item:scale-105 transition-transform duration-300" />
-                          </div>
-                          </div>
-                          <span className="text-sm font-bold text-gray-700 text-center group-hover/item:text-[#00694B]">Port of Roatan Schedule</span>
-                        </a>
-
-                        <a href="/isla-tropicale-cruise-ship-port" className="flex flex-col gap-2 group/item">
-                          <div className="relative w-full aspect-video rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
-                            <Image src="/images/Isla Tropicale Cruise Ship Port Western Caribbean.jpg.jpeg" alt="Isla Tropicale" fill className="object-cover group-hover/item:scale-105 transition-transform duration-300" />
-                          </div>
-                          <span className="text-sm font-bold text-gray-700 text-center group-hover/item:text-[#00694B]">Isla Tropicale (Mahogany Bay)</span>
-                        </a>
-
-                        <a href="/isla-tropicale-cruise-ship-port-schedule" className="flex flex-col gap-2 group/item">
-                          <div className="relative w-full aspect-video rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
-                            <div className="relative w-full aspect-video rounded-md overflow-hidden bg-gray-100 shadow-sm group-hover/item:shadow-md transition-all">
-                            <Image src="/images/Isla Tropicale Cruise Ship Port Schedule.jpg.jpeg" alt="Isla Tropicale" fill className="object-cover group-hover/item:scale-105 transition-transform duration-300" />
-                          </div>
-                          </div>
-                          <span className="text-sm font-bold text-gray-700 text-center group-hover/item:text-[#00694B]">Isla Tropicale Schedule</span>
-                        </a>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Back to Ship Guarantee */}
-              <div className="flex items-center gap-2 text-white">
-                <ShieldCheck size={18} />
-                <span>BACK TO SHIP GUARANTEE</span>
-              </div>
+               </div>
             </div>
           </div>
         </div>
@@ -550,9 +399,8 @@ const Header = () => {
                         target={isExternal ? '_blank' : undefined}
                         rel={isExternal ? 'noopener noreferrer' : undefined}
                         onClick={closeMobileMenu}
-                        className={`flex items-center py-3 px-2 text-base font-medium border-b border-gray-100 transition-colors ${
-                          isActive ? 'text-[#00694B]' : 'text-gray-700 hover:text-[#00694B]'
-                        }`}
+                        className={`flex items-center py-3 px-2 text-base font-medium border-b border-gray-100 transition-colors ${isActive ? 'text-[#00694B]' : 'text-gray-700 hover:text-[#00694B]'
+                          }`}
                       >
                         {link.label}
                       </a>

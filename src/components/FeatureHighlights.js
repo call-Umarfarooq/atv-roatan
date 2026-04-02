@@ -124,7 +124,7 @@ const FeatureHighlights = () => {
 
           {/* ── Tablet & Desktop: grid ── */}
           <motion.div
-            className="hidden md:grid grid-cols-3 lg:grid-cols-6 gap-6 px-6 lg:px-8 py-8 md:py-10 justify-items-center"
+            className="hidden md:grid grid-cols-3 lg:grid-cols-6 gap-6 px-6 lg:px-8 py-5 md:py-6 justify-items-center"
             variants={containerVariants}
             initial="hidden"
             whileInView="show"
@@ -137,7 +137,7 @@ const FeatureHighlights = () => {
                 className="flex flex-col items-center text-center group w-full"
               >
                 {/* Icon circle */}
-                <div className="mb-4 w-24 h-24 rounded-full bg-white shadow-md flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
+                <div className="mb-2 w-24 h-24 rounded-full bg-white shadow-md flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
                   <div className="relative w-14 h-14">
                     <Image
                       src={feature.image}
