@@ -15,6 +15,8 @@ const navLinksLeft = [
   { label: 'Categories', href: '/category' },
   { label: 'Gallery', href: '/gallery' },
   { label: 'Gift Cards', href: '/gift-cards' },
+  { label: 'Roatan Shore Excursions', type: 'dropdown_excursions' },
+  { label: 'Roatan Cruise Ports', type: 'dropdown' },
 ];
 
 const navLinksRight = [
@@ -155,7 +157,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="w-full border-b border-gray-200 bg-white sticky top-0 z-[60]">
+      <header className="w-full bg-[#0B1E14] sticky top-0 z-[60]">
         {/* ── Top Bar (Utility) ── */}
         <div className="max-w-7xl mx-auto px-4 h-20 sm:h-[72px] flex items-center justify-between gap-2 sm:gap-4">
           
@@ -170,8 +172,8 @@ const Header = () => {
                 className="object-contain w-10 h-10 sm:w-[50px] sm:h-[50px]"
               />
               <div className="flex flex-col">
-                <span className="text-[#00694B] font-bold text-sm sm:text-[18px] leading-tight">Roatan Eco-Adventures</span>
-                <span className="text-gray-500 text-[9px] sm:text-xs leading-tight">Roatan ATV, Buggy &amp; Golf Car Adventure</span>
+                <span className="text-[#F5A623] font-bold text-sm sm:text-[18px] leading-tight">Roatan Eco-Adventures</span>
+                <span className="text-[#8CB399] text-[9px] sm:text-xs leading-tight">Roatan ATV, Buggy &amp; Golf Car Adventure</span>
               </div>
             </a>
           </div>
@@ -180,14 +182,14 @@ const Header = () => {
           <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             {/* Phone + Hours (Desktop Only) */}
             <div className="hidden md:flex flex-col items-end mr-2">
-              <a href="tel:+50412345678" className="text-[#00694B] font-bold text-lg hover:text-[#004d36] transition-colors flex items-center gap-1.5">
+              <a href="tel:+50412345678" className="text-[#F5A623] font-bold text-lg hover:text-[#d98f1c] transition-colors flex items-center gap-1.5">
                 <Phone size={18} fill="currentColor" /> +504 1234-5678
               </a>
-              <span className="text-gray-500 text-xs font-medium">Open Daily · 7 AM – 6 PM</span>
+              <span className="text-[#8CB399] text-xs font-medium">Open Daily · 7 AM – 6 PM</span>
             </div>
 
             {/* Mobile Phone Tap to Call */}
-            <a href="tel:+50412345678" className="md:hidden text-[#00694B] hover:text-[#004d36] transition-colors p-1" aria-label="Call us">
+            <a href="tel:+50412345678" className="md:hidden text-[#F5A623] hover:text-[#d98f1c] transition-colors p-1" aria-label="Call us">
               <Phone size={20} fill="currentColor" />
             </a>
 
@@ -195,12 +197,11 @@ const Header = () => {
             <motion.a
                 href="/plan"
                 animate={{
-                  borderColor: ['rgba(0, 105, 75, 1)', 'rgba(0, 105, 75, 0.2)', 'rgba(0, 105, 75, 1)'],
-                  boxShadow: ['0 0 8px 2px rgba(0, 105, 75, 0.6)', '0 0 2px 1px rgba(0, 105, 75, 0.1)', '0 0 8px 2px rgba(0, 105, 75, 0.6)'],
+                  boxShadow: ['0 0 15px 2px rgba(245, 166, 35, 0.6)', '0 0 4px 1px rgba(245, 166, 35, 0.2)', '0 0 15px 2px rgba(245, 166, 35, 0.6)'],
                 }}
                 transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                className="text-xs sm:text-sm font-bold border-2 text-[#00694B] px-3 py-1.5 sm:px-4 sm:py-2 rounded-full flex items-center gap-1 sm:gap-2 whitespace-nowrap cursor-pointer hover:bg-gray-50 transition-colors"
-                style={{ backgroundColor: 'white' }}
+                className="text-xs sm:text-sm font-bold text-[#0B1E14] px-3 py-1.5 sm:px-4 sm:py-2 rounded-full flex items-center gap-1 sm:gap-2 whitespace-nowrap cursor-pointer hover:opacity-90 transition-opacity"
+                style={{ backgroundColor: '#F5A623' }}
               >
                 �� <span className="hidden sm:inline">Build Your Adventure</span>
                 <span className="sm:hidden">Build</span>
@@ -208,7 +209,7 @@ const Header = () => {
 
             {/* Hamburger – mobile only */}
             <button
-              className="md:hidden text-gray-700 hover:text-[#00694B] transition-colors p-1 ml-1"
+              className="md:hidden text-[#F5A623] hover:opacity-80 transition-opacity p-1 ml-1"
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Open menu"
             >
@@ -218,17 +219,107 @@ const Header = () => {
         </div>
 
         {/* ── Bottom Bar (Nav Strip) - Desktop Only ── */}
-        <div className="hidden md:block bg-[#00694B] text-white overflow-visible">
+        <div className="hidden md:block bg-[#123321] text-white overflow-visible">
           <div className="max-w-7xl mx-auto px-4 h-12 flex items-center justify-between">
             {/* Left Links */}
             <nav className="flex items-center gap-6">
               {navLinksLeft.map((link) => {
-                const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href + '/'));
+                if (link.type === 'dropdown' || link.type === 'dropdown_excursions') {
+                  const isExcursions = link.type === 'dropdown_excursions';
+                  const dropdownId = isExcursions ? 'excursions' : 'ports';
+                  
+                  const isActive = !isExcursions && pathname && (
+                    pathname.startsWith('/port-of-roatan') ||
+                    pathname.startsWith('/isla-tropicale')
+                  );
+                  return (
+                    <div
+                      key={link.label}
+                      className="relative flex items-center h-full"
+                      onMouseEnter={() => setActiveDropdown(dropdownId)}
+                      onMouseLeave={() => setActiveDropdown(null)}
+                    >
+                      <button className={`flex items-center gap-1 text-sm font-semibold tracking-wide transition-colors py-2 ${activeDropdown === dropdownId || isActive ? 'text-[#F5A623]' : 'text-[#8CB399] hover:text-[#F5A623]'}`}>
+                        {link.label}
+                        <ChevronDown size={14} className={`transition-transform duration-200 ${activeDropdown === dropdownId ? 'rotate-180' : ''}`} />
+                      </button>
+                      
+                      <AnimatePresence>
+                        {activeDropdown === dropdownId && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 10 }}
+                            transition={{ duration: 0.2 }}
+                            className={`absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50 ${isExcursions ? 'w-[770px] max-w-[95vw]' : 'w-[540px]'}`}
+                          >
+                            <div className={`bg-white rounded-xl shadow-2xl p-4 grid ${isExcursions ? 'grid-cols-7 gap-3' : 'grid-cols-4 gap-4'} border border-gray-100 relative`}>
+                              <div className="absolute -top-[8px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[8px] border-b-white" />
+                              
+                              {isExcursions ? (
+                                activities.length > 0 ? (
+                                  activities.slice(0, 7).map((activity) => (
+                                    <a
+                                      key={activity._id}
+                                      href={`/activities/${activity.slug}`}
+                                      className="flex flex-col items-center gap-2 group/card"
+                                    >
+                                      <div className="relative w-full aspect-square rounded-lg overflow-hidden bg-gray-100 shadow-sm group-hover/card:shadow-md transition-shadow">
+                                        <Image
+                                          src={activity.iconImage || activity.image || '/images/placeholder.jpg'}
+                                          alt={activity.shortTitle || activity.title}
+                                          fill
+                                          className="object-cover group-hover/card:scale-105 transition-transform duration-300"
+                                        />
+                                      </div>
+                                      <span className="text-[10px] font-bold text-gray-800 text-center uppercase leading-tight group-hover/card:text-[#00694B] transition-colors">{activity.shortTitle || activity.title}</span>
+                                    </a>
+                                  ))
+                                ) : (
+                                  <div className="col-span-7 text-center text-sm text-gray-500 py-4">Loading excursions...</div>
+                                )
+                              ) : (
+                                <>
+                                  <a href="/port-of-roatan" className="flex flex-col gap-2 group/card">
+                                    <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-gray-100 shadow-sm group-hover/card:shadow-md transition-shadow">
+                                      <Image src="/images/hero.png" alt="Port of Roatan" fill className="object-cover group-hover/card:scale-105 transition-transform duration-300" />
+                                    </div>
+                                    <span className="text-[11px] font-bold text-gray-800 text-center group-hover/card:text-[#00694B] transition-colors leading-tight">Port of Roatan</span>
+                                  </a>
+                                  <a href="/port-of-roatan-cruise-ship-schedule" className="flex flex-col gap-2 group/card">
+                                    <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-blue-50 flex items-center justify-center group-hover/card:bg-blue-100 transition-colors shadow-sm group-hover/card:shadow-md">
+                                      <span className="text-3xl group-hover/card:scale-110 transition-transform duration-300">📅</span>
+                                    </div>
+                                    <span className="text-[11px] font-bold text-gray-800 text-center group-hover/card:text-[#00694B] transition-colors leading-tight">Roatan Schedule</span>
+                                  </a>
+                                  <a href="/isla-tropicale-cruise-ship-port" className="flex flex-col gap-2 group/card">
+                                    <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-gray-100 shadow-sm group-hover/card:shadow-md transition-shadow">
+                                      <Image src="/images/hero.png" alt="Isla Tropicale" fill className="object-cover group-hover/card:scale-105 transition-transform duration-300" />
+                                    </div>
+                                    <span className="text-[11px] font-bold text-gray-800 text-center group-hover/card:text-[#00694B] transition-colors leading-tight">Isla Tropicale</span>
+                                  </a>
+                                  <a href="/isla-tropicale-cruise-ship-port-schedule" className="flex flex-col gap-2 group/card">
+                                    <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-green-50 flex items-center justify-center group-hover/card:bg-green-100 transition-colors shadow-sm group-hover/card:shadow-md">
+                                      <span className="text-3xl group-hover/card:scale-110 transition-transform duration-300">📅</span>
+                                    </div>
+                                    <span className="text-[11px] font-bold text-gray-800 text-center group-hover/card:text-[#00694B] transition-colors leading-tight">Tropicale Schedule</span>
+                                  </a>
+                                </>
+                              )}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  );
+                }
+
+                const isActive = pathname === link.href || (link.href !== '/' && pathname?.startsWith(link.href + '/'));
                 return (
                   <a
                     key={link.label}
                     href={link.href}
-                    className={`text-sm font-semibold tracking-wide transition-colors ${isActive ? 'text-white border-b-2 border-white pb-0.5' : 'text-white/80 hover:text-white'}`}
+                    className={`text-sm font-semibold tracking-wide transition-colors ${isActive ? 'text-[#F5A623] border-b-2 border-[#F5A623] pb-0.5' : 'text-[#8CB399] hover:text-[#F5A623]'}`}
                   >
                     {link.label}
                   </a>
@@ -246,7 +337,7 @@ const Header = () => {
                       href={link.href}
                       target={link.href.startsWith('http') ? '_blank' : undefined}
                       rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="text-sm font-semibold tracking-wide transition-colors text-white/80 hover:text-white"
+                      className="text-sm font-semibold tracking-wide transition-colors text-[#8CB399] hover:text-[#F5A623]"
                     >
                       {link.label}
                     </a>
@@ -254,11 +345,11 @@ const Header = () => {
                </nav>
                
                {/* Search - Using the existing search logic */}
-               <div ref={searchRef} className="relative flex items-center pl-2 border-l border-white/20">
+               <div ref={searchRef} className="relative flex items-center pl-2 border-l border-[#8CB399]/20">
                   <div className={`relative flex items-center transition-all duration-300 ${searchOpen ? 'w-64' : 'w-5'}`}>
                     <button
                       onClick={() => setSearchOpen(true)}
-                      className="text-white hover:text-white/80 transition-colors relative z-10"
+                      className="text-[#8CB399] hover:text-[#F5A623] transition-colors relative z-10"
                       aria-label="Toggle search"
                     >
                       <Search size={18} />
@@ -373,8 +464,9 @@ const Header = () => {
                 {/* Main Nav Links */}
                 <nav className="px-4 mb-4">
                   {navLinks.map((link) => {
-                    const isExternal = link.href.startsWith('http');
-                    const isActive = !isExternal && (
+                    if (link.type === 'dropdown' || link.type === 'dropdown_excursions') return null; // Handled below in accordions
+                    const isExternal = link.href?.startsWith('http');
+                    const isActive = !isExternal && link.href && (
                       link.href === '/'
                         ? pathname === '/'
                         : pathname === link.href || pathname.startsWith(link.href + '/')

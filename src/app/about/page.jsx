@@ -13,7 +13,7 @@ const AboutPage = () => {
       {/* 1. Hero Section */}
       <section className="relative w-full h-[40vh] md:h-[50vh] min-h-[350px] md:min-h-[400px]">
         <Image
-          src="/images/about-us.webp"
+          src="/images/about-us-bg-img.png"
           alt="About Roatan ATV Tours"
           fill
           priority

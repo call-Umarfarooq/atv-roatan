@@ -4,6 +4,7 @@ import TourCard from './TourCard';
 
 export default function PopularTours({ initialTours,titlename }) {
   const [sortBy, setSortBy] = useState('default');
+  const [visibleCount, setVisibleCount] = useState(15);
 
   const sortedTours = useMemo(() => {
     let sorted = [...initialTours];
@@ -15,10 +16,12 @@ export default function PopularTours({ initialTours,titlename }) {
     return sorted;
   }, [initialTours, sortBy]);
 
+  const displayedTours = sortedTours.slice(0, visibleCount);
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 pb-12">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
-        <h2 className="text-3xl capitalize font-bold text-[#1a1a1a]">Best {titlename} Tours</h2>
+        <h2 className="text-3xl capitalize font-bold text-[#1a1a1a]">{titlename ? `Best ${titlename} Tours` : 'Best Tours'}</h2>
         
         <div className="relative">
           <select
@@ -39,7 +42,7 @@ export default function PopularTours({ initialTours,titlename }) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {sortedTours.map(tour => (
+        {displayedTours.map(tour => (
           <div key={tour._id} className="h-full">
             <TourCard 
                 title={tour.title}
@@ -47,7 +50,7 @@ export default function PopularTours({ initialTours,titlename }) {
                 price={tour.adultPrice || tour.base_price}
                 duration={tour.duration}
                 slug={tour.slug}
-                 gallery={tour.gallery}
+                gallery={tour.gallery}
                 location={tour.marketing_badges?.location_text}
                 rating={tour.marketing_badges?.stars}
                 reviews={tour.marketing_badges?.reviews_text?.replace(/\D/g, '') || 0}
@@ -56,6 +59,17 @@ export default function PopularTours({ initialTours,titlename }) {
           </div>
         ))}
       </div>
+
+      {visibleCount < sortedTours.length && (
+        <div className="mt-12 flex justify-center">
+          <button 
+            onClick={() => setVisibleCount(prev => prev + 15)}
+            className="bg-[#00694B] text-white px-8 py-3 rounded-full font-bold shadow-md hover:bg-[#005a3c] transition-colors"
+          >
+            View More
+          </button>
+        </div>
+      )}
     </div>
   );
 }

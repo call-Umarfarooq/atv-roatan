@@ -17,11 +17,19 @@ export default async function GiftCardsPage() {
 
   return (
     <main className="bg-gray-50 min-h-screen pb-20">
-      <div className="bg-[#00694B] text-white py-16 px-4 text-center">
-         <StaggeredTextReveal el="h1" className="text-4xl md:text-5xl font-bold mb-4" text="Give the Gift of Adventure" />
-         <p className="text-lg opacity-90 max-w-2xl mx-auto">
-            Surprise your loved ones with an unforgettable experience in Roatan. Our gift cards never expire and can be used on any tour!
-         </p>
+      <div className="relative w-full h-[40vh] min-h-[300px] md:h-[50vh] md:min-h-[350px] flex flex-col items-center justify-center text-white px-4 text-center overflow-hidden">
+         <img 
+            src="/images/gift-image.png" 
+            alt="ATV Roatan Gift Cards" 
+            className="absolute inset-0 w-full h-full object-cover" 
+         />
+         <div className="absolute inset-0 bg-black/40"></div>
+         <div className="relative z-10 w-full max-w-4xl mx-auto">
+            <StaggeredTextReveal el="h1" className="text-4xl md:text-5xl font-bold mb-4 drop-shadow-lg" text="Give the Gift of Adventure" />
+            <p className="text-lg opacity-90 max-w-2xl mx-auto drop-shadow-md">
+               Surprise your loved ones with an unforgettable experience in Roatan. Our gift cards never expire and can be used on any tour!
+            </p>
+         </div>
       </div>
 
       <div className="max-w-6xl mx-auto px-4 mt-12">

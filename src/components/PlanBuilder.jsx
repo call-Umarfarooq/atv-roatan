@@ -249,8 +249,20 @@ export default function PlanBuilder() {
     <div className="min-h-screen bg-gradient-to-br from-[#f0fdf6] via-white to-[#f0f9ff]">
 
       {/* Hero Header */}
-      <div className="bg-[#00694B] text-white py-10 px-4">
-        <div className="max-w-5xl mx-auto text-center">
+      <div className="relative text-white py-14 px-4 overflow-hidden">
+        {/* Background Image & Overlay */}
+        <div 
+          className="absolute inset-0 z-0 bg-[#00694B]"
+          style={{
+            backgroundImage: "url('/images/plan-bg.png')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        >
+          <div className="absolute inset-0 bg-black/50"></div>
+        </div>
+
+        <div className="relative z-10 max-w-5xl mx-auto text-center">
           <span className="text-sm font-bold uppercase tracking-widest text-green-200 block mb-2">Build Your Own Adventure</span>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3">Design Your Perfect Roatan Stay</h1>
           <p className="text-green-100 max-w-xl mx-auto text-sm sm:text-base">

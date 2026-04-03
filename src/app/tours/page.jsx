@@ -79,6 +79,9 @@ export default async function AllToursPage({ searchParams }) {
   let query = '';
   try {
     const dbConnect = (await import('@/lib/db')).default;
+    // Explicitly import related models to prevent MissingSchemaError on isolated loads
+    await import('@/models/Activity');
+    await import('@/models/Category');
     const Tour = (await import('@/models/Tour')).default;
     await dbConnect();
 
@@ -88,16 +91,14 @@ export default async function AllToursPage({ searchParams }) {
     const resolvedSearchParams = await searchParams;
     query = resolvedSearchParams?.search || '';
     
-    let filter = {};
+    let filter = { status: { $in: ['approved', 'active', null, undefined] } };
     if (query) {
-      filter = {
-        $or: [
-          { title: { $regex: query, $options: 'i' } },
-          { description: { $regex: query, $options: 'i' } },
-          { 'marketing_badges.location_text': { $regex: query, $options: 'i' } },
-          { tags: { $regex: query, $options: 'i' } }
-        ]
-      };
+      filter.$or = [
+        { title: { $regex: query, $options: 'i' } },
+        { description: { $regex: query, $options: 'i' } },
+        { 'marketing_badges.location_text': { $regex: query, $options: 'i' } },
+        { tags: { $regex: query, $options: 'i' } }
+      ];
     }
 
     const toursRaw = await Tour.find(filter).lean();
@@ -111,7 +112,7 @@ export default async function AllToursPage({ searchParams }) {
       {/* Hero Section */}
       <div className="relative w-full h-[40vh] min-h-[300px] md:h-[60vh] md:min-h-[400px]">
         <img
-          src="/images/hero.png"
+          src="/images/all-tours-img.png"
           alt="All Roatan Tours"
           className="w-full h-full object-cover"
         />

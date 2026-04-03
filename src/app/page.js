@@ -110,7 +110,7 @@ export default async function Home() {
   return (
     <main className="bg-white ">
       {/* Hero Section */}
-      <section className="relative w-full min-h-[60vh] sm:min-h-[70vh] flex items-center justify-center pt-16 pb-8">
+      <section className="relative w-full min-h-[60vh] sm:min-h-[60vh] flex items-center justify-center pb-8">
         <video
           id="hero-bg-video"
           src="/images/atv-video.mp4"
@@ -125,36 +125,36 @@ export default async function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
 
         {/* Text content */}
-        <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center px-4 sm:px-8 mt-4">
+        <div className="relative z-10 w-full max-w-[68rem] mx-auto flex flex-col items-center justify-center text-center px-4 sm:px-8 mt-4">
           
           {/* Top Label */}
-          <span className="block text-white/90 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] mb-2 sm:mb-2 drop-shadow-md">
+          <span className="block text-white/90 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em]  drop-shadow-md">
             Operated By Roatan Eco-Adventures
           </span>
 
           {/* Main Title */}
           <StaggeredTextReveal
             el="h1"
-            className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold tracking-tight mb-2 sm:mb-2 drop-shadow-lg leading-tight"
+            className="text-white  text-3xl sm:text-3xl md:text-4xl  leading-[1.1] lg:leading-[60px] font-[500] tracking-[0.2px] mb-3 lg:mb-0 drop-shadow-lg capitalize"
             text="Roatan's Most Fun Eco-Adventure on Wheels"
           />
 
           {/* Sub-headline */}
-          <p className="text-white/90 text-sm sm:text-base md:text-lg font-medium max-w-3xl mb-6 sm:mb-8 drop-shadow-md leading-relaxed">
+          <p className="text-white/90 text-sm md:text-lg leading-relaxed transition-all duration-300 opacity-100 relative z-10">
             Ride ATVs, buggies and golf carts through Roatan's jungle trails and ocean-view roads with small groups, local guides and flexible tour times.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-8 sm:mb-10 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-6 mt-2 w-full sm:w-auto">
             <a
               href="/plan"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 sm:py-4 rounded-full text-sm sm:text-base font-bold text-white bg-[#00694B] hover:bg-[#005a3c] shadow-[0_0_20px_rgba(0,105,75,0.4)] hover:shadow-[0_0_25px_rgba(0,105,75,0.6)] transition-all duration-300 hover:scale-[1.02]"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-1.5 sm:py-1.5 rounded-full text-sm sm:text-base font-bold text-white bg-[#00694B] hover:bg-[#005a3c] shadow-[0_0_20px_rgba(0,105,75,0.4)] hover:shadow-[0_0_25px_rgba(0,105,75,0.6)] transition-all duration-300 hover:scale-[1.02]"
             >
               <span className="text-xl">🧭</span> Build Your Adventure
             </a>
             <a
               href="/tours"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 sm:py-4 rounded-full text-sm sm:text-base font-bold text-white bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/40 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-1.5 sm:py-1.5 rounded-full text-sm sm:text-base font-bold text-white bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/40 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
             >
               View All Tours
             </a>
@@ -170,18 +170,18 @@ export default async function Home() {
           </div>
           
           {/* 3-Step Build Your Adventure Strip (above fold) */}
-          <div className="w-full max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 mt-2 sm:mt-4 relative z-20 pb-8">
-             <Link href="/plan" className="group flex flex-col items-center px-4 py-3 rounded-2xl bg-white/15 hover:bg-white/25 border border-white/20 backdrop-blur-md transition-all duration-300 hover:-translate-y-1">
+          <div className="w-full max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-3 mt-1 sm:mt-4 relative z-20 pb-8">
+             <Link href="/plan" className="group flex flex-col items-center px-4 py-2 rounded-2xl bg-white/15 hover:bg-white/25 border border-white/20 backdrop-blur-md transition-all duration-300 hover:-translate-y-1">
                 <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">🏍️</div>
                 <h3 className="text-white font-bold text-base mb-0.5">1. Choose your ride</h3>
                 <p className="text-white/80 text-xs">ATV · Buggy · Golf Cart</p>
              </Link>
-             <Link href="/plan" className="group flex flex-col items-center px-4 py-3 rounded-2xl bg-white/15 hover:bg-white/25 border border-white/20 backdrop-blur-md transition-all duration-300 hover:-translate-y-1">
+             <Link href="/plan" className="group flex flex-col items-center px-4 py-1 rounded-2xl bg-white/15 hover:bg-white/25 border border-white/20 backdrop-blur-md transition-all duration-300 hover:-translate-y-1">
                 <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">🗺️</div>
                 <h3 className="text-white font-bold text-base mb-0.5">2. Pick your route</h3>
                 <p className="text-white/80 text-xs">Jungle · Beach · Combo</p>
              </Link>
-             <Link href="/plan" className="group flex flex-col items-center px-4 py-3 rounded-2xl bg-white/15 hover:bg-white/25 border border-white/20 backdrop-blur-md transition-all duration-300 hover:-translate-y-1">
+             <Link href="/plan" className="group flex flex-col items-center px-4 py-1 rounded-2xl bg-white/15 hover:bg-white/25 border border-white/20 backdrop-blur-md transition-all duration-300 hover:-translate-y-1">
                 <div className="text-2xl mb-1 group-hover:scale-110 transition-transform">🕐</div>
                 <h3 className="text-white font-bold text-base mb-0.5">3. Select time &amp; ship</h3>
                 <p className="text-white/80 text-xs">Morning · Midday · Afternoon</p>
