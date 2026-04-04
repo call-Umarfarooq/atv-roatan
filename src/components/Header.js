@@ -170,11 +170,11 @@ const Header = () => {
           <div className="shrink-0 flex items-center">
             <a href="/" className="flex items-center gap-2 sm:gap-3">
               <Image
-                src="/images/roatan-Eco-Adventures-logo .webp"
+                src="/images/logo-atv.jpeg"
                 alt="Roatan Eco-Adventures"
                 width={50}
                 height={50}
-                className="object-contain w-10 h-10 sm:w-[50px] sm:h-[50px]"
+                className="object-contain w-10 h-10 sm:w-[50px] rounded-full sm:h-[50px]"
               />
               <div className="flex flex-col">
                 <span className="text-[#F5A623] font-bold text-sm sm:text-[18px] leading-tight">Roatan Eco-Adventures</span>
@@ -436,9 +436,14 @@ const Header = () => {
                                     className="object-cover"
                                   />
                                 </div>
-                                <div className="flex-1">
-                                  <h4 className="text-sm font-semibold text-gray-800 line-clamp-1">{tour.title}</h4>
-                                  <p className="text-xs text-[#00694B] font-medium">View Tour</p>
+                                <div className="flex-1 flex flex-col justify-center">
+                                  <h4 className="text-sm font-[400] text-gray-800 line-clamp-1">{tour.title}</h4>
+                                  <div className="flex items-center justify-between mt-0.5">
+                                    <p className="text-xs text-[#00694B] font-medium">View Tour</p>
+                                    {(tour.adultPrice || tour.base_price) && (
+                                      <p className="text-xs font-bold text-gray-700"><span className="text-xs font-bold text-gray-700">From</span> ${tour.adultPrice || tour.base_price}</p>
+                                    )}
+                                  </div>
                                 </div>
                               </a>
                             ))

@@ -40,8 +40,7 @@ const WhyChooseUs = () => {
     <section className="py-10 bg-white">
       {/* Why Choose Us Banner - Full Width */}
       <div 
-        className="relative overflow-hidden mb-10 bg-[length:100%_100%] bg-center bg-no-repeat shadow-md w-full"
-        style={{ backgroundImage: "url('/images/why-choose-bg.jpeg')" }}
+        className="relative overflow-hidden mb-10 bg-[length:100%_100%] bg-center bg-no-repeat shadow-md w-full bg-[url('/images/why-choose-bg-mobile.png')] sm:bg-[url('/images/why-choose-bg.jpeg')]"
       >
         {/* Inner outline to mimic the double border in the image */}
         <div className="absolute inset-y-[3px]  pointer-events-none w-full"></div>
