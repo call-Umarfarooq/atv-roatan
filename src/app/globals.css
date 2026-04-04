@@ -147,15 +147,24 @@ input, textarea, [contenteditable="true"] {
 }
 
 /* ── Global H1 Desktop Typography ── */
-@media (min-width: 1024px) {
+.h11{
+font-size: 16px;
+font-weight: 400;
+line-height: 24px;
+}
+
+@media (min-width: 768px) {
   .h11 {
-    font-size: 60px;
-    font-style: normal;
-    font-weight: 500;
-    letter-spacing: 0.2px;
-    line-height: 72px;
-    margin-block-end: 0px;
+font-size: 20px !important;
+font-weight: 400 !important; 
+line-height: 30px !important;
   }
+}
+
+.spantext{
+  font-size: 12px;
+font-weight: 400;
+line-height: 19.2px;
 }
 
 /* ── Global H2 Desktop Typography ── */
@@ -172,10 +181,41 @@ input, textarea, [contenteditable="true"] {
 /* ── Global Paragraph Desktop Typography ── */
 @media (min-width: 1024px) {
   p {
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    letter-spacing: 0.05px;
-    line-height: 24px;
+    font-size: 14px;
+font-weight: 400;
+line-height: 20px;
   }
+}
+
+.buttontext{
+font-weight: 700;
+font-size: 13px;
+line-height: 20px;
+}
+
+.category-btn {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 9999px;
+  letter-spacing: -0.015em;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .category-btn {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    font-size: 14px;
+  }
+}
+
+
+.highlightt{
+font-size: 12px;
+font-weight: 700;
 }

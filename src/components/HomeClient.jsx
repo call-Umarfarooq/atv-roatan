@@ -74,7 +74,7 @@ const HomeClient = ({ initialTours, categories, moreCategories = [] }) => {
           <div className="text-center mb-5 md:mb-8">
             <StaggeredTextReveal
               el="h2"
-              className="text-2xl sm:text-3xl md:text-4xl font-uber-move font-bold text-[#1a1a1a] mb-2 md:mb-4"
+              className="h11 font-uber-move  text-[#1a1a1a] mb-2 md:mb-4"
               text="Choose Your Adventure"
             />
 
@@ -102,7 +102,7 @@ const HomeClient = ({ initialTours, categories, moreCategories = [] }) => {
           <div className="flex justify-center flex-wrap gap-2 px-1 pb-1">
               <button
                 onClick={() => setSelectedCategory('All')}
-                className={`px-4 sm:px-6 py-1 sm:py-1.5 text-[14px] sm:text-[19px] rounded-full font-[410] tracking-tight transition-all whitespace-nowrap ${
+                className={`px-4 sm:px-6 category-btn ${
                   selectedCategory === 'All'
                     ? 'bg-[#00694B] text-white shadow-md'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -114,7 +114,7 @@ const HomeClient = ({ initialTours, categories, moreCategories = [] }) => {
                 <button
                   key={category._id}
                   onClick={() => setSelectedCategory(category._id)}
-                  className={`px-4 sm:px-6 py-1 sm:py-1.5 text-[13px] sm:text-sm rounded-full font-semibold tracking-tight transition-all whitespace-nowrap ${
+                  className={`px-4 sm:px-6 category-btn ${
                     selectedCategory === category._id
                       ? 'bg-[#00694B] text-white shadow-md'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -127,7 +127,7 @@ const HomeClient = ({ initialTours, categories, moreCategories = [] }) => {
                 <div className="relative inline-block">
                   <button
                     onClick={() => setShowMore(!showMore)}
-                    className={`px-4 sm:px-6 py-1 sm:py-1.5 text-[13px] sm:text-sm rounded-full font-semibold tracking-tight transition-all whitespace-nowrap border flex items-center gap-1 ${
+                    className={`px-4 sm:px-6 category-btn border flex items-center gap-1 ${
                       showMore || moreCategories.some(c => c._id === selectedCategory)
                         ? 'bg-gray-100 border-gray-300 text-gray-800'
                         : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'

@@ -128,14 +128,14 @@ export default async function Home() {
         <div className="relative z-10 w-full max-w-[68rem] mx-auto flex flex-col items-center justify-center text-center px-4 sm:px-8 mt-4">
           
           {/* Top Label */}
-          <span className="block text-white/90 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em]  drop-shadow-md">
+          <span className="block text-white/90 spantext uppercase tracking-[0.2em]  drop-shadow-md">
             Operated By Roatan Eco-Adventures
           </span>
 
           {/* Main Title */}
           <StaggeredTextReveal
             el="h1"
-            className="text-white  text-3xl sm:text-3xl md:text-4xl  leading-[1.1] lg:leading-[60px] font-[500] tracking-[0.2px] mb-3 lg:mb-0 drop-shadow-lg capitalize"
+            className="text-white h11 mb-3 lg:mb-0 drop-shadow-lg capitalize"
             text="Roatan's Most Fun Eco-Adventure on Wheels"
           />
 
@@ -148,13 +148,13 @@ export default async function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-6 mt-2 w-full sm:w-auto">
             <a
               href="/plan"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-1.5 sm:py-1.5 rounded-full text-sm sm:text-base font-bold text-white bg-[#00694B] hover:bg-[#005a3c] shadow-[0_0_20px_rgba(0,105,75,0.4)] hover:shadow-[0_0_25px_rgba(0,105,75,0.6)] transition-all duration-300 hover:scale-[1.02]"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-1.5 sm:py-1.5 buttontext rounded-full  text-white bg-[#00694B] hover:bg-[#005a3c] shadow-[0_0_20px_rgba(0,105,75,0.4)] hover:shadow-[0_0_25px_rgba(0,105,75,0.6)] transition-all duration-300 hover:scale-[1.02]"
             >
-              <span className="text-xl">🧭</span> Build Your Adventure
+              <span className="">🧭</span> Build Your Adventure
             </a>
             <a
               href="/tours"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-1.5 sm:py-1.5 rounded-full text-sm sm:text-base font-bold text-white bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/40 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-8  rounded-full py-1.5 buttontext text-white bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/40 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
             >
               View All Tours
             </a>

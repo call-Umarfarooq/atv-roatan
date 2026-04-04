@@ -201,7 +201,7 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
             </h1>
 
             {/* Badges & Rating Row */}
-            <div className="flex flex-wrap items-center text-[13.5px] mb-6 gap-x-2.5">
+            <div className="flex flex-wrap items-center highlightt mb-6 gap-x-2.5">
               {/* Ratings */}
               {tour.marketing_badges?.stars && (
                 <div className="flex items-center">
@@ -331,7 +331,7 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
                   {images.length > 4 && (
                     <button
                       onClick={() => setShowMoreGallery(v => !v)}
-                      className="relative w-full h-[44px] rounded-full overflow-hidden cursor-pointer bg-[#00694B] text-white flex items-center justify-center gap-1.5 font-bold text-xs hover:bg-[#1f4232] transition-colors shrink-0"
+                      className="relative w-full rounded-full overflow-hidden cursor-pointer bg-[#00694B] text-white flex items-center justify-center gap-1.5 buttontext py-1.5 hover:bg-[#1f4232] transition-colors shrink-0"
                     >
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
                       See More 
@@ -391,8 +391,8 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
              {/* Content Placeholders for Sections */}
             {/* Overview */}
             <section>
-              <h2 className="sm:text-2xl sm:font-bold text-[20px] font-medium text-[#1a1a1a]">Overview</h2>
-              <p className="text-[#1a1a1a] leading-relaxed mb-6 text-[16px]">
+              <h2 className="h11 text-[#1a1a1a]">Overview</h2>
+              <p className="text-[#1a1a1a] leading-relaxed mb-6 spantext">
                 {tour.description}
               </p>
             </section>
@@ -405,7 +405,7 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
                 className="flex items-center justify-between cursor-pointer group sm:mb-4 mb-2"
                 onClick={() => toggleSection('whatsIncluded')}
               >
-                  <h2 className="sm:text-2xl sm:font-bold text-[20px] font-medium text-[#1a1a1a] group-hover:underline">What's Included</h2>
+                  <h2 className="h11 text-[#1a1a1a] group-hover:underline">What's Included</h2>
                   <ChevronDown className={`group-hover:text-gray-600 transition-transform duration-300 ${expandedSections.whatsIncluded ? 'rotate-180' : ''}`} />
               </div>
               <div className={`grid transition-[grid-template-rows] duration-500 ease-in-out ${expandedSections.whatsIncluded ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
@@ -413,13 +413,13 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
                        {/* Included */}
                        <div>
-                           <h3 className="font-medium mb-3">Included</h3>
+                           <h3 className=" mb-3">Included</h3>
                             <div className="space-y-4">
                                  {tour.what_to_include &&
                                    (showAllIncluded ? tour.what_to_include : tour.what_to_include.slice(0, 3)).map((item, i) => (
                                      <div key={i} className="flex items-start gap-3">
                                          <Check size={16} className="text-[#1a1a1a] mt-1 shrink-0" strokeWidth={2} />
-                                         <span className="text-[#1a1a1a]">{item}</span>
+                                         <span className="text-[#1a1a1a] spantext">{item}</span>
                                      </div>
                                  ))}
                              </div>
@@ -440,12 +440,12 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
                        {/* Exclusions */}
                        {tour.exclusions && tour.exclusions.length > 0 && (
                             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                                <h3 className="font-medium text-[#1a1a1a] mb-4">Not Included</h3>
+                                <h3 className="h11 text-[#1a1a1a] mb-4">Not Included</h3>
                                 <div className="space-y-3">
                                     {tour.exclusions.map((item, i) => (
                                         <div key={i} className="flex items-start gap-3">
                                             <div className="mt-2 w-1.5 h-1.5 rounded-full bg-red-400 shrink-0"></div>
-                                            <span className="text-gray-600">{item}</span>
+                                            <span className="text-gray-600 spantext">{item}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -464,8 +464,8 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
                     </div>
                 </div>
                 <div>
-                    <h3 className="sm:text-2xl sm:font-normal text-[20px] font-medium  text-[#1a1a1a] mb-1">The Best Price Guarantee</h3>
-                    <p className="text-gray-600 text-sm leading-relaxed">
+                    <h3 className="h11  text-[#1a1a1a] mb-1">The Best Price Guarantee</h3>
+                    <p className="text-gray-600 spantext">
                         Find a better price for any excursion we offer and we will refund you 110% of the price difference!
                     </p>
                 </div>
@@ -478,7 +478,7 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
                     className="flex items-center justify-between cursor-pointer group sm:mb-4 mb-2 "
                     onClick={() => toggleSection('meetingPickup')}
                 >
-                    <h2 className="sm:text-2xl sm:font-bold text-[20px] font-medium text-[#1a1a1a] group-hover:underline">Meeting and Pickup</h2>
+                    <h2 className="h11 text-[#1a1a1a] group-hover:underline">Meeting and Pickup</h2>
                     <ChevronDown className={`group-hover:text-gray-600 transition-transform duration-300 ${expandedSections.meetingPickup ? 'rotate-180' : ''}`} />
                 </div>
                 
@@ -501,7 +501,7 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
                     className="flex items-center justify-between cursor-pointer group sm:mb-4 mb-2 "
                     onClick={() => toggleSection('itinerary')}
                 >
-                     <h2 className="sm:text-2xl sm:font-bold text-[20px] font-medium text-[#1a1a1a] group-hover:underline">Itinerary</h2>
+                     <h2 className="h11 text-[#1a1a1a] group-hover:underline">Itinerary</h2>
                      <ChevronDown className={`group-hover:text-gray-600 transition-transform duration-300 ${expandedSections.itinerary ? 'rotate-180' : ''}`} />
                  </div>
                  <div className={`grid transition-[grid-template-rows] duration-500 ease-in-out ${expandedSections.itinerary ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
@@ -511,7 +511,7 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
                              {tour.itinerary && tour.itinerary.map((stop, i) => (
                                 <div key={i} className="relative pl-8">
                                     <div className="absolute -left-[11px] top-0 w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-xs font-bold ring-4 ring-white">{i + 1}</div>
-                                    <h3 className="text-lg font-medium text-[#1a1a1a] leading-none mb-1">{stop.title}</h3>
+                                    <h3 className=" font-medium text-[#1a1a1a] leading-none mb-1">{stop.title}</h3>
                                     
                                     <div className="flex items-center gap-3 text-sm text-gray-500 mb-2">
                                         {stop.stop_type === 'Stop' ? (
@@ -530,7 +530,7 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
                                        
                                     </div>
 
-                                    <p className={`text-[#1a1a1a] mt-1 text-[15px] leading-relaxed ${expandedStops.has(i) ? '' : 'line-clamp-2'}`}>
+                                    <p className={`text-[#1a1a1a] mt-1 spantext ${expandedStops.has(i) ? '' : 'line-clamp-2'}`}>
                                         {stop.description}
                                     </p>
                                     {stop.description && stop.description.length > 120 && (
@@ -556,7 +556,7 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
                     className="flex items-center justify-between cursor-pointer group sm:mb-4 mb-2"
                     onClick={() => toggleSection('additionalInfo')}
                 >
-                     <h2 className="sm:text-2xl sm:font-bold text-[20px] font-medium text-[#1a1a1a] group-hover:underline">Additional Info </h2>
+                     <h2 className="h11 text-[#1a1a1a] group-hover:underline">Additional Info </h2>
                      <ChevronDown className={`group-hover:text-gray-600 transition-transform duration-300 ${expandedSections.additionalInfo ? 'rotate-180' : ''}`} />
                  </div>
                  <div className={`grid transition-[grid-template-rows] duration-500 ease-in-out ${expandedSections.additionalInfo ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
@@ -569,7 +569,7 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
                                   {tour.additional_info &&
                                     (showAllAdditionalInfo ? tour.additional_info : tour.additional_info.slice(0, 3)).map((info, i) => (
                                       <div key={i} className="flex gap-2 items-start">
-                                          <span>{info}</span>
+                                          <span className='spantext'>{info}</span>
                                       </div>
                                     ))}
                               </div>
@@ -590,9 +590,9 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
                          {/* Cancellation Policy */}
                          {tour.cancellation_policy && (
                              <div>
-                                 <h3 className="font-bold text-[#1a1a1a] mb-2">Cancellation Policy</h3>
+                                 <h3 className="font-[500] text-[#1a1a1a] mb-2">Cancellation Policy</h3>
                                  <div className="bg-[#fcf8f2] p-4 rounded-lg border border-[#e0d6c5] text-[#1a1a1a]">
-                                     <p>{tour.cancellation_policy}</p>
+                                     <p className='spantext '>{tour.cancellation_policy}</p>
                                  </div>
                              </div>
                          )}
@@ -600,12 +600,12 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
                          {/* FAQ */}
                          {tour.faq && tour.faq.length > 0 && (
                              <div>
-                                 <h3 className="sm:text-2xl sm:font-bold text-[20px] font-medium text-[#1a1a1a] mb-3">Frequently Asked Questions</h3>
+                                 <h3 className="h11 text-[#1a1a1a] mb-3">Frequently Asked Questions</h3>
                                  <div className="space-y-4">
                                      {tour.faq.map((item, i) => (
                                          <div key={i} className="border-b last:border-0 border-gray-200 pb-4 last:pb-0">
-                                             <p className="font-medium text-[#1a1a1a] mb-1">{item.question}</p>
-                                             <p className="text-gray-700 text-sm">{item.answer}</p>
+                                             <p className="font-[500] text-[#1a1a1a] mb-1">{item.question}</p>
+                                             <p className="text-gray-700 spantext">{item.answer}</p>
                                          </div>
                                      ))}
                                  </div>
@@ -623,11 +623,11 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
                <section>
                  <div className="relative mb-6 group/tags">
                    <div className="flex overflow-x-auto gap-3 pb-2 no-scrollbar items-center">
-                     <button className="px-5 py-2 rounded-full border border-[#1a1a1a] bg-white text-[#1a1a1a] font-bold whitespace-nowrap hover:bg-gray-50">
+                     <button className="px-5 category-btn rounded-full border border-[#1a1a1a] bg-white text-[#1a1a1a]  whitespace-nowrap hover:bg-gray-50">
                        All
                      </button>
                      {tour.tags.map((tag, i) => (
-                       <button key={i} className="px-4 py-2 rounded-full bg-[#dff7eb] text-[#1a1a1a] font-medium whitespace-nowrap flex items-center gap-2 hover:bg-[#cbf2e0] transition-colors">
+                       <button key={i} className="px-4  rounded-full bg-[#dff7eb] text-[#1a1a1a] category-btn whitespace-nowrap flex items-center gap-2 hover:bg-[#cbf2e0] transition-colors">
                          <Check size={14} className="text-[#1a1a1a]" strokeWidth={2} />
                          {tag}
                        </button>
@@ -644,7 +644,7 @@ export default function TourDetailsClient({ initialTour, relatedTours = [] }) {
              {/* You Might Also Like */}
              {relatedTours && relatedTours.length > 0 && (
                <section>
-                 <h2 className="sm:text-2xl sm:font-bold text-[20px] font-medium text-[#1a1a1a] sm:mb-6 mb-2">You might also like...</h2>
+                 <h2 className="h11 text-[#1a1a1a] sm:mb-6 mb-2">You might also like...</h2>
                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                    {relatedTours.map((related) => (
                      <TourCard

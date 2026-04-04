@@ -10,15 +10,15 @@ const Footer = () => {
         className="relative text-center py-10 px-5 sm:px-6 bg-no-repeat bg-center bg-[url('/images/footer-top-mobile.png')] sm:bg-[url('/images/footer-backgroud.jpeg')] xl:bg-[url('/images/whychoosebg.png')] bg-[length:100%_100%] xl:border-[30px] xl:border-[#fbd1af]"
       >
         <div className="xl:max-w-3xl mx-auto rounded-2xl p-6 sm:p-10  shadow-2xl">
-          <h2 className="sm:text-3xl sm:font-bold text-[24px] font-bold text-white mb-3 md:mb-4 leading-tight drop-shadow-[0_4px_4px_rgba(0,0,0,0.9)]">
+          <h2 className="h11 text-white mb-3 md:mb-4 leading-tight drop-shadow-[0_4px_4px_rgba(0,0,0,0.9)]">
             Book the <span className="text-[#4ade80] italic">Best</span> Adventure Tours in Roatan Today
           </h2>
-          <p className="text-gray-100 text-sm md:text-base max-w-2xl mx-auto mb-6 md:mb-8 leading-relaxed font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+          <p className="text-gray-100  max-w-2xl mx-auto mb-6 md:mb-8 spantext drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
             Reserve your spot now and experience the thrill, culture, and beauty of Honduras with professional local guides you can trust. Small groups. Limited availability.
           </p>
           <Link
             href="/claim-gift"
-            className="inline-flex items-center gap-2 bg-[#00694B] hover:bg-[#005a40] text-white px-6 md:px-8 py-3 md:py-3.5 rounded-full font-bold text-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+            className="inline-flex items-center gap-2 bg-[#00694B] hover:bg-[#005a40] text-white px-6 md:px-8  rounded-full buttontext py-1.5 transition-all hover:-translate-y-1 hover:shadow-lg"
           >
             Let's Get Started <ChevronRight size={18} />
           </Link>
@@ -56,13 +56,13 @@ const Footer = () => {
 
             {/* Column 1: Brand & Contact */}
             <div className="footer-col shrink-0 min-w-[200px] max-w-[280px]">
-              <div className="text-2xl md:text-3xl font-bold mb-3 md:mb-3 tracking-tight italic">
+              <div className="text-base md:text-lg font-bold mb-3 md:mb-3 tracking-tight italic">
                 ATV Roatan
               </div>
               <div className="flex flex-col gap-4 text-white/90 text-sm leading-relaxed">
                 <Link href={"https://maps.app.goo.gl/aZUsRT1JTetqxSrg7"} target="_blank" className="flex items-start gap-3 hover:text-white transition-colors">
                   <MapPin size={18} className="shrink-0 mt-0.5" />
-                  <p>Roatan Adventure Park, 34101 Coxen Hole, Roatan, Honduras</p>
+                  <p className='spantext'>Roatan Adventure Park, 34101 Coxen Hole, Roatan, Honduras</p>
                 </Link>
               </div>
               <div className="flex gap-4 mt-3 md:mt-3">
@@ -82,12 +82,12 @@ const Footer = () => {
             <div className="footer-col shrink-0 min-w-[150px]">
               <h3 className="text-base md:text-lg font-bold mb-3 md:mb-3">Easy Links</h3>
               <ul className="space-y-2 md:space-y-2">
-                <li><Link href="/" className="text-white/80 font-medium hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem] uppercase">Home</Link></li>
-                <li><Link href="/tours" className="text-white/80 font-medium hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem] uppercase">All Tours</Link></li>
-                <li><Link href="/gift-cards" className="text-white/80 font-medium hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem] uppercase">Gift Cards</Link></li>
-                <li><Link href="https://maps.app.goo.gl/aZUsRT1JTetqxSrg7" target="_blank" className="text-white/80 font-medium hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem] uppercase">Reviews</Link></li>
-                <li><Link href="/contact" className="text-white/80 font-medium hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem] uppercase">Contact Us</Link></li>
-                <li><Link href="/gift-cards" className="text-white/80 font-medium hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem] uppercase">Gift Cards </Link></li>
+                <li><Link href="/" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Home</Link></li>
+                <li><Link href="/tours" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">All Tours</Link></li>
+                <li><Link href="/gift-cards" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Gift Cards</Link></li>
+                <li><Link href="https://maps.app.goo.gl/aZUsRT1JTetqxSrg7" target="_blank" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Reviews</Link></li>
+                <li><Link href="/contact" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Contact Us</Link></li>
+                <li><Link href="/gift-cards" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Gift Cards </Link></li>
 
               </ul>
             </div>

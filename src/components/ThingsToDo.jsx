@@ -63,11 +63,11 @@ const ThingsToDo = ({ activities }) => {
       <div className="max-w-7xl mx-auto px-4 mb-6 md:mb-12 text-center">
         <StaggeredTextReveal
           el="h2"
-          className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1a1a1a] mb-3"
+          className="h11 text-[#1a1a1a] mb-3"
           text="Things to Do in Roatan"
         />
         <div className="w-14 md:w-20 h-1 bg-[#00694B] mx-auto rounded-full" />
-        <p className="text-gray-500 text-sm md:text-base mt-3 max-w-2xl mx-auto">
+        <p className="text-gray-500 spantext mt-3 max-w-2xl mx-auto">
           Discover the best activities and experiences Roatan has to offer, curated just for you.
         </p>
       </div>
@@ -107,13 +107,13 @@ const ThingsToDo = ({ activities }) => {
                 className="w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-4 sm:p-8">
-                <h3 className="text-white font-[500] text-lg sm:text-xl leading-tight mb-0 group-hover/card:mb-2 transition-all duration-300">
+                <h3 className="text-white font-[600]  leading-tight mb-0 group-hover/card:mb-2 transition-all duration-300">
                   {activity.title}
                 </h3>
                 {/* Description — on mobile always slightly visible, on desktop reveals on hover */}
                 <div className="grid grid-rows-[0fr] group-hover/card:grid-rows-[1fr] transition-[grid-template-rows] duration-300 ease-in-out">
                   <div className="overflow-hidden">
-                    <p className="text-white/80 text-xs sm:text-sm font-medium line-clamp-2 sm:line-clamp-3 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 delay-150 mt-1">
+                    <p className="text-white/80 spantext line-clamp-2 sm:line-clamp-3 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 delay-150 mt-1">
                       {activity.description || "Explore this amazing experience in Roatan with the best local guides."}
                     </p>
                   </div>
@@ -138,7 +138,7 @@ const ThingsToDo = ({ activities }) => {
       <div className="flex justify-center mt-5 md:mt-8 px-4">
         <Link
           href="/activities"
-          className="inline-flex items-center gap-2 px-6 sm:px-8 py-2.5 sm:py-3 bg-[#00694B] text-white rounded-full font-bold text-sm sm:text-base shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 hover:bg-[#005a3c]"
+          className="inline-flex items-center gap-2 px-6 sm:px-8 py-1.5 buttontext bg-[#00694B] text-white rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 hover:bg-[#005a3c]"
         >
           View All Activities
           <ArrowRight size={18} />

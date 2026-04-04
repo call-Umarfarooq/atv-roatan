@@ -19,10 +19,10 @@ export default function PickupSelector({ configuration, selectedLocation, onSele
        <div className="border border-gray-200 rounded-lg p-6">
           <div className="flex items-center gap-2 mb-2">
             <MapPin className="text-[#1a1a1a]" size={20} />
-            <h3 className="font-medium text-[#1a1a1a]">Meeting Point</h3>
+            <h3 className="font-[400] text-[16px] text-[#1a1a1a]">Meeting Point</h3>
           </div>
-          <p className="text-[#1a1a1a] ml-7">{configuration?.meeting_point_name || "Contact operator for details."}</p>
-          <p className="text-gray-500 text-sm ml-7">{configuration?.meeting_point_address}</p>
+          <p className="text-[#1a1a1a] spantext ml-7">{configuration?.meeting_point_name || "Contact operator for details."}</p>
+          <p className="text-gray-500 spantext ml-7">{configuration?.meeting_point_address}</p>
        </div>
     );
   }
@@ -143,7 +143,7 @@ export default function PickupSelector({ configuration, selectedLocation, onSele
         <div className="ml-8">
            <h3 className="font-bold text-[#1a1a1a] mb-2">Pickup details</h3>
            <div className={`relative overflow-hidden transition-all duration-300 ${isExpanded ? 'max-h-[1000px]' : 'max-h-[80px]'}`}>
-               <p className="text-[#1a1a1a] text-sm leading-relaxed whitespace-pre-line">
+               <p className="text-[#1a1a1a]  spantext whitespace-pre-line">
                    {configuration.pickup_instructions}
                </p>
                
