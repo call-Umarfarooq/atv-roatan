@@ -13,8 +13,8 @@ const navLinksLeft = [
   { label: 'Home', href: '/' },
   { label: 'All Tours', href: '/tours' },
   { label: 'Categories', href: '/category' },
-  { label: 'Gallery', href: '/gallery' },
-  { label: 'Gift Cards', href: '/gift-cards' },
+  // { label: 'Gallery', href: '/gallery' },
+  // { label: 'Gift Cards', href: '/gift-cards' },
   { label: 'Roatan Shore Excursions', type: 'dropdown_excursions' },
   { label: 'Roatan Cruise Ports', type: 'dropdown' },
 ];
@@ -33,6 +33,8 @@ const Header = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileDropdown, setMobileDropdown] = useState(null); // 'excursions' | 'ports' | null
+  const [ctaDropdownOpen, setCtaDropdownOpen] = useState(false);
+  const ctaRef = useRef(null);
   const [tours, setTours] = useState([]);
   const [allTours, setAllTours] = useState([]);
   const [activities, setActivities] = useState([]);
@@ -133,12 +135,15 @@ const Header = () => {
       if (searchRef.current && !searchRef.current.contains(e.target)) {
         setSearchOpen(false);
       }
+      if (ctaRef.current && !ctaRef.current.contains(e.target)) {
+        setCtaDropdownOpen(false);
+      }
     };
-    if (searchOpen) {
+    if (searchOpen || ctaDropdownOpen) {
       document.addEventListener('mousedown', handleClickOutside);
     }
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [searchOpen]);
+  }, [searchOpen, ctaDropdownOpen]);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -194,18 +199,48 @@ const Header = () => {
             </a>
 
             {/* Build Your Adventure CTA */}
-            <motion.a
-                href="/plan"
-                animate={{
-                  boxShadow: ['0 0 15px 2px rgba(245, 166, 35, 0.6)', '0 0 4px 1px rgba(245, 166, 35, 0.2)', '0 0 15px 2px rgba(245, 166, 35, 0.6)'],
-                }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                className="text-xs sm:text-sm font-bold text-[#0B1E14] px-3 py-1.5 sm:px-4 sm:py-2 rounded-full flex items-center gap-1 sm:gap-2 whitespace-nowrap cursor-pointer hover:opacity-90 transition-opacity"
-                style={{ backgroundColor: '#F5A623' }}
-              >
-                �� <span className="hidden sm:inline">Build Your Adventure</span>
-                <span className="sm:hidden">Build</span>
-            </motion.a>
+            <div className="relative" ref={ctaRef}>
+              <motion.button
+                  onClick={() => setCtaDropdownOpen(!ctaDropdownOpen)}
+                  animate={{
+                    boxShadow: ['0 0 15px 2px rgba(245, 166, 35, 0.6)', '0 0 4px 1px rgba(245, 166, 35, 0.2)', '0 0 15px 2px rgba(245, 166, 35, 0.6)'],
+                  }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                  className="text-xs sm:text-sm font-bold text-[#0B1E14] px-3 py-1.5 sm:px-4 sm:py-2 rounded-full flex items-center gap-1 sm:gap-2 whitespace-nowrap cursor-pointer hover:opacity-90 transition-opacity"
+                  style={{ backgroundColor: '#F5A623' }}
+                >
+                  <Map size={16} className="text-[#0B1E14]" /> <span className="hidden sm:inline">Build Your Adventure</span>
+                  <span className="sm:hidden">Build</span>
+                  <ChevronDown size={14} className={`transition-transform duration-200 ${ctaDropdownOpen ? 'rotate-180' : ''}`} />
+              </motion.button>
+
+              <AnimatePresence>
+                {ctaDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute right-0 top-full mt-2 w-[250px] sm:w-[250px] bg-white rounded-xl shadow-2xl py-2 z-50 border border-gray-100"
+                  >
+                    <a href="/plan" className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-0" onClick={() => setCtaDropdownOpen(false)}>
+                      <Map className="text-blue-500 shrink-0" size={24} />
+                      <div className="flex flex-col text-left">
+                        <span className="text-[15px] font-semibold text-gray-700 leading-tight">Long stay in roatan</span>
+                        <span className="text-xs text-gray-500 mt-0.5">Build a custom day plan</span>
+                      </div>
+                    </a>
+                    <a href="#" className="w-full flex items-center gap-3 px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-0" onClick={() => setCtaDropdownOpen(false)}>
+                      <Ship className="text-blue-500 shrink-0" size={24} />
+                      <div className="flex flex-col text-left">
+                        <span className="text-[15px] font-semibold text-gray-700 leading-tight">Cruiseship passenger</span>
+                        <span className="text-xs text-gray-500 mt-0.5">Create your Roatan experience</span>
+                      </div>
+                    </a>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
             {/* Hamburger – mobile only */}
             <button
@@ -258,7 +293,7 @@ const Header = () => {
                               
                               {isExcursions ? (
                                 activities.length > 0 ? (
-                                  activities.slice(0, 7).map((activity) => (
+                                  activities.map((activity) => (
                                     <a
                                       key={activity._id}
                                       href={`/activities/${activity.slug}`}
@@ -282,25 +317,25 @@ const Header = () => {
                                 <>
                                   <a href="/port-of-roatan" className="flex flex-col gap-2 group/card">
                                     <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-gray-100 shadow-sm group-hover/card:shadow-md transition-shadow">
-                                      <Image src="/images/hero.png" alt="Port of Roatan" fill className="object-cover group-hover/card:scale-105 transition-transform duration-300" />
+                                      <Image src="/images/PortofRoatanWesternCaribbean.jpg.jpeg" alt="Port of Roatan" fill className="object-cover group-hover/card:scale-105 transition-transform duration-300" />
                                     </div>
                                     <span className="text-[11px] font-bold text-gray-800 text-center group-hover/card:text-[#00694B] transition-colors leading-tight">Port of Roatan</span>
                                   </a>
                                   <a href="/port-of-roatan-cruise-ship-schedule" className="flex flex-col gap-2 group/card">
                                     <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-blue-50 flex items-center justify-center group-hover/card:bg-blue-100 transition-colors shadow-sm group-hover/card:shadow-md">
-                                      <span className="text-3xl group-hover/card:scale-110 transition-transform duration-300">📅</span>
+                                      <Image src="/images/PortofRoataCruiseShipSchedule.webp" alt="Port of Roatan" fill className="object-cover group-hover/card:scale-105 transition-transform duration-300" />
                                     </div>
                                     <span className="text-[11px] font-bold text-gray-800 text-center group-hover/card:text-[#00694B] transition-colors leading-tight">Roatan Schedule</span>
                                   </a>
                                   <a href="/isla-tropicale-cruise-ship-port" className="flex flex-col gap-2 group/card">
                                     <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-gray-100 shadow-sm group-hover/card:shadow-md transition-shadow">
-                                      <Image src="/images/hero.png" alt="Isla Tropicale" fill className="object-cover group-hover/card:scale-105 transition-transform duration-300" />
+                                      <Image src="/images/IsaTropicaleCruiseShipPortWesternCaribbean.jpg.jpeg" alt="Isla Tropicale" fill className="object-cover group-hover/card:scale-105 transition-transform duration-300" />
                                     </div>
                                     <span className="text-[11px] font-bold text-gray-800 text-center group-hover/card:text-[#00694B] transition-colors leading-tight">Isla Tropicale</span>
                                   </a>
                                   <a href="/isla-tropicale-cruise-ship-port-schedule" className="flex flex-col gap-2 group/card">
                                     <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-green-50 flex items-center justify-center group-hover/card:bg-green-100 transition-colors shadow-sm group-hover/card:shadow-md">
-                                      <span className="text-3xl group-hover/card:scale-110 transition-transform duration-300">📅</span>
+                                      <Image src="/images/IslaTropicaleCruiseShipPortSchedule.jpg.jpeg" alt="Isla Tropicale" fill className="object-cover group-hover/card:scale-105 transition-transform duration-300" />
                                     </div>
                                     <span className="text-[11px] font-bold text-gray-800 text-center group-hover/card:text-[#00694B] transition-colors leading-tight">Tropicale Schedule</span>
                                   </a>

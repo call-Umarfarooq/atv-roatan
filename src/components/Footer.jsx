@@ -87,6 +87,8 @@ const Footer = () => {
                 <li><Link href="/gift-cards" className="text-white/80 font-medium hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem] uppercase">Gift Cards</Link></li>
                 <li><Link href="https://maps.app.goo.gl/aZUsRT1JTetqxSrg7" target="_blank" className="text-white/80 font-medium hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem] uppercase">Reviews</Link></li>
                 <li><Link href="/contact" className="text-white/80 font-medium hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem] uppercase">Contact Us</Link></li>
+                <li><Link href="/gift-cards" className="text-white/80 font-medium hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem] uppercase">Gift Cards </Link></li>
+
               </ul>
             </div>
 
@@ -102,6 +104,8 @@ const Footer = () => {
                 <li><Link href="/booking" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Booking</Link></li>
                 <li><Link href="/privacy" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Privacy Policy</Link></li>
                 <li><Link href="/support" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Online Support</Link></li>
+                <li><Link href="/gallery" className="text-white/70 hover:text-white hover:pl-2 transition-all text-sm md:text-[0.95rem]">Gallery</Link></li>
+
               </ul>
             </div>
 
